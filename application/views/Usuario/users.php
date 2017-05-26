@@ -18,15 +18,16 @@
         <!--/////////////////////////////////////////////////////////////////////////////////////////
                                        BOTONES
         //////////////////////////////////////////////////////////////////////////////////////////-->
+    <div class="container">
         <div class="right row">
             <div id="crearU" class="col s1 m1 l1">
                 <a data-tooltip='CREAR USUARIO' href="#AUsuario" class="modal-trigger tooltipped">
                     <i style='font-size:40px;' class="waves-effect waves-purple material-icons">recent_actors</i>
                 </a>
             </div>
-            
+
             <div class="col s1 m1 l1"><p></p></div><div class="col s1 m1 l1"><p></p></div>
-            
+
             <div class="col s1 m1 l1">
                 <a data-tooltip='CERRAR' href="<?php echo base_url('index.php/dashboard')?>" class="tooltipped">
                     <i style='font-size:35px;' class="waves-effect waves-red material-icons">highlight_off</i>
@@ -36,53 +37,56 @@
         <br><br>
         <!-- ////////////////////////////////////////////////////////////////////////////////////////// -->
 
-        <table id="TblMaster" class="striped"">
-            <thead>
+        <div class="row">
+            <table id="TblMaster" class="striped responsive-table">
+                <thead>
                 <tr class="tblcabecera">
                     <th style="border-radius: 20px 0px 0px 20px;">Nº</th>
                     <th>NOMBRE COMPLETO</th>
-                    <th>USUARIO</th>                                    
+                    <th>USUARIO</th>
                     <th>TIPO PERMISO</th>
                     <th>ESTATUS</th>
-                    <th style="border-radius: 0px 20px 20px 0px;">CONTRASEÑA</th>
+                    <!--<th style="border-radius: 0px 20px 20px 0px;">CONTRASEÑA</th>-->
                 </tr>
-            </thead>
-            <tbody>
+                </thead>
+                <tbody>
                 <?PHP
-                    if(!($TBUS)){
-                    } else {
-                        $c=1;
-                        foreach ($TBUS as $key) {
-                            if ($key['Access'] == 1)
-                                $per = "Administrador";
-                            elseif ($key['Access'] == 2){
-                                $per = "Digitador";
-                            }elseif ($key['Access'] == 3) {
-                                $per = "Asistente";
-                            }else{
-                                $per = "Presidencia"; 
-                            }
+                if(!($TBUS)){
+                } else {
+                    $c=1;
+                    foreach ($TBUS as $key) {
+                        if ($key['Privilegio'] == 1)
+                            $per = "Administrador";
+                        elseif ($key['Privilegio'] == 2){
+                            $per = "Gerente";
+                        }elseif ($key['Privilegio'] == 3) {
+                            $per = "Supervisor";
+                        }else{
+                            $per = "Coordinador";
+                        }
 
-                            if($key['Active'] == 0){
-                                $activo ="<td><a data-tooltip='CAMBIAR A INACTIVO' class='btn-flat tooltipped noHover' onclick='BorrarUsuario(".'"'.$key['IdUser'].'"'.", 1)'><i style='color:green; font-size:30px;' class='material-icons'>done</i></a></td>";
-                            }else{
-                                $activo ="<td><a data-tooltip='CAMBIAR A ACTIVO' class='btn-flat tooltipped noHover' onclick='BorrarUsuario(".'"'.$key['IdUser'].'"'.", 0)'><i style='color:red; font-size:30px;' class='material-icons'>close</i></a></td>";
-                            }
-                                
-                            echo "<tr>                                    
+                        if($key['Estado'] == 1){
+                            $activo ="<td id='link2'><a id='link' data-tooltip='CAMBIAR A INACTIVO' class='btn-flat tooltipped noHover' href='javascript:void(0)' onclick='BorrarUsuario(".'"'.$key['IdUsuario'].'","'.$key['Estado'].'"'.")'><i style='color:green; font-size:30px;' class='material-icons'>done</i></a></td>";
+                        }else{
+                            $activo ="<td><a data-tooltip='CAMBIAR A ACTIVO' class='btn-flat tooltipped noHover' href='javascript:void(0)' onclick='BorrarUsuario(".'"'.$key['IdUsuario'].'","'.$key['Estado'].'"'.")'><i style='color:red; font-size:30px;' class='material-icons'>close</i></a></td>";
+                        }
+
+                        echo "<tr>
                                     <td class='regular'>".$c."</td>
-                                    <td class='bold'>".$key['Name']."</td>
-                                    <td class='bold'>".$key['User']."</td>
+                                    <td class='bold'>".$key['Nombre']."</td>
+                                    <td class='bold'>".$key['Usuario']."</td>
                                     <td>".$per."</td>
                                     ".$activo."
-                                    <td><a data-tooltip='CAMBIAR' class='btn-flat tooltipped noHover' onClick='CambiarPass(".'"'.$key['IdUser'].'"'.")'><i style='color:blue; font-size:30px;' class='material-icons'>fingerprint</i></a></td>
+                                    <!--<td><a data-tooltip='CAMBIAR' class='btn-flat tooltipped noHover' onClick='CambiarPass(".'"'.$key['IdUsuario'].'"'.")'><i style='color:blue; font-size:30px;' class='material-icons'>fingerprint</i></a></td>-->
                                   </tr>";
-                            $c++;
-                        }
+                        $c++;
                     }
+                }
                 ?>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
+    </div>
     </div>
 </main>
 <br>
@@ -108,7 +112,7 @@
         </div>
         
         <div class="row">
-            <form class="col s12"  method="post" name="formAddUser">
+            <form class="col s12"  method="post" name="formAddUser" action="<?php echo base_url('index.php/GuardarUsuario')?>">
                 <div class="row">
                     <div class="input-field col s12 m6 s6">
                         <input class="mayuscula" name="Usuario" placeholder="NOMBRE DE USUARIO" id="Usuario" type="text" class="required">
@@ -137,14 +141,10 @@
                     <div class="Middle">
                         <select name="rol" id="rol">
                             <option value="">SELECCIONE UN ROL</option>
-                            <?PHP
-                                if(!($RLUS)){
-                                } else {
-                                    foreach($RLUS as $rol){
-                                        echo '<option value="'.$rol['IdRol'].'">'.$rol['Descripcion'].'</option>';
-                                     }
-                                 }
-                            ?>
+                            <option value="1">ADMINNISTRADOR</option>
+                            <option value="2">GERENTE</option>
+                            <option value="3">SUPERVISOR</option>
+                            <option value="4">COORDINADOR</option>
                         </select><label id="lblRol" class="labelValidacion">SELECCIONE UN ROL</label>
                     </div>
                 </div>
@@ -153,9 +153,9 @@
                     <!--<div class="progress" style="display:none"><div class="indeterminate violet"></div></div>-->
                     
                     <div class="center">
-			      	    <a class="Btnadd btn waves-effect waves-light" id="Adduser" onclick="EnviarUsuario()" style="background-color:#831F82;">GUARDAR
+			      	    <button type="submit" class="Btnadd btn waves-effect waves-light" id="Adduser" style="background-color:#831F82;">GUARDAR
                             <i class="material-icons right">send</i>
-                        </a>
+                        </button>
 			        </div>
                 </div>
             </form>

@@ -43,7 +43,7 @@ $("#TblMaster").DataTable({
     "bPaginate2": false,
     "bfilter": true,
     "pagingType": "full_numbers",
-    "aaSorting": [[2, "asc"]],
+    "aaSorting": [[0, "asc"]],
     "lengthMenu": [[5,10,-1], [5,10,"Todo"]],
     "language": {
         "emptyTable": "No hay datos disponible en la tabla",
@@ -72,7 +72,33 @@ $("#TblMaster").DataTable({
 /*/////////////////////////////////////////////////////////////////////////////////////////
                                     FUNCIONES SOBRE USUARIO
 //////////////////////////////////////////////////////////////////////////////////////////*/
-function EnviarUsuario(){
+$("#Adduser").click(function () {
+    var pass = $("#Pass").val();
+    var passc = $("#PassC").val();
+    if(pass != passc)
+    {
+        swal({
+            text: "Las contraseñas no coinciden, "+
+            " inténtelo nuevamente",
+            type: 'warning',
+            confirmButtonText: 'cerrar'
+        });
+        event.preventDefault();
+    }
+    else if(pass.length < 6)
+    {
+        swal({
+            text: "La contraseña debe tener al menos 6 dígitos, "+
+            " inténtelo nuevamente",
+            type: 'warning',
+            confirmButtonText: 'cerrar'
+        });
+        event.preventDefault();
+    }
+});
+
+
+/*function EnviarUsuario(){
     $('#lblUsuario, #lblNombreC, #lblPass, #lblPassC, #lblRol').hide();
     
     var user = $('#Usuario').val(); var nombre = $('#NombreC').val();
@@ -103,7 +129,7 @@ function EnviarUsuario(){
                 )
             }
     });
-}
+}*/
 
 function CambiarPass(IdUser){
     var pass = '';
@@ -171,29 +197,35 @@ function CambiarPass(IdUser){
     })
 }
 
-function BorrarUsuario(IdUser, Estado){
-    if(Estado==1){var miMSS = "¿DESEA CAMBIAR EL ESTADO ACTIVO AL USUARIO?";
+function BorrarUsuario(IdUsuarios, Estado){
+    debugger;
+   if(Estado==1){var miMSS = "¿DESEA CAMBIAR EL ESTADO ACTIVO AL USUARIO?";
     }else{var miMSS = "¿DESEA CAMBIAR EL ESTADO INACTIVO AL USUARIO?";}
-    
-    swal({ title: " ",
-           text: miMSS,
-           type: 'warning',
-           showCloseButton: true,
-           confirmButtonColor: '#831F82',
-           confirmButtonText: 'CAMBIAR'
-        }).then(function(){
-            $.ajax({ url: "EliminarUsuario/"+IdUser+"/"+Estado,
+
+    swal({
+        title: 'Estás seguro?',
+        text: miMSS,
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Cambiar',
+        cancelButtonText:'Cancelar'
+    }).then(function(){
+        debugger;
+            $.ajax({
+                url: "EditarUsuario/"+IdUsuarios+"/"+Estado,
                 type: "post",
                 async:true,
                 success:
-                    function(){
-                        swal({title: "EL USUARIO SE CAMBIO CORECTAMENTE!",
+                    function(json){
+                        swal({title: "EL USUARIO SE CAMBIO CORRECTAMENTE!",
                             type: "success",
                             confirmButtonText: "CERRAR",
                         }).then(
                             function(){gotopage("Usuarios");}
                         )}
-        })
+        });
     })
 }
 /*/////////////////////////////////////////////////////////////////////////////////////////

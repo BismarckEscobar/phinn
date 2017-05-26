@@ -14,8 +14,8 @@
 
     /*************LINK DE USUARIOS***********/
     $route['Usuarios'] = 'Usuarios';
-    $route['GuardarUsuario/(:any)/(:any)/(:any)/(:any)'] = 'Usuarios/Guardar/$1/$2/$3/$4';
-    $route['EliminarUsuario/(:any)/(:any)']= "Usuarios/Eliminar/$1/$2";
+    $route['GuardarUsuario'] = 'Usuarios/Guardar';
+    $route['EditarUsuario/(:any)/(:any)']= "Usuarios/Eliminar/$1/$2";
     $route['ClaveUsuario/(:any)/(:any)']= "Usuarios/Clave/$1/$2";
     
 
