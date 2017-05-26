@@ -61,7 +61,8 @@
                                             </div>
                                         </a>
                                     </div>
-                              </div>';
+                              </div>
+                              ';
                     break;
                     case 2: //DIGITADOR
                         echo '<div class="col offset-l4 s12 l2">

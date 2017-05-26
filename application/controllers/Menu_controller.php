@@ -7,9 +7,9 @@ class Menu_controller extends CI_Controller {
 		//$this->seguridad->estactivo($this->session->userdata('logged'));	
 		$user = $this->session->userdata('logged');
 
-           if (!isset($user)) { 
+           if (!isset($user)) {
                redirect(base_url().'index.php','refresh');
-           } 		
+           }
 	}
     public function index()
     {
