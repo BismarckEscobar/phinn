@@ -11,14 +11,118 @@
 //Abrir los diferentes modales del sistema
 $(document).ready(function(){
     $("#crearU").click(function(){$("#AUsuario").openModal();});
-    
+    $("#crearR").click(function(){$("#nuevoReporte").openModal();});
     $("#crearT").click(function(){$("#ATrabajador").openModal();});
+
+/*************PERMITE SOLO NUMEROS EN LOS INPUTS**********************************/
+$('#numOrden').numeric();
+
+/*****************INICIALIZACION DE LOS SELECTS******************************************/
+    //$('#tipoReporte').material_select();
+    $('.datepicker').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 15 // Creates a dropdown of 15 years to control year
+  });
+
+    
 });
+/*******AGREGANDOLE FUNCIONES DE SUBMIT A HREF************************/
+$('#guardaRpt').click( function() {
+    var numOrden = $('#numOrden').val();
+    var tipoReporte = $('#tipoReporte').val();
+    var fechaInicio = $('#fechaInicio').val();
+    var fechaFinal = $('#fechaFinal').val();
+
+    if (numOrden=='' || tipoReporte==null || fechaInicio=='' || fechaFinal=='') {        
+           swal({ title: " ",
+           text: 'Todavia no ha rellenado los campos necesarios',
+           type: 'warning',
+           showCloseButton: true,
+           confirmButtonColor: '#831F82',
+           confirmButtonText: 'ACEPTAR'
+        }).then()
+    } else {
+    var f1 = new Date(fechaInicio); var f2 = new Date(fechaFinal);
+        if (f1>f2) {
+        swal({ title: " ",
+        text: 'La fecha inicial no puede ser mayor a la final',
+        type: 'warning',
+        showCloseButton: true,
+        confirmButtonColor: '#831F82',
+        confirmButtonText: 'ACEPTAR'
+        }).then() 
+        } else {
+            if (numOrden.length>4 || numOrden.length<4) {
+                swal({ title: " ",
+                text: 'El número de reporte no tiene el formato correcto',
+                type: 'warning',
+                showCloseButton: true,
+                confirmButtonColor: '#831F82',
+                confirmButtonText: 'ACEPTAR'
+                }).then() 
+            } else {
+                $('#formNuevoReporte').submit();            
+                };        
+        };          
+    };
+});
+
+$("#numOrden").on('change',function(event) {
+    var numOrden = $('#numOrden').val();   
+    $.ajax({
+        url: "validarReporte/"+numOrden,
+        type:"POST",
+        async:true,
+        success: function(data){ 
+            if (data=="No hay nada") {                
+            } else {
+                swal({ title: " ",
+                text: 'El número de orden ya existe',
+                type: 'warning',
+                showCloseButton: true,
+                confirmButtonColor: '#831F82',
+                confirmButtonText: 'ACEPTAR'
+                }).then() 
+            }
+        }
+    }); 
+});
+
+/*********CAMBIAR ESTADO A REPORTE**************************/
+function cambiaStatusRpt(idReporte1, estado){
+    if(estado==1){var miMSS = "¿DESEA CAMBIAR EL ESTADO ACTIVO DEL REPORTE?";
+    }else{var miMSS = "¿DESEA CAMBIAR EL ESTADO INACTIVO DEL REPORTE?";}
+    
+    swal({ title: " ",
+           text: miMSS,
+           type: 'warning',
+           showCloseButton: true,
+           confirmButtonColor: '#831F82',
+           confirmButtonText: 'CAMBIAR'
+        }).then(function(){
+            $.ajax({ url: "cambiarEstadoRpt/"+idReporte1+"/"+estado,
+                type: "post",
+                async:true,
+                success:
+                    function(){
+                        swal({title: "EL ESTADO DEL REPORTE SE CAMBIO CORECTAMENTE!",
+                            type: "success",
+                            confirmButtonText: "CERRAR",
+                        }).then(
+                            function(){gotopage("reporte_Controller");}
+                        )}
+        })
+    })
+}
+
+/***************VALIDAR CAMPOS ANTES DE GUARDAR REPORTE***************************/
 
 //Cargar pagina
 function gotopage(mypage) {
     $(location).attr('href',mypage);
 }
+
+
 
 /*/////////////////////////////////////////////////////////////////////////////////////////
                                     FIN MIS FUNCIONES
@@ -37,7 +141,47 @@ $('#BuscarUsuarios').on('keyup', function(){
     }
 );
 
+$('#BuscarUsuarios').on('keyup', function(){
+        var table = $('#TblMaster').DataTable();
+        table.search(this.value ).draw();
+
+        //$("#TblMaster_filter").hide();
+    }
+);
+
+$('#filtrarRep').on('keyup', function(){
+        var table = $('#tlbListaRep').DataTable();
+        table.search(this.value ).draw();
+    }
+);
+
 $("#TblMaster").DataTable({
+    "ordering": true,
+    "info": false,
+    "bPaginate2": false,
+    "bfilter": true,
+    "pagingType": "full_numbers",
+    "aaSorting": [[2, "asc"]],
+    "lengthMenu": [[5,10,-1], [5,10,"Todo"]],
+    "language": {
+        "emptyTable": "No hay datos disponible en la tabla",
+        "lengthMenu": "_MENU_",
+        //"search":'<i style="color:#039be5; font-size:40px;" class="material-icons">search</i>',
+        "loadingRecords": "",
+        "info":         "Mostrando _START_ a _END_ de _TOTAL_ registro",
+        "infoEmpty":    "Mostrando 0 a 0 de 0 registro",
+        "infoFiltered": "(filtrado de _MAX_ registros totales)",
+        "zeroRecords":  "No se han encontrado resultados para tu búsqueda",
+        "paginate": {
+            "first":    "Primera",
+            "last":     "Última ",
+            "next":     "Anterior",
+            "previous": "Siguiente"
+        },
+    }
+});
+
+$("#tlbListaRep").DataTable({
     "ordering": true,
     "info": false,
     "bPaginate2": false,
@@ -674,3 +818,5 @@ function MUP(key, per,FE,CONTRATO){
             }
         });
     }; TERMINA el 03*/
+
+    /**************AÑADIENDO FUNCIONES DE SUBMIT A LAS HREF************************/
