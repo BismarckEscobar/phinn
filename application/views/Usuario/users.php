@@ -38,40 +38,41 @@
         <!-- ////////////////////////////////////////////////////////////////////////////////////////// -->
 
         <div class="row">
-            <table id="TblMaster" class="striped responsive-table">
-                <thead>
-                <tr class="tblcabecera">
-                    <th style="border-radius: 20px 0px 0px 20px;">Nº</th>
-                    <th>NOMBRE COMPLETO</th>
-                    <th>USUARIO</th>
-                    <th>TIPO PERMISO</th>
-                    <th>ESTATUS</th>
-                    <!--<th style="border-radius: 0px 20px 20px 0px;">CONTRASEÑA</th>-->
-                </tr>
-                </thead>
-                <tbody>
-                <?PHP
-                if(!($TBUS)){
-                } else {
-                    $c=1;
-                    foreach ($TBUS as $key) {
-                        if ($key['Privilegio'] == 1)
-                            $per = "Administrador";
-                        elseif ($key['Privilegio'] == 2){
-                            $per = "Gerente";
-                        }elseif ($key['Privilegio'] == 3) {
-                            $per = "Supervisor";
-                        }else{
-                            $per = "Coordinador";
-                        }
+            <div class="div-cont">
+                <table id="TblMaster" class="striped responsive-table">
+                    <thead>
+                    <tr class="tblcabecera">
+                        <th style="border-radius: 20px 0px 0px 20px;">Nº</th>
+                        <th>NOMBRE COMPLETO</th>
+                        <th>USUARIO</th>
+                        <th>TIPO PERMISO</th>
+                        <th>ESTATUS</th>
+                        <!--<th style="border-radius: 0px 20px 20px 0px;">CONTRASEÑA</th>-->
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?PHP
+                    if(!($TBUS)){
+                    } else {
+                        $c=1;
+                        foreach ($TBUS as $key) {
+                            if ($key['Privilegio'] == 1)
+                                $per = "Administrador";
+                            elseif ($key['Privilegio'] == 2){
+                                $per = "Gerente";
+                            }elseif ($key['Privilegio'] == 3) {
+                                $per = "Supervisor";
+                            }else{
+                                $per = "Coordinador";
+                            }
 
-                        if($key['Estado'] == 1){
-                            $activo ="<td id='link2'><a id='link' data-tooltip='CAMBIAR A INACTIVO' class='btn-flat tooltipped noHover' href='javascript:void(0)' onclick='BorrarUsuario(".'"'.$key['IdUsuario'].'","'.$key['Estado'].'"'.")'><i style='color:green; font-size:30px;' class='material-icons'>done</i></a></td>";
-                        }else{
-                            $activo ="<td><a data-tooltip='CAMBIAR A ACTIVO' class='btn-flat tooltipped noHover' href='javascript:void(0)' onclick='BorrarUsuario(".'"'.$key['IdUsuario'].'","'.$key['Estado'].'"'.")'><i style='color:red; font-size:30px;' class='material-icons'>close</i></a></td>";
-                        }
+                            if($key['Estado'] == 1){
+                                $activo ="<td id='link2'><a id='link' data-tooltip='CAMBIAR A INACTIVO' class='btn-flat tooltipped noHover' href='javascript:void(0)' onclick='BorrarUsuario(".'"'.$key['IdUsuario'].'","'.$key['Estado'].'"'.")'><i style='color:green; font-size:30px;' class='material-icons'>done</i></a></td>";
+                            }else{
+                                $activo ="<td><a data-tooltip='CAMBIAR A ACTIVO' class='btn-flat tooltipped noHover' href='javascript:void(0)' onclick='BorrarUsuario(".'"'.$key['IdUsuario'].'","'.$key['Estado'].'"'.")'><i style='color:red; font-size:30px;' class='material-icons'>close</i></a></td>";
+                            }
 
-                        echo "<tr>
+                            echo "<tr>
                                     <td class='regular'>".$c."</td>
                                     <td class='bold'>".$key['Nombre']."</td>
                                     <td class='bold'>".$key['Usuario']."</td>
@@ -79,12 +80,13 @@
                                     ".$activo."
                                     <!--<td><a data-tooltip='CAMBIAR' class='btn-flat tooltipped noHover' onClick='CambiarPass(".'"'.$key['IdUsuario'].'"'.")'><i style='color:blue; font-size:30px;' class='material-icons'>fingerprint</i></a></td>-->
                                   </tr>";
-                        $c++;
+                            $c++;
+                        }
                     }
-                }
-                ?>
-                </tbody>
-            </table>
+                    ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     </div>
@@ -112,7 +114,7 @@
         </div>
         
         <div class="row">
-            <form class="col s12"  method="post" name="formAddUser" action="<?php echo base_url('index.php/GuardarUsuario')?>">
+            <form class="col s12" onsubmit="return checksubmit(this);"  method="post" name="formAddUser" action="<?php echo base_url('index.php/GuardarUsuario')?>">
                 <div class="row">
                     <div class="input-field col s12 m6 s6">
                         <input class="mayuscula" name="Usuario" placeholder="NOMBRE DE USUARIO" id="Usuario" type="text" class="required">
@@ -138,8 +140,8 @@
                 </div>
                 <br><br>
                 <div class="row">
-                    <div class="Middle">
-                        <select name="rol" id="rol">
+                    <div class="col s6">
+                        <select class="chosen-select browser-default " name="rol" id="rol">
                             <option value="">SELECCIONE UN ROL</option>
                             <option value="1">ADMINNISTRADOR</option>
                             <option value="2">GERENTE</option>
@@ -153,10 +155,23 @@
                     <!--<div class="progress" style="display:none"><div class="indeterminate violet"></div></div>-->
                     
                     <div class="center">
-			      	    <button type="submit" class="Btnadd btn waves-effect waves-light" id="Adduser" style="background-color:#831F82;">GUARDAR
+			      	    <button name="usersubmit" type="submit" class="Btnadd btn waves-effect waves-light" id="Adduser" style="background-color:#831F82;">GUARDAR
                             <i class="material-icons right">send</i>
                         </button>
+                        <div class="preloader-wrapper active" id="load" style="display: none">
+                            <div class="spinner-layer spinner-green-only">
+                                <div class="circle-clipper left">
+                                    <div class="circle"></div>
+                                </div><div class="gap-patch">
+                                    <div class="circle"></div>
+                                </div><div class="circle-clipper right">
+                                    <div class="circle"></div>
+                                </div>
+                            </div>
+                        </div>
 			        </div>
+
+
                 </div>
             </form>
         </div>
