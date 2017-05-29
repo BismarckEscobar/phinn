@@ -32,3 +32,12 @@
 
      /*************LINK DE REPORTES***********/
      $route['CalSemana'] = 'Reportes/CalSemana';
+
+     /*************REDIRECT INDEX REPORTE*************/
+     $route['index'] = "reporte_Controller";
+
+     /*************CAMBIAR ESTADO DE REPORTES*********/
+     $route['cambiarEstadoRpt/(:any)/(:any)']= "reporte_Controller/cambiaStatusRpt/$1/$2";
+
+     /*************PARA VALIDAR SI EL NUMERO DE REPORTE YA EXISTE**********************/
+     $route['validarReporte/(:any)']= "reporte_Controller/validaNumRpt/$1";

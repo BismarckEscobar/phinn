@@ -153,6 +153,22 @@ td,th{
 #TblMaster thead tr th{
     background-color: #233778;
 }
+/******TABLA LISTA REPORTES************/
+#tlbListaRep tr:nth-child(even) {
+    background-color: #CCCCCC;
+     text-align: center;
+}
+#tlbListaRep tr:nth-child(odd) {
+    background-color: #E6E6E6;
+     text-align: center;
+}
+td,th{
+     text-align: center;
+}
+#tlbListaRep thead tr th{
+    background-color: #233778;
+}
+
 .regular{
     font-family: 'robotoregular'!important;
 }
