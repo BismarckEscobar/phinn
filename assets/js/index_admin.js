@@ -14,6 +14,18 @@ $(document).ready(function(){
     $("#crearR").click(function(){$("#nuevoReporte").openModal();});
     $("#crearT").click(function(){$("#ATrabajador").openModal();});
 
+
+    ///Configurar chosen////
+    var config = {
+        '.chosen-select': {
+        }
+    }
+    for (var selector in config) {
+        $(selector).chosen(config[selector]);
+    }
+    ///Configurar chosen////
+
+
 /*************PERMITE SOLO NUMEROS EN LOS INPUTS**********************************/
 $('#numOrden').numeric();
 
@@ -177,7 +189,7 @@ $("#TblMaster").DataTable({
             "last":     "Última ",
             "next":     "Anterior",
             "previous": "Siguiente"
-        },
+        }
     }
 });
 
@@ -216,6 +228,7 @@ $("#tlbListaRep").DataTable({
 /*/////////////////////////////////////////////////////////////////////////////////////////
                                     FUNCIONES SOBRE USUARIO
 //////////////////////////////////////////////////////////////////////////////////////////*/
+// VALIDACION DE PASSWORD //
 $("#Adduser").click(function () {
     var pass = $("#Pass").val();
     var passc = $("#PassC").val();
@@ -232,14 +245,59 @@ $("#Adduser").click(function () {
     else if(pass.length < 6)
     {
         swal({
-            text: "La contraseña debe tener al menos 6 dígitos, "+
+            text: "La contraseña debe tener como mínimo 6 dígitos, "+
             " inténtelo nuevamente",
-            type: 'warning',
+            type: 'info',
             confirmButtonText: 'cerrar'
         });
         event.preventDefault();
     }
 });
+
+// VALIDACION DE CAMPOS VACIOS //
+$("#Adduser").click(function(){
+    var user = $("#Usuario").val();
+    var nomc = $("#NombreC").val();
+    var priv = $("#rol").val().trim();
+    var pasw = $("#Pass").val();
+    if(user =="" | nomc =="" | priv == "" | pasw==""){
+        swal({
+            text:"TODOS LOS CAMPOS SON REQUERIDOS, "+
+            " DEBE COMPLETAR EL CAMPO FALTANTE",
+            confirmButtonText:"cerrar",
+            type:"info"
+        }).then(function () {
+            if(user == "")
+            {
+                $("#Usuario").focus();
+            }
+            if(nomc == "")
+            {
+                $("#NombreC").focus();
+            }
+            if(pasw == "")
+            {
+                $("#Pass").focus();
+            }
+            if(priv == "")
+            {
+                swal({
+                    text:"Debe seleccionar un Rol para el usuario",
+                    type:"info",
+                    confirmButtonText:"cerrar"
+                });
+            }
+        });
+        event.preventDefault();
+    }
+});
+////// EVITAR EL DOBLE ENVIO DE FORMULARIO//////
+function checksubmit(form)
+{
+    $("#Adduser").hide();
+    $("#load").show();
+    return true;
+}
 
 
 /*function EnviarUsuario(){
@@ -347,9 +405,9 @@ function BorrarUsuario(IdUsuarios, Estado){
     }else{var miMSS = "¿DESEA CAMBIAR EL ESTADO INACTIVO AL USUARIO?";}
 
     swal({
-        title: 'Estás seguro?',
+        title: '',
         text: miMSS,
-        type: 'warning',
+        type: 'question',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
@@ -851,4 +909,3 @@ function MUP(key, per,FE,CONTRATO){
         });
     }; TERMINA el 03*/
 
-    /**************AÑADIENDO FUNCIONES DE SUBMIT A LAS HREF************************/
