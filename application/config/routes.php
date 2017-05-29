@@ -14,8 +14,8 @@
 
     /*************LINK DE USUARIOS***********/
     $route['Usuarios'] = 'Usuarios';
-    $route['GuardarUsuario/(:any)/(:any)/(:any)/(:any)'] = 'Usuarios/Guardar/$1/$2/$3/$4';
-    $route['EliminarUsuario/(:any)/(:any)']= "Usuarios/Eliminar/$1/$2";
+    $route['GuardarUsuario'] = 'Usuarios/Guardar';
+    $route['EditarUsuario/(:any)/(:any)']= "Usuarios/Eliminar/$1/$2";
     $route['ClaveUsuario/(:any)/(:any)']= "Usuarios/Clave/$1/$2";
     
 
@@ -32,3 +32,12 @@
 
      /*************LINK DE REPORTES***********/
      $route['CalSemana'] = 'Reportes/CalSemana';
+
+     /*************REDIRECT INDEX REPORTE*************/
+     $route['index'] = "reporte_Controller";
+
+     /*************CAMBIAR ESTADO DE REPORTES*********/
+     $route['cambiarEstadoRpt/(:any)/(:any)']= "reporte_Controller/cambiaStatusRpt/$1/$2";
+
+     /*************PARA VALIDAR SI EL NUMERO DE REPORTE YA EXISTE**********************/
+     $route['validarReporte/(:any)']= "reporte_Controller/validaNumRpt/$1";

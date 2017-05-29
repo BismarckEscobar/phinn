@@ -18,6 +18,7 @@
         <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/index.css" media="screen,projection"/> 
 
         <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/sweetalert2.min.css"/>
+        <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/chosen.css"/>
 
         <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/fullcalendar.min.css"/>
         <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/fullcalendar.print.min.css" media="print"/>

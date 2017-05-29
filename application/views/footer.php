@@ -27,6 +27,7 @@
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.numeric.min.js"></script>
 
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/sweetalert2.min.js"></script>
+        <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/chosen.jquery.js"></script>
 
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/moment.min.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/fullcalendar.min.js"></script>
