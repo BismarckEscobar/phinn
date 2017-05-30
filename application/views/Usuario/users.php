@@ -37,21 +37,23 @@
         <br><br>
         <!-- ////////////////////////////////////////////////////////////////////////////////////////// -->
 
-        <div class="row">
-            <div class="div-cont">
-                <table id="TblMaster" class="striped responsive-table">
-                    <thead>
-                    <tr class="tblcabecera">
-                        <th style="border-radius: 20px 0px 0px 20px;">Nº</th>
-                        <th>NOMBRE COMPLETO</th>
-                        <th>USUARIO</th>
-                        <th>TIPO PERMISO</th>
-                        <th>ESTATUS</th>
-                        <!--<th style="border-radius: 0px 20px 20px 0px;">CONTRASEÑA</th>-->
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?PHP
+
+        <table id="TblMaster" class="striped">
+            <thead>
+                <tr class="tblcabecera">
+                    <th style="border-radius: 20px 0px 0px 20px;">Nº</th>
+                    <th>NOMBRE COMPLETO</th>
+                    <th>USUARIO</th>                                    
+                    <th>TIPO PERMISO</th>
+                    <th>ESTATUS</th>
+                    <th style="border-radius: 0px 20px 20px 0px;">CONTRASEÑA</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?PHP
+
+  
+
                     if(!($TBUS)){
                     } else {
                         $c=1;
@@ -59,6 +61,7 @@
                             if ($key['Privilegio'] == 1)
                                 $per = "Administrador";
                             elseif ($key['Privilegio'] == 2){
+
                                 $per = "Gerente";
                             }elseif ($key['Privilegio'] == 3) {
                                 $per = "Supervisor";
@@ -66,10 +69,16 @@
                                 $per = "Coordinador";
                             }
 
+                            if($key['Estado'] == 0){
+                                $activo ="<td><a data-tooltip='CAMBIAR A INACTIVO' class='btn-flat tooltipped noHover' onclick='BorrarUsuario(".'"'.$key['IdUsuario'].'"'.", 1)'><i style='color:green; font-size:30px;' class='material-icons'>done</i></a></td>";
+                            }else{
+                                $activo ="<td><a data-tooltip='CAMBIAR A ACTIVO' class='btn-flat tooltipped noHover' onclick='BorrarUsuario(".'"'.$key['IdUsuario'].'"'.", 0)'><i style='color:red; font-size:30px;' class='material-icons'>close</i></a></td>";
+
                             if($key['Estado'] == 1){
                                 $activo ="<td id='link2'><a id='link' data-tooltip='CAMBIAR A INACTIVO' class='btn-flat tooltipped noHover' href='javascript:void(0)' onclick='BorrarUsuario(".'"'.$key['IdUsuario'].'","'.$key['Estado'].'"'.")'><i style='color:green; font-size:30px;' class='material-icons'>done</i></a></td>";
                             }else{
                                 $activo ="<td><a data-tooltip='CAMBIAR A ACTIVO' class='btn-flat tooltipped noHover' href='javascript:void(0)' onclick='BorrarUsuario(".'"'.$key['IdUsuario'].'","'.$key['Estado'].'"'.")'><i style='color:red; font-size:30px;' class='material-icons'>close</i></a></td>";
+
                             }
 
                             echo "<tr>
@@ -78,6 +87,8 @@
                                     <td class='bold'>".$key['Usuario']."</td>
                                     <td>".$per."</td>
                                     ".$activo."
+
+                                    <td><a data-tooltip='CAMBIAR' class='btn-flat tooltipped noHover' onClick='CambiarPass(".'"'.$key['IdUsuario'].'"'.")'><i style='color:blue; font-size:30px;' class='material-icons'>fingerprint</i></a></td>
                                     <!--<td><a data-tooltip='CAMBIAR' class='btn-flat tooltipped noHover' onClick='CambiarPass(".'"'.$key['IdUsuario'].'"'.")'><i style='color:blue; font-size:30px;' class='material-icons'>fingerprint</i></a></td>-->
                                   </tr>";
                             $c++;
@@ -143,10 +154,21 @@
                     <div class="col s6">
                         <select class="chosen-select browser-default " name="rol" id="rol">
                             <option value="">SELECCIONE UN ROL</option>
+<<<<<<< HEAD:application/views/users.php
+<!--                             <?PHP
+                                if(!($RLUS)){
+                                } else {
+                                    foreach($RLUS as $rol){
+                                        echo '<option value="'.$rol['IdRol'].'">'.$rol['Descripcion'].'</option>';
+                                     }
+                                 }
+                            ?> -->
+=======
                             <option value="1">ADMINNISTRADOR</option>
                             <option value="2">GERENTE</option>
                             <option value="3">SUPERVISOR</option>
                             <option value="4">COORDINADOR</option>
+>>>>>>> refs/remotes/origin/master:application/views/Usuario/users.php
                         </select><label id="lblRol" class="labelValidacion">SELECCIONE UN ROL</label>
                     </div>
                 </div>

@@ -30,7 +30,7 @@
      $route['CalSemana'] = 'Reportes/CalSemana';
 
      /*************REDIRECT INDEX REPORTE*************/
-     $route['index'] = "reporte_Controller";
+     $route['reporte'] = "reporte_Controller";
 
      /*************CAMBIAR ESTADO DE REPORTES*********/
      $route['cambiarEstadoRpt/(:any)/(:any)']= "reporte_Controller/cambiaStatusRpt/$1/$2";

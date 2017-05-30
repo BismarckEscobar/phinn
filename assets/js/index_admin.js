@@ -79,7 +79,7 @@ $("#numOrden").on('change',function(event) {
         type:"POST",
         async:true,
         success: function(data){ 
-            if (data=="No hay nada") {                
+            if (data==true) {                
             } else {
                 swal({ title: " ",
                 text: 'El número de orden ya existe',
@@ -88,6 +88,7 @@ $("#numOrden").on('change',function(event) {
                 confirmButtonColor: '#831F82',
                 confirmButtonText: 'ACEPTAR'
                 }).then() 
+                $('#numOrden').val("")
             }
         }
     }); 
