@@ -37,6 +37,7 @@
             $this->db->update('usuarios', $data);
         }
 
+   
         public function allUser(){
             $query = $this->db->order_by("IdUsuario","asc");
             $query = $this->db->get('usuarios');

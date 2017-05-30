@@ -32,7 +32,7 @@ class reporte_Controller extends CI_Controller {
 			'Estado' => 1
 		);
 			$this->reporte_Model->guardarRep($array);
-			redirect('index');
+			redirect('reporte');
 	}
 
 	public function cambiaStatusRpt($idReport, $status){
@@ -40,11 +40,11 @@ class reporte_Controller extends CI_Controller {
 	}
 
 	public function validaNumRpt($id) {
-		$result = "";
+		$result = FALSE;
 		$bool = $this->reporte_Model->validaNumeroRpt($id);
 		if ($bool =="") {
-			$result = "No hay nada";
-		} else { $result = "hay algo";}
+			$result = TRUE;
+		} else { $result = FALSE;}
 		echo $result;
 	}
 }
