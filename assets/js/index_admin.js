@@ -79,7 +79,7 @@ $("#numOrden").on('change',function(event) {
         type:"POST",
         async:true,
         success: function(data){ 
-            if (data=="No hay nada") {                
+            if (data==true) {                
             } else {
                 swal({ title: " ",
                 text: 'El número de orden ya existe',
@@ -88,6 +88,7 @@ $("#numOrden").on('change',function(event) {
                 confirmButtonColor: '#831F82',
                 confirmButtonText: 'ACEPTAR'
                 }).then() 
+                $('#numOrden').val("")
             }
         }
     }); 
@@ -292,7 +293,6 @@ function checksubmit(form)
     return true;
 }
 
-
 function CambiarPass(IdUser){
     var pass = '';
 
@@ -392,6 +392,37 @@ function BorrarUsuario(IdUsuarios, Estado){
 }
 
 
+/*/////////////////////////////////////////////////////////////////////////////////////////
+                                    FUNCIONES SOBRE TRABAJADOR
+//////////////////////////////////////////////////////////////////////////////////////////*/
+function BorrarTrabajador(IdUser, Estado){
+    if(Estado==1){var miMSS = "¿DESEA CAMBIAR EL ESTADO ACTIVO AL TRABAJADOR?";
+    }else{var miMSS = "¿DESEA CAMBIAR EL ESTADO INACTIVO AL TRABAJADOR?";}
+    
+    swal({ title: " ",
+           text: miMSS,
+           type: 'warning',
+           showCloseButton: true,
+           confirmButtonColor: '#831F82',
+           confirmButtonText: 'CAMBIAR'
+        }).then(function () {
+            $.ajax({ url: "EliminarTrabajador/"+IdUser+"/"+Estado,
+                     type: "post",
+                     async:true,
+                     success:
+                        function(){
+                            swal({title: "EL TRABAJADOR SE CAMBIO CORECTAMENTE!",
+                                  type: "success",
+                                  confirmButtonText: "CERRAR",
+                            }).then(
+                                function(){gotopage("Trabajadores");}
+                            )
+                        }
+                })
+        })
+}
+
+
 function CalendarWK(Iduser, Nuser){
     $("h6#TxtNombre").html(Nuser);
 
@@ -457,7 +488,6 @@ function CalendarWK(Iduser, Nuser){
             });
 
         },
-
         eventClick: function(event) {
             swal({
                 title: 'Digite los Puntos',

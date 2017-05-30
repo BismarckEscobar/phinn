@@ -20,21 +20,17 @@
     
 
        
-    /*************LINLK DE TRABAJADORES***********/
-    $route['Trabajadores'] = 'Trabajadores';
-    $route['GuardarTrabajador/(:any)/(:any)/(:any)'] = 'Trabajadores/Guardar/$1/$2/$3';
+    /*************LINK DE EMPLEADOS***********/
+    $route['Empleados'] = 'Empleados_controller';
+    $route['GuardarEmpleado'] = 'Empleados/GuardarEm';
     $route['EliminarTrabajador/(:any)/(:any)'] = "Trabajadores/Eliminar/$1/$2";
-    $route['Calendario/(:any)'] = 'Trabajadores/Calendario/$1';
-    $route['GCalendario/(:any)/(:any)/(:any)'] = 'Trabajadores/GCalendario/$1/$2/$3';
-    $route['UCalendario/(:any)/(:any)/(:any)/(:any)'] = 'Trabajadores/UCalendario/$1/$2/$3/$4';
-    $route['FEvento/(:any)/(:any)'] = 'Trabajadores/FEvento/$1/$2';
 
 
      /*************LINK DE REPORTES***********/
      $route['CalSemana'] = 'Reportes/CalSemana';
 
      /*************REDIRECT INDEX REPORTE*************/
-     $route['index'] = "reporte_Controller";
+     $route['reporte'] = "reporte_Controller";
 
      /*************CAMBIAR ESTADO DE REPORTES*********/
      $route['cambiarEstadoRpt/(:any)/(:any)']= "reporte_Controller/cambiaStatusRpt/$1/$2";
