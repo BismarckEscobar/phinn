@@ -41,9 +41,9 @@
                     <th style="border-radius: 20px 0px 0px 20px;">Nº</th>
                     <th>NOMBRE COMPLETO</th>                                    
                     <th>CARGO</th>
-                    <th>HORARIO</th>
-                    <th>ACTIVO</th>
-                    <th style="border-radius: 0px 20px 20px 0px;">TABLA</th>
+                    <th>FECHA CREACION</th>
+                    <th>FECHA BAJA</th>
+                    <th style="border-radius: 0px 20px 20px 0px;">ESTADO</th>
                 </tr>
             </thead>
             <tbody>
@@ -52,10 +52,10 @@
                     } else {
                         $c=1;
                         foreach ($TBW as $key) {
-                            if($key['Activo'] == 0){
-                                $activo ="<td><a data-tooltip='CAMBIAR A INACTIVO' class='btn-flat tooltipped noHover' onclick='BorrarTrabajador(".'"'.$key['IdTb'].'"'.", 1)'><i style='color:green; font-size:30px;' class='material-icons'>done</i></a></td>";
+                            if($key['Estado'] == 0){
+                                $activo ="<td><a data-tooltip='CAMBIAR A INACTIVO' class='btn-flat tooltipped noHover' onclick='BorrarTrabajador(".'"'.$key['IdEmpleado'].'"'.", 1)'><i style='color:green; font-size:30px;' class='material-icons'>done</i></a></td>";
                             }else{
-                                $activo ="<td><a data-tooltip='CAMBIAR A ACTIVO' class='btn-flat tooltipped noHover' onclick='BorrarTrabajador(".'"'.$key['IdTb'].'"'.", 0)'><i style='color:red; font-size:30px;' class='material-icons'>close</i></a></td>";
+                                $activo ="<td><a data-tooltip='CAMBIAR A ACTIVO' class='btn-flat tooltipped noHover' onclick='BorrarTrabajador(".'"'.$key['IdEmpleado'].'"'.", 0)'><i style='color:red; font-size:30px;' class='material-icons'>close</i></a></td>";
                             }
                                 
                             echo "<tr>                                    
@@ -92,56 +92,46 @@
         
         <div class="row noMargen center">
             <div class="noMargen col s12 m12 l12">
-                <h6 class="center" style="font-family:'robotoblack'; color:#831F82;font-size:30px; margin-bottom:30px;"><br>AGREGAR TRABAJADOR</h6>
+                <h6 class="center" style="font-family:'robotoblack'; color:#831F82;font-size:30px; margin-bottom:30px;"><br>AGREGAR EMPLEADO</h6>
             </div>
         </div>
         
         <div class="row">
-            <form class="col s12"  method="post" name="formAddWork">
+            <form class="col s12" action=""  method="post" name="formAddWork">
                 <div class="row">
-                    <div class="input-field col s12 m12 s12">
+                    <div class="input-field col s12 m6 s6">
                         <input class="mayuscula" name="NombreC" placeholder="NOMBRE COMPLETO" id="NombreC" type="text" class="required">
                         <label id="lblNombreC" class="labelValidacion">DIGITE EL NOMBRE COMPLETO</label>
                     </div>
                 </div>
-                
-                <br><br>
                 <div class="row">
-                    <div class="col s12 m6 l6">
-                        <select name="cargo" id="cargo">
+                    <div class="input-field col s12 m6 s6">
+                        <input class="mayuscula" value="<?php date_default_timezone_set("America/Managua");
+                        echo date("Y-m-d h:i:s");?>" name="fechaC" placeholder="NOMBRE COMPLETO" id="fechaC" type="hidden">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s6 offset-s6 " style="margin-top:-48px">
+                        <select name="cargo" id="cargo" class="chosen-select browser-default ">
                             <option value="">SELECCIONE UN CARGO</option>
                             <?PHP
-                                if(!($CGW)){
+                                if(!($Cargo)){
                                 } else {
-                                    foreach($CGW as $cargo){
-                                        echo '<option value="'.$cargo['Descripcion'].'">'.$cargo['Descripcion'].'</option>';
+                                    foreach($Cargo as $cargo){
+                                        echo '<option value="'.$cargo['IdCargo'].'">'.$cargo['Descripcion'].'</option>';
                                      }
                                  }
                             ?>
                         </select><label id="lblCargo" class="labelValidacion">SELECCIONE UN CARGO</label>
                     </div>
-
-                    <div class="col s12 m6 l6">
-                        <select name="turno" id="turno">
-                            <option value="">SELECCIONE UN TURNO</option>
-                                <?PHP
-                                    if(!($TNW)){
-                                    } else {
-                                        foreach($TNW as $turno){
-                                            echo '<option value="'.$turno['Descripcion'].'">'.$turno['Descripcion'].'</option>';
-                                        }
-                                    }
-                                ?>
-                            </select><label id="lblTurno" class="labelValidacion">SELECCIONE UN TURNO</label>
-                    </div>
                 </div>
-                
+
                 <br><br>
-                <div class="row">                    
+                <div class="row">
                     <div class="center">
-			      	    <a class="Btnadd btn waves-effect waves-light" id="AddTrabajador" onclick="EnviarTrabajador()" style="background-color:#831F82;">GUARDAR
+			      	    <button class="Btnadd btn waves-effect waves-light" id="AddEmpleado" style="background-color:#831F82;">GUARDAR
                             <i class="material-icons right">send</i>
-                        </a>
+                        </button>
 			        </div>
                 </div>
             </form>

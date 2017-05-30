@@ -298,41 +298,6 @@ function checksubmit(form)
     $("#load").show();
     return true;
 }
-
-
-/*function EnviarUsuario(){
-    $('#lblUsuario, #lblNombreC, #lblPass, #lblPassC, #lblRol').hide();
-    
-    var user = $('#Usuario').val(); var nombre = $('#NombreC').val();
-    var clave = $('#Pass').val();   var clave2 = $('#PassC').val();
-    var rol = $('#rol option:selected').val();
-    
-    //alert(rol);
-    
-    if (user==""){$('#lblUsuario').show(); return false;
-    }else if (nombre==""){$('#lblNombreC').show(); return false;
-    }else if (clave==""){$('#lblPass').show();return false;
-    }else if (clave2=="" || clave!=clave2) {$('#lblPassC').show();return false;
-    }else if (rol=="") {$('#lblRol').show();return false;}
-
-    $('#Adduser').hide();
-    
-    $.ajax({
-        url: "GuardarUsuario/"+user+"/"+nombre+"/"+clave+"/"+rol,
-        type: "post",
-        async:true,
-        success:
-            function(){
-                swal({title: "EL USUARIO SE AGREGO CORRECTAMENTE!",
-                      type: "success",
-                      confirmButtonText: "CERRAR",
-                }).then(
-                    function(){gotopage("Usuarios");}
-                )
-            }
-    });
-}*/
-
 function CambiarPass(IdUser){
     var pass = '';
 
@@ -437,37 +402,6 @@ function BorrarUsuario(IdUsuarios, Estado){
 /*/////////////////////////////////////////////////////////////////////////////////////////
                                     FUNCIONES SOBRE TRABAJADOR
 //////////////////////////////////////////////////////////////////////////////////////////*/
-function EnviarTrabajador(){
-    $('#lblNombreC, #lblCargo, #lblTurno').hide();
-    
-    var nombre = $('#NombreC').val();
-    var cargo = $('#cargo option:selected').val();
-    var turno = $('#turno option:selected').val();
-    
-    //alert(rol);
-    
-    if (nombre==""){$('#lblNombreC').show(); return false;
-    }else if (cargo==""){$('#lblCargo').show();return false;
-    }else if (turno=="") {$('#lblTurno').show();return false;}
-    
-     $('#AddTrabajador').hide();
-    
-    $.ajax({
-        url: "GuardarTrabajador/"+nombre+"/"+cargo+"/"+turno,
-        type: "post",
-        async:true,
-        success:
-            function(){
-                swal({title: "EL TRABAJADOR SE AGREGO CORRECTAMENTE!",
-                      type: "success",
-                      confirmButtonText: "CERRAR",
-                }).then(
-                    function(){gotopage("Trabajadores");}
-                )
-            }
-    });
-}
-
 function BorrarTrabajador(IdUser, Estado){
     if(Estado==1){var miMSS = "¿DESEA CAMBIAR EL ESTADO ACTIVO AL TRABAJADOR?";
     }else{var miMSS = "¿DESEA CAMBIAR EL ESTADO INACTIVO AL TRABAJADOR?";}
@@ -568,7 +502,7 @@ function CalendarWK(Iduser, Nuser){
             start: $.fullCalendar.moment().subtract(1, 'days'),
             end: $.fullCalendar.moment().startOf('month').add(1, 'month')
         },
-        
+
         select: function(start, allDay) {
             if(moment().diff(start, 'days') > 0) {
                 calendar.fullCalendar('unselect');
@@ -592,7 +526,7 @@ function CalendarWK(Iduser, Nuser){
                 allowOutsideClick: false
             }).then(function (value) {
                     start = $.fullCalendar.formatDate(start, "YYYY-MM-D");
-                    
+
                     $.ajax({url: "GCalendario/"+Iduser+"/"+value+"/"+start,
                         type: "post",
                         async:true,
