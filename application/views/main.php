@@ -37,6 +37,7 @@
                                     </div>
                               </div>
 
+
                               <div class="col offset-l4 s12 l2">
                                     <div class="card small" >
                                         <a href='.base_url("index.php/reporte_Controller").'>
@@ -49,6 +50,7 @@
                                         </a>
                                     </div>
                               </div>
+
 
                               <div class="col s12 l2">
                                     <div class="card small" >
@@ -64,7 +66,7 @@
                               </div>
                               ';
                     break;
-                    case 2: //DIGITADOR
+                    case 2: 
                         echo '<div class="col offset-l4 s12 l2">
                                     <div class="card small" >
                                         <a href='.base_url("index.php/Trabajadores").'>
