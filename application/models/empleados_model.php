@@ -5,30 +5,20 @@
  * Date: 23/03/2017
  * Time: 10:00 am
  */
-    class Works extends CI_Model{
+    class Empleados_model extends CI_Model{
         function __construct(){
             parent::__construct();
             $this->load->database();
         }
 
-        public function allwork(){        
-            $query = $this->db->get('work');        
+        public function allempleados(){
+            $query = $this->db->get('empleado');
             
             if($query->num_rows() <> 0){            
                 return $query->result_array();
             }
             return 0;
         }
-
-        public function onework($id){        
-            $this->db->where('IdTb', $id);
-            $query = $this->db->get('work');
-                        
-            if($query->num_rows() <> 0){            
-                return $query->result_array();
-            }
-            return 0;
-        }   
 
         public function allCargo(){        
             $query = $this->db->get('cargo');        
@@ -50,21 +40,21 @@
         }
 
         public function del($id, $status){
-            $this->db->where('IdTb', $id);
-            $data = array('Activo' => $status);
+            $this->db->where('IdEmpleado', $id);
+            $data = array('Estado' => $status);
 
-            $this->db->update('work', $data);
+            $this->db->update('empleado', $data);
         }
 
-        public function Guardar($NombreC,$Cargo,$Horario){
+        public function Guardar($Nombre,$Cargo,$Estad,$FechaC){
             $data = array(
-                'NombreC' => str_replace("%C3%B1","ñ", str_replace("%20"," ",str_replace("%C3%91","Ñ", str_replace("%20"," ",$NombreC)))),
-                'Cargo' => str_replace("%20"," ",$Cargo),
-                'Horario' => str_replace("%20"," ",$Horario),
-                'Activo'=> 0
+                'Nombre' => $Nombre,
+                'IdCargo' => $Cargo,
+                'Estado' => $Estad,
+                'FechaCreacion' => $FechaC
             );
             
-            $this->db->insert('work', $data);
+            $this->db->insert('empleado', $data);
         }
 
 
