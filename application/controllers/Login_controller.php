@@ -4,6 +4,9 @@ class Login_controller extends CI_Controller {
 	{
 		parent::__construct();
         $this->load->library('session');
+       /* if($this->session->userdata('logged')==1){ // Si esta logueado no mostrar formulariuo login
+            redirect(base_url().'index.php/dashboard','refresh');}*/
+
 	}
 
     public function index()
@@ -13,7 +16,7 @@ class Login_controller extends CI_Controller {
 		$this->load->view('footer_login');
     }
     
-    public function Salir(){        
+    public function Salir(){
         $this->session->sess_destroy();
         $sessiondata = array(
                 'logged' => 0

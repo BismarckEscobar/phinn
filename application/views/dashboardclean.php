@@ -1,6 +1,6 @@
 <nav>
 	<div style="background-color:#831F82!important;" class="nav-wrapper orange accent-4">
-		<a style=" margin-top:10px;margin-left:10px;" href="<?php echo base_url('index.php/Menu')?>" class="brand-logo left"><img src="<?php echo base_url('assets/img/logo/innova-blanco.png')?>" width="140px"></a>
+		<a style=" margin-top:10px;margin-left:10px;" href="<?php echo base_url('index.php/dashboard')?>" class="brand-logo left"><img src="<?php echo base_url('assets/img/logo/innova-blanco.png')?>" width="140px"></a>
 		<?php
 			if($this->uri->segment(1)=='dashboard' or $this->uri->segment(1)=='Menu'){
 				echo '<a href="#" class="brand-logo center">INICIO</a>';

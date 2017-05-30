@@ -13,12 +13,12 @@
                     case 1: //ADMINISTRADOR
                         echo '<div class="col offset-l3 s12 l2">
                                     <div class="card small" >
-                                        <a href='.base_url("index.php/Trabajadores").'>
+                                        <a href='.base_url("index.php/Empleados").'>
                                             <div class="card-image">
                                                 <img style="margin-top:20px;" src='.base_url("assets/img/work/Work.png").' >
                                             </div>
                                             <div class="card-content center">
-                                                <p style="color:black;">CREAR TRABAJADOR</p>
+                                                <p style="color:black;">CREAR EMPLEADO</p>
                                             </div>
                                         </a>
                                     </div>
@@ -36,7 +36,8 @@
                                         </a>
                                     </div>
                               </div>
-                              
+
+
                               <div class="col offset-l4 s12 l2">
                                     <div class="card small" >
                                         <a href='.base_url("index.php/reporte_Controller").'>
@@ -50,6 +51,7 @@
                                     </div>
                               </div>
 
+
                               <div class="col s12 l2">
                                     <div class="card small" >
                                         <a href='.base_url("index.php/Reportes").'>
@@ -61,9 +63,10 @@
                                             </div>
                                         </a>
                                     </div>
-                              </div>';
+                              </div>
+                              ';
                     break;
-                    case 2: //DIGITADOR
+                    case 2: 
                         echo '<div class="col offset-l4 s12 l2">
                                     <div class="card small" >
                                         <a href='.base_url("index.php/Trabajadores").'>

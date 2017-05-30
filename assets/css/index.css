@@ -288,3 +288,6 @@ select
 .center{
     text-align: center!important;
 }
+.div-cont .dataTables_filter{
+    display:none;
+}
