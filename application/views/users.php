@@ -36,7 +36,7 @@
         <br><br>
         <!-- ////////////////////////////////////////////////////////////////////////////////////////// -->
 
-        <table id="TblMaster" class="striped"">
+        <table id="TblMaster" class="striped">
             <thead>
                 <tr class="tblcabecera">
                     <th style="border-radius: 20px 0px 0px 20px;">Nº</th>
@@ -53,29 +53,29 @@
                     } else {
                         $c=1;
                         foreach ($TBUS as $key) {
-                            if ($key['Access'] == 1)
+                            if ($key['Privilegio'] == 1)
                                 $per = "Administrador";
-                            elseif ($key['Access'] == 2){
+                            elseif ($key['Privilegio'] == 2){
                                 $per = "Digitador";
-                            }elseif ($key['Access'] == 3) {
+                            }elseif ($key['Privilegio'] == 3) {
                                 $per = "Asistente";
                             }else{
                                 $per = "Presidencia"; 
                             }
 
-                            if($key['Active'] == 0){
-                                $activo ="<td><a data-tooltip='CAMBIAR A INACTIVO' class='btn-flat tooltipped noHover' onclick='BorrarUsuario(".'"'.$key['IdUser'].'"'.", 1)'><i style='color:green; font-size:30px;' class='material-icons'>done</i></a></td>";
+                            if($key['Estado'] == 0){
+                                $activo ="<td><a data-tooltip='CAMBIAR A INACTIVO' class='btn-flat tooltipped noHover' onclick='BorrarUsuario(".'"'.$key['IdUsuario'].'"'.", 1)'><i style='color:green; font-size:30px;' class='material-icons'>done</i></a></td>";
                             }else{
-                                $activo ="<td><a data-tooltip='CAMBIAR A ACTIVO' class='btn-flat tooltipped noHover' onclick='BorrarUsuario(".'"'.$key['IdUser'].'"'.", 0)'><i style='color:red; font-size:30px;' class='material-icons'>close</i></a></td>";
+                                $activo ="<td><a data-tooltip='CAMBIAR A ACTIVO' class='btn-flat tooltipped noHover' onclick='BorrarUsuario(".'"'.$key['IdUsuario'].'"'.", 0)'><i style='color:red; font-size:30px;' class='material-icons'>close</i></a></td>";
                             }
                                 
                             echo "<tr>                                    
                                     <td class='regular'>".$c."</td>
-                                    <td class='bold'>".$key['Name']."</td>
-                                    <td class='bold'>".$key['User']."</td>
+                                    <td class='bold'>".$key['Nombre']."</td>
+                                    <td class='bold'>".$key['Usuario']."</td>
                                     <td>".$per."</td>
                                     ".$activo."
-                                    <td><a data-tooltip='CAMBIAR' class='btn-flat tooltipped noHover' onClick='CambiarPass(".'"'.$key['IdUser'].'"'.")'><i style='color:blue; font-size:30px;' class='material-icons'>fingerprint</i></a></td>
+                                    <td><a data-tooltip='CAMBIAR' class='btn-flat tooltipped noHover' onClick='CambiarPass(".'"'.$key['IdUsuario'].'"'.")'><i style='color:blue; font-size:30px;' class='material-icons'>fingerprint</i></a></td>
                                   </tr>";
                             $c++;
                         }
@@ -137,14 +137,14 @@
                     <div class="Middle">
                         <select name="rol" id="rol">
                             <option value="">SELECCIONE UN ROL</option>
-                            <?PHP
+<!--                             <?PHP
                                 if(!($RLUS)){
                                 } else {
                                     foreach($RLUS as $rol){
                                         echo '<option value="'.$rol['IdRol'].'">'.$rol['Descripcion'].'</option>';
                                      }
                                  }
-                            ?>
+                            ?> -->
                         </select><label id="lblRol" class="labelValidacion">SELECCIONE UN ROL</label>
                     </div>
                 </div>

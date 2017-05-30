@@ -40,7 +40,7 @@
         }
 
         public function allUser(){        
-            $query = $this->db->get('user');        
+            $query = $this->db->get('usuarios');        
             
             if($query->num_rows() <> 0){            
                 return $query->result_array();

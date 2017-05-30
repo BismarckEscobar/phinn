@@ -17,8 +17,8 @@
 
 		public function index(){
 			$this->WHead();
-			$data['TBUS']=$this->Users->allUser();
-			$data['RLUS']=$this->Users->allRol();             
+			$data['TBUS']=$this->Users_model->allUser();
+			//$data['RLUS']=$this->Users_model->allRol();             
 			$this->load->view('users', $data);
 			$this->load->view('footer');
 		}
