@@ -38,69 +38,60 @@
         <!-- ////////////////////////////////////////////////////////////////////////////////////////// -->
 
 
-        <table id="TblMaster" class="striped">
-            <thead>
+        <div class="div-cont">
+            <table id="TblMaster" class="striped">
+                <thead>
                 <tr class="tblcabecera">
                     <th style="border-radius: 20px 0px 0px 20px;">Nº</th>
                     <th>NOMBRE COMPLETO</th>
-                    <th>USUARIO</th>                                    
+                    <th>USUARIO</th>
                     <th>TIPO PERMISO</th>
                     <th>ESTATUS</th>
-                    <th style="border-radius: 0px 20px 20px 0px;">CONTRASEÑA</th>
                 </tr>
-            </thead>
-            <tbody>
-                <?PHP
+                </thead>
+                <tbody>
+                <?php
 
-  
 
-                    if(!($TBUS)){
-                    } else {
-                        $c=1;
-                        foreach ($TBUS as $key) {
-                            if ($key['Privilegio'] == 1)
-                                $per = "Administrador";
-                            elseif ($key['Privilegio'] == 2){
+                if(!($TBUS)){
+                } else {
+                    $c=1;
+                    foreach ($TBUS as $key) {
+                        if ($key['Privilegio'] == 1)
+                            $per = "Administrador";
 
-                                $per = "Gerente";
-                            }elseif ($key['Privilegio'] == 3) {
-                                $per = "Supervisor";
-                            }else{
-                                $per = "Coordinador";
-                            }
+                        elseif ($key['Privilegio'] == 2){
+                            $per = "Gerente";
 
-                            if($key['Estado'] == 0){
-                                $activo ="<td><a data-tooltip='CAMBIAR A INACTIVO' class='btn-flat tooltipped noHover' onclick='BorrarUsuario(".'"'.$key['IdUsuario'].'"'.", 1)'><i style='color:green; font-size:30px;' class='material-icons'>done</i></a></td>";
-                            }else{
-                                $activo ="<td><a data-tooltip='CAMBIAR A ACTIVO' class='btn-flat tooltipped noHover' onclick='BorrarUsuario(".'"'.$key['IdUsuario'].'"'.", 0)'><i style='color:red; font-size:30px;' class='material-icons'>close</i></a></td>";
+                        }elseif ($key['Privilegio'] == 3) {
+                            $per = "Supervisor";
 
-                            if($key['Estado'] == 1){
-                                $activo ="<td id='link2'><a id='link' data-tooltip='CAMBIAR A INACTIVO' class='btn-flat tooltipped noHover' href='javascript:void(0)' onclick='BorrarUsuario(".'"'.$key['IdUsuario'].'","'.$key['Estado'].'"'.")'><i style='color:green; font-size:30px;' class='material-icons'>done</i></a></td>";
-                            }else{
-                                $activo ="<td><a data-tooltip='CAMBIAR A ACTIVO' class='btn-flat tooltipped noHover' href='javascript:void(0)' onclick='BorrarUsuario(".'"'.$key['IdUsuario'].'","'.$key['Estado'].'"'.")'><i style='color:red; font-size:30px;' class='material-icons'>close</i></a></td>";
+                        }else{
+                            $per = "Coordinador";
+                        }
 
-                            }
-
-                            echo "<tr>
+                        if($key['Estado'] == 1){
+                            $activo ="<td><a data-tooltip='CAMBIAR A INACTIVO' href='javascript:void(0)' class='btn-flat tooltipped noHover' onclick='BorrarUsuario(".'"'.$key['IdUsuario'].'","'.$key['Estado'].'"'.")'><i style='color:green; font-size:30px;' class='material-icons'>done</i></a></td>";
+                        }else{
+                            $activo ="<td><a data-tooltip='CAMBIAR A ACTIVO' href='javascript:void(0)' class='btn-flat tooltipped noHover' onclick='BorrarUsuario(".'"'.$key['IdUsuario'].'","'.$key['Estado'].'"'.")'><i style='color:red; font-size:30px;' class='material-icons'>close</i></a></td>";
+                        }
+                        echo "<tr>
                                     <td class='regular'>".$c."</td>
                                     <td class='bold'>".$key['Nombre']."</td>
                                     <td class='bold'>".$key['Usuario']."</td>
                                     <td>".$per."</td>
                                     ".$activo."
-
-                                    <td><a data-tooltip='CAMBIAR' class='btn-flat tooltipped noHover' onClick='CambiarPass(".'"'.$key['IdUsuario'].'"'.")'><i style='color:blue; font-size:30px;' class='material-icons'>fingerprint</i></a></td>
-                                    <!--<td><a data-tooltip='CAMBIAR' class='btn-flat tooltipped noHover' onClick='CambiarPass(".'"'.$key['IdUsuario'].'"'.")'><i style='color:blue; font-size:30px;' class='material-icons'>fingerprint</i></a></td>-->
                                   </tr>";
-                            $c++;
-                        }
+                        $c++;
+
                     }
-                    ?>
-                    </tbody>
-                </table>
+                }
+                ?>
+                </tbody>
+            </table>
+        </div>
             </div>
         </div>
-    </div>
-    </div>
 </main>
 <br>
 
@@ -152,23 +143,12 @@
                 <br><br>
                 <div class="row">
                     <div class="col s6">
-                        <select class="chosen-select browser-default " name="rol" id="rol">
-                            <option value="">SELECCIONE UN ROL</option>
-<<<<<<< HEAD:application/views/users.php
-<!--                             <?PHP
-                                if(!($RLUS)){
-                                } else {
-                                    foreach($RLUS as $rol){
-                                        echo '<option value="'.$rol['IdRol'].'">'.$rol['Descripcion'].'</option>';
-                                     }
-                                 }
-                            ?> -->
-=======
+                        <select name="rol" id="rol" class="chosen-select browser-default">
+                            <option value="">SELECCIONA UN ROL</option>
                             <option value="1">ADMINNISTRADOR</option>
                             <option value="2">GERENTE</option>
                             <option value="3">SUPERVISOR</option>
                             <option value="4">COORDINADOR</option>
->>>>>>> refs/remotes/origin/master:application/views/Usuario/users.php
                         </select><label id="lblRol" class="labelValidacion">SELECCIONE UN ROL</label>
                     </div>
                 </div>

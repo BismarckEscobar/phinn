@@ -359,7 +359,7 @@ function CambiarPass(IdUser){
     })
 }
 
-function BorrarUsuario(IdUsuarios, Estado){
+function BorrarUsuario(IdUsuario, Estado){
     debugger;
    if(Estado==1){var miMSS = "¿DESEA CAMBIAR EL ESTADO ACTIVO AL USUARIO?";
     }else{var miMSS = "¿DESEA CAMBIAR EL ESTADO INACTIVO AL USUARIO?";}
@@ -376,14 +376,14 @@ function BorrarUsuario(IdUsuarios, Estado){
     }).then(function(){
         debugger;
             $.ajax({
-                url: "EditarUsuario/"+IdUsuarios+"/"+Estado,
+                url: "EditarUsuario/"+IdUsuario+"/"+Estado,
                 type: "post",
                 async:true,
                 success:
                     function(json){
                         swal({title: "EL USUARIO SE CAMBIO CORRECTAMENTE!",
                             type: "success",
-                            confirmButtonText: "CERRAR",
+                            confirmButtonText: "CERRAR"
                         }).then(
                             function(){gotopage("Usuarios");}
                         )}
