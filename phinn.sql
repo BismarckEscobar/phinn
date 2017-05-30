@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-05-2017 a las 01:24:44
+-- Tiempo de generación: 29-05-2017 a las 22:40:15
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 5.6.23
 
@@ -23,6 +23,33 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `cargo`
+--
+
+CREATE TABLE `cargo` (
+  `IdCargo` int(11) NOT NULL,
+  `Descripcion` varchar(255) DEFAULT NULL,
+  `Estado` bit(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `empleado`
+--
+
+CREATE TABLE `empleado` (
+  `IdEmpleado` int(11) NOT NULL,
+  `Nombre` varchar(255) DEFAULT NULL,
+  `IdCargo` int(11) DEFAULT NULL,
+  `Estado` bit(1) DEFAULT NULL,
+  `FechaCreacion` datetime DEFAULT NULL,
+  `FechaBaja` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `log`
 --
 
@@ -37,7 +64,10 @@ CREATE TABLE `log` (
 --
 
 INSERT INTO `log` (`IdUser`, `Accion`, `Fecha`) VALUES
-(NULL, 'INGRESO AL SISTEMA EXITOSO', '2017-05-26 00:52:12');
+(NULL, 'INGRESO AL SISTEMA EXITOSO', '2017-05-26 00:52:12'),
+(NULL, 'INGRESO AL SISTEMA EXITOSO', '2017-05-29 22:03:05'),
+(NULL, 'INGRESO AL SISTEMA EXITOSO', '2017-05-29 22:07:00'),
+(NULL, 'INGRESO AL SISTEMA EXITOSO', '2017-05-29 22:10:27');
 
 -- --------------------------------------------------------
 
@@ -135,6 +165,18 @@ INSERT INTO `usuarios` (`IdUsuario`, `Usuario`, `Nombre`, `Password`, `Privilegi
 --
 
 --
+-- Indices de la tabla `cargo`
+--
+ALTER TABLE `cargo`
+  ADD PRIMARY KEY (`IdCargo`);
+
+--
+-- Indices de la tabla `empleado`
+--
+ALTER TABLE `empleado`
+  ADD PRIMARY KEY (`IdEmpleado`);
+
+--
 -- Indices de la tabla `reportes`
 --
 ALTER TABLE `reportes`
@@ -156,6 +198,16 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
+--
+-- AUTO_INCREMENT de la tabla `cargo`
+--
+ALTER TABLE `cargo`
+  MODIFY `IdCargo` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `empleado`
+--
+ALTER TABLE `empleado`
+  MODIFY `IdEmpleado` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `reportes`
 --

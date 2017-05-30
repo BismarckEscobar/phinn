@@ -20,27 +20,27 @@
             }
         }
 
-        public function Guardar($user,$name,$pass,$rol){
+        public function Guardar($user,$name,$pass,$rol,$estado){
             $data = array(
-                'User' => $user,
-                'Name' => str_replace("%C3%B1","ñ", str_replace("%20"," ",str_replace("%C3%91","Ñ", str_replace("%20"," ",$name)))),
-                'Pass' => $pass,
-                'Access' => $rol,
-                'Date_Creat' => date('Y-m-d')
+                'Usuario' => $user,
+                'Nombre' => $name,
+                'Password' => md5($pass),
+                'Privilegio' => $rol,
+                'Estado' => $estado
             );
-            
-            $this->db->insert('user', $data);
+            $this->db->insert('usuarios', $data);
         }
 
-        public function del($id, $status){
-            $this->db->where('IdUser', $id);
-            $data = array('Active' => $status);
-
-            $this->db->update('user', $data);
+        public function del($id, $estado){
+            $this->db->where('IdUsuario', $id);
+            $data = array('Estado' => $estado);
+            $this->db->update('usuarios', $data);
         }
 
-        public function allUser(){        
-            $query = $this->db->get('usuarios');        
+   
+        public function allUser(){
+            $query = $this->db->order_by("IdUsuario","asc");
+            $query = $this->db->get('usuarios');
             
             if($query->num_rows() <> 0){            
                 return $query->result_array();

@@ -1,5 +1,5 @@
 <?php
-	class Trabajadores extends CI_Controller{	
+	class Empleados_controller extends CI_Controller{
 		public function __construct(){
 			parent::__construct();
 			$this->load->library('session');
@@ -11,12 +11,11 @@
 		}
 
 		public function index(){
+			$data['TBW'] = $this->Empleados_model->allempleados();
+			$data['Cargo'] = $this->Empleados_model->allCargo();
 			$this->load->view('header');
 			$this->load->view('dashboardclean');
-			$data['TBW']=$this->Works->allwork();
-			$data['CGW']=$this->Works->allCargo();
-			$data['TNW']=$this->Works->allTurno();
-			$this->load->view('workers',$data);
+			$this->load->view('empleados',$data);
 			$this->load->view('footer');
 		}
         		
@@ -24,8 +23,8 @@
 			$this->Works->del($cod, $status);
 		}
 
-		public function Guardar($NombreC,$Cargo,$Horario){
-			$this->Works->Guardar($NombreC,$Cargo,$Horario);
+		public function GuardarEm(){
+			
 		}
 
 		public function Calendario($cod){
