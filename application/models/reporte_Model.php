@@ -13,7 +13,7 @@ class reporte_Model extends CI_Model{
 	}
 
 	public function listaReportes() {
-	$query=$this->db->get('view_reporte');
+	$query=$this->db->get('view_orden_produccion');
 	if ($query->num_rows()>0) {
 		return $query->result_array();
 	} else {

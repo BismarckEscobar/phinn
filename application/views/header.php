@@ -13,6 +13,8 @@
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!--Import materialize.css-->
         <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/materialize.css" media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/materialize.clockpicker.css"/>
+
         
         <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/jquery.dataTables.min.css" />
         <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/index.css" media="screen,projection"/> 

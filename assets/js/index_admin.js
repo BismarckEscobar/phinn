@@ -8,7 +8,7 @@ $(document).ready(function(){
     $("#crearU").click(function(){$("#AUsuario").openModal();});
     $("#crearR").click(function(){$("#nuevoReporte").openModal();});
     $("#crearT").click(function(){$("#ATrabajador").openModal();});
-
+    $("#OrdeProd").click(function(){$("#ordenprod").openModal();});
 
     ///Configurar chosen////
     var config = {
@@ -20,6 +20,30 @@ $(document).ready(function(){
     }
     ///Configurar chosen////
 
+    $('#timepicker , #timepicker1').pickatime(
+        {
+            default: '', // default time, 'now' or '13:14' e.g.
+            donetext: 'aceptar',  // done button text
+            fromnow: 0
+        }
+    );
+
+    /******************CONFIGURAR DATEPICKER*******************/
+    $('.datepicker').pickadate({
+        labelMonthNext: 'Mes siguiente',
+        labelMonthPrev: 'Mes anterior',
+        labelMonthSelect: 'Selecciona un mes',
+        labelYearSelect: 'Selecciona un año',
+        monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
+        monthsShort: [ 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ],
+        weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
+        weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab' ],
+        weekdaysLetter: [ 'D', 'L', 'M', 'X', 'J', 'V', 'S' ],
+        today: 'Hoy',
+        clear: 'Limpiar',
+        close: 'Cerrar',
+        format:'yyyy-mm-dd'
+    });
 
 /*************PERMITE SOLO NUMEROS EN LOS INPUTS**********************************/
 $('#numOrden').numeric();
@@ -222,10 +246,28 @@ $("#tlbListaRep").DataTable({
 /*/////////////////////////////////////////////////////////////////////////////////////////
                                     FUNCIONES SOBRE USUARIO
 //////////////////////////////////////////////////////////////////////////////////////////*/
+
+$("#rol").change(function () {
+    if($(this).val() == "5")
+    {
+        $("#Pass").hide();
+        $("#lblPass").hide();
+        $("#PassC").hide();
+        $("#lblPassC").hide();
+    }
+    else
+    {
+        $("#Pass").show();
+        $("#lblPass").show();
+        $("#PassC").show();
+        $("#lblPassC").show();
+    }
+});
 // VALIDACION DE PASSWORD //
 $("#Adduser").click(function () {
     var pass = $("#Pass").val();
     var passc = $("#PassC").val();
+    var priv = $("#rol").val().trim();
     if(pass != passc)
     {
         swal({
@@ -236,7 +278,7 @@ $("#Adduser").click(function () {
         });
         event.preventDefault();
     }
-    else if(pass.length < 6)
+    else if(pass.length < 6 && priv !="5")
     {
         swal({
             text: "La contraseña debe tener como mínimo 6 dígitos, "+
@@ -248,13 +290,18 @@ $("#Adduser").click(function () {
     }
 });
 
+
 // VALIDACION DE CAMPOS VACIOS //
 $("#Adduser").click(function(){
     var user = $("#Usuario").val();
     var nomc = $("#NombreC").val();
     var priv = $("#rol").val().trim();
     var pasw = $("#Pass").val();
-    if(user =="" | nomc =="" | priv == "" | pasw==""){
+    if(pasw =="" && priv =="5")
+    {
+        pasw = null;
+    }
+    if(user =="" | nomc =="" | priv == "" | pasw ==""){
         swal({
             text:"TODOS LOS CAMPOS SON REQUERIDOS, "+
             " DEBE COMPLETAR EL CAMPO FALTANTE",
@@ -292,73 +339,6 @@ function checksubmit(form)
     $("#load").show();
     return true;
 }
-
-function CambiarPass(IdUser){
-    var pass = '';
-
-    swal({
-        title: 'Escriba Contraseña',
-        input: 'password',
-        inputPlaceholder: "Nueva Contraseña",
-        confirmButtonText: 'SIGUIENTE',
-        showCloseButton: true,
-        showLoaderOnConfirm: true,
-        preConfirm: function (password) {
-            return new Promise(function (resolve, reject) {
-                setTimeout(function() {
-                    if (password == '') {
-                    reject('La Contraseña no puede ser vacia!')
-                    } else {
-                    resolve()
-                    }
-                }, 900)
-            })
-        },
-        allowOutsideClick: false
-    }).then(function (password) {
-        var pass = password;
-
-        swal({
-            title: 'Confirma Contraseña',
-            input: 'password',
-            inputPlaceholder: "Confirma Contraseña",
-            confirmButtonText: 'CAMBIAR',
-            showCloseButton: true,
-            showLoaderOnConfirm: true,
-            preConfirm: function (password) {
-                return new Promise(function (resolve, reject) {
-                    setTimeout(function() {
-                        if (password == '') {
-                            reject('La Contraseña no puede ser vacia!')
-                        } else if (password != pass) {
-                            reject('Las Contraseña no son iguales!')
-                        }else {
-                            resolve()
-                        }
-                    }, 900)
-                })
-            },
-            allowOutsideClick: false
-        }).then(function (password) {
-            $.ajax({
-                url: "ClaveUsuario/"+IdUser+"/"+password,
-                type: "post",
-                async:true,
-                success:
-                    function(){
-                        swal({title: 'Bien!',
-                              text: 'La Contraseña se Cambio Correctamente!',
-                              type: 'success',
-                              confirmButtonText: 'CERRAR',
-                        }).then(
-                            function(){gotopage("Usuarios");}
-                        )
-                    }
-            });
-        })
-    })
-}
-
 function BorrarUsuario(IdUsuario, Estado){
     debugger;
    if(Estado==1){var miMSS = "¿DESEA CAMBIAR EL ESTADO ACTIVO AL USUARIO?";
@@ -390,138 +370,3 @@ function BorrarUsuario(IdUsuario, Estado){
         });
     })
 }
-
-
-/*/////////////////////////////////////////////////////////////////////////////////////////
-                                    FUNCIONES SOBRE TRABAJADOR
-//////////////////////////////////////////////////////////////////////////////////////////*/
-function BorrarTrabajador(IdUser, Estado){
-    if(Estado==1){var miMSS = "¿DESEA CAMBIAR EL ESTADO ACTIVO AL TRABAJADOR?";
-    }else{var miMSS = "¿DESEA CAMBIAR EL ESTADO INACTIVO AL TRABAJADOR?";}
-    
-    swal({ title: " ",
-           text: miMSS,
-           type: 'warning',
-           showCloseButton: true,
-           confirmButtonColor: '#831F82',
-           confirmButtonText: 'CAMBIAR'
-        }).then(function () {
-            $.ajax({ url: "EliminarTrabajador/"+IdUser+"/"+Estado,
-                     type: "post",
-                     async:true,
-                     success:
-                        function(){
-                            swal({title: "EL TRABAJADOR SE CAMBIO CORECTAMENTE!",
-                                  type: "success",
-                                  confirmButtonText: "CERRAR",
-                            }).then(
-                                function(){gotopage("Trabajadores");}
-                            )
-                        }
-                })
-        })
-}
-
-
-function CalendarWK(Iduser, Nuser){
-    $("h6#TxtNombre").html(Nuser);
-
-    $('#CWorker').openModal(
-        {   dismissible: false, 
-            complete: function() { gotopage("Trabajadores");} 
-        }
-    );
-    
-	var calendar =  $("div#calendar").fullCalendar({
-        monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
-        monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
-        dayNames: ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'],
-        dayNamesShort: ['Dom', 'Lun','Mar','Mié','Jue','Vie','Sáb'],
-        defaultDate: Date(),
-		editable: true,
-		height:480, 
-        eventLimit: true, // allow "more" link when too many events
-        events: "Calendario/"+Iduser,
-        selectable: true,
-        selectHelper: true,
-        dayClick: function(date) {
-             Fecha = $.fullCalendar.formatDate(date, "YYYY-MM-D");
-
-             $.ajax({url: "FEvento/"+Iduser+"/"+Fecha,
-                type: "post",
-                async:true,
-                success:
-                    function(existe){
-                        if (existe == 0)
-                        {
-                            swal({
-                                title: 'Digite los Puntos',
-                                input: 'number',
-                                inputPlaceholder: "Nuevos Puntos",
-                                confirmButtonText: 'AGREGAR',
-                                showCloseButton: true,
-                                showLoaderOnConfirm: true,
-                                preConfirm: function (value) {
-                                    return new Promise(function (resolve, reject) {
-                                    setTimeout(function(){if (value == '') {reject('Los Puntos no pueden ser Vacios!')
-                                                               }else{resolve()}
-                                                        }, 900
-                                              )
-                                    })
-                                },
-                                allowOutsideClick: false
-                            }).then(function (value) {
-                                $.ajax({url: "GCalendario/"+Iduser+"/"+value+"/"+Fecha,
-                                        type: "post",
-                                        async:true,
-                                        success:
-                                        function(){
-                                            swal({title: "LOS PUNTOS SE AGREGARON CORECTAMENTE!",
-                                                  type: "success",
-                                                  confirmButtonText: "CERRAR",
-                                            }).then(function(){calendar.fullCalendar("refetchEvents");})
-                                        }
-                                });
-                            })
-                        }//FIN del else
-                    }//FIN de la funcion
-            });
-
-        },
-        eventClick: function(event) {
-            swal({
-                title: 'Digite los Puntos',
-                input: 'number',
-                inputPlaceholder: event.title,
-                confirmButtonText: 'CAMBIAR',
-                showCloseButton: true,
-                showLoaderOnConfirm: true,
-                preConfirm: function (value) {
-                    return new Promise(function (resolve, reject) {
-                        setTimeout(function(){if (value == '') {reject('Los Puntos no pueden ser Vacios!')
-                                                               }else{resolve()}
-                                             }, 900
-                                  )
-                    })
-                },
-                allowOutsideClick: false
-            }).then(function (value) {
-                    Fecha = $.fullCalendar.formatDate(event.start, "YYYY-MM-D");
-
-                    $.ajax({url: "UCalendario/"+Iduser+"/"+event.Id+"/"+value+"/"+Fecha,
-                        type: "post",
-                        async:true,
-                        success:
-                            function(){
-                                swal({title: "LOS PUNTOS SE ACTUALIZARON CORECTAMENTE!",
-                                    type: "success",
-                                    confirmButtonText: "CERRAR",
-                                }).then(function(){calendar.fullCalendar("refetchEvents");})
-                            }
-                    });//FIN del ajax ACTUALIZAR
-            })//FIN del then del swal
-        }//FIN evento Click
-	 });
-}
-
-

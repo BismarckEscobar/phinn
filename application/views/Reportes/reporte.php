@@ -30,7 +30,6 @@
 	        <tr class="tblcabecera">
 	            <th>Id reporte</th>
 	            <th>Nº orden</th>
-	            <th>Tipo</th>
 	            <th>Usuario</th>                                    
 	            <th>Fecha Inicio</th>
 	            <th>Fecha Fin</th>
@@ -43,14 +42,13 @@
                 } else {
                     foreach ($listaReport as $list) {
                         if($list['Estado'] == 0){
-                            $activo="<td><a data-tooltip='CAMBIAR A ACTIVO' class='btn-flat tooltipped noHover' onclick='cambiaStatusRpt(".'"'.$list['IdReporte'].'"'.", 1)'><i style='color:green; font-size:30px;' class='material-icons'>done</i></a></td>";
+                            $activo="<td><a data-tooltip='CAMBIAR A ACTIVO' class='btn-flat tooltipped noHover' onclick='cambiaStatusRpt(".'"'.$list['IdOrden'].'"'.", 1)'><i style='color:green; font-size:30px;' class='material-icons'>done</i></a></td>";
                         }else{
-                            $activo="<td><a data-tooltip='CAMBIAR A INACTIVO' class='btn-flat tooltipped noHover' onclick='cambiaStatusRpt(".'"'.$list['IdReporte'].'"'.", 0)'><i style='color:red; font-size:30px;' class='material-icons'>close</i></a></td>";
+                            $activo="<td><a data-tooltip='CAMBIAR A INACTIVO' class='btn-flat tooltipped noHover' onclick='cambiaStatusRpt(".'"'.$list['IdOrden'].'"'.", 0)'><i style='color:red; font-size:30px;' class='material-icons'>close</i></a></td>";
                         }                          
                         echo "<tr>                                    
-                                <td class='regular'>".$list['IdReporte']."</td>
+                                <td class='regular'>".$list['IdOrden']."</td>
                                 <td class='bold'>".$list['NoOrden']."</td>
-                                <td class='bold'>".$list['Tipo']."</td>
                                 <td class='bold'>".$list['Usuario']."</td>
                                 <td class='bold'>".$list['FechaInicio']."</td>
                                 <td class='bold'>".$list['FechaFin']."</td>

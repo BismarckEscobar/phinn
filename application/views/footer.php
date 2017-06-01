@@ -31,5 +31,6 @@
 
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/moment.min.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/fullcalendar.min.js"></script>
+        <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/materialize.clockpicker.js"></script>
 </body>
 </html>
