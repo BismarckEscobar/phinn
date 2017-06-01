@@ -49,6 +49,20 @@
                                         </a>
                                     </div>
                               </div>
+
+
+                              <div class="col offset-l3 s12 l2">
+                                    <div class="card small" >
+                                        <a href='.base_url("index.php/OrdenProduccion").'>
+                                            <div class="card-image">
+                                                <img style="margin-top:20px;" src='.base_url("assets/img/menu/reportes.jpg").' >
+                                            </div>
+                                            <div class="card-content center">
+                                                <p style="color:black;">ORDEN PRODUCCIÓN</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                              </div>
                               ';
                     break;
                     case 2: 

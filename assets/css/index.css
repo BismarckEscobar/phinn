@@ -288,6 +288,9 @@ select
 .center{
     text-align: center!important;
 }
-.contdiv-cont .dataTables_filter{
+.dataTables_filter{
     display:none;
+}
+.spinner-layer {
+    border-color: purple;
 }
