@@ -147,7 +147,7 @@
                 <div class="row">
                     <div class="col s12 m6 s6">
                         <select name="rol" id="rol" class="chosen-select browser-default">
-                            <option value="" disabled selected>SELECCIONA UN ROL</option>
+                            <option value="" class="disabled">SELECCIONA UN ROL</option>
                             <option value="1">ADMINNISTRADOR</option>
                             <option value="2">GERENTE</option>
                             <option value="3">SUPERVISOR</option>

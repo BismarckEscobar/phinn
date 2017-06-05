@@ -29,9 +29,17 @@ class Ordenproduccion_model extends CI_Model
         }
     }
 
-        public function Guardar($FechaIn, $FechaFin, $Coord, $Grup, $Tipo)
+        public function Guardar($Cons,$NoOrd,$Turno,$FechaIn, $FechaFin, $Coord, $Grup, $Tipo)
     {
+        $duplicado = $this->db->get_where('reporte_diario',array('Consecutivo' => $Cons, 'Turno' => $Turno));
+        if ($duplicado->num_rows() > 0) {
+            echo "El registro ya existe";
+        }
+        else{
         $data = array(
+            "Consecutivo" => $Cons,
+            "NoOrder" => $NoOrd,
+            "Turno" => $Turno,
             "FechaInicio" => $FechaIn,
             "FechaFinal" => $FechaFin,
             "Coordinador" => $Coord,
@@ -39,6 +47,22 @@ class Ordenproduccion_model extends CI_Model
             "TipoPapel" => $Tipo
         );
         $this->db->insert("reporte_diario",$data);
+        }
+    }
 
+    public function Listar()
+    {
+        $query = $this->db->select("reporte_diario.Consecutivo,reporte_diario.NoOrder,
+        reporte_diario.Turno,reporte_diario.FechaInicio,reporte_diario.FechaFinal,reporte_diario.Coordinador,
+        usuarios.Nombre, usuarios.IdUsuario,reporte_diario.Grupo,reporte_diario.TipoPapel")
+        ->from("reporte_diario")
+        ->join("usuarios", "reporte_diario.Coordinador = usuarios.IdUsuario");
+        $query = $this->db->order_by("reporte_diario.Consecutivo","asc");
+        $query = $this->db->get();
+        if ($query->num_rows()>0) {
+            return $query->result_array();
+        }else{
+            return false;
+        }
     }
 }
