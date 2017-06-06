@@ -2,9 +2,9 @@
                 CONTENIDO
 ///////////////////////////////////////////////////////////-->
 <main class="mdl-layout__content mdl-color--grey-100">
-    <div class="contenedor">        
+    <div class="contenedor">
         <div class="container">
-            <div class="Buscar row column">               
+            <div class="Buscar row column noMargen">
                 <div class="col s1 m1 l1 offset-l3 offset-m2">
                     <i style='color:#039be5; font-size:40px;' class="material-icons">search</i>
                 </div>
@@ -22,7 +22,7 @@
         <div class="right row">
             <div id="crearU" class="col s1 m1 l1">
                 <a data-tooltip='CREAR USUARIO' href="#AUsuario" class="modal-trigger tooltipped">
-                    <i style='font-size:40px;' class="waves-effect waves-purple material-icons">recent_actors</i>
+                    <i style='font-size:40px;' class="material-icons">recent_actors</i>
                 </a>
             </div>
 
@@ -30,7 +30,7 @@
 
             <div class="col s1 m1 l1">
                 <a data-tooltip='CERRAR' href="<?php echo base_url('index.php/dashboard')?>" class="tooltipped">
-                    <i style='font-size:35px;' class="waves-effect waves-red material-icons">highlight_off</i>
+                    <i style='font-size:35px;' class="material-icons">keyboard_backspace</i>
                 </a>
             </div>
         </div>
@@ -39,7 +39,7 @@
 
 
         <div class="div-cont">
-            <table id="TblMaster" class="striped">
+            <table id="TblMaster" class="striped responsive-table col s12 m6 s6">
                 <thead>
                 <tr class="tblcabecera">
                     <th style="border-radius: 20px 0px 0px 20px;">Nº</th>
@@ -66,8 +66,11 @@
                         }elseif ($key['Privilegio'] == 3) {
                             $per = "Supervisor";
 
-                        }else{
+                        }elseif($key['Privilegio'] == 4){
                             $per = "Coordinador";
+                        }
+                        else{
+                            $per = "Operario";
                         }
 
                         if($key['Estado'] == 1){
@@ -89,7 +92,7 @@
                 ?>
                 </tbody>
             </table>
-        </div>
+            </div>
             </div>
         </div>
 </main>
@@ -142,13 +145,14 @@
                 </div>
                 <br><br>
                 <div class="row">
-                    <div class="col s6">
+                    <div class="col s12 m6 s6">
                         <select name="rol" id="rol" class="chosen-select browser-default">
-                            <option value="">SELECCIONA UN ROL</option>
+                            <option value="" class="disabled">SELECCIONA UN ROL</option>
                             <option value="1">ADMINNISTRADOR</option>
                             <option value="2">GERENTE</option>
                             <option value="3">SUPERVISOR</option>
                             <option value="4">COORDINADOR</option>
+                            <option value="5">OPERARIO</option>
                         </select><label id="lblRol" class="labelValidacion">SELECCIONE UN ROL</label>
                     </div>
                 </div>

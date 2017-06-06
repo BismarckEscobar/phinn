@@ -21,6 +21,8 @@
         }
 
         public function Guardar($user,$name,$pass,$rol,$estado){
+        if($rol != "5")
+        {
             $data = array(
                 'Usuario' => $user,
                 'Nombre' => $name,
@@ -28,6 +30,15 @@
                 'Privilegio' => $rol,
                 'Estado' => $estado
             );
+        }
+            else{
+                $data = array(
+                    'Usuario' => $user,
+                    'Nombre' => $name,
+                    'Privilegio' => $rol,
+                    'Estado' => $estado
+                );
+            }
             $this->db->insert('usuarios', $data);
         }
 

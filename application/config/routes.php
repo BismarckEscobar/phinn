@@ -17,13 +17,10 @@
     $route['GuardarUsuario'] = 'Usuarios/Guardar';
     $route['EditarUsuario/(:any)/(:any)']= "Usuarios/Eliminar/$1/$2";
     $route['ClaveUsuario/(:any)/(:any)']= "Usuarios/Clave/$1/$2";
-    
 
-       
-    /*************LINK DE EMPLEADOS***********/
-    $route['Empleados'] = 'Empleados_controller';
-    $route['GuardarEmpleado'] = 'Empleados/GuardarEm';
-    $route['EliminarTrabajador/(:any)/(:any)'] = "Trabajadores/Eliminar/$1/$2";
+/********************LINK DE PRODUCCION*************************/
+$route['OrdenProduccion'] = 'Ordenproduccion_controller';
+$route['GuardaOrden'] = 'Ordenproduccion_controller/GuardarRD';
 
 
     /*************LINKS DE REPORTES***********/
