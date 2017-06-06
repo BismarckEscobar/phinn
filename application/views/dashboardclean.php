@@ -10,8 +10,11 @@
 				echo '<a href="#" class="brand-logo center">LISTA DE TRABAJADORES</a>';
 			}elseif($this->uri->segment(1)=='Reportes'){
 				echo '<a href="#" class="brand-logo center">REPORTES</a>';
+			}elseif($this->uri->segment(1)=='reporte'){
+				echo '<a href="#" class="brand-logo center">ORDEN DE PRODUCCIÓN</a>';
+			}elseif($this->uri->segment(1)=='tiemposmuertos'){
+				echo '<a href="#" class="brand-logo center">TIEMPOS MUERTOS</a>';
 			}
-			
 			echo '<ul class="right hide-on-med-and-down">        	
 						<li ><a href="'.base_url("index.php/Salir").'"><i style="font-size:40px;" class="material-icons">power_settings_new</i></a></li>  
 				  </ul> ';

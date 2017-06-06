@@ -8,35 +8,142 @@ class reporte_Model extends CI_Model{
 	}
 
 	public function guardarRep($data) {
-		$result = $this->db->insert('reportes', $data);
+		$result = $this->db->insert('orden_produccion', $data);
 		return $result;
 	}
 
 	public function listaReportes() {
-	$query=$this->db->get('view_reporte');
+	$query=$this->db->get('view_orden_produccion');
 	if ($query->num_rows()>0) {
 		return $query->result_array();
 	} else {
 		return false;
 	}
 }
-    public function cambiaStatusRpt1($id, $status){
-    $this->db->where('IdReporte', $id);
-    $data = array('Estado' => $status);
-    $this->db->update('reportes', $data);
+    public function cambiaStatusRpt1($idRpt, $status){
+	    $data = array('Estado' => $status);
+	    $this->db->where('IdOrden', $idRpt);
+	    $this->db->update('orden_produccion', $data);
 	}
 
 	public function validaNumeroRpt($numeroRt) {
 		$valor=false;
 		$this->db->where('NoOrden', $numeroRt);
-		$query=$this->db->get('reportes');
+		$query=$this->db->get('orden_produccion');
 		if ($query->num_rows()>0) {
 			$valor=true;
 		} else {
 			$valor=false;
 		}
-		return $valor;
+		echo $valor;
 	}
 
+	public function validaStatusOrd() {
+		$valor=false;
+		$this->db->where('Estado =', 1);
+		$query=$this->db->get('orden_produccion');
+		if ($query->num_rows()>0) {
+			$valor=true;
+		} else {
+			$valor=false;
+		}
+		echo $valor;
+	}
+
+	public function validaFechaOrd() {
+		$this->db->where('Estado =', 1);
+		$this->db->select('FechaFin');
+		$query=$this->db->get('orden_produccion');
+		if ($query->num_rows()>0) {
+			return $query->result_array();
+		} else {
+			return false;
+		}
+	}
+
+	public function ultimaFch($IDs) {
+		//$ultimaF = $this->db->query("SELECT ord.FechaInicio FROM orden_produccion as ord where ord.NoOrden=".$IDs."");
+		$result1="";
+		$this->db->where('NoOrden =', $IDs);
+		$this->db->select('FechaInicio');
+		$query=$this->db->get('orden_produccion');
+		foreach ($query->result_array() as $key) {
+			$result1 = $key['FechaInicio'];
+		}
+		echo $result1;
+	}
+
+	public function guardaConsecutivo($dias, $noOrden) {
+		$array1 = array();$array2 = array();$arrayF = array(); $result=false;
+		for ($i=1; $i <= $dias; $i++) { 
+			$array1[$i]['Consecutivo'] = $i;
+			$array1[$i]['NoOrder'] = $noOrden;
+			$array1[$i]['Turno'] = 'Vespertino';
+
+			$array2[$i]['Consecutivo'] = $i;
+			$array2[$i]['NoOrder'] = $noOrden;
+			$array2[$i]['Turno'] = 'Matutino';
+			}
+		$arrayF = array_merge($array1, $array2);
+		foreach ($arrayF as $key) {
+			$data=array(
+				'Consecutivo' => $key['Consecutivo'],
+				'NoOrder' => $key['NoOrder'],
+				'Turno' => $key['Turno']
+			);
+			$result = $this->db->insert('reporte_diario', $data);
+		}
+		echo $result;
+	}
+
+	public function buscarOrdenP($idUnico) {
+		$this->db->where('IdOrden', $idUnico);
+        $query=$this->db->get('orden_produccion');
+        if($query->num_rows()>0){
+            return $query->result_array();
+        }else{
+        	return 0;	
+        }        
+	}
+
+	public function editarOrden($data, $id) {
+        $this->db->where('IdOrden', $id);
+        $this->db->update('orden_produccion', $data);
+	}
+
+	public function buscarOrdP($codOrd) {
+		$valor=false;
+		$this->db->where('NoOrder =', $codOrd);
+		$query=$this->db->get('reporte_diario');
+		if ($query->num_rows()>0) {
+			$valor=true;
+		} else {
+			$valor=false;
+		}
+		echo $valor;
+	}
+
+	public function cambiarOrdenActiva($numOrden){
+		$status="";$resp="";
+		$this->db->where('IdOrden =', $numOrden);
+		$this->db->select('Estado');
+		$query=$this->db->get('orden_produccion');
+		foreach ($query->result_array() as $key) {
+			$status = $key['Estado'];
+		}
+		if ($status==0) {
+			$resp=false;
+		}else {
+			$data = array('Estado' => 2);
+			$this->db->where('Estado =', 1);
+			$this->db->update('orden_produccion', $data);
+
+			$data = array('Estado' => 1);
+			$this->db->where('IdOrden =', $numOrden);
+			$this->db->update('orden_produccion', $data);
+			$resp=true;
+		}
+		echo $resp;
+	}
 }
 ?>

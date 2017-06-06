@@ -20,6 +20,7 @@
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.dataTables.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/materialize.min.js"></script>
+        <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/materialize.clockpicker.js"></script>
 
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/index.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/index_admin.js"></script>
@@ -31,5 +32,8 @@
 
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/moment.min.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/fullcalendar.min.js"></script>
+        <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/materialize.clockpicker.js"></script>
+
+        
 </body>
 </html>

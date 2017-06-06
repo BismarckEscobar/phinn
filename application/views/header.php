@@ -23,6 +23,8 @@
         <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/fullcalendar.min.css"/>
         <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/fullcalendar.print.min.css" media="print"/>
 
+        <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/materialize.clockpicker.css" media="screen,projection" />
+
         <style type="text/css" media="screen">
             select{
                 display: block;

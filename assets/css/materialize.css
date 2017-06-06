@@ -6229,7 +6229,65 @@ button.btn-floating {
 /* Firefox Bug: link not triggered */
 a.waves-effect .waves-ripple {
   z-index: -1; }
+/***********MODALES MODIFICADOS********************/
+.modal1 {
+  display: none;
+  position: fixed;
+  left: 0;
+  right: 0;
+  background-color: #fafafa;
+  padding: 0;
+  max-height: 84%;
+  width: 60%;
+  height: 500px;
+  margin: auto;
+  overflow-y: auto;
+  border-radius: 2px;
+  will-change: top, opacity; }
 
+  @media only screen and (max-width : 992px) {
+    .modal1 {
+      width: 80% !important; } }
+  .modal1 h1, .modal1 h2, .modal1 h3, .modal1 h4 {
+    margin-top: 0; }
+  .modal1 .modal-content {
+    padding: 24px; }
+  .modal1 .modal-close {
+    cursor: pointer; }
+  .modal1 .modal-footer {
+    border-radius: 0 0 2px 2px;
+    background-color: #fafafa;
+    padding: 4px 6px;
+    height: 56px;
+    width: 100%; }
+    .modal1 .modal-footer .btn, .modal1 .modal-footer .btn-large, .modal1 .modal-footer .btn-flat {
+      float: right;
+      margin: 6px 0; }
+
+  .modal1.modal-fixed-footer {
+  padding: 0;
+  height: 70%; }
+  .modal1.modal-fixed-footer .modal-content {
+    position: absolute;
+    height: calc(100% - 56px);
+    max-height: 100%;
+    width: 100%;
+    overflow-y: auto; }
+  .modal1.modal-fixed-footer .modal-footer {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    position: absolute;
+    bottom: 0; }
+
+.modal1.bottom-sheet {
+  top: auto;
+  bottom: -100%;
+  margin: 0;
+  width: 100%;
+  max-height: 45%;
+  border-radius: 0;
+  will-change: bottom, opacity; }
+
+/***********FIN DE MODALES MODIFICADOS************/
 .modal {
   display: none;
   position: fixed;
