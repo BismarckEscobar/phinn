@@ -37,19 +37,19 @@
                                     </div>
                               </div>
 
+
                               <div class="col s12 l2">
                                     <div class="card small" >
-                                        <a href='.base_url("index.php/reporte_Controller").'>
+                                        <a href='.base_url("index.php/tiemposmuertos").'>
                                             <div class="card-image">
-                                                <img style="margin-top:20px;" src='.base_url("assets/img/menu/reportes.jpg").' >
+                                                <img style="margin-top:20px;" src='.base_url("assets/img/menu/agregar-usuario.png").' >
                                             </div>
                                             <div class="card-content center">
-                                                <p style="color:black;">REPORTES</p>
+                                                <p style="color:black;">TIEMPOS MUERTOS</p>
                                             </div>
                                         </a>
                                     </div>
                               </div>
-
 
                               <div class="col offset-l3 s12 l2">
                                     <div class="card small" >
@@ -62,8 +62,8 @@
                                             </div>
                                         </a>
                                     </div>
-                              </div>
-                              ';
+                              </div>';
+
                     break;
                     case 2: 
                         echo '<div class="col offset-l4 s12 l2">
@@ -74,19 +74,6 @@
                                             </div>
                                             <div class="card-content center">
                                                 <p style="color:black;">CREAR TRABAJADOR</p>
-                                            </div>
-                                        </a>
-                                    </div>
-                              </div>
-
-                              <div class="col s12 l2">
-                                    <div class="card small" >
-                                        <a href='.base_url("index.php/reporte_Controller").'>
-                                            <div class="card-image">
-                                                <img style="margin-top:20px;" src='.base_url("assets/img/menu/reportes.jpg").' >
-                                            </div>
-                                            <div class="card-content center">
-                                                <p style="color:black;">REPORTES</p>
                                             </div>
                                         </a>
                                     </div>

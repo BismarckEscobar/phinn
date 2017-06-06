@@ -199,7 +199,53 @@ th {
     background-color: #233778;
 }
 
+/******TABLA TIEMPOS MUERTOS************/
+#tlbTiemposMuertos tr:nth-child(even) {
+    background-color: #CCCCCC;
+     text-align: center;
+}
+#tlbTiemposMuertos tr:nth-child(odd) {
+    background-color: #E6E6E6;
+    text-align: center;
+}
+td,th{
+     text-align: center;
+}
+#tlbTiemposMuertos thead tr td{
+    background-color: #233778;
+    border-color: #233778;
+}
+#tlbTiemposMuertos thead tr th{
+    background-color: #e0ffff;
+    border-color: #233778;
+    height: 10px;
+    padding: 10px 10px;
+}
+
+#tlbTiemposMuertos2 tr:nth-child(even) {
+    background-color: #CCCCCC;
+     text-align: center;
+}
+#tlbTiemposMuertos2 tr:nth-child(odd) {
+    background-color: #E6E6E6;
+    text-align: center;
+}
+td,th{
+     text-align: center;
+}
+#tlbTiemposMuertos2 thead tr td{
+    background-color: #233778;
+    border-color: #233778;
+}
+#tlbTiemposMuertos2 thead tr th{
+    background-color: #e0ffff;
+    border-color: #233778;
+    height: 10px;
+    padding: 10px 10px;
+}
+
 .regular {
+
     font-family: 'robotoregular'!important;
 }
 
@@ -218,6 +264,7 @@ th {
 .tblcabecera {
     font-family: 'robotoblack'!important;
     color: white;
+    text-transform: uppercase!important;
 }
 
 .filtro {
@@ -355,6 +402,12 @@ select {
 
 .spinner-layer {
     border-color: purple;
+}
+
+
+/*********ESTILOS PARA TEXT-AREA******************/
+.text-area-ord {
+    border-style: solid #8b008b; border-color: #8b008b; height: 100px;
 }
 
 
