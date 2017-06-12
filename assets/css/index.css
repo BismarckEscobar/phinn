@@ -1,31 +1,31 @@
 @font-face {
     font-family: 'robotoblack';
-    src: url('/SISCOV/assets/font/roboto/roboto-black-webfont.eot');
-    src: url('/SISCOV/assets/font/roboto/roboto-black-webfont.eot?#iefix') format('embedded-opentype'), url('/SISCOV/assets/font/roboto/roboto-black-webfont.woff2') format('woff2'), url('/SISCOV/assets/font/roboto/roboto-black-webfont.woff') format('woff'), url('/SISCOV/assets/font/roboto/roboto-black-webfont.ttf') format('truetype'), url('/SISCOV/assets/font/roboto/roboto-black-webfont.svg#robotoblack') format('svg');
+    src: url('/phinn/assets/font/roboto/roboto-black-webfont.eot');
+    src: url('/phinn/assets/font/roboto/roboto-black-webfont.eot?#iefix') format('embedded-opentype'), url('/phinn/assets/font/roboto/roboto-black-webfont.woff2') format('woff2'), url('/phinn/assets/font/roboto/roboto-black-webfont.woff') format('woff'), url('/phinn/assets/font/roboto/roboto-black-webfont.ttf') format('truetype'), url('/phinn/assets/font/roboto/roboto-black-webfont.svg#robotoblack') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'robotobold';
-    src: url('/SISCOV/assets/font/roboto/roboto-bold-webfont.eot');
-    src: url('/SISCOV/assets/font/roboto/roboto-bold-webfont.eot?#iefix') format('embedded-opentype'), url('/SISCOV/assets/font/roboto/roboto-bold-webfont.woff2') format('woff2'), url('/SISCOV/assets/font/roboto/roboto-bold-webfont.woff') format('woff'), url('/SISCOV/assets/font/roboto/roboto-bold-webfont.ttf') format('truetype'), url('/SISCOV/assets/font/roboto/roboto-bold-webfont.svg#robotobold') format('svg');
+    src: url('/phinn/assets/font/roboto/roboto-bold-webfont.eot');
+    src: url('/phinn/assets/font/roboto/roboto-bold-webfont.eot?#iefix') format('embedded-opentype'), url('/phinn/assets/font/roboto/roboto-bold-webfont.woff2') format('woff2'), url('/phinn/assets/font/roboto/roboto-bold-webfont.woff') format('woff'), url('/phinn/assets/font/roboto/roboto-bold-webfont.ttf') format('truetype'), url('/phinn/assets/font/roboto/roboto-bold-webfont.svg#robotobold') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'robotomedium';
-    src: url('/SISCOV/assets/font/roboto/roboto-medium-webfont.eot');
-    src: url('/SISCOV/assets/font/roboto/roboto-medium-webfont.eot?#iefix') format('embedded-opentype'), url('/SISCOV/assets/font/roboto/roboto-medium-webfont.woff2') format('woff2'), url('/SISCOV/assets/font/roboto/roboto-medium-webfont.woff') format('woff'), url('/SISCOV/assets/font/roboto/roboto-medium-webfont.ttf') format('truetype'), url('/SISCOV/assets/font/roboto/roboto-medium-webfont.svg#robotomedium') format('svg');
+    src: url('/phinn/assets/font/roboto/roboto-medium-webfont.eot');
+    src: url('/phinn/assets/font/roboto/roboto-medium-webfont.eot?#iefix') format('embedded-opentype'), url('/phinn/assets/font/roboto/roboto-medium-webfont.woff2') format('woff2'), url('/phinn/assets/font/roboto/roboto-medium-webfont.woff') format('woff'), url('/phinn/assets/font/roboto/roboto-medium-webfont.ttf') format('truetype'), url('/phinn/assets/font/roboto/roboto-medium-webfont.svg#robotomedium') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'robotoregular';
-    src: url('/SISCOV/assets/font/roboto/roboto-regular-webfont.eot');
-    src: url('/SISCOV/assets/font/roboto/roboto-regular-webfont.eot?#iefix') format('embedded-opentype'), url('/SISCOV/assets/font/roboto/roboto-regular-webfont.woff2') format('woff2'), url('/SISCOV/assets/font/roboto/roboto-regular-webfont.woff') format('woff'), url('/SISCOV/assets/font/roboto/roboto-regular-webfont.ttf') format('truetype'), url('/SISCOV/assets/font/roboto/roboto-regular-webfont.svg#robotoregular') format('svg');
+    src: url('/phinn/assets/font/roboto/roboto-regular-webfont.eot');
+    src: url('/phinn/assets/font/roboto/roboto-regular-webfont.eot?#iefix') format('embedded-opentype'), url('/phinn/assets/font/roboto/roboto-regular-webfont.woff2') format('woff2'), url('/phinn/assets/font/roboto/roboto-regular-webfont.woff') format('woff'), url('/phinn/assets/font/roboto/roboto-regular-webfont.ttf') format('truetype'), url('/phinn/assets/font/roboto/roboto-regular-webfont.svg#robotoregular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -158,48 +158,17 @@ table.display tr.odd.row_selected td {
     margin-top: 2%;
 }
 
-#TblMaster tr:nth-child(even) {
+table tr:nth-child(even) {
     background-color: #CCCCCC;
     text-align: center;
 }
-
-#TblMaster tr:nth-child(odd) {
-    background-color: #E6E6E6;
-    text-align: center;
-}
-
 td,
 th {
     text-align: center;
-}
-
-#TblMaster thead tr th {
-    background-color: #233778;
-}
-
-
-/******TABLA LISTA REPORTES************/
-
-#tlbListaRep tr:nth-child(even) {
-    background-color: #CCCCCC;
-    text-align: center;
-}
-
-#tlbListaRep tr:nth-child(odd) {
-    background-color: #E6E6E6;
-    text-align: center;
-}
-
-td,
-th {
-    text-align: center;
-}
-
-#tlbListaRep thead tr th {
-    background-color: #233778;
 }
 
 .regular {
+
     font-family: 'robotoregular'!important;
 }
 
@@ -216,8 +185,9 @@ th {
 }
 
 .tblcabecera {
-    font-family: 'robotoblack'!important;
+    font-family: 'robotobold'!important;
     color: white;
+    text-transform: uppercase!important;
 }
 
 .filtro {
@@ -300,7 +270,7 @@ table.dataTable.no-footer {
 
 #tableabc,
 table.dataTable thead th {
-    padding: 1px 18px!important;
+    padding: 10px 18px!important;
 }
 
 input[type=search] {
@@ -357,6 +327,48 @@ select {
     border-color: purple;
 }
 
+
+/*********ESTILOS PARA TEXT-AREA******************/
+.text-area-ord {
+    border-style: solid #8b008b; border-color: #8b008b; height: 100px;
+}
+
+/******** STYLE MENU ORDEN DE TRABAJO ****/
+.collection a.collection-item {
+    color: #f5f5f5;
+}
+.collection .collection-item {
+    border-bottom: 5px solid #f5f5f5;
+}
+.collection .activo{
+    background-color: #8b008b;
+    font-weight: 800;
+}
+.border{
+    border-collapse: collapse;
+    border-spacing:0;
+}
+.color1{
+    color:#000000;
+}
+.border tbody> tr{
+    border-bottom-color: #00C853;
+}
+.tab{
+    background-color: #b9dcbb;
+    font-weight: 800;
+}
+.tab tr{
+    border-spacing: 10px;
+}
+
+.total{
+    text-align: center;
+    color: #ffff00;
+    font-weight: 800;
+    padding-top: 0.5px;
+}
+/****** END style MENU LEFT ****/
 
 /**
 * instead of linking from https://fonts.googleapis.com/icon?family=Material+Icons

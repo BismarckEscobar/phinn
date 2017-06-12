@@ -25,27 +25,84 @@ class reporte_Controller extends CI_Controller {
 		$fechaFinal = date('Y-m-d', strtotime($this->input->post('fechaFinal', TRUE)));
 		$array = array(
 			'NoOrden' => $this->input->post('numOrden', TRUE),
-			'Tipo' => $this->input->post('tipoReporte', TRUE),
 			'Usuario' => $this->session->userdata('IdUser'),
 			'FechaInicio' => $fechaInicio,
 			'FechaFin' => $fechaFinal,
-			'Estado' => 1
+			'Estado' => 3,
+			'comentarios' => $this->input->post('comentario', TRUE)
 		);
 			$this->reporte_Model->guardarRep($array);
 			redirect('reporte');
 	}
 
-	public function cambiaStatusRpt($idReport, $status){
-	$this->reporte_Model->cambiaStatusRpt1($idReport, $status);
+	public function cambiaStatusRpt($idRpt, $status){
+	$this->reporte_Model->cambiaStatusRpt1($idRpt, $status);
 	}
 
 	public function validaNumRpt($id) {
-		$result = FALSE;
-		$bool = $this->reporte_Model->validaNumeroRpt($id);
-		if ($bool =="") {
-			$result = TRUE;
-		} else { $result = FALSE;}
-		echo $result;
+		$this->reporte_Model->validaNumeroRpt($id);
+	}
+
+	public function validaStatusOrdenP() {
+	$bool = $this->reporte_Model->validaStatusOrd();
+	}
+
+	public function validaFechaOrdenP() {
+		$fecha1 = null;
+		$fechaFin = $this->reporte_Model->validaFechaOrd();
+		foreach ($fechaFin as $key) {
+			$fecha1 = $key['FechaFin'];
+		}
+		echo $fecha1;
+	}
+
+	public function obtieneUltFec($id) {
+		$result = $this->reporte_Model->ultimaFch($id);
+	}
+
+	public function guardaConsecutivoOrdP($dias, $noOrden) {		
+		$this->reporte_Model->guardaConsecutivo($dias, $noOrden);
+	}
+
+	public function buscarOrdenProd($identificador) {
+		$iden = $identificador;
+		$json= array();
+		$regOrdenP = $this->reporte_Model->buscarOrdenP($iden);
+		foreach ($regOrdenP as $key) {
+			$dta = array(
+				'IdOrden' => $key['IdOrden'],
+				'NoOrden' => $key['NoOrden'],
+				'Usuario' => $key['Usuario'],
+				'FechaInicio' => $key['FechaInicio'],
+				'FechaFin' => $key['FechaFin'],
+				'Estado' => $key['Estado'],
+				'comentarios' => $key['comentarios']				
+			);
+			$json[] =$dta;
+		}
+		echo json_encode($json);
+	}
+
+	public function editarOrdProd() {
+		$idUnico=$this->input->post('identificador', TRUE);
+		$fechaInicio = date('Y-m-d', strtotime($this->input->post('fechaInicio1', TRUE)));
+		$fechaFinal = date('Y-m-d', strtotime($this->input->post('fechaFinal1', TRUE)));
+		$array = array(
+		'FechaInicio' => $fechaInicio,
+		'FechaFin' => $fechaFinal,
+		'comentarios' => $this->input->post('comentario1', TRUE)
+		);
+		$this->reporte_Model->editarOrden($array, $idUnico);
+
+		redirect('reporte'); 
+	}
+
+	public function buscarOrdenProdEnOrdTr($codOrd) {
+		$this->reporte_Model->buscarOrdP($codOrd);
+	}
+
+	public function cambiarOrdenAct($numOrden) {
+		$this->reporte_Model->cambiarOrdenActiva($numOrden);
 	}
 }
 

@@ -1,34 +1,92 @@
 <main class="mdl-layout__content mdl-color--grey-100">
-    <div class="container">
-
-     <div class="container">
-            <div class="Buscar row column noMargen">
-                <div class="col s1 m1 l1 offset-l3 offset-m2">
-                    <i style='color:#039be5; font-size:40px;' class="material-icons">search</i>
-                </div>
-                <div class="input-field col s12 m6 l4">
-                    <input  id="BuscarUsuarios" type="text" placeholder="Buscar" class="validate">
-                    <label for="search"></label>
+    <div class="row">
+        <div class="col s12">
+            <div class="card">
+                <div class="card-content">
+                    <center><span class="card-title purple-text accent-4" style="font-family: robotoblack;">ORDEN DE PRODUCCIÓN</span></center>
+                    <?php 
+                    foreach($listaReport as $key) {?>
+                    <div class="row">
+                        <center>
+                            <div class="col s4">
+                                <span class="card-title purple-text accent-4" id="lblnoOrden"><?php echo $key["NoOrden"]?></span><br/>
+                                <label class="labelValidacion">N° ORDEN ACTIVA</label>
+                            </div>
+                            <div class="col s4">
+                                <span id="lblFechaInicio" class="card-title purple-text accent-4"><?php echo $key["FechaInicio"]?></span><br/>
+                                <label  class="labelValidacion">FECHA DE INICIO</label>
+                            </div>
+                            <div class="col s4">
+                                <span id="lblFechaFin" class="card-title purple-text accent-4" id="lblnoOrden"><?php echo $key["FechaFin"]?></span><br/>
+                                <label class="labelValidacion">FECHA FINAL</label>
+                            </div>
+                        </center>
+                    </div>
+                    <?php } ?>
                 </div>
             </div>
         </div>
-
-
-    <div class="right row">
-        <div id="OrdeProd" class="col s1 m1 l1">
-            <a data-tooltip='' href="#ordenprod" class="modal-trigger tooltipped">
-                <i style='font-size:40px;' class="mdi-image-add-to-photos"></i>
-            </a>
-        </div>
-
-        <div class="col s1 m1 l1"><p></p></div><div class="col s1 m1 l1"><p></p></div>
-
-        <div class="col s1 m1 l1">
-            <a data-tooltip='CERRAR' href="<?php echo base_url('index.php/dashboard')?>" class="tooltipped">
-                <i style='font-size:35px;' class="mdi-navigation-arrow-back"></i>
-            </a>
+    </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <div class="card">
+                <div class="card-content">
+                    <div class="right row">
+                        <div id="OrdeProd" class="col s12 m12">
+                            <a data-tooltip='AGREGAR NUEVA ORDEN' href="#ordenprod" class="modal-trigger tooltipped">
+                                <i style='font-size:50px; color:#8b008b;' class="mdi-image-add-to-photos"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <center><h4 class="card-title purple-text accent-4" style="font-family: robotoblack;">ORDENES DE TRABAJOS</h4></center>
+                    <table id="TblMaster" class="striped">
+                        <thead>
+                            <tr class="tblcabecera">
+                                <th>N° ORDEN</th>
+                                <th>TURNO</th>
+                                <th>FECHA INICIO</th>
+                                <th>FECHA FIN</th>
+                                <th>COORDINADOR</th>
+                                <th>GRUPO</th>
+                                <th>TIPO PAPEL</th>
+                            </tr>   
+                        </thead>
+                        <tbody>
+                            <?php
+                            if (($lista)) {
+                            foreach ($lista as $key) {
+                            switch($key["Turno"])
+                                {
+                                    case '6:00am-6:00pm':
+                                    $key["Turno"] = "MATUTINO";
+                                    break;
+                                    case '6:00pm-6:00am':
+                                    $key["Turno"] = "VESPERTINO";
+                                    break;
+                                }?>
+                            <?php if ($this->session->userdata("IdUser") == $key["Coordinador"]) {?>
+                            <tr>
+                                <td>
+                                    <a href="../index.php/menuOrdenTrabajo/<?php echo $key["IdReporteDiario"]?>"><?php echo $key["Consecutivo"]?></a>
+                                </td>
+                                <td><?php echo $key["Turno"]?></td>
+                                <td><?php echo $key["FechaInicio"]?></td>
+                                <td><?php echo $key["FechaFinal"]?></td>
+                                <td><?php echo $key["Nombre"]?></td>
+                                <td><?php echo $key["Grupo"]?></td>
+                                <td><?php echo $key["TipoPapel"]?></td>
+                            </tr> 
+                            <?php }?>
+                            <?php } ?>   
+                            <?php } ?>              
+                        </tbody>
+                    </table>  
+                </div>
+            </div>
         </div>
     </div>
+<<<<<<< HEAD
 </div>
 
 
@@ -75,6 +133,9 @@
 </div>
 
  </main>
+=======
+</main>
+>>>>>>> a3d12e180f8311a6dd050a26e9718c7fb7f0e3ba
 
 <!--/////////////////////////////////////////////////////////////////////////////////////////
                                         MODALES
@@ -89,60 +150,42 @@
                 </a>
             </div>
         </div>
-
-        <div class="row noMargen center">
-            <div class="noMargen col s12 m12 l12">
-                <h6 class="center" style="font-family:'robotoblack'; color:#831F82;font-size:30px; margin-bottom:30px;">ORDEN PRODUCCION</h6>
+        <div class="row">
+            <div class="col s12">
+                <center>
+                    <h5><span class="pink-text">ORDEN DE TRABAJO N°: </span>
+                    <span class="pink-text" id="spanNoOrdenT"><?php echo $key["NoOrden"]?></span></h5>
+                    <label>( PROCESO HUMEDO )</label>    
+                </center>            
             </div>
         </div>
-
         <div class="row">
-            <form class="col s12" action="<?php echo base_url("index.php/GuardaOrden")?>"  method="post" name="formAddUser">
-             <div class="row" style="border: 1px solid purple;">
-             <div class="input-field col s1 m1 s1">
-                        <input class="mayuscula" name="cons" id="consecutivo" type="number" class="required">
-                        <label id="lblconsecutivo" class="labelValidacion">Consecutivo</label>
-                    </div>
-                <?php foreach($listaReport as $key) {?>             
-                    <div class="input-field col s2 m2 s2">
-                        <input class="mayuscula" readonly value="<?php echo $key["NoOrden"]?>" name="noOrden" id="noOrden" type="text" class="required">
-                        <label id="lblnoOrden" class="labelValidacion">N° Orden</label>
-                    </div>
-
-                    <div class="input-field col s3 m3 s3">
-                        <input class="mayuscula" readonly value="<?php echo $key["Usuario"]?>" name="User"  id="User" type="text" class="required">
-                        <label id="lblUser" class="labelValidacion">Usuario</label>
-                    </div>
-                    <div class="input-field col s3 m3 s3">
-                        <input name="FechaInicio" readonly value="<?php echo $key["FechaInicio"]?>" id="FechaInicio" type="text">
-                        <label id="lblFechaInicio" class="labelValidacion">Fecha Inicio</label>
-                    </div>
-
-                    <div class="input-field col s3 m3 s3">
-                        <input name="FechaFin" readonly  value="<?php echo $key["FechaFin"]?>" id="FechaFin" type="text">
-                        <label id="lblFechaFin" class="labelValidacion">Fecha Fin</label>
-                    </div>
-                </div>
-                <?php } ?>
-                <br><br>
+            <form action="<?php echo base_url("index.php/GuardaOrden")?>"  method="post" name="formAddUser">
                 <div class="row">
-                    <h6 class="center" style="font-family:'robotoblack'; color:#831F82;font-size:30px; margin-bottom:30px;">PROCESO HUMEDO</h6>
-                    <div class="input-field col s3 m3 s3">
+                    <?php foreach($listaReport as $key) {?>
+                        <input type="hidden" name="noOrden1" value="<?php echo $key["NoOrden"]?>" id="noOrden1">
+                    <?php } ?>                   
+                    <input type="hidden" name="cons" id="cons">   
+                    
+                    <div class="input-field col s6 m6 s6">
                         <input type="date" name="Fechainicio" id="Fechainicio" class="datepicker">
                         <label id="lblFechainicio" class="labelValidacion">Fecha de inicio</label>
                     </div>
-                    <div class="input-field col s3 m3 s3">
+             
+                    <div class="input-field col s6 m6 s6">
                         <input type="date" name="Fechafin" id="Fechafin" class="datepicker">
                         <label id="lblFechafin" class="labelValidacion">Fecha fin</label>
                     </div>
-                    <div class="input-field col s3 m3 s3">
+                </div><br>
+                <div class="row">
+                    <div class="input-field col s6 m6 s6">
                         <input id="timepicker" class="timepicker" type="time">
                         <label for="timepicker">Hora inicio</label>
                     </div>
-                    <div class="input-field col s3 m3 s3">
+                    <div class="input-field col s6 m6 s6">
                         <input id="timepicker1" class="timepicker" type="time">
                         <label for="timepicker1">Hora final</label>
-                    </div>
+                    </div> 
                 </div>
                 <br><br>
                 <div class="row">
