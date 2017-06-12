@@ -49,22 +49,22 @@
                                 foreach ($listaReport as $list) {
                                     if($list['Estado'] == 0){
                                         $activo="<td><a data-tooltip='ORDEN ANULADA' class='btn-flat tooltipped noHover'><i style='color:red; font-size:30px;' class='material-icons'>close</i></a></td>";
-                                        $status="<li><a href='#!' onclick='buscarOrdP(".$list['IdOrden'].")'>Ver</a></li>";
+                                        $status="<li><a href='#!' onclick='buscarOrdProd(".$list['IdOrden'].")'>Ver</a></li>";
                                     }elseif($list['Estado'] == 1){
                                         $activo="<td><a data-tooltip='ORDEN ACTIVA' class='btn-flat tooltipped noHover'><i style='color:green; font-size:30px;' class='material-icons'>done</i></a></td>";
                                         $status="<li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 0)'>Anular</a></li>
                                                  <li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 2)'>Cerrar</a></li>
-                                                 <li><a href='#!' onclick='buscarOrdP(".$list['IdOrden'].")'>Ver</a></li>";
+                                                 <li><a href='#!' onclick='buscarOrdProd(".$list['IdOrden'].")'>Ver</a></li>";
                                     }elseif($list['Estado'] == 2){
                                         $activo="<td><a data-tooltip='ORDEN CERRADA' class='btn-flat tooltipped noHover'><i style='color:red; font-size:30px;' class='material-icons'>not_interested</i></a></td>";
                                         $status="<li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 0)'>Anular</a></li>
-                                                    <li><a href='#!' onclick='buscarOrdP(".$list['IdOrden'].")'>Ver</a></li>";
+                                                    <li><a href='#!' onclick='buscarOrdProd(".$list['IdOrden'].")'>Ver</a></li>";
                                     }elseif($list['Estado'] == 3){
                                         $activo="<td><a data-tooltip='ORDEN INACTIVA' class='btn-flat tooltipped noHover'><i style='color:red; font-size:30px;' class='material-icons'>info_outline</i></a></td>";
                                         $status="<li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 0)'>Anular</a></li>
                                                     <li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 1)'>Activar</a></li>
                                                     <li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 2)'>Cerrar</a></li>
-                                                    <li><a href='#!' onclick='buscarOrdP(".$list['IdOrden'].")'>Ver</a></li>";
+                                                    <li><a href='#!' onclick='buscarOrdProd(".$list['IdOrden'].")'>Ver</a></li>";
                                     }
                                     echo "<tr>                                                                        
                                             <td class='bold'>".$list['NoOrden']."</td>

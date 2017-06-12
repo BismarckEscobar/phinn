@@ -2182,7 +2182,7 @@ footer.page-footer {
     background-color: rgba(51, 51, 51, 0.08); }
 
 table, th, td {
-  border: none; }
+   }
 
 table {
   width: 100%;
@@ -2190,9 +2190,18 @@ table {
   table.bordered > thead > tr, table.bordered > tbody > tr {
     border-bottom: 1px solid #d0d0d0; }
   table.striped > tbody > tr:nth-child(odd) {
-    background-color: #f2f2f2; }
+    background-color: #d8bfd8; }
+  table.striped > tbody > tr:nth-child(even) {
+    background-color:#f0ffff; }
+    text-align: center; }
   table.striped > tbody > tr > td {
     border-radius: 0px; }
+  table.striped {
+    border-collapse: separate;
+    border-spacing: 2px; }
+  table thead tr th {
+    background-color: #800080;
+    padding: 10px 10px;  } 
   table.highlight > tbody > tr {
     -webkit-transition: background-color .25s ease;
     -moz-transition: background-color .25s ease;
@@ -2208,11 +2217,11 @@ thead {
   border-bottom: 1px solid #d0d0d0; }
 
 td, th {
-  padding: 5px 5px;
+  padding: 8px 8px;
   display: table-cell;
-  text-align: left;
+  text-align: center;
   vertical-align: middle;
-  border-radius: 2px; }
+  border-radius: 0px; }
 
 @media only screen and (max-width : 992px) {
   table.responsive-table {
@@ -2275,11 +2284,12 @@ td, th {
   overflow: hidden;
   position: relative; }
   .collection .collection-item {
-    background-color: #fff;
+    background-color: #8b008b;
     line-height: 1.5rem;
     padding: 10px 20px;
     margin: 0;
-    border-bottom: 1px solid #e0e0e0; }
+    border-bottom: 1px solid #e0e0e0;
+    border-radius: 5px; }
     .collection .collection-item.avatar {
       min-height: 84px;
       padding-left: 72px;
@@ -2320,9 +2330,9 @@ td, th {
     -o-transition: 0.25s;
     -ms-transition: 0.25s;
     transition: 0.25s;
-    color: #26a69a; }
+    color: white; }
     .collection a.collection-item:not(.active):hover {
-      background-color: #ddd; }
+      background-color: #c71585; }
   .collection.with-header .collection-header {
     background-color: #fff;
     border-bottom: 1px solid #e0e0e0;

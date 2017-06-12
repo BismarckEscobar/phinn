@@ -51,6 +51,19 @@
                                     </div>
                               </div>
 
+                                <div class="col s12 l2">
+                                    <div class="card small" >
+                                        <a href='.base_url("index.php/reporte").'>
+                                            <div class="card-image">
+                                                <img style="margin-top:20px;" src='.base_url("assets/img/menu/agregar-usuario.png").' >
+                                            </div>
+                                            <div class="card-content center">
+                                                <p style="color:black;">ORDEN PRODUCCIÓN</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                              </div>
+
                               <div class="col offset-l3 s12 l2">
                                     <div class="card small" >
                                         <a href='.base_url("index.php/OrdenProduccion").'>
@@ -79,6 +92,7 @@
                                     </div>
                               </div>';
                     break;
+                    case 4: redirect('OrdenProduccion');
                 }
             }
         ?> 

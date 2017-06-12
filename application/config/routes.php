@@ -1,5 +1,5 @@
 <?php
-    defined('BASEPATH') OR exit('No direct script access allowed');
+    if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
     $route['default_controller'] = 'Login_controller';
     $route['404_override'] = '';
@@ -58,5 +58,20 @@ $route['GuardaOrden'] = 'Ordenproduccion_controller/GuardarRD';
 
 
     /********************LINKS DE TIEMPOS MUERTOS********************************/
-    $route['tiemposmuertos'] = "tiemposmuertos_controller";    
+    $route['tiemposmuertos'] = "tiemposmuertos_controller";  
 
+
+    /********************LINKS DE ORDENES DE TRABAJO***********************/
+    $route['buscaConsecutivo/(:any)/(:any)'] = "Ordenproduccion_controller/buscarUltConsc/$1/$2";
+
+    /********************ORDENES DE PRODUCCION AGREGAR DETALLES*******************************/
+    $route['detalleOrdenT/(:any)/(:any)/(:any)']= "Ordenproduccion_controller/agregaDetalleOrdT/$1/$2/$3";
+
+    /********************DETALLE ORDEN INDEX*******************************/
+    $route['tiempoMuerto/(:any)']= "Ordenproduccion_controller/agregaDetalleOrdT1/$1";
+    $route['detalleTiempoMuerto/(:any)']= "tiemposMuertos_Controller/buscarDetalleTM/$1";
+
+    /********************MENU REPORTE DE TRABAJO************************/
+    $route['menuOrdenTrabajo/(:any)']= "Ordenproduccion_controller/agregaDetalleOrdT/$1";
+    /********************GUARDANDO REGISTRO DE TIEMPO MUERTO POR AJAX****************/
+    $route['guardarTM/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)']= "tiemposMuertos_Controller/guardarTiempoM/$1/$2/$3/$4/$5/$6/$7/$8";
