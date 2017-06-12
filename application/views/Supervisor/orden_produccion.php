@@ -43,6 +43,7 @@
         <td>COORDINADOR</td>
         <td>GRUPO</td>
         <td>TIPO PAPEL</td>
+        <td>Acciones</td>
         </tr>   
     </thead>
     <tbody>
@@ -65,6 +66,7 @@
             <td><?php echo $key["Nombre"]?></td>
             <td><?php echo $key["Grupo"]?></td>
             <td><?php echo $key["TipoPapel"]?></td>
+            <td><a href="#"><i class="small mdi-action-note-add tooltipped" data-tooltip="Agregar informacion"></i></a></td>
         </tr> 
      <?php }?>
     <?php } ?>   
