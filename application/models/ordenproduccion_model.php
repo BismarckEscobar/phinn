@@ -17,8 +17,7 @@ class Ordenproduccion_model extends CI_Model
         }
     }
 
-    public function ListarCoord()
-    {
+    public function ListarCoord() {
         $query = $this->db->where('Privilegio',4);
         $query = $this->db->where("Estado",1);
         $query = $this->db->get('usuarios');
@@ -29,8 +28,7 @@ class Ordenproduccion_model extends CI_Model
         }
     }
 
-        public function Guardar($Cons,$NoOrd,$Turno,$FechaIn, $FechaFin, $Coord, $Grup, $Tipo)
-    {
+    public function Guardar($Cons,$NoOrd,$Turno,$FechaIn, $FechaFin, $Coord, $Grup, $Tipo) {
         $duplicado = $this->db->get_where('reporte_diario',array('Consecutivo' => $Cons, 'Turno' => $Turno));
         if ($duplicado->num_rows() > 0) {
             echo "El registro ya existe";
@@ -50,8 +48,7 @@ class Ordenproduccion_model extends CI_Model
         }
     }
 
-    public function Listar()
-    {
+    public function Listar1() {
         $query = $this->db->select("reporte_diario.Consecutivo,reporte_diario.NoOrder,
         reporte_diario.Turno,reporte_diario.FechaInicio,reporte_diario.FechaFinal,reporte_diario.Coordinador,
         usuarios.Nombre, usuarios.IdUsuario,reporte_diario.Grupo,reporte_diario.TipoPapel")
@@ -62,6 +59,49 @@ class Ordenproduccion_model extends CI_Model
         if ($query->num_rows()>0) {
             return $query->result_array();
         }else{
+            return false;
+        }
+    }
+
+    public function Listar() {
+        $query=$this->db->get('view_reporteDiario');
+        if ($query->num_rows()>0) {
+            return $query->result_array();
+        } else {
+            return false;
+        }
+    }
+    public function buscarUltC($dias, $numOrden) {
+        for ($i=1; $i <= $dias; $i++) { 
+            $cons = $i.'-'.$numOrden;
+
+            $this->db->where('Consecutivo =', $cons);
+            $query=$this->db->get('reporte_diario');
+            if ($query->num_rows()<=1) {
+                echo $cons;
+                break;
+            } else {
+                if ($query->num_rows()==1) {
+                    break;
+                }
+            }
+        }
+    }
+    public function listarMaquinas() {
+        $query=$this->db->get('maquinas');
+        if ($query->num_rows()>0) {
+            return $query->result_array();
+        } else {
+            return false;
+        }
+    }
+
+    public function buscarRtpDiario($idRtpD) {
+        $this->db->where('IdReporteDiario =',$idRtpD);
+        $query=$this->db->get('reporte_diario');
+        if ($query->num_rows()>0) {
+            return $query->result_array();
+        } else {
             return false;
         }
     }

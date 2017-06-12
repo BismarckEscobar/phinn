@@ -1,13 +1,10 @@
 /*/////////////////////////////////////////////////////////////////////////////////////////
                                     MIS FUNCIONES
 //////////////////////////////////////////////////////////////////////////////////////////*/
-
 //Abrir los diferentes modales del sistema
 $(document).ready(function() {
     $("#crearU").click(function() { $("#AUsuario").openModal(); });
-    $("#crearR").click(function() { $("#nuevoReporte").openModal(); });
-    $("#crearT").click(function() { $("#ATrabajador").openModal(); });
-    $("#OrdeProd").click(function() { $("#ordenprod").openModal(); });
+    $("#crearT").click(function() { $("#ATrabajador").openModal(); });   
 
     ///Configurar chosen////
     var config = {
@@ -18,7 +15,7 @@ $(document).ready(function() {
     }
     ///Configurar chosen////
 
-    $('#timepicker , #timepicker1').pickatime({
+    $('#timepicker , #timepicker1, #timepickerII, #timepickerFF').pickatime({
         default: '', // default time, 'now' or '13:14' e.g.
         donetext: 'aceptar', // done button text
         fromnow: 0
@@ -46,18 +43,52 @@ $(document).ready(function() {
 
     /*****************INICIALIZACION DE LOS SELECTS******************************************/
     //$('#tipoReporte').material_select();
-    $('.datepicker').pickadate({
+    /*$('.datepicker').pickadate({
         selectMonths: true, // Creates a dropdown to control month
         selectYears: 15 // Creates a dropdown of 15 years to control year
+    });*/
+});
+/*******************BUSCA CONSECUTIVO Y AÑADE EL SIGUIENTE**************/
+$("#OrdeProd").click(function() {
+    var numOrden = $('#lblnoOrden').text();
+    
+    var fechaInicio = new Date($('#lblFechaInicio').text());
+    var fechaFinal = new Date($('#lblFechaFin').text());
+
+    var fechaFormat1 = moment(fechaInicio, 'MM/DD/YYYY');
+    var fechaFormat2 = moment(fechaFinal, 'MM/DD/YYYY');
+    var dias = fechaFormat2.diff(fechaFormat1, 'days');    
+        $.ajax({
+            url: "buscaConsecutivo/"+dias+"/"+numOrden,
+            type:"POST",
+            async:true,
+            success: function(data){
+            if (data=="") {
+                swal({
+                    title: " ",
+                    text: 'Esta orden no puede aceptar mas ordenes de trabajo',
+                    type: 'warning',
+                    showCloseButton: true,
+                    confirmButtonColor: '#831F82',
+                    confirmButtonText: 'ACEPTAR'
+                }).then()
+            }else{
+                
+                $('#cons').val(data);
+                $('#spanNoOrdenT').text(data);
+                $("#ordenprod").openModal();
+            };
+        }
     });
 });
+
 /*******AGREGANDOLE FUNCIONES DE SUBMIT A HREF************************/
 $('#guardaRpt').click(function() {
     var numOrden = $('#numOrden').val();
     var fechaInicio = $('#fechaInicio').val();
     var fechaFinal = $('#fechaFinal').val();
 
-    if (numOrden == '' || tipoReporte == null || fechaInicio == '' || fechaFinal == '') {
+    if (numOrden=='' || fechaInicio=='' || fechaFinal=='') {
         swal({
             title: " ",
             text: 'Todavia no ha rellenado los campos necesarios',
@@ -67,8 +98,7 @@ $('#guardaRpt').click(function() {
             confirmButtonText: 'ACEPTAR'
         }).then()
     } else {
-        var f1 = new Date(fechaInicio);
-        var f2 = new Date(fechaFinal);
+        var f1 = new Date(fechaInicio); var f2 = new Date(fechaFinal);
         if (f1 > f2) {
             swal({
                 title: " ",
@@ -79,7 +109,7 @@ $('#guardaRpt').click(function() {
                 confirmButtonText: 'ACEPTAR'
             }).then()
         } else {
-            if (numOrden.length > 4 || numOrden.length < 4) {
+            if (numOrden.length>4 || numOrden.length<4) {
                 swal({
                     title: " ",
                     text: 'El número de reporte no tiene el formato correcto',
@@ -89,11 +119,11 @@ $('#guardaRpt').click(function() {
                     confirmButtonText: 'ACEPTAR'
                 }).then()
             } else {
-                var fec1 = new Date($('#fechaInicio').val());
-                var fecha3=moment(fec1).format('DD/MM/YYYY');
+                var fec11 = $('#fechaInicio').val();
+                var fecha3=moment(fec11).format('DD/MM/YYYY');
 
-                var fec2 = new Date();
-                var fecha4=moment(fec2).format('DD/MM/YYYY');
+                var fec22 = new Date();
+                var fecha4=moment(fec22).format('DD/MM/YYYY');
                 if (fecha3>=fecha4){
                         $('#formNuevoReporte').submit();
                     } else {                                                            
@@ -128,6 +158,12 @@ function guardarConsecutivo(noOrden) {
     });
 }
 
+/****************GUARDAR TIEMPO MUERTO***************************/
+$('#guardarTM').click(function() {
+    $('#formAgregarTM').submit();
+    $('#nuevoTiempoMuerto').openModal();
+});
+
 /****************ABRE EL MODEL PARA CREAR NUEVA ORDEN DE PRODUCCION*************************/
 $("#crearR").click(function(){
     $("#nuevoReporte").openModal();
@@ -135,6 +171,12 @@ $("#crearR").click(function(){
 
 /****************ABRE EL MODEL PARA AGREGAR NUEVO TIEMPO MUERTO*************************/
 $("#agregarTM").click(function(){
+    var val1 = $('#ordC').text();
+    var val2 = $('#ordP').text();
+    var val3 = $('#ordT').text();
+    $('#consecutivo').val(val1);
+    $('#ordP1').val(val2);
+    $('#turno1').val(val3);
     $("#nuevoTiempoMuerto").openModal();
 });
 /****************VALIDAR FECHA DE ORDEN DE PRODUCCION***************************************/
@@ -161,8 +203,34 @@ $("#valOrdP7").on('click',function() {
     });  
 });
 
+function guardarTM1() {
+    var idRptD = $('#idRptD').val();
+    var ordP1 = $('#ordP1').val();
+    var consecutivo = $('#consecutivo').val();
+    var turno1 = $('#turno1').val();
+    var timepickerII = $('#timepickerII').val();
+    var timepickerFF = $('#timepickerFF').val();
+    var maquina = $('#maquina').val();
+    var descipcion11  = $('#descipcion').val();
+    //descipcion11.replace("."," ");
+    $.ajax({
+        url: "../guardarTM/"+idRptD+'/'+ordP1+'/'+consecutivo+'/'+turno1+'/'+timepickerII+'/'+timepickerFF+'/'+maquina+'/'+descipcion11,
+        type:"POST",
+        async:true,
+        success: function(data){ 
+            console.log(data);
+            console.log(data);
+            if (data==1) {
+                Materialize.toast('SE GUARDO CON ÉXITO', 1000);
+            } else {
+                Materialize.toast('ERROR AL GUARDAR', 1000);
+            };
+        }
+    });
+}
+
 /****************VALIDA SI EL NUMERO DE ORDEN YA EXISTE***************************************/
-$("#numOrden").on('change',function(event) {
+/*$("#numOrden").on('change',function(event) {
     var numOrden = $('#numOrden').val();
     $.ajax({
         url: "validarReporte/"+numOrden,
@@ -180,30 +248,30 @@ $("#numOrden").on('change',function(event) {
                 }).then()
                 $('#formNuevoReporte').submit();
             };
-        };
-    };
-});
-
-$("#numOrden").on('change', function(event) {
-    var numOrden = $('#numOrden').val();
-    $.ajax({
-        url: "validarReporte/" + numOrden,
-        type: "POST",
-        async: true,
-        success: function(data) {
-            if (data == true) {} else {
-                swal({
-                    title: " ",
-                    text: 'El número de orden ya existe',
-                    type: 'warning',
-                    showCloseButton: true,
-                    confirmButtonColor: '#831F82',
-                    confirmButtonText: 'ACEPTAR'
-                }).then()
-                $('#numOrden').val("")
-            }
         }
     });
+});*/
+
+/****************VALIDA SI EL NUMERO DE ORDEN YA EXISTE***************************************/
+$("#numOrden").on('change',function(event) {
+    var numOrden = $('#numOrden').val();
+    $.ajax({
+        url: "validarReporte/"+numOrden,
+        type:"POST",
+        async:true,
+        success: function(data){ 
+            if (data==true) {
+            swal({ title: " ",
+                text: 'El número de orden ya existe',
+                type: 'warning',
+                showCloseButton: true,
+                confirmButtonColor: '#831F82',
+                confirmButtonText: 'ACEPTAR'
+                }).then() 
+                $('#numOrden').val("")             
+            }
+        }
+    }); 
 });
 
 /*********CAMBIAR ESTADO A REPORTE**************************/
@@ -316,9 +384,9 @@ function confirmacionCambioStatus(mensaje, textbutton, idOrden, status){
             confirmButtonText: "CERRAR",
         }).then(
         function(){gotopage("reporte");}
-            )}
+            )}});})}
 
-function cambiaStatusRpt(idReporte1, estado) {
+/*function cambiaStatusRpt(idReporte1, estado) {
     if (estado == 1) {
         var miMSS = "¿DESEA CAMBIAR EL ESTADO ACTIVO DEL REPORTE?";
     } else { var miMSS = "¿DESEA CAMBIAR EL ESTADO INACTIVO DEL REPORTE?"; }
@@ -347,7 +415,7 @@ function cambiaStatusRpt(idReporte1, estado) {
 
         })
     })
-}
+}*/
 
 /****************DANDO DE BAJA A ORDENES DE PRODUCCION******************************/
 function cambiaOrdenActiva(idOrden, status) { 
@@ -374,7 +442,7 @@ function cambiaOrdenActiva(idOrden, status) {
 }
 
 /****************ACTUALIZAR ORDEN DE PRODUCCION***************************/
-  $('#actualizarRpt').click( function() {
+  $('#actualizarRpt').click(function() {
     var codUnico = $('#numOrden1').val();
     $.ajax({
         url: "validaRpt/" + codUnico,
@@ -404,9 +472,9 @@ function cambiaOrdenActiva(idOrden, status) {
     });    
   });
 
-function buscarOrdP(identificador) {  
+function buscarOrdProd(identificador) {  
     var codigoUnico = identificador; 
-    $("#actualizarRpt").show();  
+    $("#actualizarRpt").show();
     $("#title1").show();
     $("#title2").hide();
     $.ajax({
@@ -431,6 +499,60 @@ function buscarOrdP(identificador) {
         }
     }); 
 }
+
+
+function abrirPagina(){
+        $.ajax({
+        url: "detalleTiempoMuerto/"+1,
+        async:true,
+        type: 'post',
+        success: function(json){
+        
+       /*var estadoA="";        
+        $.each(JSON.parse(json), function(i, item) {
+          estadoA = item['Estado'],
+          $('#identificador').val(item['IdOrden'])
+          $('#numOrden1').val(item['NoOrden']),
+          $('#fechaInicio1').val(item['FechaInicio']),
+          $('#fechaFinal1').val(item['FechaFin']),
+          $('#comentario1').val(item['comentarios']) 
+        })
+            if (estadoA==0) {
+                $("#actualizarRpt").hide();
+                $("#title2").show();
+                $("#title1").hide();
+            };*/
+            //$("#nuevaOrdenP").openModal(); 
+        }
+    });
+}
+//http://localhost:8082/phinn/index.php/
+function buscarTiempoM(identificador) { 
+    $.ajax({
+        url: "../detalleTiempoMuerto/"+identificador,
+        async:true,
+        success: function(json){   
+        $.each(JSON.parse(json), function(i, item) {
+          $('#IdReporteDiario').text(item['IdReporteDiario']),
+          $('#HoraInicio').text(item['HoraInicio']),
+          $('#HoraFin').text(item['HoraFin']),
+          $('#Maquina').text(item['Maquina']),
+          $('#Descrip').val(item['Descripcion']),
+          $('#interval').text(item['Intervalos']),
+          $('#turno').text(item['Turno']);
+        })
+            $("#visTiempoM").openModal();
+        }
+    });
+}
+
+$('.verDetalleTM').click(function() {
+    alert('hola');
+});
+
+$('#cerrarMdl').click(function() {
+    $("#visTiempoM").closeModal(); 
+});
 
 //Cargar pagina
 function gotopage(mypage) {
@@ -465,7 +587,7 @@ $('#filtrarRep').on('keyup', function() {
 });
 
 $("#TblMaster").DataTable({
-    "ordering": true,
+    "ordering": false,
     "info": false,
     "bPaginate2": false,
     "bfilter": true,
@@ -496,7 +618,7 @@ $("#TblMaster").DataTable({
 });
 
 $("#tlbListaRep").DataTable({
-    "ordering": true,
+    "ordering": false,
     "info": false,
     "bPaginate2": false,
     "bfilter": true,
@@ -505,10 +627,10 @@ $("#tlbListaRep").DataTable({
     "aaSorting": [
         [2, "asc"]
     ],
-    "lengthMenu": [
+    /*"lengthMenu": [
         [5, 10, -1],
         [5, 10, "Todo"]
-    ],
+    ],*/
 
     "language": {
         "emptyTable": "No hay datos disponible en la tabla",
@@ -529,7 +651,7 @@ $("#tlbListaRep").DataTable({
 });
 
 $("#tlbTiemposMuertos").DataTable({
-    //"ordering": true,
+    "ordering": false,
     "paginate":false,
     'filter':false,
     "info": false,

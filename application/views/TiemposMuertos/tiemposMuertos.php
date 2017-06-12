@@ -137,4 +137,60 @@
         </div>
     </div>
 </div>
+<!-- VISUALIZAR TIEMPOS MUERTOS -->
+<div id="visTiempoM" class="modal1">
+    <div class="modal-content">
+        <div class="right row">
+            <div class="col s1 m1 l1">
+                <a href="#!" class="BtnClose modal-action modal-close noHover">
+                    <i class="material-icons">highlight_off</i>
+                </a>
+            </div>
+        </div>        
+        <div class="row noMargen center">
+            <div class="noMargen col s12 m12 l12">
+                <h6 class="center" style="font-family:'robotoblack'; color:#831F82;font-size:30px; margin-bottom:30px;">AGREGAR TIEMPO MUERTO</h6>
+                <h2 class="center" style="font-family:'robotoblack'; color:#831F82;font-size:20px; margin-bottom:30px;">Maquina 1</h2>
+            </div>
+        </div>
+        
+        <div class="row">
+            <form class="col s12" method="POST" name="formAgregarTM" id="formAgregarTM" action="<?php echo base_url()?>index.php/tiemposMuertos_Controller/guardarTiempoM">
+                <div class="row">
+                    <div class="input-field col s12 m12 s12">
+                        <input class="mayuscula" maxlength="4" name="numOrden" id="numOrden" type="text" class="required">
+                        <label id="lblNumeroOrden" class="labelValidacion">Nº ORDEN VIGENTE</label>
+                    </div>                   
+                </div>
+                <br>
+                <div class="row">
+	                <div class="input-field col s12 m6 s6">
+						<input id="timepickerI" name="timepickerI" class="timepicker" type="time">
+						<label for="timepickerI">HORA INICIO</label>
+	                </div>
+                    
+	                <div class="input-field col s12 m6 s6">
+						<input id="timepickerF" name="timepickerF" class="timepicker" type="time">
+						<label for="timepickerF">HORA FINAL</label>
+	                </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="input-field col s12 m12 s12">
+                      <textarea id="comentario" class="text-area-ord" name="comentario"></textarea>
+                      <label for="comentario">DESCRIPCIÓN</label>
+                    </div>                  
+                </div>
+                <br>
+                <div class="row">                    
+                    <div class="center">
+			      	    <a class="Btnadd btn waves-effect waves-light" id="guardarTM" href="#" hre style="background-color:#831F82;">GUARDAR
+                            <i class="material-icons right">send</i>
+                        </a>
+			        </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 </main>
