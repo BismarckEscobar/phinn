@@ -10,10 +10,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <title>INNOVA - Sistema de Incentivos Proceso Conversion</title>
-        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <!--Import materialize.css-->
-        <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/materialize.css" media="screen,projection"/>
-        
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css-->        
         <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/jquery.dataTables.min.css" />
         <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/index.css" media="screen,projection"/> 
 
@@ -22,6 +20,11 @@
 
         <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/fullcalendar.min.css"/>
         <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/fullcalendar.print.min.css" media="print"/>
+
+        <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/materialize.clockpicker.css" media="screen,projection" />
+
+        <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/materialize.css" media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/materialize.clockpicker.css"/>
 
         <style type="text/css" media="screen">
             select{
