@@ -9,8 +9,7 @@ class cargas_Pulper_Controller extends CI_Controller {
 
 	public function index($idReporteD) {
 		$data['consecutivo'] = $this->Ordenproduccion_model->buscarRtpDiario($idReporteD);
-		$data['tipoFibra'] = $this->cargasPulper_Model->listaConsumos();
-		$data['tipoFibra']=$this->cargasPulper_Model->listaConsumos();
+		$data['tipoFibra']= $this->cargasPulper_Model->listaConsumos();
 		$this->load->view('header');
 		$this->load->view('dashboardclean');
 		$this->load->view('Coordinador/cargasPulper',$data);

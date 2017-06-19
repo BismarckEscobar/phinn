@@ -3,7 +3,7 @@
 		<div class="col s12">
 			<div class="card">
 				<div class="card-content">
-					<center><span class="card-title purple-text accent-4" style="font-family: robotoblack;">DETALLE DE ORDEN DE TRABAJO</span></center>
+					<center><span class="card-title accent-4 titulos">DETALLE DE ORDEN DE TRABAJO</span></center>
 						<div class="row">
 							<center>
 								<?php 
@@ -35,7 +35,7 @@
 				<div class="card-content" id="tabla-cargas">
                     <div class="row">
                         <div class="col s12 m12">
-                            <center><h5 class="card-title purple-text accent-4" style="font-family: robotoblack;">CARGAS PULPER</h5></center>
+                            <center><h5 class="card-title titulos">CARGAS PULPER</h5></center>
                         </div>
                     </div>
                     <a class="Btnadd btn waves-effect waves-light" id="btnAgregarf" href="#modal1" style="background-color:#831F82;">AGREGAR
@@ -52,7 +52,7 @@
 				<div class="card-content">
 					<div class="row">
                         <div class="col s12 m12">
-                            <center><h5 class="card-title purple-text accent-4" style="font-family: robotoblack;">HORAS MOLIENDA</h5></center>
+                            <center><h5 class="card-title titulos">HORAS MOLIENDA</h5></center>
                         </div>
 					<a class="Btnadd btn waves-effect waves-light" id="btnAgregaHM" href="#modal12" style="background-color:#831F82;">AGREGAR
 						<i class="material-icons right">add</i>
@@ -68,7 +68,7 @@
     <div class="modal-content">
 		<div class="card">
 			<div class="card-content">
-				<center><h5 class="card-title purple-text accent-4" style="font-family: robotoblack;">AGREGAR CARGA PULPER</h5></center>
+				<center><h5 class="card-title titulos">AGREGAR CARGA PULPER</h5></center>
 				<div class="row">
 					<div class="col s12 m12">
 						<?php 
@@ -85,7 +85,7 @@
                             if(!$tipoFibra){
                             } else {
                                 foreach($tipoFibra as $key){
-                                    echo '<option value="'.$key['IdInsumo'].'">'.$key['descripcion'].'</option>';
+                                    echo '<option value="'.$key['IdInsumo'].'">'.$key['Descripcion'].'</option>';
                                 }
                             }
                             ?>

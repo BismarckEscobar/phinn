@@ -66,6 +66,19 @@ textarea.materialize-textarea:focus:not([readonly]) {
     height: 75%;
 }
 
+/*ESTILOS GENERALES*/
+.titulosGen {
+    font-size:50px;
+    color:#8b008b;
+}
+
+.titulos {
+    font-family:'robotoblack';
+    color:#831F82;
+    font-size:30px;
+    margin-bottom:30px;
+}
+
 .btn,
 .btn-large {
     text-decoration: none;

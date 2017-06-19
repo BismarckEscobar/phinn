@@ -98,8 +98,8 @@
                                 <div class="row">
                                     <div class="col s4 m4 s4">
                                         <div class="card hoverable">
-                                            <b class="purple-text darken-1">Maquina N°1</b>
-                                             <h6 class="purple-text darken-1">Producción (Kg)</h6>
+                                            <h6 class="center-align"><b class="purple-text darken-1 ">Maquina N°1</b></h6>
+                                             <h6 class="purple-text darken-1 center-align">Producción (Kg)</h6>
                                              <div class="container">
                                              <h6 class="center-align purple-text darken-1"><?php echo number_format($total1,1)?></h6>
                                              </div>
@@ -107,8 +107,8 @@
                                     </div>
                                     <div class="col s4 m4 s4">
                                         <div class="card hoverable">
-                                            <b class="purple-text darken-1">Maquina N°2</b>
-                                             <h6 class="purple-text darken-1">Producción (Kg)</h6>
+                                            <h6 class="center-align"><b class="purple-text darken-1">Maquina N°2</b></h6>
+                                             <h6 class="purple-text darken-1 center-align">Producción (Kg)</h6>
                                              <div class="container">
                                              <h6 class="center-align purple-text darken-1"><?php echo number_format($total,1)?></h6>
                                              </div>
@@ -116,8 +116,8 @@
                                     </div>
                                     <div class="col s4 m4 s4">
                                         <div class="card hoverable">
-                                            <b class="purple-text darken-1">Producción Neta</b>
-                                                 <h6 class="purple-text darken-1">Producción Total (Kg)</h6>
+                                            <h6 class="center-align"><b class="purple-text darken-1">Producción Neta</b></h6>
+                                                 <h6 class="purple-text darken-1 center-align">Producción Total (Kg)</h6>
                                                   <div class="container">
                                                   <h6 id="Total" class="center-align purple-text darken-1"><?php echo number_format($total1 + $total,1)?></h6>
                                                   </div>
@@ -256,7 +256,7 @@
         <div class="row">
             <ul class="collection">
                 <li class="collection-item avatar">
-                    <i class="material-icons circle">touch_app</i>
+                    <i class="material-icons circle purple darken-1">touch_app</i>
                     <div class="row">
                         <div class="col s4 m4">
                             <h6 class="purple-text left-align"><b>Operador</b></h6>
@@ -270,7 +270,7 @@
                 </li>
 
                 <li class="collection-item avatar">
-                    <i class="material-icons circle">alarm</i>
+                    <i class="material-icons circle purple darken-1">alarm</i>
                     <div class="row">
                         <div class="col s4 m4">
                             <h6 class="purple-text left-align"><b>Hora Inicio</b></h6>
@@ -284,7 +284,7 @@
                 </li>
 
                 <li class="collection-item avatar">
-                    <i class="material-icons circle">assignment</i>
+                    <i class="material-icons circle purple darken-1">assignment</i>
                     <div class="row">
                         <div class="col s3 m3">
                             <h6 class="purple-text left-align"><b>Velocidad Maquina</b></h6>

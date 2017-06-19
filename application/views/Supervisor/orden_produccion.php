@@ -35,7 +35,7 @@
                     <div class="right row">
                         <div id="OrdeProd" class="col s12 m12">
                             <a data-tooltip='AGREGAR NUEVA ORDEN' href="#ordenprod" class="modal-trigger tooltipped">
-                                <i style='font-size:50px; color:#8b008b;' class="mdi-image-add-to-photos"></i>
+                                <i class="mdi-image-add-to-photos titulosGen"></i>
                             </a>
                         </div>
                     </div>
@@ -86,56 +86,8 @@
             </div>
         </div>
     </div>
-<<<<<<< HEAD
-</div>
 
-
-<div class="div-cont">
-    <table id="TblMaster">
-    <thead>
-        <tr>
-        <td>N° ORDEN</td>
-        <td>TURNO</td>
-        <td>FECHA_INICIO</td>
-        <td>FECHA_FIN</td>
-        <td>COORDINADOR</td>
-        <td>GRUPO</td>
-        <td>TIPO PAPEL</td>
-        <td>Acciones</td>
-        </tr>   
-    </thead>
-    <tbody>
-     <?php foreach ($lista as $key) {
-       switch($key["Turno"])
-     {
-        case '6:00am-6:00pm':
-                $key["Turno"] = "MATUTINO";
-            break;
-            case '6:00pm-6:00am':
-                  $key["Turno"] = "VESPERTINO";
-                break;
-     }?>
-     <?php if ($this->session->userdata("IdUser") == $key["Coordinador"]) {?>
-                <tr>
-            <td><?php echo $key["Consecutivo"]." — ".$key["NoOrder"]?></td>
-            <td><?php echo $key["Turno"]?></td>
-            <td><?php echo $key["FechaInicio"]?></td>
-            <td><?php echo $key["FechaFinal"]?></td>
-            <td><?php echo $key["Nombre"]?></td>
-            <td><?php echo $key["Grupo"]?></td>
-            <td><?php echo $key["TipoPapel"]?></td>
-            <td><a href="#"><i class="small mdi-action-note-add tooltipped" data-tooltip="Agregar informacion"></i></a></td>
-        </tr> 
-     <?php }?>
-    <?php } ?>   
-    </tbody>
-</table>
-</div>
-
- </main>
-=======
 </main>
->>>>>>> a3d12e180f8311a6dd050a26e9718c7fb7f0e3ba
 
 <!--/////////////////////////////////////////////////////////////////////////////////////////
                                         MODALES
