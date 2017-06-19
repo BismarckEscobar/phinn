@@ -2279,21 +2279,50 @@ td, th {
 
 .collection {
   margin: 0.5rem 0 1rem 0;
-  /*border: 1px solid #e0e0e0;*/
-  border-radius: 2px;
+  border: 1px solid #e0e0e0;
+  border-radius: 0px;
   overflow: hidden;
   position: relative; }
   .collection .collection-item {
-    background-color: #8b008b;
+    background-color: white;
     line-height: 1.5rem;
     padding: 10px 20px;
     margin: 0;
     border-bottom: 1px solid #e0e0e0;
     border-radius: 5px; }
+
+    /*******COLECCION DEL MENU ORDEN DE TRABAJO**************/
+    .collection1 {
+    margin: 0.5rem 0 1rem 0;
+    border: 0px solid #e0e0e0;
+    border-radius: 0px;
+    overflow: hidden;
+    position: relative; }
+    .collection1 .collection-item1 {
+    background-color: #831F82;
+    line-height: 1.5rem;
+    padding: 10px 20px;
+    margin: 0;
+    border-bottom: 1px solid #e0e0e0;
+    border-radius: 5px; }
+
+  .collection1 a.collection-item1 {
+    display: block;
+    -webkit-transition: 0.25s;
+    -moz-transition: 0.25s;
+    -o-transition: 0.25s;
+    -ms-transition: 0.25s;
+    transition: 0.25s;
+    color: white; }
+  .collection1.with-header .collection-item1 {
+    padding-left: 30px; }
+    /*********FIN DEL MENU ORDEN DE TRABAJO*****************/
+
     .collection .collection-item.avatar {
       min-height: 84px;
       padding-left: 72px;
-      position: relative; }
+      position: relative; 
+      text-align: left;}
       .collection .collection-item.avatar .circle {
         position: absolute;
         width: 42px;
@@ -2309,7 +2338,7 @@ td, th {
         background-color: #999;
         text-align: center; }
       .collection .collection-item.avatar .title {
-        font-size: 16px; }
+        font-size: 16px; font-family:'robotoblack'; color:#831F82;}
       .collection .collection-item.avatar p {
         margin: 0; }
       .collection .collection-item.avatar .secondary-content {
@@ -6247,9 +6276,8 @@ a.waves-effect .waves-ripple {
   right: 0;
   background-color: #fafafa;
   padding: 0;
-  max-height: 84%;
+  max-height: 100%;
   width: 60%;
-  height: 500px;
   margin: auto;
   overflow-y: auto;
   border-radius: 2px;
@@ -6305,8 +6333,9 @@ a.waves-effect .waves-ripple {
   right: 0;
   background-color: #fafafa;
   padding: 0;
-  max-height: 84%;
+  max-height: 95%;
   width: 60%;
+  height: auto;
   margin: auto;
   overflow-y: auto;
   border-radius: 2px;
@@ -7926,7 +7955,7 @@ select {
  * The frame that bounds the box contents of the picker.
  */
 .picker__frame {
-  position: absolute;
+  position:absolute;
   margin: 0 auto;
   min-width: 256px;
   width: 300px;
@@ -7935,6 +7964,7 @@ select {
   filter: alpha(opacity=0);
   -moz-opacity: 0;
   opacity: 0;
+  top: 0;
   -webkit-transition: all 0.15s ease-out;
   -moz-transition: all 0.15s ease-out;
   transition: all 0.15s ease-out; }
@@ -7968,7 +7998,7 @@ select {
 .picker__box {
   background: #ffffff;
   display: table-cell;
-  vertical-align: middle; }
+  vertical-align: middle;  }
 
 @media (min-height: 28.875em) {
   .picker__box {

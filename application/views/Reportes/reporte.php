@@ -72,7 +72,7 @@
                                             <td class='bold'>".$list['FechaFin']."</td>
                                             ".$activo."
                                             <td>
-                                                <a class='dropdown-button btn-floating' href='#' data-activates='dropdown".$list['IdOrden']."'><i class='material-icons left'>mode_edit</i></a>
+                                                <a class='dropdown-button btn-floating' id='ddlts' data-activates='dropdown".$list['IdOrden']."' href='#!'><i class='material-icons left'>mode_edit</i></a>
                                                 <ul id='dropdown".$list['IdOrden']."' class='dropdown-content'>
                                             ".$status."
                                                 </ul>
@@ -91,7 +91,7 @@
                                         PANTALLAS MODALES
 //////////////////////////////////////////////////////////////////////////////////////////-->
 <!-- NUEVA ORDEN PRODUCCION -->
-<div id="nuevoReporte" class="modal1">
+<div id="nuevoReporte" class="modal">
     <div class="modal-content">
         <div class="right row">
             <div class="col s1 m1 l1">
@@ -146,7 +146,7 @@
     </div>
 </div>
 <!-- ACTUALIZAR ORDEN PRODUCCION -->
-<div id="nuevaOrdenP" class="modal1">
+<div id="nuevaOrdenP" class="modal">
     <div class="modal-content">
         <div class="right row">
             <div class="col s1 m1 l1">
