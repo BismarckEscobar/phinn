@@ -35,23 +35,23 @@
 				<div class="card-content">
 					<div class="row oculto" style="text-align: center;">
 						<div class="collection">
-							<div class="col s12 m12">            
-								<div class="col s3 m3"><a href="#" class="collection-item activo">PRODUCCIÓN</a></div>
+							<div class="col s12 m12">    
+							<?php foreach ($consecutivo as $key) { ?>
+								<div class="col s3 m3"><a href="<?php echo base_url()."index.php/Produccion/".$key['IdReporteDiario']?>" class="collection-item activo">PRODUCCIÓN</a></div>
 								<!-- <div class="col m2"><a href="<?php echo base_url();?>index.php/tiempoMuerto/<?php echo $consecutivo['NoOrden']?>/<?php echo $consecutivo["consecutivo"]?>/<?php echo $consecutivo["turno"]?>" class="collection-item activo">TIEMPOS MUERTOS</a></div> -->
-								<?php
-									foreach ($consecutivo as $key) {
-										echo "<div class='col s3 m3'><a href='".base_url()."index.php/tiempoMuerto/".$key['IdReporteDiario']."' class='collection-item activo'>TIEMPOS MUERTOS</a></div>";		
-									}
-								?>								
+									 
+                                <div class='col s3 m3'><a href='<?php echo base_url()."index.php/tiempoMuerto/".$key['IdReporteDiario']?>' class='collection-item activo'>TIEMPOS MUERTOS</a></div>	
+											
 								<div class="col s3 m3"><a href="#" class="collection-item activo">CARGAS PULPER</a></div>
 								<div class="col s3 m3"><a href="#" class="collection-item activo">HORAS MOLIENDA</a></div>
 							</div>
 						</div>
 						<div class="collection">
 							<div class="col s12 m12">
-								<div class="col s3 m3"><a href="#" class="collection-item activo">MATERIA PRIMA</a></div>
+								<div class="col s3 m3"><a href="<?php echo base_url()."index.php/MateriaPrima/".$key['IdReporteDiario']?>" class="collection-item activo">MATERIA PRIMA</a></div>
 							</div>
-						</div>
+						</div>		
+			<?php }?>
 					</div>
 				</div>
 			</div>

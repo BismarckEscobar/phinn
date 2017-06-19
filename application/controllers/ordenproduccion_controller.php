@@ -17,6 +17,7 @@ class Ordenproduccion_controller extends CI_Controller
         $data['coordinadores'] = $this->Ordenproduccion_model->ListarCoord();
         $data['listaReport'] = $this->Ordenproduccion_model->listaReportes();
         $data['lista'] = $this->Ordenproduccion_model->Listar();
+        $data['turnos'] = $this->Ordenproduccion_model->ListarTurno();
         $this->load->view('header');
         $this->load->view('dashboardclean');
         $this->load->view('Supervisor/orden_produccion', $data);
@@ -60,5 +61,10 @@ class Ordenproduccion_controller extends CI_Controller
         $this->load->view('dashboardclean');
         $this->load->view('Supervisor/menu_orden_trabajo', $data);
         $this->load->view('footer');
+    }
+
+    public function ValidarFecha($Fecha,$turno,$Conse)
+    {
+        $this->Ordenproduccion_model->Valfec($Fecha,$turno,$Conse);
     }
 }

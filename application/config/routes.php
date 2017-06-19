@@ -21,7 +21,7 @@
 /********************LINK DE PRODUCCION*************************/
 $route['OrdenProduccion'] = 'Ordenproduccion_controller';
 $route['GuardaOrden'] = 'Ordenproduccion_controller/GuardarRD';
-
+$route['ValidaFecha/(:any)/(:any)/(:any)'] = 'Ordenproduccion_controller/ValidarFecha/$1/$2/$3';
 
     /*************LINKS DE REPORTES***********/
     $route['CalSemana'] = 'Reportes/CalSemana';
@@ -75,3 +75,13 @@ $route['GuardaOrden'] = 'Ordenproduccion_controller/GuardarRD';
     $route['menuOrdenTrabajo/(:any)']= "Ordenproduccion_controller/agregaDetalleOrdT/$1";
     /********************GUARDANDO REGISTRO DE TIEMPO MUERTO POR AJAX****************/
     $route['guardarTM/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)']= "tiemposMuertos_Controller/guardarTiempoM/$1/$2/$3/$4/$5/$6/$7/$8";
+
+/***************************************************************************************************/
+ $route['Produccion/(:any)']= "Produccion_Controller/agregaDetalleOrdP1/$1"; 
+ $route['GuardaProduccion']= "Produccion_Controller/GuardarProduccion"; 
+ $route['EliminarProduccion/(:any)']= "Produccion_Controller/Eliminar/$1";
+
+ /***************************************************************************************************/
+ $route['MateriaPrima/(:any)']= "MateriaPrima_controller/agregaDetalleOrdP1/$1"; 
+ $route['GuardarMP']= "MateriaPrima_controller/GuardarMatPri"; 
+ $route['ValidaPasta/(:any)/(:any)'] = "MateriaPrima_controller/ValidarP/$1/$2";

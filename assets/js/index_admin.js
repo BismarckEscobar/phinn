@@ -4,7 +4,11 @@
 //Abrir los diferentes modales del sistema
 $(document).ready(function() {
     $("#crearU").click(function() { $("#AUsuario").openModal(); });
-    $("#crearT").click(function() { $("#ATrabajador").openModal(); });   
+    $("#crearT").click(function() { $("#ATrabajador").openModal(); });
+    $("#agregarMP").click(function() { $("#nuevaMatPrim").openModal(); });
+    $(".modaldet").on("click", function() {
+        $("#Detalles").openModal();
+    });
 
     ///Configurar chosen////
     var config = {
@@ -36,6 +40,7 @@ $(document).ready(function() {
         clear: 'Limpiar',
         close: 'Cerrar',
         format: 'yyyy-mm-dd'
+            //min: new Date()
     });
 
     /*************PERMITE SOLO NUMEROS EN LOS INPUTS**********************************/
@@ -51,19 +56,19 @@ $(document).ready(function() {
 /*******************BUSCA CONSECUTIVO Y AÑADE EL SIGUIENTE**************/
 $("#OrdeProd").click(function() {
     var numOrden = $('#lblnoOrden').text();
-    
+
     var fechaInicio = new Date($('#lblFechaInicio').text());
     var fechaFinal = new Date($('#lblFechaFin').text());
 
     var fechaFormat1 = moment(fechaInicio, 'MM/DD/YYYY');
     var fechaFormat2 = moment(fechaFinal, 'MM/DD/YYYY');
-    var dias = fechaFormat2.diff(fechaFormat1, 'days');    
-        $.ajax({
-            url: "buscaConsecutivo/"+dias+"/"+numOrden,
-            type:"POST",
-            async:true,
-            success: function(data){
-            if (data=="") {
+    var dias = fechaFormat2.diff(fechaFormat1, 'days');
+    $.ajax({
+        url: "buscaConsecutivo/" + dias + "/" + numOrden,
+        type: "POST",
+        async: true,
+        success: function(data) {
+            if (data == "") {
                 swal({
                     title: " ",
                     text: 'Esta orden no puede aceptar mas ordenes de trabajo',
@@ -72,8 +77,8 @@ $("#OrdeProd").click(function() {
                     confirmButtonColor: '#831F82',
                     confirmButtonText: 'ACEPTAR'
                 }).then()
-            }else{
-                
+            } else {
+
                 $('#cons').val(data);
                 $('#spanNoOrdenT').text(data);
                 $("#ordenprod").openModal();
@@ -88,7 +93,7 @@ $('#guardaRpt').click(function() {
     var fechaInicio = $('#fechaInicio').val();
     var fechaFinal = $('#fechaFinal').val();
 
-    if (numOrden=='' || fechaInicio=='' || fechaFinal=='') {
+    if (numOrden == '' || fechaInicio == '' || fechaFinal == '') {
         swal({
             title: " ",
             text: 'Todavia no ha rellenado los campos necesarios',
@@ -98,7 +103,8 @@ $('#guardaRpt').click(function() {
             confirmButtonText: 'ACEPTAR'
         }).then()
     } else {
-        var f1 = new Date(fechaInicio); var f2 = new Date(fechaFinal);
+        var f1 = new Date(fechaInicio);
+        var f2 = new Date(fechaFinal);
         if (f1 > f2) {
             swal({
                 title: " ",
@@ -109,7 +115,7 @@ $('#guardaRpt').click(function() {
                 confirmButtonText: 'ACEPTAR'
             }).then()
         } else {
-            if (numOrden.length>4 || numOrden.length<4) {
+            if (numOrden.length > 4 || numOrden.length < 4) {
                 swal({
                     title: " ",
                     text: 'El número de reporte no tiene el formato correcto',
@@ -120,25 +126,26 @@ $('#guardaRpt').click(function() {
                 }).then()
             } else {
                 var fec11 = $('#fechaInicio').val();
-                var fecha3=moment(fec11).format('DD/MM/YYYY');
+                var fecha3 = moment(fec11).format('DD/MM/YYYY');
 
                 var fec22 = new Date();
-                var fecha4=moment(fec22).format('DD/MM/YYYY');
-                if (fecha3>=fecha4){
-                        $('#formNuevoReporte').submit();
-                    } else {                                                            
-                    swal({ title: " ",
+                var fecha4 = moment(fec22).format('DD/MM/YYYY');
+                if (fecha3 >= fecha4) {
+                    $('#formNuevoReporte').submit();
+                } else {
+                    swal({
+                        title: " ",
                         text: 'La fecha inicial no puede ser menor a la fecha actual',
                         type: 'warning',
                         showCloseButton: true,
                         confirmButtonColor: '#831F82',
                         confirmButtonText: 'ACEPTAR'
-                        }).then()
-                    }
-                };
-            }
-        };
-    });
+                    }).then()
+                }
+            };
+        }
+    };
+});
 
 /****************GUARDA CONSECUTIVOS ORDEN DE PRODUCCION*******************************/
 function guardarConsecutivo(noOrden) {
@@ -150,11 +157,10 @@ function guardarConsecutivo(noOrden) {
     var fechaFormat2 = moment(fechaFinal, 'MM/DD/YYYY');
     var dias = fechaFormat2.diff(fechaFormat1, 'days');
     $.ajax({
-    url: "consecutivo/"+dias+"/"+noOrden1,
-    type:"POST",
-    async:true,
-    success: function(data){ 
-        }
+        url: "consecutivo/" + dias + "/" + noOrden1,
+        type: "POST",
+        async: true,
+        success: function(data) {}
     });
 }
 
@@ -165,12 +171,12 @@ $('#guardarTM').click(function() {
 });
 
 /****************ABRE EL MODEL PARA CREAR NUEVA ORDEN DE PRODUCCION*************************/
-$("#crearR").click(function(){
+$("#crearR").click(function() {
     $("#nuevoReporte").openModal();
 });
 
 /****************ABRE EL MODEL PARA AGREGAR NUEVO TIEMPO MUERTO*************************/
-$("#agregarTM").click(function(){
+$("#agregarTM").click(function() {
     var val1 = $('#ordC').text();
     var val2 = $('#ordP').text();
     var val3 = $('#ordT').text();
@@ -180,27 +186,28 @@ $("#agregarTM").click(function(){
     $("#nuevoTiempoMuerto").openModal();
 });
 /****************VALIDAR FECHA DE ORDEN DE PRODUCCION***************************************/
-$("#valOrdP7").on('click',function() {
+$("#valOrdP7").on('click', function() {
     $.ajax({
-    url: "validaFechaNoOrden",
-    type:"POST",
-    async:true,
-    success: function(data){        
-        var fechaOrdF = moment(data, 'YYYY-MM-DD');
-        var hoy = moment(new Date(), 'YYYY-MM-DD');
-        if (fechaOrdF<hoy){
-            $.ajax({
-            url: "cambiarEstadoRpt",
-            type: "POST",
-            async:true,
-            success: function(){
-                gotopage("reporte"); }
+        url: "validaFechaNoOrden",
+        type: "POST",
+        async: true,
+        success: function(data) {
+            var fechaOrdF = moment(data, 'YYYY-MM-DD');
+            var hoy = moment(new Date(), 'YYYY-MM-DD');
+            if (fechaOrdF < hoy) {
+                $.ajax({
+                    url: "cambiarEstadoRpt",
+                    type: "POST",
+                    async: true,
+                    success: function() {
+                        gotopage("reporte");
+                    }
                 })
-            } else { 
+            } else {
                 gotopage("reporte");
             };
         }
-    });  
+    });
 });
 
 function guardarTM1() {
@@ -211,16 +218,16 @@ function guardarTM1() {
     var timepickerII = $('#timepickerII').val();
     var timepickerFF = $('#timepickerFF').val();
     var maquina = $('#maquina').val();
-    var descipcion11  = $('#descipcion').val();
+    var descipcion11 = $('#descipcion').val();
     //descipcion11.replace("."," ");
     $.ajax({
-        url: "../guardarTM/"+idRptD+'/'+ordP1+'/'+consecutivo+'/'+turno1+'/'+timepickerII+'/'+timepickerFF+'/'+maquina+'/'+descipcion11,
-        type:"POST",
-        async:true,
-        success: function(data){ 
+        url: "../guardarTM/" + idRptD + '/' + ordP1 + '/' + consecutivo + '/' + turno1 + '/' + timepickerII + '/' + timepickerFF + '/' + maquina + '/' + descipcion11,
+        type: "POST",
+        async: true,
+        success: function(data) {
             console.log(data);
             console.log(data);
-            if (data==1) {
+            if (data == 1) {
                 Materialize.toast('SE GUARDO CON ÉXITO', 1000);
             } else {
                 Materialize.toast('ERROR AL GUARDAR', 1000);
@@ -253,138 +260,158 @@ function guardarTM1() {
 });*/
 
 /****************VALIDA SI EL NUMERO DE ORDEN YA EXISTE***************************************/
-$("#numOrden").on('change',function(event) {
+$("#numOrden").on('change', function(event) {
     var numOrden = $('#numOrden').val();
     $.ajax({
-        url: "validarReporte/"+numOrden,
-        type:"POST",
-        async:true,
-        success: function(data){ 
-            if (data==true) {
-            swal({ title: " ",
-                text: 'El número de orden ya existe',
-                type: 'warning',
-                showCloseButton: true,
-                confirmButtonColor: '#831F82',
-                confirmButtonText: 'ACEPTAR'
-                }).then() 
-                $('#numOrden').val("")             
-            }
-        }
-    }); 
-});
-
-/*********CAMBIAR ESTADO A REPORTE**************************/
-
-function cambiaStatusRpt(idOrden, numOrden, estado){
-    var idOrd=idOrden; var numOrd=numOrden; var status=estado;
-    var miMSS="";
-
-    switch(estado){
-        case 0:
-            $.ajax({
-            url: "validaRpt/" + numOrd,
-            async:true,
-            success: function(data){
-            if (data==true) {
-                swal({ title: ' ',
-                    text: 'No se puede anular esta orden ya que existen uno o más registros enlazados a ella',
+        url: "validarReporte/" + numOrden,
+        type: "POST",
+        async: true,
+        success: function(data) {
+            if (data == true) {
+                swal({
+                    title: " ",
+                    text: 'El número de orden ya existe',
                     type: 'warning',
                     showCloseButton: true,
                     confirmButtonColor: '#831F82',
                     confirmButtonText: 'ACEPTAR'
                 }).then()
+                $('#numOrden').val("")
+            }
+        }
+    });
+});
+
+/*********CAMBIAR ESTADO A REPORTE**************************/
+
+function cambiaStatusRpt(idOrden, numOrden, estado) {
+    var idOrd = idOrden;
+    var numOrd = numOrden;
+    var status = estado;
+    var miMSS = "";
+
+    switch (estado) {
+        case 0:
+            $.ajax({
+                url: "validaRpt/" + numOrd,
+                async: true,
+                success: function(data) {
+                    if (data == true) {
+                        swal({
+                            title: ' ',
+                            text: 'No se puede anular esta orden ya que existen uno o más registros enlazados a ella',
+                            type: 'warning',
+                            showCloseButton: true,
+                            confirmButtonColor: '#831F82',
+                            confirmButtonText: 'ACEPTAR'
+                        }).then()
                     } else {
                         confirmacionCambioStatus('¿Desea anular esta orden de producción?', 'ANULAR', idOrd, status);
                     }
                 }
-            }); break;
+            });
+            break;
         case 1:
             $.ajax({
-            url: "validarNoOrden",
-            type:"POST",
-            async:true,
-            success: function(data){
-                if (data==true) {
-                    swal({ title: 'Ya existe una orden activa',
-                    text: '¿Desea dar de baja a la anterior y agregar esta como orden activa?',
-                    type: 'warning',
-                    showCloseButton: true,
-                    showCancelButton: true,
-                    confirmButtonColor: '#831F82',
-                    confirmButtonText: 'ACEPTAR',
-                    cancelButtonText:'CANCELAR'
-                    }).then(function(){
-                        $.ajax({ 
-                            url:"FechaInicio/" + numOrd,
-                            type: "post",
-                            async:true,
-                            success: function(data) {
-                                var fecha3=moment(data).format('DD/MM/YYYY');
-                                var fec2 = new Date();
-                                var fecha4=moment(fec2).format('DD/MM/YYYY');
-                                if (fecha3>=fecha4) {
-                                    cambiaOrdenActiva(idOrd, 3);
-                                } else{                                    
-                                    swal({ title: "",
-                                        text: 'Esta orden no puede ser seleccionada como activa porque su fecha de inicio ya caduco',
-                                        type: 'warning',                            
-                                        confirmButtonColor: '#831F82',
-                                        confirmButtonText: 'CERRAR'
-                                    }).then()
-                            };
-                        }
-                    });
-                        
-                });         
-            } else {cambiaOrdenActiva(idOrd, 3);}
-        }
-        }); break;
+                url: "validarNoOrden",
+                type: "POST",
+                async: true,
+                success: function(data) {
+                    if (data == true) {
+                        swal({
+                            title: 'Ya existe una orden activa',
+                            text: '¿Desea dar de baja a la anterior y agregar esta como orden activa?',
+                            type: 'warning',
+                            showCloseButton: true,
+                            showCancelButton: true,
+                            confirmButtonColor: '#831F82',
+                            confirmButtonText: 'ACEPTAR',
+                            cancelButtonText: 'CANCELAR'
+                        }).then(function() {
+                            $.ajax({
+                                url: "FechaInicio/" + numOrd,
+                                type: "post",
+                                async: true,
+                                success: function(data) {
+                                    var fecha3 = moment(data).format('DD/MM/YYYY');
+                                    var fec2 = new Date();
+                                    var fecha4 = moment(fec2).format('DD/MM/YYYY');
+                                    if (fecha3 >= fecha4) {
+                                        cambiaOrdenActiva(idOrd, 3);
+                                    } else {
+                                        swal({
+                                            title: "",
+                                            text: 'Esta orden no puede ser seleccionada como activa porque su fecha de inicio ya caduco',
+                                            type: 'warning',
+                                            confirmButtonColor: '#831F82',
+                                            confirmButtonText: 'CERRAR'
+                                        }).then()
+                                    };
+                                }
+                            });
+
+                        });
+                    } else { cambiaOrdenActiva(idOrd, 3); }
+                }
+            });
+            break;
         case 2:
-            swal({ title: "CAMBIAR ESTADO",
+            swal({
+                title: "CAMBIAR ESTADO",
                 text: '¿Desea cerrar esta orden?',
                 type: 'warning',
                 showCloseButton: true,
                 confirmButtonColor: '#831F82',
                 confirmButtonText: 'CERRAR',
                 showCancelButton: true,
-                cancelButtonText:'Cancelar',
-            }).then(function(){
-            $.ajax({ url: "cambiarEstadoRpt/"+idOrd+"/"+status,
-                type: "post",
-                async:true,
-                success: function(){
-                swal({title: "EL ESTADO DE LA ORDEN SE CAMBIO CORECTAMENTE!",
-                type: "success",
-                confirmButtonText: "CERRAR",
-                }).then(
-                    function(){gotopage("reporte");}
-                )}
-            })
-        }); break;
+                cancelButtonText: 'Cancelar',
+            }).then(function() {
+                $.ajax({
+                    url: "cambiarEstadoRpt/" + idOrd + "/" + status,
+                    type: "post",
+                    async: true,
+                    success: function() {
+                        swal({
+                            title: "EL ESTADO DE LA ORDEN SE CAMBIO CORECTAMENTE!",
+                            type: "success",
+                            confirmButtonText: "CERRAR",
+                        }).then(
+                            function() { gotopage("reporte"); }
+                        )
+                    }
+                })
+            });
+            break;
     }
 }
 /****************FUNCION PARA CAMBIAR STATUS DE LA ORDEN DE PRODUCCION********************/
-function confirmacionCambioStatus(mensaje, textbutton, idOrden, status){
-    swal({ title: "CAMBIAR ESTADO",
+function confirmacionCambioStatus(mensaje, textbutton, idOrden, status) {
+    swal({
+        title: "CAMBIAR ESTADO",
         text: mensaje,
         type: 'warning',
         showCloseButton: true,
         confirmButtonColor: '#831F82',
         confirmButtonText: textbutton,
         showCancelButton: true,
-        cancelButtonText:'Cancelar',
-    }).then(function(){
-        $.ajax({ url: "cambiarEstadoRpt/"+idOrden+"/"+status,
+        cancelButtonText: 'Cancelar',
+    }).then(function() {
+        $.ajax({
+            url: "cambiarEstadoRpt/" + idOrden + "/" + status,
             type: "post",
-            async:true,
-            success: function(){
-            swal({title: "EL ESTADO DE LA ORDEN SE CAMBIO CORECTAMENTE!",
-            type: "success",
-            confirmButtonText: "CERRAR",
-        }).then(
-        function(){gotopage("reporte");}
-            )}});})}
+            async: true,
+            success: function() {
+                swal({
+                    title: "EL ESTADO DE LA ORDEN SE CAMBIO CORECTAMENTE!",
+                    type: "success",
+                    confirmButtonText: "CERRAR",
+                }).then(
+                    function() { gotopage("reporte"); }
+                )
+            }
+        });
+    })
+}
 
 /*function cambiaStatusRpt(idReporte1, estado) {
     if (estado == 1) {
@@ -418,21 +445,23 @@ function confirmacionCambioStatus(mensaje, textbutton, idOrden, status){
 }*/
 
 /****************DANDO DE BAJA A ORDENES DE PRODUCCION******************************/
-function cambiaOrdenActiva(idOrden, status) { 
-    var codigoUnico = idOrden;    
+function cambiaOrdenActiva(idOrden, status) {
+    var codigoUnico = idOrden;
     $.ajax({
         url: "cambiarOrdenActiva/" + codigoUnico,
-        async:true,
-        success: function(data){        
-            if (data==true) {
-                swal({text: "SE CAMBIO A ACTIVA LA ORDEN SELECCIONADA",
+        async: true,
+        success: function(data) {
+            if (data == true) {
+                swal({
+                    text: "SE CAMBIO A ACTIVA LA ORDEN SELECCIONADA",
                     type: "success",
                     confirmButtonText: "CERRAR",
                 }).then(
-                    function(){gotopage("reporte");}
+                    function() { gotopage("reporte"); }
                 )
-            }else {
-                swal({text: "LA ORDEN SELECCIONADA NO PUEDE SER MARCADA COMO ACTIVA",
+            } else {
+                swal({
+                    text: "LA ORDEN SELECCIONADA NO PUEDE SER MARCADA COMO ACTIVA",
                     type: "warning",
                     confirmButtonText: "CERRAR",
                 }).then()
@@ -442,105 +471,107 @@ function cambiaOrdenActiva(idOrden, status) {
 }
 
 /****************ACTUALIZAR ORDEN DE PRODUCCION***************************/
-  $('#actualizarRpt').click(function() {
+$('#actualizarRpt').click(function() {
     var codUnico = $('#numOrden1').val();
     $.ajax({
         url: "validaRpt/" + codUnico,
-        async:true,
-        success: function(data){
-            if (data==true) {
-                swal({ title: ' ',
+        async: true,
+        success: function(data) {
+            if (data == true) {
+                swal({
+                    title: ' ',
                     text: 'No se puede editar esta orden ya que existen uno o más registros enlazados a ella',
                     type: 'warning',
                     showCloseButton: true,
                     confirmButtonColor: '#831F82',
                     confirmButtonText: 'ACEPTAR'
                 }).then()
-            } else {                
-                swal({title: " ",
+            } else {
+                swal({
+                    title: " ",
                     text: 'Actualizado con éxito!',
                     type: "success",
                     confirmButtonColor: '#831F82',
                     confirmButtonText: 'ACEPTAR'
                 }).then(
                     function() {
-                      $('#formActualizarOrd').submit();  
-                    } 
+                        $('#formActualizarOrd').submit();
+                    }
                 )
             };
         }
-    });    
-  });
+    });
+});
 
-function buscarOrdProd(identificador) {  
-    var codigoUnico = identificador; 
+function buscarOrdProd(identificador) {
+    var codigoUnico = identificador;
     $("#actualizarRpt").show();
     $("#title1").show();
     $("#title2").hide();
     $.ajax({
         url: "buscarOrden/" + codigoUnico,
-        async:true,
-        success: function(json){
-        var estadoA="";        
-        $.each(JSON.parse(json), function(i, item) {
-          estadoA = item['Estado'],
-          $('#identificador').val(item['IdOrden'])
-          $('#numOrden1').val(item['NoOrden']),
-          $('#fechaInicio1').val(item['FechaInicio']),
-          $('#fechaFinal1').val(item['FechaFin']),
-          $('#comentario1').val(item['comentarios']) 
-        })
-            if (estadoA==0) {
+        async: true,
+        success: function(json) {
+            var estadoA = "";
+            $.each(JSON.parse(json), function(i, item) {
+                estadoA = item['Estado'],
+                    $('#identificador').val(item['IdOrden'])
+                $('#numOrden1').val(item['NoOrden']),
+                    $('#fechaInicio1').val(item['FechaInicio']),
+                    $('#fechaFinal1').val(item['FechaFin']),
+                    $('#comentario1').val(item['comentarios'])
+            })
+            if (estadoA == 0) {
                 $("#actualizarRpt").hide();
                 $("#title2").show();
                 $("#title1").hide();
             };
-            $("#nuevaOrdenP").openModal(); 
+            $("#nuevaOrdenP").openModal();
         }
-    }); 
+    });
 }
 
 
-function abrirPagina(){
-        $.ajax({
-        url: "detalleTiempoMuerto/"+1,
-        async:true,
+function abrirPagina() {
+    $.ajax({
+        url: "detalleTiempoMuerto/" + 1,
+        async: true,
         type: 'post',
-        success: function(json){
-        
-       /*var estadoA="";        
-        $.each(JSON.parse(json), function(i, item) {
-          estadoA = item['Estado'],
-          $('#identificador').val(item['IdOrden'])
-          $('#numOrden1').val(item['NoOrden']),
-          $('#fechaInicio1').val(item['FechaInicio']),
-          $('#fechaFinal1').val(item['FechaFin']),
-          $('#comentario1').val(item['comentarios']) 
-        })
-            if (estadoA==0) {
-                $("#actualizarRpt").hide();
-                $("#title2").show();
-                $("#title1").hide();
-            };*/
+        success: function(json) {
+
+            /*var estadoA="";        
+             $.each(JSON.parse(json), function(i, item) {
+               estadoA = item['Estado'],
+               $('#identificador').val(item['IdOrden'])
+               $('#numOrden1').val(item['NoOrden']),
+               $('#fechaInicio1').val(item['FechaInicio']),
+               $('#fechaFinal1').val(item['FechaFin']),
+               $('#comentario1').val(item['comentarios']) 
+             })
+                 if (estadoA==0) {
+                     $("#actualizarRpt").hide();
+                     $("#title2").show();
+                     $("#title1").hide();
+                 };*/
             //$("#nuevaOrdenP").openModal(); 
         }
     });
 }
 //http://localhost:8082/phinn/index.php/
-function buscarTiempoM(identificador) { 
+function buscarTiempoM(identificador) {
     $.ajax({
-        url: "../detalleTiempoMuerto/"+identificador,
-        async:true,
-        success: function(json){   
-        $.each(JSON.parse(json), function(i, item) {
-          $('#IdReporteDiario').text(item['IdReporteDiario']),
-          $('#HoraInicio').text(item['HoraInicio']),
-          $('#HoraFin').text(item['HoraFin']),
-          $('#Maquina').text(item['Maquina']),
-          $('#Descrip').val(item['Descripcion']),
-          $('#interval').text(item['Intervalos']),
-          $('#turno').text(item['Turno']);
-        })
+        url: "../detalleTiempoMuerto/" + identificador,
+        async: true,
+        success: function(json) {
+            $.each(JSON.parse(json), function(i, item) {
+                $('#IdReporteDiario').text(item['IdReporteDiario']),
+                    $('#HoraInicio').text(item['HoraInicio']),
+                    $('#HoraFin').text(item['HoraFin']),
+                    $('#Maquina').text(item['Maquina']),
+                    $('#Descrip').val(item['Descripcion']),
+                    $('#interval').text(item['Intervalos']),
+                    $('#turno').text(item['Turno']);
+            })
             $("#visTiempoM").openModal();
         }
     });
@@ -551,7 +582,7 @@ $('.verDetalleTM').click(function() {
 });
 
 $('#cerrarMdl').click(function() {
-    $("#visTiempoM").closeModal(); 
+    $("#visTiempoM").closeModal();
 });
 
 //Cargar pagina
@@ -652,8 +683,8 @@ $("#tlbListaRep").DataTable({
 
 $("#tlbTiemposMuertos").DataTable({
     "ordering": false,
-    "paginate":false,
-    'filter':false,
+    "paginate": false,
+    'filter': false,
     "info": false,
     "bPaginate2": false,
     "bfilter": false,
@@ -665,14 +696,14 @@ $("#tlbTiemposMuertos").DataTable({
         "lengthMenu": "_MENU_",
         //"search":'<i style="color:#039be5; font-size:40px;" class="material-icons">search</i>',
         "loadingRecords": "",
-        "info":         "Mostrando _START_ a _END_ de _TOTAL_ registro",
-        "infoEmpty":    "Mostrando 0 a 0 de 0 registro",
+        "info": "Mostrando _START_ a _END_ de _TOTAL_ registro",
+        "infoEmpty": "Mostrando 0 a 0 de 0 registro",
         "infoFiltered": "(filtrado de _MAX_ registros totales)",
-        "zeroRecords":  "No se han encontrado resultados para tu búsqueda",
+        "zeroRecords": "No se han encontrado resultados para tu búsqueda",
         "paginate": {
-            "first":    "Primera",
-            "last":     "Última ",
-            "next":     "Anterior",
+            "first": "Primera",
+            "last": "Última ",
+            "next": "Anterior",
             "previous": "Siguiente"
         },
     }
@@ -680,8 +711,8 @@ $("#tlbTiemposMuertos").DataTable({
 
 $("#tlbTiemposMuertos2").DataTable({
     //"ordering": true,
-    "paginate":false,
-    'filter':false,
+    "paginate": false,
+    'filter': false,
     "info": false,
     "bPaginate2": false,
     "bfilter": false,
@@ -693,14 +724,74 @@ $("#tlbTiemposMuertos2").DataTable({
         "lengthMenu": "_MENU_",
         //"search":'<i style="color:#039be5; font-size:40px;" class="material-icons">search</i>',
         "loadingRecords": "",
-        "info":         "Mostrando _START_ a _END_ de _TOTAL_ registro",
-        "infoEmpty":    "Mostrando 0 a 0 de 0 registro",
+        "info": "Mostrando _START_ a _END_ de _TOTAL_ registro",
+        "infoEmpty": "Mostrando 0 a 0 de 0 registro",
         "infoFiltered": "(filtrado de _MAX_ registros totales)",
-        "zeroRecords":  "No se han encontrado resultados para tu búsqueda",
+        "zeroRecords": "No se han encontrado resultados para tu búsqueda",
         "paginate": {
-            "first":    "Primera",
-            "last":     "Última ",
-            "next":     "Anterior",
+            "first": "Primera",
+            "last": "Última ",
+            "next": "Anterior",
+            "previous": "Siguiente"
+        },
+    }
+});
+
+$("#tablaProd").DataTable({
+    "paginate": true,
+    'filter': false,
+    "info": false,
+    "bPaginate2": false,
+    "bfilter": false,
+    //"pagingType": "full_numbers",
+    //"aaSorting": [[2, "asc"]],
+    "lengthMenu": [
+        [5, 10, -1],
+        [5, 10, "Todo"]
+    ],
+    "language": {
+        "emptyTable": "No hay datos disponible en la tabla",
+        "lengthMenu": "_MENU_",
+        //"search":'<i style="color:#039be5; font-size:40px;" class="material-icons">search</i>',
+        "loadingRecords": "",
+        "info": "Mostrando _START_ a _END_ de _TOTAL_ registro",
+        "infoEmpty": "Mostrando 0 a 0 de 0 registro",
+        "infoFiltered": "(filtrado de _MAX_ registros totales)",
+        "zeroRecords": "No se han encontrado resultados para tu búsqueda",
+        "paginate": {
+            "first": "Primera",
+            "last": "Última ",
+            "next": "Anterior",
+            "previous": "Siguiente"
+        },
+    }
+});
+
+$("#tblpasta").DataTable({
+    "paginate": false,
+    'filter': false,
+    "info": false,
+    "bPaginate2": false,
+    "bfilter": false,
+    //"pagingType": "full_numbers",
+    //"aaSorting": [[2, "asc"]],
+    "lengthMenu": [
+        [5, 10, -1],
+        [5, 10, "Todo"]
+    ],
+    "language": {
+        "emptyTable": "No hay datos disponible en la tabla",
+        "lengthMenu": "_MENU_",
+        //"search":'<i style="color:#039be5; font-size:40px;" class="material-icons">search</i>',
+        "loadingRecords": "",
+        "info": "Mostrando _START_ a _END_ de _TOTAL_ registro",
+        "infoEmpty": "Mostrando 0 a 0 de 0 registro",
+        "infoFiltered": "(filtrado de _MAX_ registros totales)",
+        "zeroRecords": "No se han encontrado resultados para tu búsqueda",
+        "paginate": {
+            "first": "Primera",
+            "last": "Última ",
+            "next": "Anterior",
             "previous": "Siguiente"
         },
     }
@@ -800,7 +891,7 @@ function checksubmit(form) {
 }
 
 function BorrarUsuario(IdUsuario, Estado) {
-    debugger;
+
     if (Estado == 1) {
         var miMSS = "¿DESEA CAMBIAR EL ESTADO ACTIVO AL USUARIO?";
     } else { var miMSS = "¿DESEA CAMBIAR EL ESTADO INACTIVO AL USUARIO?"; }
@@ -815,7 +906,7 @@ function BorrarUsuario(IdUsuario, Estado) {
         confirmButtonText: 'Cambiar',
         cancelButtonText: 'Cancelar'
     }).then(function() {
-        debugger;
+
         $.ajax({
             url: "EditarUsuario/" + IdUsuario + "/" + Estado,
             type: "post",
@@ -839,24 +930,13 @@ function BorrarUsuario(IdUsuario, Estado) {
 //////////////////////////////////////////////////////////////////////////////////////////*/
 
 $("#AddOrden").click(function() {
-    debugger;
-    var cons = $("#consecutivo").val();
+
     var Fechainicio = $("#Fechainicio").val();
     var Fechafin = $("#Fechafin").val();
-    var time = $("#timepicker").val();
-    var time1 = $("#timepicker1").val();
-    var grupo = $("#grupo").val();
     var papel = $("#papel").val();
     var coordinador = $("#coordinador").val();
-    var turno = $("#turno").val();
-    if (cons < 1 | cons <= 0) {
-        swal({
-            type: 'info',
-            text: 'El campo consecutivo esta vacío o el valor ingresado es menor a 1',
-            confirmButtonText: "CERRAR"
-        })
-        event.preventDefault();
-    } else if (Fechainicio == "" | Fechafin == "" | time == "" | time1 == "" | grupo == "" | papel == "" | coordinador == "" | turno == "") {
+    var Turno = $('#turno option:selected').val();
+    if (Fechainicio == "" | Fechafin == "" | papel == "" | coordinador == "" | Turno == "") {
         swal({
             text: "Todos los campos son requeridos",
             type: "info",
@@ -864,7 +944,221 @@ $("#AddOrden").click(function() {
         });
         event.preventDefault();
     }
+
+    var fec = Fechainicio.substring(8);
+    var fec1 = Fechafin.substring(8);
+    if (fec > fec1) {
+        swal({
+            text: "La fecha de inicio no puede ser mayor a la fecha final",
+            type: "info",
+            confirmButtonText: "CERRAR"
+        });
+        event.preventDefault();
+    }
 });
+
+$('#turno').change(function() {
+
+        var Fecha = $("#Fechainicio").val();
+        var turno = $('#turno option:selected').val();
+        var consecutivo = $("#cons").val();
+        var ajax = $.ajax({
+            url: "ValidaFecha/" + Fecha + "/" + turno + "/" + consecutivo,
+            type: "POST",
+            async: true,
+            success: function(data) {
+
+                if (data == true) {
+                    swal({
+                        title: " ",
+                        text: 'ya existe una registro de produccion con la misma fecha de inicio y turno ' + " para la orden " + consecutivo,
+                        type: 'warning',
+                        showCloseButton: true,
+                        confirmButtonColor: '#831F82',
+                        confirmButtonText: 'ACEPTAR'
+                    });
+                }
+            }
+        });
+    })
+    /*/////////////////////////////////////////////////////////////////////////////////////////
+                                    FIN FUNCIONES SOBRE ORDENES
+    //////////////////////////////////////////////////////////////////////////////////////////*/
+
+
+
 /*/////////////////////////////////////////////////////////////////////////////////////////
-                                FIN FUNCIONES SOBRE ORDENES
+                                 FUNCIONES SOBRE PRODUCCION
 //////////////////////////////////////////////////////////////////////////////////////////*/
+$("#agregarP").click(function() {
+    $('#nuevaProduccion').openModal();
+});
+
+
+function Guardar() {
+    var form_data = {
+        idRptD: $("#idRptD").val(),
+        NoOrden: $("#NoOrden").val(),
+        timepickerII: $("#timepickerII").val(),
+        timepickerFF: $("#timepickerFF").val(),
+        operador: $("#operador option:selected").val(),
+        maquina: $("#maquina option:selected").val(),
+        Velocidad: $("#Velocidad").val(),
+        peso: $("#peso").val(),
+        Diametro: $("#Diametro").val(),
+        pesobase: $("#pesobase").val()
+    };
+    var envio = $.ajax({
+        url: "../GuardaProduccion",
+        type: "post",
+        async: true,
+        data: form_data,
+        beforeSend: function() {
+            var horain = $("#timepickerII").val(),
+                horafin = $("#timepickerFF").val(),
+                oper = $("#operador option:selected").val(),
+                maq = $("#maquina option:selected").val(),
+                vel = $("#Velocidad").val(),
+                peso = $("#peso").val(),
+                diam = $("#Diametro").val(),
+                pesobase = $("#pesobase").val();
+            if (horain == "" | horafin == "" | oper == "" | maq == "" | peso == "" | pesobase == "" | diam == "") {
+                swal({
+                    type: "info",
+                    text: "TODOS LOS CAMPOS SON REQUERIDOS" + ", " + "DEBE COMPLETAR EL CAMPO FALTANTE",
+                    confirmButtonText: "CERRAR"
+                });
+                envio.abort();
+                envio = null;
+
+            }
+        },
+        success: function(data) {
+            if (data = 1) {
+
+                Materialize.toast('SE GUARDO CON ÉXITO', 1000);
+                $("#idRptD").val("")
+                $("#NoOrden").val("")
+                $("#timepickerII").val("")
+                $("#timepickerFF").val("")
+                $("#Velocidad").val("")
+                $("#peso").val("")
+                $("#Diametro").val("")
+                $("#pesobase").val("")
+            } else {
+                Materialize.toast('ERROR AL GUARDAR', 1000);
+            }
+        }
+    });
+}
+
+function EliminarProd(elem) {
+    var id = $(elem).attr("id");
+    swal({
+        title: '¿Estas seguro que deseas eliminar este registro?',
+        text: 'esta operacion no podra revertirse',
+        type: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then(function() {
+        $.ajax({
+            url: "../EliminarProduccion/" + id,
+            async: true,
+            success: function() {
+                swal({
+                    text: "El registro se ha elimando correctamente",
+                    type: "success",
+                    confirmButtonText: "CERRAR"
+                }).then(
+                    function() {
+                        location.reload();
+                    }
+                )
+            }
+        });
+    })
+}
+
+function EditarProd(Operador, Maquina, HoraInicio, HoraFin, Velocidad, Peso, Diametro, PesoBase) {
+    $("#lbloperador").text(Operador);
+    $("#lblmaq").text(Maquina);
+    $("#lblhorain").text(HoraInicio)
+    $("#lblhorafin").text(HoraFin)
+    $("#lblvelocidad").text(Velocidad)
+    $("#lblpeso").text(Peso)
+    $("#lbldiametro").text(Diametro)
+    $("#lblpesobase").text(PesoBase)
+}
+/*/////////////////////////////////////////////////////////////////////////////////////////
+                               FIN  FUNCIONES SOBRE PRODUCCION
+//////////////////////////////////////////////////////////////////////////////////////////*/
+
+/*/////////////////////////////////////////////////////////////////////////////////////////
+                                FUNCIONES SOBRE MATERIA PRIMA
+//////////////////////////////////////////////////////////////////////////////////////////*/
+function Guardarmp() {
+    debugger;
+    var form_data1 = {
+        idRptD: $("#idRptD").val(),
+        Tanque: $("#Tanque").val(),
+        dia: $("#dia").val(),
+        noche: $("#noche").val(),
+        consumo: $("#consumo").val()
+    };
+    var AJAX = $.ajax({
+        url: "../GuardarMP",
+        type: "POST",
+        async: true,
+        data: form_data1,
+        beforeSend: function(data) {
+            debugger;
+            var tanq = $("#Tanque").val(),
+                day = $("#dia").val(),
+                night = $("#noche").val(),
+                consu = $("#consumo").val();
+            if (tanq == "TANQUES" | day == "" | night == "" | consu == "") {
+                swal({
+                    text: "Todos los campos son requeridos",
+                    type: "info",
+                    confirmButtonText: "CERRAR"
+                });
+                AJAX.abort();
+            }
+        },
+        success: function(data) {
+            if (data = 1) {
+                Materialize.toast('SE GUARDO CON ÉXITO', 1000);
+            } else {
+                Materialize.toast('ERROR AL GUARDAR', 1000);
+            }
+        }
+    });
+}
+
+$('#Tanque').on("change", function() {
+    var tanque = $('#Tanque option:selected').val(),
+        ID = $("#idRptD").val();
+    var ajax = $.ajax({
+        url: "../ValidaPasta/" + tanque + "/" + ID,
+        type: "POST",
+        async: true,
+        success: function(data) {
+            if (data == true) {
+                swal({
+                    title: " ",
+                    text: 'ya existe una registro con el tanque #' + tanque,
+                    type: 'warning',
+                    showCloseButton: true,
+                    confirmButtonColor: '#831F82',
+                    confirmButtonText: 'ACEPTAR'
+                });
+                $("#matprim").hide();
+            } else {
+                $("#matprim").show();
+            }
+        }
+    });
+})
