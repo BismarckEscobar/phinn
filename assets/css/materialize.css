@@ -2183,7 +2183,7 @@ body {
 
 
 /* HTML5 display definitions
-   ========================================================================== */
+    */
 
 
 /**
@@ -3159,10 +3159,35 @@ th {
 }
 .collection .collection-item {
     background-color: #8b008b;
+
+  margin: 0.5rem 0 1rem 0;
+  border: 1px solid #e0e0e0;
+  border-radius: 0px;
+  overflow: hidden;
+  position: relative; }
+  .collection .collection-item {
+    background-color: white;
     line-height: 1.5rem;
     padding: 10px 20px;
     margin: 0;
     border-bottom: 1px solid #e0e0e0;
+    border-radius: 5px; }
+
+    /*******COLECCION DEL MENU ORDEN DE TRABAJO**************/
+    .collection1 {
+    margin: 0.5rem 0 1rem 0;
+    border: 0px solid #e0e0e0;
+    border-radius: 0px;
+    overflow: hidden;
+    position: relative; }
+    .collection1 .collection-item1 {
+    background-color: #831F82;
+
+    line-height: 1.5rem;
+    padding: 10px 20px;
+    margin: 0;
+    border-bottom: 1px solid #e0e0e0;
+
     border-radius: 5px;
 }
 .collection .collection-item.avatar {
@@ -3210,6 +3235,56 @@ th {
     color: #fff;
 }
 .collection a.collection-item {
+    border-radius: 5px; 
+}
+
+  .collection1 a.collection-item1 {
+    display: block;
+    -webkit-transition: 0.25s;
+    -moz-transition: 0.25s;
+    -o-transition: 0.25s;
+    -ms-transition: 0.25s;
+    transition: 0.25s;
+    color: white; }
+  .collection1.with-header .collection-item1 {
+    padding-left: 30px; }
+    /*********FIN DEL MENU ORDEN DE TRABAJO*****************/
+
+    .collection .collection-item.avatar {
+      min-height: 84px;
+      padding-left: 72px;
+      position: relative; 
+      text-align: left;}
+      .collection .collection-item.avatar .circle {
+        position: absolute;
+        width: 42px;
+        height: 42px;
+        overflow: hidden;
+        left: 15px;
+        display: inline-block;
+        vertical-align: middle; }
+      .collection .collection-item.avatar i.circle {
+        font-size: 18px;
+        line-height: 42px;
+        color: #fff;
+        background-color: #999;
+        text-align: center; }
+      .collection .collection-item.avatar .title {
+        font-size: 16px; font-family:'robotoblack'; color:#831F82;}
+      .collection .collection-item.avatar p {
+        margin: 0; }
+      .collection .collection-item.avatar .secondary-content {
+        position: absolute;
+        top: 16px;
+        right: 16px; }
+    .collection .collection-item:last-child {
+      border-bottom: none; }
+    .collection .collection-item.active {
+      background-color: #144229;
+      color: #eafaf9; }
+      .collection .collection-item.active .secondary-content {
+        color: #fff; }
+  .collection a.collection-item {
     display: block;
     -webkit-transition: 0.25s;
     -moz-transition: 0.25s;
@@ -7691,6 +7766,7 @@ a.waves-effect .waves-ripple {
 
 /***********MODALES MODIFICADOS********************/
 .modal1 {
+
     display: none;
     position: fixed;
     left: 0;
@@ -7706,6 +7782,21 @@ a.waves-effect .waves-ripple {
     will-change: top, opacity;
 }
 @media only screen and (max-width: 992px) {
+  display: none;
+  position: fixed;
+  left: 0;
+  right: 0;
+  background-color: #fafafa;
+  padding: 0;
+  max-height: 100%;
+  width: 60%;
+  margin: auto;
+  overflow-y: auto;
+  border-radius: 2px;
+  will-change: top, opacity; }
+
+  @media only screen and (max-width : 992px) {
+
     .modal1 {
         width: 80% !important;
     }
@@ -7763,6 +7854,7 @@ a.waves-effect .waves-ripple {
 
 /***********FIN DE MODALES MODIFICADOS************/
 .modal {
+
     display: none;
     position: fixed;
     left: 0;
@@ -7777,6 +7869,21 @@ a.waves-effect .waves-ripple {
     will-change: top, opacity;
 }
 @media only screen and (max-width: 992px) {
+  display: none;
+  position: fixed;
+  left: 0;
+  right: 0;
+  background-color: #fafafa;
+  padding: 0;
+  max-height: 95%;
+  width: 60%;
+  height: auto;
+  margin: auto;
+  overflow-y: auto;
+  border-radius: 2px;
+  will-change: top, opacity; }
+  @media only screen and (max-width : 992px) {
+
     .modal {
         width: 80% !important;
     }
@@ -9841,19 +9948,23 @@ select {
  * The frame that bounds the box contents of the picker.
  */
 .picker__frame {
-    position: absolute;
-    margin: 0 auto;
-    min-width: 256px;
-    width: 300px;
-    max-height: 350px;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-    filter: alpha(opacity=0);
-    -moz-opacity: 0;
-    opacity: 0;
-    -webkit-transition: all 0.15s ease-out;
-    -moz-transition: all 0.15s ease-out;
-    transition: all 0.15s ease-out;
+
+  position:absolute;
+  margin: 0 auto;
+  min-width: 256px;
+  width: 300px;
+  max-height: 350px;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
+  -moz-opacity: 0;
+  opacity: 0;
+  top: 0;
+  -webkit-transition: all 0.15s ease-out;
+  -moz-transition: all 0.15s ease-out;
+  transition: all 0.15s ease-out;
 }
+
+
 @media (min-height: 28.875em) {
     .picker__frame {
         overflow: visible;
@@ -9886,10 +9997,12 @@ select {
  * The box contains all the picker contents.
  */
 .picker__box {
-    background: #ffffff;
-    display: table-cell;
-    vertical-align: middle;
+  background: #ffffff;
+  display: table-cell;
+  vertical-align: middle;
 }
+
+
 @media (min-height: 28.875em) {
     .picker__box {
         display: block;

@@ -3,12 +3,24 @@
 //////////////////////////////////////////////////////////////////////////////////////////*/
 //Abrir los diferentes modales del sistema
 $(document).ready(function() {
+    /***********LISTO LAS FIBRAS EN CARGAS PULPER*********************/
+    var pathname = window.location.pathname;
+    if (pathname.match(/cargaspulper.*/)) {
+        crearTabla();  
+        listarHorasMolienda();      
+    };
     $("#crearU").click(function() { $("#AUsuario").openModal(); });
     $("#crearT").click(function() { $("#ATrabajador").openModal(); });
+
     $("#agregarMP").click(function() { $("#nuevaMatPrim").openModal(); });
     $(".modaldet").on("click", function() {
         $("#Detalles").openModal();
     });
+
+
+    $("#btnAgregarf").click(function() { $("#modal11").openModal(); });  
+    $("#btnAgregaHM").click(function() { $("#modal12").openModal(); });   
+    $('#ddlts').dropdown('open');
 
     ///Configurar chosen////
     var config = {
@@ -17,11 +29,19 @@ $(document).ready(function() {
     for (var selector in config) {
         $(selector).chosen(config[selector]);
     }
-    ///Configurar chosen////
 
-    $('#timepicker , #timepicker1, #timepickerII, #timepickerFF').pickatime({
+    $('#timepicker , #timepicker1, #timepickerII, #timepickerFF, #timeHM1, #timeHM2').pickatime({
         default: '', // default time, 'now' or '13:14' e.g.
-        donetext: 'aceptar', // done button text
+        donetext: 'aceptar',
+        format: 'HH:i uur',
+        formatSubmit: 'HH:i',
+        hiddenName: true,
+        min: [6,0],
+        max: [17,00],
+        disable: [
+        [12,0],
+        [12,30]
+        ],// done button text
         fromnow: 0
     });
 
@@ -43,16 +63,163 @@ $(document).ready(function() {
             //min: new Date()
     });
 
-    /*************PERMITE SOLO NUMEROS EN LOS INPUTS**********************************/
+/*************PERMITE SOLO NUMEROS EN LOS INPUTS**********************************/
     $('#numOrden').numeric();
-
-    /*****************INICIALIZACION DE LOS SELECTS******************************************/
-    //$('#tipoReporte').material_select();
-    /*$('.datepicker').pickadate({
-        selectMonths: true, // Creates a dropdown to control month
-        selectYears: 15 // Creates a dropdown of 15 years to control year
-    });*/
+    $('.numeric').numeric();
 });
+
+$('#cerrarCP').click(function() {
+    $("#modal11").closeModal();
+    location.reload();
+});
+$('#cerrarHM').click(function() {
+    $("#modal12").closeModal();    
+});
+/******************CREAR Y LLENAR TABLA CARGAS PULPER**************************/
+function crearTabla() { 
+    var cantColumns=0;var cont1=0; var cont2=0; var cont3=0;
+    var IdReporteDiario=$('#idRptD').val();
+    $.ajax({
+        url: "../listandoCargasPulper/"+IdReporteDiario,
+        async:true,
+        success: function(json){                     
+            if (json!='FALSE') {                
+                var obj = $.parseJSON(json);
+                var html = '<table class="striped" id="tblCargasPulper"><thead>';
+                html += '<tr class="tblcabecera"><th>TIPO DE FIBRA (KG)</th>';
+                for (var i = 0; i < obj.length; i++) {
+                    if (obj[i]['IdInsumo']==1) {                        
+                        cont1=cont1+1;                                                                                     
+                    }else if (obj[i]['IdInsumo']==2) {
+                        cont2=cont2+1;
+                    }else if (obj[i]['IdInsumo']==3) {
+                        cont3=cont3+1;
+                    };
+                }; 
+                if (cont1>=cont2 && cont1>=cont3) {
+                    for (var i = 0; i < cont1 ; i++) {
+                        html += '<th>'+(cantColumns=cantColumns+1)+'</th>';
+                    };
+                } else if (cont2>=cont3 && cont2>=cont1) {
+                    for (var i = 0; i < cont2 ; i++) {
+                        html += '<th>'+(cantColumns=cantColumns+1)+'</th>';
+                    };
+                }else if (cont3>=cont2 && cont3>=cont1) {
+                    for (var i = 0; i < cont3; i++) {                        
+                        html += '<th>'+(cantColumns=cantColumns+1)+'</th>';
+                    }; 
+                };         
+                html += '</tr></thead>';
+                html += '<tbody>';
+                html += '<tr><td>BLANCO IMPRESO</td>';                
+                for (var i = 0; i < obj.length; i++) {
+                    if (obj[i]['IdInsumo']==1) {                        
+                        html += '<td><input class="numeric" id="cargaN'+obj[i]['IdCargaPulper']+'" onchange="actualizandoCargasPulper('+obj[i]['IdCargaPulper']+', this.value)" value="'+obj[i]['Cantidad']+'" style="border:none; width:50px; text-align:center; background:none;"/></td>';                                                                                           
+                    }
+                };
+                html += '</tr>';
+                html += '<tr><td>MEZCLADO (COLOR)</td>';                
+                for (var i = 0; i < obj.length; i++) {
+                    if (obj[i]['IdInsumo']==2) {                        
+                        html += '<td><input class="numeric" id="cargaN'+obj[i]['IdCargaPulper']+'" onchange="actualizandoCargasPulper('+obj[i]['IdCargaPulper']+', this.value)" value="'+obj[i]['Cantidad']+'" style="border:none; width:50px; text-align:center; background:none;"/></td>';                                                                                           
+                    }
+                };
+                html += '<tr><td>MERMA</td>';                
+                for (var i = 0; i < obj.length; i++) {
+                    if (obj[i]['IdInsumo']==3) {                        
+                        html += '<td><input class="numeric" id="cargaN'+obj[i]['IdCargaPulper']+'" onchange="actualizandoCargasPulper('+obj[i]['IdCargaPulper']+', this.value)" value="'+obj[i]['Cantidad']+'" style="border:none; width:50px; text-align:center; background:none;"/></td>';                                                                                           
+                    }
+                };
+                html += '</tr>';
+                html += '</tr>';
+                html += '</tbody></table>';
+                $("#btnAgregarf").after(html);
+                $('#ocultar').hide();
+            };      
+
+        }
+    });
+}
+/**************AGREGAR HORAS MOLIENDAS******************************/
+function listarHorasMolienda(){
+    var cantColumns=0;
+    var IdReporteDiario=$('#idRptD').val();
+    $.ajax({
+    url: "../listandoHorasMolienda/"+IdReporteDiario,
+    type:"POST",
+    async:true,
+    success: function(json){
+            if (json!='FALSE') {                
+                var obj = $.parseJSON(json);
+                var html = '<table class="striped" id=""><thead>';
+                html += '<tr class="tblcabecera"><th>CARGA</th>'
+                html += '<th>HORAS Y MINUTOS</th>';
+                for (var i = 0; i < obj.length; i++) {
+                    html += '<th>'+(cantColumns=cantColumns+1)+'</th>';
+                };      
+                html += '</tr></thead>';
+                html += '<tbody>';
+                html += '<tr><td rowspan="3">BATIDO</td>'
+                html += '<td>HORA INICIO</td>';                
+                for (var i = 0; i < obj.length; i++) {                                        
+                    html += '<td><span>'+obj[i]['horaInicio']+'</span></td>';
+                };
+                html += '</tr>';
+                html += '<tr><td>HORA FINAL</td>';
+                for (var i = 0; i < obj.length; i++) {                                        
+                    html += '<td><span>'+obj[i]['horaFin']+'</span></td>';
+                };
+                html += '</tr>';
+                html += '<tr><td>TIEMPO</td>';
+                for (var i = 0; i < obj.length; i++) {                                     
+                    html += '<td><span>'+obj[i]['tiempo']+'</span></td>';
+                };
+                html += '</tr>';
+                html += '</tbody></table>';
+                $("#btnAgregaHM").after(html);
+                $('#ocultar2').hide();
+            };
+        }
+    });
+}
+
+/****************GUARDANDO HORAS MOLIENDA**********************/
+function guardarHorasMolienda() {
+    var form_data = {
+        idRptD : $('#idRptD').val(),
+        timepickerII : $('#timeHM1').val(),
+        timepickerFF : $('#timeHM2').val()
+    };
+    $.ajax({
+            url: "../agregarHorasMolienda",
+            type: "post",
+            async:true,
+            data: form_data,
+            success: function(data){
+            if (data==1) {
+                    Materialize.toast('SE GUARDO CON ÉXITO', 1000);
+                    $('#descipcion').val('');
+            } else {
+                    Materialize.toast('ERROR AL GUARDAR', 1000);
+            };                
+        }
+    });
+}
+
+function actualizandoCargasPulper(idInsumo, cantidad) {
+    $.ajax({
+    url: "../actualizarCargaPulper/"+idInsumo+'/'+cantidad,
+    type:"POST",
+    async:true,
+    success: function(data){
+        if (data==true) {
+            Materialize.toast('SE ACTUALIZO UN REGISTRO', 1000);    
+        }else {
+            Materialize.toast('ERROR AL MOMENTO DE ACTUALIZAR', 1000);
+        };        
+        }
+    });
+}
 /*******************BUSCA CONSECUTIVO Y AÑADE EL SIGUIENTE**************/
 $("#OrdeProd").click(function() {
     var numOrden = $('#lblnoOrden').text();
@@ -86,6 +253,8 @@ $("#OrdeProd").click(function() {
         }
     });
 });
+
+/*alert($('#cp1').attr('id'));*/
 
 /*******AGREGANDOLE FUNCIONES DE SUBMIT A HREF************************/
 $('#guardaRpt').click(function() {
@@ -163,13 +332,81 @@ function guardarConsecutivo(noOrden) {
         success: function(data) {}
     });
 }
-
 /****************GUARDAR TIEMPO MUERTO***************************/
-$('#guardarTM').click(function() {
-    $('#formAgregarTM').submit();
-    $('#nuevoTiempoMuerto').openModal();
-});
+function validarControlesTiempoMuertos() {
+    var result =false;
+    var horaInicio=$('#timepickerII').val();
+    var horaFinal=$('#timepickerFF').val();
+    var maquina=$('#maquina').val();
+    var descipcion=$('#descipcion').val();
+    var turno = $('#ordT').text();
+    if (horaInicio=="" || horaFinal=="") {
+        mensajeAlerta('ESCOJA UNA HORA DE INICIO Y UNA FINAL');
+        return false;
+    }else{
+        if(turno=="6:00pm-6:00am") {
+            var h1F = moment(horaInicio, ["h:mm A"]).format("HH:mm");
+            var h2F = moment(horaFinal, ["h:mm A"]).format("HH:mm");
+            var AM = horaInicio.indexOf("AM");
+            var PM = horaFinal.indexOf("PM");
 
+            var h1C = moment('06:00PM', ["h:mm A"]).format("HH:mm");
+            var h2C = moment('06:00AM', ["h:mm A"]).format("HH:mm");
+            if (h1F<h1C && PM>1) {
+                mensajeAlerta('ESCOJA UNA HORA DE INICIO Y UNA FINAL ACORDE AL TURNO ACTUAL');
+                return false;
+            }else {
+                if (h1F<h1C && AM<1) {
+                    mensajeAlerta('ESCOJA UNA HORA DE INICIO Y UNA FINAL ACORDE AL TURNO ACTUAL');
+                }else{
+                if (h2F>h2C && AM>1) {
+                    mensajeAlerta('ESCOJA UNA HORA DE INICIO Y UNA FINAL ACORDE AL TURNO ACTUAL');
+                    return false;
+                }else {
+                    if (h2F>h2C && PM<1) {
+                        mensajeAlerta('ESCOJA UNA HORA DE INICIO Y UNA FINAL ACORDE AL TURNO ACTUAL');
+                        return false;
+                    }else{
+                        if (maquina=="") {
+                            mensajeAlerta('SELECCIONE UNA MAQUINA');
+                            return false;
+                        } else {
+                            if (descipcion=="") {
+                                mensajeAlerta('ESCRIBA UNA DESCRIPCIÓN');
+                                return false;
+                            }else{};
+                        };
+                    };
+                }
+
+                };
+
+            }
+        }else {
+                if (turno=="6:00am-6:00pm") {
+                    var h1F = moment(horaInicio, ["h:mm A"]).format("HH:mm");
+                    var h2F = moment(horaFinal, ["h:mm A"]).format("HH:mm");
+
+                    var h1C = moment('06:00AM', ["h:mm A"]).format("HH:mm");
+                    var h2C = moment('06:00PM', ["h:mm A"]).format("HH:mm");
+                    if (h1F<h1C || h2F>h2C) {
+                        mensajeAlerta('ESCOJA UNA HORA DE INICIO Y UNA FINAL ACORDE AL TURNO ACTUAL');
+                        return false;
+                    }else {
+                        if (maquina=="") {
+                            mensajeAlerta('SELECCIONE UNA MAQUINA');
+                            //return false;
+                        } else {
+                            if (descipcion=="") {
+                                mensajeAlerta('ESCRIBA UNA DESCRIPCIÓN');
+                                //return false;
+                            }else{};
+                        } ;
+                    };
+                };
+            }
+        }
+    }
 /****************ABRE EL MODEL PARA CREAR NUEVA ORDEN DE PRODUCCION*************************/
 $("#crearR").click(function() {
     $("#nuevoReporte").openModal();
@@ -185,6 +422,7 @@ $("#agregarTM").click(function() {
     $('#turno1').val(val3);
     $("#nuevoTiempoMuerto").openModal();
 });
+
 /****************VALIDAR FECHA DE ORDEN DE PRODUCCION***************************************/
 $("#valOrdP7").on('click', function() {
     $.ajax({
@@ -209,8 +447,9 @@ $("#valOrdP7").on('click', function() {
         }
     });
 });
-
+/****************GUARDANDO TIEMPOS MUERTOS**********************/
 function guardarTM1() {
+
     var idRptD = $('#idRptD').val();
     var ordP1 = $('#ordP1').val();
     var consecutivo = $('#consecutivo').val();
@@ -236,29 +475,88 @@ function guardarTM1() {
     });
 }
 
-/****************VALIDA SI EL NUMERO DE ORDEN YA EXISTE***************************************/
-/*$("#numOrden").on('change',function(event) {
-    var numOrden = $('#numOrden').val();
-    $.ajax({
-        url: "validarReporte/"+numOrden,
-        type:"POST",
-        async:true,
-        success: function(data){ 
-            if (data==false) {                
-            } else {
-                swal({ title: " ",
-                text: 'El número de orden ya existe',
-                type: 'warning',
-                showCloseButton: true,
-                confirmButtonColor: '#831F82',
-                confirmButtonText: 'ACEPTAR'
-                }).then()
-                $('#formNuevoReporte').submit();
-            };
-        }
-    });
-});*/
+    var result = validarControlesTiempoMuertos();
+    if (result==false) {        
+    } else {
+        var form_data = {
+        idRptD : $('#idRptD').val(),
+        ordP1 : $('#ordP1').val(),
+        consecutivo : $('#consecutivo').val(),
+        turno1 : $('#turno1').val(),
+        timepickerII : $('#timepickerII').val(),
+        timepickerFF : $('#timepickerFF').val(),
+        maquina : $('#maquina').val(),
+        descipcion11  : $('#descipcion').val()
+    };
+        $.ajax({
+            url: "../guardarTM",
+            type: "post",
+            async:true,
+            data: form_data,
+            success: function(data){
+                if (data==1) {
+                    Materialize.toast('SE GUARDO CON ÉXITO', 1000);
+                    $('#descipcion').val('');
+                } else {
+                    Materialize.toast('ERROR AL GUARDAR', 1000);
+                };                
+            }
 
+
+        });   
+    }
+}
+/****************GUARDANDO CARGAS PULPER**********************/
+function guardarCargaPulper() {
+    if ($('#idRptD').val()=="" || $('#tipoFibra').val()==null || $('#cantidad').val()=="") {
+        mensajeAlerta('AUN NO HA RELLENADO TODOS LOS CAMPOS');
+    }else{
+            var form_data = {
+            idReporteDiario : $('#idRptD').val(),
+            tipoFibra : $('#tipoFibra').val(),
+            cantidad : $('#cantidad').val()
+        };
+        $.ajax({
+            url: "../guardarCP",
+            type: "post",
+            async:true,
+            data: form_data,
+            success: function(data){
+                if (data==1) {
+                    Materialize.toast('SE GUARDO CON ÉXITO', 1000);
+                    $('#cantidad').val('');
+                    $('#cantidad').focus();
+                } else {
+                    Materialize.toast('ERROR AL GUARDAR', 1000);
+                };                
+            }
+
+        });  
+    };
+}
+/****************ELIMAR TIEMPO MUERTO*********************************************************/
+function eliminarTM(idTiempoMuerto) {
+    swal({ title: 'ELIMINAR',
+        text: '¿Desea eliminar permanentemente este registro?',
+        type: 'warning',
+        showCloseButton: true,
+        showCancelButton: true,
+        confirmButtonColor: '#831F82',
+        confirmButtonText: 'ACEPTAR',
+        cancelButtonText:'CANCELAR'
+        }).then(function(){
+            $.ajax({
+            url: "../eliminarTM/"+idTiempoMuerto,
+            type:"POST",
+            async:true,
+            success: function(data){ 
+                if (data==true) {
+                    location.reload();
+                }
+            }
+        }); 
+    }); 
+}
 /****************VALIDA SI EL NUMERO DE ORDEN YA EXISTE***************************************/
 $("#numOrden").on('change', function(event) {
     var numOrden = $('#numOrden').val();
@@ -281,15 +579,11 @@ $("#numOrden").on('change', function(event) {
         }
     });
 });
-
 /*********CAMBIAR ESTADO A REPORTE**************************/
 
-function cambiaStatusRpt(idOrden, numOrden, estado) {
-    var idOrd = idOrden;
-    var numOrd = numOrden;
-    var status = estado;
-    var miMSS = "";
-
+function cambiaStatusRpt(idOrden, numOrden, estado){
+    var idOrd=idOrden; var numOrd=numOrden; var status=estado;
+    var miMSS="";
     switch (estado) {
         case 0:
             $.ajax({
@@ -413,36 +707,16 @@ function confirmacionCambioStatus(mensaje, textbutton, idOrden, status) {
     })
 }
 
-/*function cambiaStatusRpt(idReporte1, estado) {
-    if (estado == 1) {
-        var miMSS = "¿DESEA CAMBIAR EL ESTADO ACTIVO DEL REPORTE?";
-    } else { var miMSS = "¿DESEA CAMBIAR EL ESTADO INACTIVO DEL REPORTE?"; }
-
-    swal({
-        title: " ",
-        text: miMSS,
-        type: 'warning',
-        showCloseButton: true,
+/***************MENSAJE NOTIFICACION*****************************************/
+function mensajeAlerta(mensaje) {
+    swal({ title:'',
+        text: mensaje,
+        type:'warning',
+        showCloseButton:true,
         confirmButtonColor: '#831F82',
-        confirmButtonText: 'CAMBIAR'
-    }).then(function() {
-        $.ajax({
-            url: "cambiarEstadoRpt/" + idReporte1 + "/" + estado,
-            type: "post",
-            async: true,
-            success: function() {
-                swal({
-                    title: "EL ESTADO DEL REPORTE SE CAMBIO CORECTAMENTE!",
-                    type: "success",
-                    confirmButtonText: "CERRAR",
-                }).then(
-                    function() { gotopage("reporte_Controller"); }
-                )
-            }
-
-        })
-    })
-}*/
+        confirmButtonText: 'ACEPTAR',
+    }).then();
+}
 
 /****************DANDO DE BAJA A ORDENES DE PRODUCCION******************************/
 function cambiaOrdenActiva(idOrden, status) {
@@ -469,7 +743,6 @@ function cambiaOrdenActiva(idOrden, status) {
         }
     });
 }
-
 /****************ACTUALIZAR ORDEN DE PRODUCCION***************************/
 $('#actualizarRpt').click(function() {
     var codUnico = $('#numOrden1').val();
@@ -530,61 +803,36 @@ function buscarOrdProd(identificador) {
         }
     });
 }
+$('.dropdown-button').click(function() {
+    $(this).dropdown();
+});
 
-
-function abrirPagina() {
+/*****************BUSCAR TIEMPO MUERTO POR ID****************************/
+function buscarTiempoM(identificador) { 
     $.ajax({
-        url: "detalleTiempoMuerto/" + 1,
-        async: true,
-        type: 'post',
-        success: function(json) {
-
-            /*var estadoA="";        
-             $.each(JSON.parse(json), function(i, item) {
-               estadoA = item['Estado'],
-               $('#identificador').val(item['IdOrden'])
-               $('#numOrden1').val(item['NoOrden']),
-               $('#fechaInicio1').val(item['FechaInicio']),
-               $('#fechaFinal1').val(item['FechaFin']),
-               $('#comentario1').val(item['comentarios']) 
-             })
-                 if (estadoA==0) {
-                     $("#actualizarRpt").hide();
-                     $("#title2").show();
-                     $("#title1").hide();
-                 };*/
-            //$("#nuevaOrdenP").openModal(); 
-        }
-    });
-}
-//http://localhost:8082/phinn/index.php/
-function buscarTiempoM(identificador) {
-    $.ajax({
-        url: "../detalleTiempoMuerto/" + identificador,
-        async: true,
-        success: function(json) {
-            $.each(JSON.parse(json), function(i, item) {
-                $('#IdReporteDiario').text(item['IdReporteDiario']),
-                    $('#HoraInicio').text(item['HoraInicio']),
-                    $('#HoraFin').text(item['HoraFin']),
-                    $('#Maquina').text(item['Maquina']),
-                    $('#Descrip').val(item['Descripcion']),
-                    $('#interval').text(item['Intervalos']),
-                    $('#turno').text(item['Turno']);
-            })
+        url: "../detalleTiempoMuerto/"+identificador,
+        async:true,
+        success: function(json){   
+        $.each(JSON.parse(json), function(i, item) {
+          //$('#IdReporteDiario').text(item['IdReporteDiario']),
+          $('#HoraInicio').text(item['HoraInicio']),
+          $('#HoraFin').text(item['HoraFin']),
+          $('#Maquina').text(item['Maquina']),
+          $('#Descrip').val(item['Descripcion']),
+          $('#interval').text(item['Intervalos']),
+          $('#turno').text(item['Turno']);
+        })
             $("#visTiempoM").openModal();
         }
     });
 }
-
-$('.verDetalleTM').click(function() {
-    alert('hola');
-});
-
 $('#cerrarMdl').click(function() {
     $("#visTiempoM").closeModal();
 });
-
+$('#cerrarMdl1').click(function() {
+    $("#nuevoTiempoMuerto").closeModal(); 
+    location.reload();
+});
 //Cargar pagina
 function gotopage(mypage) {
     $(location).attr('href', mypage);
@@ -602,7 +850,14 @@ $('#BuscarUsuarios').on('keyup', function() {
     var table = $('#TblMaster').DataTable();
     table.search(this.value).draw();
 
-    //$("#TblMaster_filter").hide();
+    //$("#TblMaster_filter").hide();filtrarTM
+});
+
+$('#filtrarTM').on('keyup', function() {
+    var table = $('#tlbTiemposMuertos').DataTable();
+    table.search(this.value).draw();
+
+    //$("#TblMaster_filter").hide();filtrarTM
 });
 
 $('#BuscarUsuarios').on('keyup', function() {
@@ -658,10 +913,10 @@ $("#tlbListaRep").DataTable({
     "aaSorting": [
         [2, "asc"]
     ],
-    /*"lengthMenu": [
+    "lengthMenu": [
         [5, 10, -1],
         [5, 10, "Todo"]
-    ],*/
+    ],
 
     "language": {
         "emptyTable": "No hay datos disponible en la tabla",
@@ -683,14 +938,19 @@ $("#tlbListaRep").DataTable({
 
 $("#tlbTiemposMuertos").DataTable({
     "ordering": false,
-    "paginate": false,
-    'filter': false,
     "info": false,
     "bPaginate2": false,
-    "bfilter": false,
-    //"pagingType": "full_numbers",
-    //"aaSorting": [[2, "asc"]],
-    //"lengthMenu": [[5,10,-1], [5,10,"Todo"]],
+    "bfilter": true,
+    "pagingType": "full_numbers",
+
+    "aaSorting": [
+        [2, "asc"]
+    ],
+    "lengthMenu": [
+        [5, 10, -1],
+        [5, 10, "Todo"]
+    ],
+
     "language": {
         "emptyTable": "No hay datos disponible en la tabla",
         "lengthMenu": "_MENU_",

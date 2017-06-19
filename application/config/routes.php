@@ -74,14 +74,43 @@ $route['ValidaFecha/(:any)/(:any)/(:any)'] = 'Ordenproduccion_controller/Validar
     /********************MENU REPORTE DE TRABAJO************************/
     $route['menuOrdenTrabajo/(:any)']= "Ordenproduccion_controller/agregaDetalleOrdT/$1";
     /********************GUARDANDO REGISTRO DE TIEMPO MUERTO POR AJAX****************/
+
     $route['guardarTM/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)']= "tiemposMuertos_Controller/guardarTiempoM/$1/$2/$3/$4/$5/$6/$7/$8";
 
-/***************************************************************************************************/
- $route['Produccion/(:any)']= "Produccion_Controller/agregaDetalleOrdP1/$1"; 
- $route['GuardaProduccion']= "Produccion_Controller/GuardarProduccion"; 
- $route['EliminarProduccion/(:any)']= "Produccion_Controller/Eliminar/$1";
+  /***************************************************************************************************/
+    $route['Produccion/(:any)']= "Produccion_Controller/agregaDetalleOrdP1/$1"; 
+    $route['GuardaProduccion']= "Produccion_Controller/GuardarProduccion"; 
+    $route['EliminarProduccion/(:any)']= "Produccion_Controller/Eliminar/$1";
 
- /***************************************************************************************************/
- $route['MateriaPrima/(:any)']= "MateriaPrima_controller/agregaDetalleOrdP1/$1"; 
- $route['GuardarMP']= "MateriaPrima_controller/GuardarMatPri"; 
- $route['ValidaPasta/(:any)/(:any)'] = "MateriaPrima_controller/ValidarP/$1/$2";
+  /***************************************************************************************************/
+    $route['MateriaPrima/(:any)']= "MateriaPrima_controller/agregaDetalleOrdP1/$1"; 
+    $route['GuardarMP']= "MateriaPrima_controller/GuardarMatPri"; 
+    $route['ValidaPasta/(:any)/(:any)'] = "MateriaPrima_controller/ValidarP/$1/$2";
+
+    $route['guardarTM1/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)']= "tiemposMuertos_Controller/guardarTiempoM/$1/$2/$3/$4/$5/$6/$7/$8";
+    
+    $route['guardarTM']= "tiemposMuertos_Controller/guardarTiempoM";
+
+    /**************************ELIMINAR TIEMPO MUERTO******************************/
+    $route['eliminarTM/(:any)']= "tiemposMuertos_Controller/eliminarTiempoM/$1"; 
+    
+    /***************************ACTUALIZAR TABLA TIEMPOS MUERTOS***********************/
+    $route['actualizarTablaTM']= "tiemposMuertos_Controller/actualizarTablaTM";
+
+    /*******************LINKS CARGAS PULPER******************************/
+    $route['cargaspulper/(:any)'] = "cargas_pulper_controller/index/$1";
+    
+    $route['listarFibras'] = "cargas_pulper_controller/listarcargaspulper";
+    
+    $route['guardarCP'] = "cargas_pulper_controller/guardarCPulper";
+
+    $route['listandoCargasPulper/(:any)'] = "cargas_pulper_controller/listarCantidadCargas/$1";
+
+    $route['actualizarCargaPulper/(:any)/(:any)'] = "cargas_pulper_controller/actualizarCargaP/$1/$2";
+
+    $route['agregarHorasMolienda'] = "cargas_pulper_controller/agregarHorasM";
+
+    $route['listandoHorasMolienda/(:any)'] = "cargas_pulper_controller/listarHorasM/$1";
+
+
+

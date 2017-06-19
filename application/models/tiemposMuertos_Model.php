@@ -31,5 +31,22 @@ class tiemposMuertos_Model extends CI_Model{
         	return 0;	
         }        
 	}
+
+	public function elimarTiempoMuerto($idTiempoMuerto) {
+		$this->db->where('IdTiempoMuerto', $idTiempoMuerto);
+		$query=$this->db->delete('tiempos_muertos');
+		if ($query==1) {
+			echo true;
+		}else {echo false;}
+	}
+
+	public function actualiza() {
+		$query=$this->db->get('tiempos_muertos');
+		if ($query->num_rows()>0) {
+			return $query->result_array();
+		} else {
+			return false;
+		}
+	}
 }
 ?>

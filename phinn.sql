@@ -10,7 +10,8 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-06-19 13:25:41
+
+Date: 2017-06-19 13:25:51
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -25,11 +26,15 @@ CREATE TABLE `cargas_pulper` (
   `Cantidad` decimal(11,0) DEFAULT NULL,
   `IdReporteDiario` int(11) NOT NULL,
   PRIMARY KEY (`IdCargaPulper`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+) ENGINE=InnoDB AUTO_INCREMENT=161 DEFAULT CHARSET=latin1;
+
 
 -- ----------------------------
 -- Records of cargas_pulper
 -- ----------------------------
+
+
 
 -- ----------------------------
 -- Table structure for categoria
@@ -39,7 +44,8 @@ CREATE TABLE `categoria` (
   `IdCategoria` int(11) NOT NULL AUTO_INCREMENT,
   `categoria` varchar(100) NOT NULL,
   PRIMARY KEY (`IdCategoria`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
 
 -- ----------------------------
 -- Records of categoria
@@ -48,6 +54,20 @@ INSERT INTO `categoria` VALUES ('1', 'CATEGORIA 1');
 INSERT INTO `categoria` VALUES ('2', 'CATEGORIA 2');
 
 -- ----------------------------
+
+-- Table structure for horas_molienda
+-- ----------------------------
+DROP TABLE IF EXISTS `horas_molienda`;
+CREATE TABLE `horas_molienda` (
+  `IdHora` int(11) NOT NULL AUTO_INCREMENT,
+  `carga` varchar(100) NOT NULL,
+  `horaInicio` time NOT NULL,
+  `horaFin` time NOT NULL,
+  `IdReporteDiario` int(11) NOT NULL,
+  PRIMARY KEY (`IdHora`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
+
+
 -- Table structure for insumos
 -- ----------------------------
 DROP TABLE IF EXISTS `insumos`;
@@ -57,6 +77,7 @@ CREATE TABLE `insumos` (
   `IdCategoria` int(100) NOT NULL,
   PRIMARY KEY (`IdInsumo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+
 
 -- ----------------------------
 -- Records of insumos
@@ -72,6 +93,9 @@ INSERT INTO `insumos` VALUES ('8', 'Aceite vegetal/Hercules', '2');
 INSERT INTO `insumos` VALUES ('9', 'Oxido de polietileno PEO', '2');
 INSERT INTO `insumos` VALUES ('10', 'Carboxilmetilcelulosa CMC', '2');
 INSERT INTO `insumos` VALUES ('11', 'DETAC', '2');
+
+INSERT INTO `insumos` VALUES ('3', 'merma', '1');
+
 
 -- ----------------------------
 -- Table structure for log
@@ -196,31 +220,7 @@ INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-09 21:27:
 INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-10 02:10:43');
 INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-12 15:42:53');
 INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-12 18:43:48');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-13 00:08:49');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-13 00:09:30');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-13 00:10:23');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-13 00:39:49');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-13 00:41:12');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-13 15:26:20');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-14 15:44:05');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-14 15:44:29');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-14 16:56:29');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-14 17:00:43');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-14 17:01:59');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-14 17:09:52');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-14 17:17:04');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-14 17:18:25');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-14 17:19:20');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-14 21:56:24');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-15 01:10:32');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-15 15:35:48');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-15 17:37:32');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-15 17:57:17');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-15 18:15:40');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-15 19:02:36');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-15 19:06:44');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-16 16:12:09');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-19 15:32:28');
+
 
 -- ----------------------------
 -- Table structure for maquinas
@@ -257,15 +257,15 @@ CREATE TABLE `orden_produccion` (
 -- ----------------------------
 -- Records of orden_produccion
 -- ----------------------------
-INSERT INTO `orden_produccion` VALUES ('16', '7845', '1', '2017-06-05', '2017-06-09', '2', 'd');
+INSERT INTO `orden_produccion` VALUES ('16', '7845', '1', '2017-06-05', '2017-06-09', '0', 'd');
 INSERT INTO `orden_produccion` VALUES ('17', '2154', '1', '2017-06-12', '2017-06-17', '2', 'd');
 INSERT INTO `orden_produccion` VALUES ('18', '6358', '1', '2017-06-11', '2017-06-23', '2', 'd');
 INSERT INTO `orden_produccion` VALUES ('19', '9662', '1', '2017-06-18', '2017-06-22', '2', 'd');
 INSERT INTO `orden_produccion` VALUES ('20', '5688', '1', '2017-06-12', '2017-06-17', '0', 'Esta orden de trabajo estará vigente hasta nuevo aviso');
 INSERT INTO `orden_produccion` VALUES ('21', '3214', '1', '2017-06-25', '2017-06-30', '0', 'Esta sera la orden de producción durante este mes');
-INSERT INTO `orden_produccion` VALUES ('22', '2222', '2', '2017-06-06', '2017-06-29', '3', 'd');
+INSERT INTO `orden_produccion` VALUES ('22', '2222', '2', '2017-06-06', '2017-06-29', '3', 'dasdfasdf');
 INSERT INTO `orden_produccion` VALUES ('23', '3333', '2', '2017-06-06', '2017-06-23', '3', 'ed');
-INSERT INTO `orden_produccion` VALUES ('24', '7888', '2', '2017-06-06', '2017-06-15', '2', 'd');
+INSERT INTO `orden_produccion` VALUES ('24', '7888', '2', '2017-06-06', '2017-06-15', '2', 'asdfasd');
 INSERT INTO `orden_produccion` VALUES ('25', '1245', '3', '2017-06-12', '2017-06-13', '2', 'Orden de producción del día');
 INSERT INTO `orden_produccion` VALUES ('26', '9876', '3', '2017-06-07', '2017-06-10', '2', 'Orden de produccion del dia');
 INSERT INTO `orden_produccion` VALUES ('27', '7894', '3', '2017-06-08', '2017-06-10', '2', 'Nueva orden de producción para lo que resta de la semana');
@@ -379,30 +379,33 @@ CREATE TABLE `reporte_diario` (
   `ProduccionTotal` varchar(255) DEFAULT NULL,
   `MermaTotal` varchar(255) NOT NULL,
   PRIMARY KEY (`IdReporteDiario`)
+
 ) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
+
 
 -- ----------------------------
 -- Records of reporte_diario
 -- ----------------------------
-INSERT INTO `reporte_diario` VALUES ('1', '3-9876', '9876', '2', '2017-06-09', '2017-06-10', '3', '1', 'higienico', '', '');
-INSERT INTO `reporte_diario` VALUES ('24', '1-9876', '9876', '1', '2017-06-07', '2017-06-07', '3', '1', 'HIGIENICO', null, '');
-INSERT INTO `reporte_diario` VALUES ('25', '1-9876', '9876', '2', '2017-06-07', '2017-06-08', '3', '1', 'HIGIENICO', null, '');
-INSERT INTO `reporte_diario` VALUES ('26', '2-9876', '9876', '1', '2017-06-08', '2017-06-08', '3', '1', 'HIGIENICO', null, '');
-INSERT INTO `reporte_diario` VALUES ('27', '2-9876', '9876', '2', '2017-06-08', '2017-06-09', '3', '1', 'HIGIENICO', null, '');
-INSERT INTO `reporte_diario` VALUES ('28', '3-9876', '9876', '1', '2017-06-09', '2017-06-09', '3', '1', 'HIGIENICO', null, '');
-INSERT INTO `reporte_diario` VALUES ('29', '1-7894', '7894', '1', '2017-06-08', '2017-06-08', '3', '1', 'Higienico', null, '');
-INSERT INTO `reporte_diario` VALUES ('30', '1-7894', '7894', '2', '2017-06-08', '2017-06-09', '3', '1', 'Higienico', null, '');
-INSERT INTO `reporte_diario` VALUES ('31', '2-7894', '7894', '1', '2017-06-09', '2017-06-09', '3', '1', 'Higienico', null, '');
-INSERT INTO `reporte_diario` VALUES ('32', '2-7894', '7894', '2', '2017-06-09', '2017-06-10', '3', '1', 'Higienico', null, '');
-INSERT INTO `reporte_diario` VALUES ('33', '1-1256', '1256', '1', '2017-06-09', '2017-06-09', '3', '4', 'Higienico', null, '');
-INSERT INTO `reporte_diario` VALUES ('34', '1-1256', '1256', '2', '2017-06-09', '2017-06-10', '3', '1', 'Higienico', null, '');
-INSERT INTO `reporte_diario` VALUES ('35', '2-1256', '1256', '1', '2017-06-11', '2017-06-12', '3', '1', 'higienico', '3620', '');
-INSERT INTO `reporte_diario` VALUES ('36', '2-1256', '1256', '2', '2017-06-12', '2017-06-13', '3', '1', 'HIGIENICO', null, '');
-INSERT INTO `reporte_diario` VALUES ('37', '3-1256', '1256', '1', '2017-06-11', '2017-06-12', '3', null, 'Igienico', null, '');
-INSERT INTO `reporte_diario` VALUES ('38', '3-1256', '1256', '2', '2017-06-11', '2017-06-14', '3', null, 'Igienico', null, '');
-INSERT INTO `reporte_diario` VALUES ('39', '4-1256', '1256', '2', '2017-06-14', '2017-06-14', '3', null, 'hhhh', null, '');
-INSERT INTO `reporte_diario` VALUES ('40', '4-1256', '1256', '1', '2017-06-14', '2017-06-14', '3', null, 'kkkk', null, '');
-INSERT INTO `reporte_diario` VALUES ('41', '5-1256', '1256', '1', '2017-06-14', '2017-06-14', '3', null, 'Igienico', null, '');
+
+INSERT INTO `reporte_diario` VALUES ('1', '3-9876', '9876', '6:00pm-6:00am', '2017-06-09', '2017-06-10', '3', '1', 'higienico', null, '');
+INSERT INTO `reporte_diario` VALUES ('24', '1-9876', '9876', '6:00am-6:00pm', '2017-06-07', '2017-06-07', '3', '1', 'HIGIENICO', null, '');
+INSERT INTO `reporte_diario` VALUES ('25', '1-9876', '9876', '6:00pm-6:00am', '2017-06-07', '2017-06-08', '3', '1', 'HIGIENICO', null, '');
+INSERT INTO `reporte_diario` VALUES ('26', '2-9876', '9876', '6:00am-6:00pm', '2017-06-08', '2017-06-08', '3', '1', 'HIGIENICO', null, '');
+INSERT INTO `reporte_diario` VALUES ('27', '2-9876', '9876', '6:00pm-6:00am', '2017-06-08', '2017-06-09', '3', '1', 'HIGIENICO', null, '');
+INSERT INTO `reporte_diario` VALUES ('28', '3-9876', '9876', '6:00am-6:00pm', '2017-06-09', '2017-06-09', '3', '1', 'HIGIENICO', null, '');
+INSERT INTO `reporte_diario` VALUES ('29', '1-7894', '7894', '6:00am-6:00pm', '2017-06-08', '2017-06-08', '3', '1', 'Higienico', null, '');
+INSERT INTO `reporte_diario` VALUES ('30', '1-7894', '7894', '6:00pm-6:00am', '2017-06-08', '2017-06-09', '3', '1', 'Higienico', null, '');
+INSERT INTO `reporte_diario` VALUES ('31', '2-7894', '7894', '6:00am-6:00pm', '2017-06-09', '2017-06-09', '3', '1', 'Higienico', null, '');
+INSERT INTO `reporte_diario` VALUES ('32', '2-7894', '7894', '6:00pm-6:00am', '2017-06-09', '2017-06-10', '3', '1', 'Higienico', null, '');
+INSERT INTO `reporte_diario` VALUES ('33', '1-1256', '1256', '6:00am-6:00pm', '2017-06-09', '2017-06-09', '3', '4', 'Higienico', null, '');
+INSERT INTO `reporte_diario` VALUES ('34', '1-1256', '1256', '6:00pm-6:00am', '2017-06-09', '2017-06-10', '3', '1', 'Higienico', null, '');
+INSERT INTO `reporte_diario` VALUES ('35', '2-1256', '1256', '6:00am-6:00pm', '2017-06-11', '2017-06-12', '3', '1', 'higienico', null, '');
+INSERT INTO `reporte_diario` VALUES ('36', '2-1256', '1256', '6:00pm-6:00am', '2017-06-12', '2017-06-13', '3', '1', 'HIGIENICO', null, '');
+INSERT INTO `reporte_diario` VALUES ('37', '3-1256', '1256', '6:00am-6:00pm', '2017-06-16', '2017-06-17', '3', '555', 'higienico', null, '');
+INSERT INTO `reporte_diario` VALUES ('38', '3-1256', '1256', '6:00pm-6:00am', '2017-06-16', '2017-06-17', '3', '4', 'higienico', null, '');
+INSERT INTO `reporte_diario` VALUES ('39', '4-1256', '1256', '6:00am-6:00pm', '2017-06-18', '2017-06-18', '3', '7', 'higienico', null, '');
+INSERT INTO `reporte_diario` VALUES ('40', '4-1256', '1256', '6:00pm-6:00am', '2017-06-19', '2017-06-20', '3', '77', 'higienico', null, '');
+
 
 -- ----------------------------
 -- Table structure for tiempos_muertos
@@ -419,38 +422,10 @@ CREATE TABLE `tiempos_muertos` (
   `Maquina` varchar(255) DEFAULT NULL,
   `Descripcion` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`IdTiempoMuerto`)
+
 ) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of tiempos_muertos
--- ----------------------------
-INSERT INTO `tiempos_muertos` VALUES ('29', '33', '1-1256', '1256', '06:00:00', '6:00am-6:00pm', '06:15:00', '2', 'prueba%20ajax');
-INSERT INTO `tiempos_muertos` VALUES ('30', '33', '1-1256', '1256', '06:00:00', '6:00am-6:00pm', '06:15:00', '2', 'prueba%20ajax');
-INSERT INTO `tiempos_muertos` VALUES ('31', '33', '1-1256', '1256', '17:02:00', '6:00am-6:00pm', '18:02:00', '1', 'd');
-INSERT INTO `tiempos_muertos` VALUES ('32', '33', '1-1256', '1256', '17:02:00', '6:00am-6:00pm', '18:02:00', '1', 'd');
-INSERT INTO `tiempos_muertos` VALUES ('33', '33', '1-1256', '1256', '18:00:00', '6:00am-6:00pm', '19:10:00', '2', 'prueba%20de%20ajax');
-INSERT INTO `tiempos_muertos` VALUES ('34', '33', '1-1256', '1256', '21:00:00', '6:00am-6:00pm', '21:35:00', '1', 'se averi%C3%B3 la maquina por eso no se trabajo el horario completo');
-INSERT INTO `tiempos_muertos` VALUES ('35', '33', '1-1256', '1256', '22:05:00', '6:00am-6:00pm', '23:35:00', '2', 'se volvio a averiar la maquina numero 2 por quien sabe que');
-INSERT INTO `tiempos_muertos` VALUES ('36', '33', '1-1256', '1256', '22:05:00', '6:00am-6:00pm', '23:35:00', '2', 'se volvio a averiar la maquina numero 2 por quien sabe que');
-INSERT INTO `tiempos_muertos` VALUES ('37', '34', '1-1256', '1256', '17:37:00', '6:00pm-6:00am', '17:37:00', '2', 'ddddd ffff');
-INSERT INTO `tiempos_muertos` VALUES ('38', '34', '1-1256', '1256', '17:37:00', '6:00pm-6:00am', '17:37:00', '2', 'ddddd ffff');
-INSERT INTO `tiempos_muertos` VALUES ('39', '34', '1-1256', '1256', '18:09:00', '6:00pm-6:00am', '18:09:00', '2', 'Bismarck Francisco Escobar Muñoz');
-INSERT INTO `tiempos_muertos` VALUES ('40', '34', '1-1256', '1256', '18:09:00', '6:00pm-6:00am', '18:09:00', '2', 'Bismarck Francisco Escobar Muñoz');
-INSERT INTO `tiempos_muertos` VALUES ('41', '35', '2-1256', '1256', '18:10:00', '6:00am-6:00pm', '18:25:00', '2', 'Bismarck Francisco EscobarMuñoz');
-INSERT INTO `tiempos_muertos` VALUES ('42', '35', '2-1256', '1256', '18:12:00', '6:00am-6:00pm', '18:12:00', '2', 'Bismarck Escobar Muñoz');
-INSERT INTO `tiempos_muertos` VALUES ('43', '35', '2-1256', '1256', '18:12:00', '6:00am-6:00pm', '18:12:00', '2', 'Bismarck Francisco Escobar Muñoz ha guardado con éxito este tiempo muerto');
-INSERT INTO `tiempos_muertos` VALUES ('44', '35', '2-1256', '1256', '18:12:00', '6:00am-6:00pm', '18:12:00', '2', 'Bismarck Francisco Escobar Muñoz ha guardado con éxito este tiempo muerto');
-INSERT INTO `tiempos_muertos` VALUES ('45', '35', '2-1256', '1256', '06:00:00', '6:00am-6:00pm', '06:00:00', '2', 'adddd');
-INSERT INTO `tiempos_muertos` VALUES ('46', '35', '2-1256', '1256', '06:00:00', '6:00am-6:00pm', '06:00:00', '2', 'adddd');
-INSERT INTO `tiempos_muertos` VALUES ('47', '35', '2-1256', '1256', '06:00:00', '6:00am-6:00pm', '06:00:00', '2', 'adddd');
-INSERT INTO `tiempos_muertos` VALUES ('48', '35', '2-1256', '1256', '06:00:00', '6:00am-6:00pm', '06:00:00', '2', 'adddd');
-INSERT INTO `tiempos_muertos` VALUES ('49', '36', '2-1256', '1256', '07:05:00', '6:00pm-6:00am', '08:00:00', '2', 'PRUEBA DE GUARDADO RAPIDO');
-INSERT INTO `tiempos_muertos` VALUES ('50', '36', '2-1256', '1256', '09:00:00', '6:00pm-6:00am', '09:51:00', '1', 'PRUEBA DE GUARDADO RAPIDO MAQUINA 1');
-INSERT INTO `tiempos_muertos` VALUES ('51', '36', '2-1256', '1256', '10:00:00', '6:00pm-6:00am', '10:23:00', '2', 'problemas de fluido electrico');
-INSERT INTO `tiempos_muertos` VALUES ('52', '36', '2-1256', '1256', '06:00:00', '6:00pm-6:00am', '07:10:00', '2', 'LUZ');
-INSERT INTO `tiempos_muertos` VALUES ('53', '36', '2-1256', '1256', '20:10:00', '6:00pm-6:00am', '09:20:00', '1', 'LUZ DE NUEVO');
-INSERT INTO `tiempos_muertos` VALUES ('54', '36', 'undefined', 'undefined', '18:34:00', 'undefined', '06:34:00', '1', 'undefined');
-INSERT INTO `tiempos_muertos` VALUES ('55', '36', 'undefined', 'undefined', '18:34:00', 'undefined', '06:34:00', '1', 'undefined');
+
 
 -- ----------------------------
 -- Table structure for turnos
@@ -468,6 +443,7 @@ CREATE TABLE `turnos` (
 -- ----------------------------
 INSERT INTO `turnos` VALUES ('1', '6:00am-6:00pm', null);
 INSERT INTO `turnos` VALUES ('2', '6:00pm-6:00am', null);
+
 
 -- ----------------------------
 -- Table structure for usuarios
@@ -494,6 +470,20 @@ INSERT INTO `usuarios` VALUES ('5', 'Mariana', 'Mariana', 'e10adc3949ba59abbe56e
 INSERT INTO `usuarios` VALUES ('6', 'Carlos', 'Carlos M', null, '5', '1');
 
 -- ----------------------------
+-- View structure for view_cargas_pulper_completo
+-- ----------------------------
+DROP VIEW IF EXISTS `view_cargas_pulper_completo`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost`  VIEW `view_cargas_pulper_completo` AS SELECT
+insumos.descripcion,
+cargas_pulper.IdCargaPulper,
+cargas_pulper.IdInsumo,
+cargas_pulper.Cantidad,
+cargas_pulper.IdReporteDiario
+FROM
+insumos ,
+cargas_pulper ;
+
+-- ----------------------------
 -- View structure for view_orden_produccion
 -- ----------------------------
 DROP VIEW IF EXISTS `view_orden_produccion`;
@@ -510,6 +500,7 @@ INNER JOIN usuarios us ON ord.Usuario = us.IdUsuario
 ORDER BY ord.Estado=1 DESC ;
 
 -- ----------------------------
+
 -- View structure for view_produccion
 -- ----------------------------
 DROP VIEW IF EXISTS `view_produccion`;
@@ -546,6 +537,7 @@ FROM
 INNER JOIN usuarios us ON rpt.Usuario = us.IdUsuario ;
 
 -- ----------------------------
+
 -- View structure for view_reportediario
 -- ----------------------------
 DROP VIEW IF EXISTS `view_reportediario`;
