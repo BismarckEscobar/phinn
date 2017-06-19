@@ -10347,7 +10347,7 @@ select {
     background: #a1ded8;
 }
 .picker__weekday-display {
-    background-color: #2E7D32 !important;
+    background-color: #831F82 !important;
     padding: 10px;
     font-weight: 200;
     letter-spacing: .5;
@@ -10390,7 +10390,7 @@ select {
     color: #2E7D32;
 }
 .picker__day.picker__day--today.picker__day--selected {
-    color: #2E7D32;
+    color: white;
 }
 .picker__weekday {
     font-size: .9rem;
@@ -10404,7 +10404,7 @@ select {
     -ms-transform: scale(.9);
     -o-transform: scale(.9);
     transform: scale(.9);
-    background-color: #2E7D32;
+    background-color: #831F82 !important;
     color: #ffffff;
 }
 .picker__day--selected.picker__day--outfocus,
@@ -10420,7 +10420,7 @@ select {
 .picker__today {
     font-size: 1.1rem;
     padding: 0 1rem;
-    color: #2E7D32;
+    color: #831F82 !important;
 }
 .picker__nav--prev:before,
 .picker__nav--next:before {

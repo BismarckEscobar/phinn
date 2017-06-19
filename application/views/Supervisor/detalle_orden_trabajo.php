@@ -3,7 +3,7 @@
         <div class="col s12">
             <div class="card">
                 <div class="card-content">
-                    <center><span class="card-title purple-text accent-4" style="font-family: robotoblack;">DETALLE DE ORDEN DE TRABAJO</span></center>
+                    <center><span class="card-title titulos">DETALLE DE ORDEN DE TRABAJO</span></center>
 	                    <div class="row">
 	                        <center>
                                 <?php 
@@ -43,7 +43,7 @@
                     </div>
                     <div class="row">
                         <div class="col s12 m12">
-                            <center><h5 class="card-title purple-text accent-4" style="font-family: robotoblack;">TIEMPOS MUERTOS</h5></center>
+                            <center><h5 class="card-title titulos" >TIEMPOS MUERTOS</h5></center>
                         </div>
                     </div>    
 					<table id="tlbTiemposMuertos" class="striped">
@@ -106,7 +106,7 @@
         </div>        
         <div class="row noMargen center">
             <div class="noMargen col s12 m12 l12">
-                <h6 class="center" style="font-family:'robotoblack'; color:#831F82;font-size:30px; margin-bottom:30px;">AGREGAR TIEMPO MUERTO</h6>
+                <h6 class="center titulos">AGREGAR TIEMPO MUERTO</h6>
             </div>
         </div>
         

@@ -17,7 +17,7 @@ class reporte_Controller extends CI_Controller {
         $this->load->view('header');
         $this->load->view('dashboardclean');
         $this->load->view('Reportes/reporte', $data);
-		$this->load->view('footer');
+		$this->load->view('footer');		
 	}
 
 	public function guardarReporte() {

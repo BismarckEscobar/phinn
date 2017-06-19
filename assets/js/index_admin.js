@@ -92,7 +92,7 @@ function crearTabla() {
                         cont1=cont1+1;                                                                                     
                     }else if (obj[i]['IdInsumo']==2) {
                         cont2=cont2+1;
-                    }else if (obj[i]['IdInsumo']==3) {
+                    }else if (obj[i]['IdInsumo']==12) {
                         cont3=cont3+1;
                     };
                 }; 
@@ -126,7 +126,7 @@ function crearTabla() {
                 };
                 html += '<tr><td>MERMA</td>';                
                 for (var i = 0; i < obj.length; i++) {
-                    if (obj[i]['IdInsumo']==3) {                        
+                    if (obj[i]['IdInsumo']==12) {                        
                         html += '<td><input class="numeric" id="cargaN'+obj[i]['IdCargaPulper']+'" onchange="actualizandoCargasPulper('+obj[i]['IdCargaPulper']+', this.value)" value="'+obj[i]['Cantidad']+'" style="border:none; width:50px; text-align:center; background:none;"/></td>';                                                                                           
                     }
                 };
@@ -449,32 +449,6 @@ $("#valOrdP7").on('click', function() {
 });
 /****************GUARDANDO TIEMPOS MUERTOS**********************/
 function guardarTM1() {
-
-    var idRptD = $('#idRptD').val();
-    var ordP1 = $('#ordP1').val();
-    var consecutivo = $('#consecutivo').val();
-    var turno1 = $('#turno1').val();
-    var timepickerII = $('#timepickerII').val();
-    var timepickerFF = $('#timepickerFF').val();
-    var maquina = $('#maquina').val();
-    var descipcion11 = $('#descipcion').val();
-    //descipcion11.replace("."," ");
-    $.ajax({
-        url: "../guardarTM/" + idRptD + '/' + ordP1 + '/' + consecutivo + '/' + turno1 + '/' + timepickerII + '/' + timepickerFF + '/' + maquina + '/' + descipcion11,
-        type: "POST",
-        async: true,
-        success: function(data) {
-            console.log(data);
-            console.log(data);
-            if (data == 1) {
-                Materialize.toast('SE GUARDO CON ÉXITO', 1000);
-            } else {
-                Materialize.toast('ERROR AL GUARDAR', 1000);
-            };
-        }
-    });
-}
-
     var result = validarControlesTiempoMuertos();
     if (result==false) {        
     } else {
@@ -502,10 +476,85 @@ function guardarTM1() {
                 };                
             }
 
-
         });   
     }
 }
+
+/****************GUARDAR TIEMPO MUERTO***************************/
+function validarControlesTiempoMuertos() {
+    var result =false;
+    var horaInicio=$('#timepickerII').val();
+    var horaFinal=$('#timepickerFF').val();
+    var maquina=$('#maquina').val();
+    var descipcion=$('#descipcion').val();
+    var turno = $('#ordT').text();
+    if (horaInicio=="" || horaFinal=="") {
+        mensajeAlerta('ESCOJA UNA HORA DE INICIO Y UNA FINAL');
+        return false;
+    }else{
+        if(turno=="6:00pm-6:00am") {
+            var h1F = moment(horaInicio, ["h:mm A"]).format("HH:mm");
+            var h2F = moment(horaFinal, ["h:mm A"]).format("HH:mm");
+            var AM = horaInicio.indexOf("AM");
+            var PM = horaFinal.indexOf("PM");
+
+            var h1C = moment('06:00PM', ["h:mm A"]).format("HH:mm");
+            var h2C = moment('06:00AM', ["h:mm A"]).format("HH:mm");
+            if (h1F<h1C && PM>1) {
+                mensajeAlerta('ESCOJA UNA HORA DE INICIO Y UNA FINAL ACORDE AL TURNO ACTUAL');
+                return false;
+            }else {
+                if (h1F<h1C && AM<1) {
+                    mensajeAlerta('ESCOJA UNA HORA DE INICIO Y UNA FINAL ACORDE AL TURNO ACTUAL');
+                }else{
+                if (h2F>h2C && AM>1) {
+                    mensajeAlerta('ESCOJA UNA HORA DE INICIO Y UNA FINAL ACORDE AL TURNO ACTUAL');
+                    return false;
+                }else {
+                    if (h2F>h2C && PM<1) {
+                        mensajeAlerta('ESCOJA UNA HORA DE INICIO Y UNA FINAL ACORDE AL TURNO ACTUAL');
+                        return false;
+                    }else{
+                        if (maquina=="") {
+                            mensajeAlerta('SELECCIONE UNA MAQUINA');
+                            return false;
+                        } else {
+                            if (descipcion=="") {
+                                mensajeAlerta('ESCRIBA UNA DESCRIPCIÓN');
+                                return false;
+                            }else{};
+                        };
+                    };
+                }
+
+                };
+
+            }
+        }else {
+                if (turno=="6:00am-6:00pm") {
+                    var h1F = moment(horaInicio, ["h:mm A"]).format("HH:mm");
+                    var h2F = moment(horaFinal, ["h:mm A"]).format("HH:mm");
+
+                    var h1C = moment('06:00AM', ["h:mm A"]).format("HH:mm");
+                    var h2C = moment('06:00PM', ["h:mm A"]).format("HH:mm");
+                    if (h1F<h1C || h2F>h2C) {
+                        mensajeAlerta('ESCOJA UNA HORA DE INICIO Y UNA FINAL ACORDE AL TURNO ACTUAL');
+                        return false;
+                    }else {
+                        if (maquina=="") {
+                            mensajeAlerta('SELECCIONE UNA MAQUINA');
+                            //return false;
+                        } else {
+                            if (descipcion=="") {
+                                mensajeAlerta('ESCRIBA UNA DESCRIPCIÓN');
+                                //return false;
+                            }else{};
+                        } ;
+                    };
+                };
+            }
+        }
+    }
 /****************GUARDANDO CARGAS PULPER**********************/
 function guardarCargaPulper() {
     if ($('#idRptD').val()=="" || $('#tipoFibra').val()==null || $('#cantidad').val()=="") {
@@ -580,102 +629,92 @@ $("#numOrden").on('change', function(event) {
     });
 });
 /*********CAMBIAR ESTADO A REPORTE**************************/
-
 function cambiaStatusRpt(idOrden, numOrden, estado){
     var idOrd=idOrden; var numOrd=numOrden; var status=estado;
     var miMSS="";
-    switch (estado) {
+
+    switch(estado){
         case 0:
             $.ajax({
-                url: "validaRpt/" + numOrd,
-                async: true,
-                success: function(data) {
-                    if (data == true) {
-                        swal({
-                            title: ' ',
-                            text: 'No se puede anular esta orden ya que existen uno o más registros enlazados a ella',
-                            type: 'warning',
-                            showCloseButton: true,
-                            confirmButtonColor: '#831F82',
-                            confirmButtonText: 'ACEPTAR'
-                        }).then()
+            url: "validaRpt/" + numOrd,
+            async:true,
+            success: function(data){
+            if (data==true) {
+                swal({ title: ' ',
+                    text: 'No se puede anular esta orden ya que existen uno o más registros enlazados a ella',
+                    type: 'warning',
+                    showCloseButton: true,
+                    confirmButtonColor: '#831F82',
+                    confirmButtonText: 'ACEPTAR'
+                }).then()
                     } else {
                         confirmacionCambioStatus('¿Desea anular esta orden de producción?', 'ANULAR', idOrd, status);
                     }
                 }
-            });
-            break;
+            }); break;
         case 1:
             $.ajax({
-                url: "validarNoOrden",
-                type: "POST",
-                async: true,
-                success: function(data) {
-                    if (data == true) {
-                        swal({
-                            title: 'Ya existe una orden activa',
-                            text: '¿Desea dar de baja a la anterior y agregar esta como orden activa?',
-                            type: 'warning',
-                            showCloseButton: true,
-                            showCancelButton: true,
-                            confirmButtonColor: '#831F82',
-                            confirmButtonText: 'ACEPTAR',
-                            cancelButtonText: 'CANCELAR'
-                        }).then(function() {
-                            $.ajax({
-                                url: "FechaInicio/" + numOrd,
-                                type: "post",
-                                async: true,
-                                success: function(data) {
-                                    var fecha3 = moment(data).format('DD/MM/YYYY');
-                                    var fec2 = new Date();
-                                    var fecha4 = moment(fec2).format('DD/MM/YYYY');
-                                    if (fecha3 >= fecha4) {
-                                        cambiaOrdenActiva(idOrd, 3);
-                                    } else {
-                                        swal({
-                                            title: "",
-                                            text: 'Esta orden no puede ser seleccionada como activa porque su fecha de inicio ya caduco',
-                                            type: 'warning',
-                                            confirmButtonColor: '#831F82',
-                                            confirmButtonText: 'CERRAR'
-                                        }).then()
-                                    };
-                                }
-                            });
-
-                        });
-                    } else { cambiaOrdenActiva(idOrd, 3); }
-                }
-            });
-            break;
+            url: "validarNoOrden",
+            type:"POST",
+            async:true,
+            success: function(data){
+                if (data==true) {
+                    swal({ title: 'Ya existe una orden activa',
+                    text: '¿Desea dar de baja a la anterior y agregar esta como orden activa?',
+                    type: 'warning',
+                    showCloseButton: true,
+                    showCancelButton: true,
+                    confirmButtonColor: '#831F82',
+                    confirmButtonText: 'ACEPTAR',
+                    cancelButtonText:'CANCELAR'
+                    }).then(function(){
+                        $.ajax({ 
+                            url:"FechaInicio/" + numOrd,
+                            type: "post",
+                            async:true,
+                            success: function(data) {
+                                var fecha3=moment(data).format('DD/MM/YYYY');
+                                var fec2 = new Date();
+                                var fecha4=moment(fec2).format('DD/MM/YYYY');
+                                if (fecha3>=fecha4) {
+                                    cambiaOrdenActiva(idOrd, 3);
+                                } else{                                    
+                                    swal({ title: "",
+                                        text: 'Esta orden no puede ser seleccionada como activa porque su fecha de inicio ya caduco',
+                                        type: 'warning',                            
+                                        confirmButtonColor: '#831F82',
+                                        confirmButtonText: 'CERRAR'
+                                    }).then()
+                            };
+                        }
+                    });
+                        
+                });         
+            } else {cambiaOrdenActiva(idOrd, 3);}
+        }
+        }); break;
         case 2:
-            swal({
-                title: "CAMBIAR ESTADO",
+            swal({ title: "CAMBIAR ESTADO",
                 text: '¿Desea cerrar esta orden?',
                 type: 'warning',
                 showCloseButton: true,
                 confirmButtonColor: '#831F82',
                 confirmButtonText: 'CERRAR',
                 showCancelButton: true,
-                cancelButtonText: 'Cancelar',
-            }).then(function() {
-                $.ajax({
-                    url: "cambiarEstadoRpt/" + idOrd + "/" + status,
-                    type: "post",
-                    async: true,
-                    success: function() {
-                        swal({
-                            title: "EL ESTADO DE LA ORDEN SE CAMBIO CORECTAMENTE!",
-                            type: "success",
-                            confirmButtonText: "CERRAR",
-                        }).then(
-                            function() { gotopage("reporte"); }
-                        )
-                    }
-                })
-            });
-            break;
+                cancelButtonText:'Cancelar',
+            }).then(function(){
+            $.ajax({ url: "cambiarEstadoRpt/"+idOrd+"/"+status,
+                type: "post",
+                async:true,
+                success: function(){
+                swal({title: "EL ESTADO DE LA ORDEN SE CAMBIO CORECTAMENTE!",
+                type: "success",
+                confirmButtonText: "CERRAR",
+                }).then(
+                    function(){gotopage("reporte");}
+                )}
+            })
+        }); break;
     }
 }
 /****************FUNCION PARA CAMBIAR STATUS DE LA ORDEN DE PRODUCCION********************/
