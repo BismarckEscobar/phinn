@@ -97,12 +97,44 @@ class Ordenproduccion_model extends CI_Model
     }
 
     public function buscarRtpDiario($idRtpD) {
-        $this->db->where('IdReporteDiario =',$idRtpD);
-        $query=$this->db->get('reporte_diario');
+        $this->db->select("reporte_diario.IdReporteDiario,reporte_diario.Consecutivo,reporte_diario.NoOrder,
+        turnos.Turno,reporte_diario.FechaInicio,reporte_diario.FechaFinal,reporte_diario.Coordinador,
+        reporte_diario.Grupo,reporte_diario.TipoPapel")
+        ->from("reporte_diario")
+        ->join("turnos", "reporte_diario.Turno = turnos.IdTurno")
+        ->where('reporte_diario.IdReporteDiario =',$idRtpD);
+        $query=$this->db->get();
         if ($query->num_rows()>0) {
             return $query->result_array();
         } else {
             return false;
         }
+    }
+
+    public function Valfec($fechaini,$turno,$Conse)
+    {
+        $valor = false;
+        $this->db->where("Consecutivo",$Conse);
+        $this->db->where('FechaInicio',$fechaini);
+        $this->db->where('Turno',$turno);
+        $query = $this->db->get('view_reporteDiario');
+        if ($query->num_rows()>0) {
+            $valor = true;
+        }
+        else{
+            $valor = false;
+        }
+        echo $valor;
+    }
+
+    public function ListarTurno()
+    {
+        $query = $this->db->get("turnos");
+        if ($query->num_rows()>0) {
+            return $query->result_array();
+        } else {
+            return false;
+        }
+        
     }
 }
