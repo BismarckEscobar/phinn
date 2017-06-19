@@ -15,6 +15,7 @@ class Reportes extends CI_Controller {
 		$this->load->view('dashboardclean');
 		$this->load->view('Reportes/RMenu');
 		$this->load->view('footer');
+		
     }
 
 	public function CalSemana() {
