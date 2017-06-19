@@ -40,15 +40,15 @@
 								<!-- <div class="col m2"><a href="<?php echo base_url();?>index.php/tiempoMuerto/<?php echo $consecutivo['NoOrden']?>/<?php echo $consecutivo["consecutivo"]?>/<?php echo $consecutivo["turno"]?>" class="collection-item activo">TIEMPOS MUERTOS</a></div> -->
 								<?php
 									foreach ($consecutivo as $key) {
+                    echo '<div class="col s3 m3"><a href="<?php echo base_url()."index.php/Produccion/".$key['IdReporteDiario']?>" class="collection-item activo">PRODUCCIÓN</a></div>';
 										echo "<div class='col s3 m3'><a href='".base_url()."index.php/tiempoMuerto/".$key['IdReporteDiario']."' class='collection-item1'>TIEMPOS MUERTOS</a></div>";		
 										echo "<div class='col s3 m3'><a href='".base_url()."index.php/cargaspulper/".$key['IdReporteDiario']."' class='collection-item1'>CARGAS PULPER</a></div>";
+                    echo '<div class="col s3 m3"><a href="<?php echo base_url()."index.php/MateriaPrima/".$key['IdReporteDiario']?>" class="collection-item activo">MATERIA PRIMA</a></div>';                    
 									}
-																
-								
 								?>
-								<div class="col s3 m3"><a href="#" class="collection-item1">MATERIA PRIMA</a></div>
 							</div>
-						</div>
+						</div>		
+			<?php }?>
 					</div>
 				</div>
 			</div>

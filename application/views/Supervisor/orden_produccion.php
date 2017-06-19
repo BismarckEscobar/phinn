@@ -58,10 +58,10 @@
                             foreach ($lista as $key) {
                             switch($key["Turno"])
                                 {
-                                    case '6:00am-6:00pm':
+                                    case 1:
                                     $key["Turno"] = "MATUTINO";
                                     break;
-                                    case '6:00pm-6:00am':
+                                    case 2:
                                     $key["Turno"] = "VESPERTINO";
                                     break;
                                 }?>
@@ -86,7 +86,56 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
+</div>
+
+
+<div class="div-cont">
+    <table id="TblMaster">
+    <thead>
+        <tr>
+        <td>N° ORDEN</td>
+        <td>TURNO</td>
+        <td>FECHA_INICIO</td>
+        <td>FECHA_FIN</td>
+        <td>COORDINADOR</td>
+        <td>GRUPO</td>
+        <td>TIPO PAPEL</td>
+        <td>Acciones</td>
+        </tr>   
+    </thead>
+    <tbody>
+     <?php foreach ($lista as $key) {
+       switch($key["Turno"])
+     {
+        case '6:00am-6:00pm':
+                $key["Turno"] = "MATUTINO";
+            break;
+            case '6:00pm-6:00am':
+                  $key["Turno"] = "VESPERTINO";
+                break;
+     }?>
+     <?php if ($this->session->userdata("IdUser") == $key["Coordinador"]) {?>
+                <tr>
+            <td><?php echo $key["Consecutivo"]." — ".$key["NoOrder"]?></td>
+            <td><?php echo $key["Turno"]?></td>
+            <td><?php echo $key["FechaInicio"]?></td>
+            <td><?php echo $key["FechaFinal"]?></td>
+            <td><?php echo $key["Nombre"]?></td>
+            <td><?php echo $key["Grupo"]?></td>
+            <td><?php echo $key["TipoPapel"]?></td>
+            <td><a href="#"><i class="small mdi-action-note-add tooltipped" data-tooltip="Agregar informacion"></i></a></td>
+        </tr> 
+     <?php }?>
+    <?php } ?>   
+    </tbody>
+</table>
+</div>
+
+ </main>
+=======
 </main>
+>>>>>>> a3d12e180f8311a6dd050a26e9718c7fb7f0e3ba
 
 <!--/////////////////////////////////////////////////////////////////////////////////////////
                                         MODALES
@@ -127,63 +176,55 @@
                         <input type="date" name="Fechafin" id="Fechafin" class="datepicker">
                         <label id="lblFechafin" class="labelValidacion">Fecha fin</label>
                     </div>
-                </div><br>
-                <div class="row">
-                    <div class="input-field col s6 m6 s6">
-                        <input id="timepicker" class="timepicker" type="time">
-                        <label for="timepicker">Hora inicio</label>
-                    </div>
-                    <div class="input-field col s6 m6 s6">
-                        <input id="timepicker1" class="timepicker" type="time">
-                        <label for="timepicker1">Hora final</label>
-                    </div> 
                 </div>
                 <br><br>
                 <div class="row">
-                    <div class="input-field col s3 m3 s3">
-                        <input type="text" name="grupo" id="grupo">
-                        <label id="lblgrupo" class="labelValidacion">DIGITE EL GRUPO</label>
-                    </div>
-                    <div class="input-field col s3 m3 s3">
+                    <div class="input-field col s6 m6 s6">
                         <input type="text" name="papel" id="papel">
                         <label id="lblpapel" class="labelValidacion">TIPO PAPEL</label>
                     </div>
-                    <br>
+                 <?php if ($this->session->userdata("IdUser")) {?>
+                    <div class="input-field col s6 m6 s6">
+                    <input type="hidden" name="coordinador" value="<?php echo $this->session->userdata("IdUser")?>">
+                        <input type="text" readonly name="" id="coordinador" value="<?php echo $this->session->userdata("Nombre")?>">
+                     <label id="lblcoordinador" class="lblValidacion">COORDINADOR</label>
+                    </div>
+                    <?php }?>
+                </div>
+                <br>
+                <div class="row">
                     <div class="col s6 m6 s6">
-                        <select name="coordinador" id="coordinador" class="chosen-select browser-default">
-                            <option value="" disabled selected>COORDINADOR</option>
+                        <select name="turno" id="turno" class="chosen-select browser-default">
+                            <option value="" disabled selected>TURNO</option>
                             <?PHP
-                            if(!$coordinadores){
+                            if(!$turnos){
                             } else {
-                                foreach($coordinadores as $key){
-                                    echo '<option value="'.$key['IdUsuario'].'">'.$key['Nombre'].'</option>';
+                                foreach($turnos as $key){
+                                    echo '<option value="'.$key['IdTurno'].'">'.$key['Turno'].'';
+                                    switch ($key['IdTurno']) {
+                                        case 1:
+                                            $key['Turno'] = "Matutino";
+                                            break;
+                                        
+                                       case 2:
+                                       $key['Turno'] = "Vespertino";                                           
+                                            break;
+                                    }
+                                    echo' <span class="badge">('.$key['Turno'].')</span>';
+                                    echo'</option>';
                                 }
                             }
                             ?>
                         </select>
-                        <label id="lblcoordinador" class="lblValidacion">ELIGE UN COORDINADOR</label>
+                        <label id="lblturno" class="lblValidacion">ELIGE UN TURNO</label>
                     </div>
-                </div>
-                <br>
-                <div class="row">
-                   <fieldset style="border-color:purple;">
-                       <legend>TURNO</legend>
-                       <div class="col s3 m3 s3">
-                        <input class="with-gap"  type="radio" id="turno" name="turno" value="6:00am-6:00pm">
-                        <label for="turno">6:00am - 6:00pm</label>
-                       </div>
-                        <div class="col s3 m3 s3">
-                        <input class="with-gap"  type="radio" id="turno1" name="turno" value="6:00pm-6:00am">
-                        <label for="turno1">6:00pm - 6:00am</label>
-                       </div>
-                   </fieldset>
                    <br><br>
-                    <div class="center">
+                </div>
+                 <div class="center">
                         <button name="usersubmit" type="submit" class="Btnadd btn waves-effect waves-light" id="AddOrden" style="background-color:#831F82;">GUARDAR
                             <i class="mdi-content-send right"></i>
                         </button>
                     </div>
-                </div>
             </form>
         </div>
     </div>

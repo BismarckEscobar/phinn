@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost-new
+Source Server         : localhost
 Source Server Version : 50505
 Source Host           : localhost:3306
 Source Database       : phinn
@@ -9,6 +9,7 @@ Source Database       : phinn
 Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
+
 
 Date: 2017-06-19 13:25:51
 */
@@ -25,158 +26,15 @@ CREATE TABLE `cargas_pulper` (
   `Cantidad` decimal(11,0) DEFAULT NULL,
   `IdReporteDiario` int(11) NOT NULL,
   PRIMARY KEY (`IdCargaPulper`)
+
 ) ENGINE=InnoDB AUTO_INCREMENT=161 DEFAULT CHARSET=latin1;
+
 
 -- ----------------------------
 -- Records of cargas_pulper
 -- ----------------------------
-INSERT INTO `cargas_pulper` VALUES ('5', '1', '500', '36');
-INSERT INTO `cargas_pulper` VALUES ('6', '2', '5000', '36');
-INSERT INTO `cargas_pulper` VALUES ('7', '2', '5000', '36');
-INSERT INTO `cargas_pulper` VALUES ('8', '1', '5000', '36');
-INSERT INTO `cargas_pulper` VALUES ('9', '1', '400', '36');
-INSERT INTO `cargas_pulper` VALUES ('10', '1', '850', '36');
-INSERT INTO `cargas_pulper` VALUES ('11', '1', '750', '36');
-INSERT INTO `cargas_pulper` VALUES ('12', '1', '836', '36');
-INSERT INTO `cargas_pulper` VALUES ('13', '3', '450', '36');
-INSERT INTO `cargas_pulper` VALUES ('14', '3', '785', '36');
-INSERT INTO `cargas_pulper` VALUES ('15', '3', '789', '36');
-INSERT INTO `cargas_pulper` VALUES ('16', '3', '896', '36');
-INSERT INTO `cargas_pulper` VALUES ('17', '1', '452', '36');
-INSERT INTO `cargas_pulper` VALUES ('18', '3', '444', '36');
-INSERT INTO `cargas_pulper` VALUES ('19', '3', '777', '36');
-INSERT INTO `cargas_pulper` VALUES ('20', '3', '7779', '36');
-INSERT INTO `cargas_pulper` VALUES ('21', '3', '365', '36');
-INSERT INTO `cargas_pulper` VALUES ('22', '3', '7852', '36');
-INSERT INTO `cargas_pulper` VALUES ('23', '2', '874', '36');
-INSERT INTO `cargas_pulper` VALUES ('24', '2', '452', '36');
-INSERT INTO `cargas_pulper` VALUES ('25', '2', '584', '36');
-INSERT INTO `cargas_pulper` VALUES ('26', '2', '584', '36');
-INSERT INTO `cargas_pulper` VALUES ('27', '2', '584', '36');
-INSERT INTO `cargas_pulper` VALUES ('28', '2', '584', '36');
-INSERT INTO `cargas_pulper` VALUES ('29', '2', '584', '36');
-INSERT INTO `cargas_pulper` VALUES ('30', '2', '584', '36');
-INSERT INTO `cargas_pulper` VALUES ('31', '2', '255', '36');
-INSERT INTO `cargas_pulper` VALUES ('32', '2', '255', '36');
-INSERT INTO `cargas_pulper` VALUES ('33', '2', '255', '36');
-INSERT INTO `cargas_pulper` VALUES ('34', '2', '212', '33');
-INSERT INTO `cargas_pulper` VALUES ('35', '2', '222', '33');
-INSERT INTO `cargas_pulper` VALUES ('37', '1', '222', '33');
-INSERT INTO `cargas_pulper` VALUES ('38', '1', '222', '33');
-INSERT INTO `cargas_pulper` VALUES ('39', '2', '525', '34');
-INSERT INTO `cargas_pulper` VALUES ('40', '3', '45088', '34');
-INSERT INTO `cargas_pulper` VALUES ('41', '3', '852', '34');
-INSERT INTO `cargas_pulper` VALUES ('42', '1', '719', '35');
-INSERT INTO `cargas_pulper` VALUES ('43', '1', '758', '35');
-INSERT INTO `cargas_pulper` VALUES ('44', '1', '734', '35');
-INSERT INTO `cargas_pulper` VALUES ('45', '1', '716', '35');
-INSERT INTO `cargas_pulper` VALUES ('46', '1', '720', '35');
-INSERT INTO `cargas_pulper` VALUES ('47', '1', '767', '35');
-INSERT INTO `cargas_pulper` VALUES ('48', '1', '625', '35');
-INSERT INTO `cargas_pulper` VALUES ('49', '1', '610', '35');
-INSERT INTO `cargas_pulper` VALUES ('50', '1', '573', '35');
-INSERT INTO `cargas_pulper` VALUES ('51', '2', '160', '35');
-INSERT INTO `cargas_pulper` VALUES ('52', '2', '160', '35');
-INSERT INTO `cargas_pulper` VALUES ('53', '2', '160', '35');
-INSERT INTO `cargas_pulper` VALUES ('54', '2', '160', '35');
-INSERT INTO `cargas_pulper` VALUES ('55', '2', '260', '35');
-INSERT INTO `cargas_pulper` VALUES ('56', '2', '360', '35');
-INSERT INTO `cargas_pulper` VALUES ('57', '2', '260', '35');
-INSERT INTO `cargas_pulper` VALUES ('58', '2', '160', '35');
-INSERT INTO `cargas_pulper` VALUES ('59', '3', '160', '35');
-INSERT INTO `cargas_pulper` VALUES ('60', '3', '160', '35');
-INSERT INTO `cargas_pulper` VALUES ('61', '3', '160', '35');
-INSERT INTO `cargas_pulper` VALUES ('62', '3', '160', '35');
-INSERT INTO `cargas_pulper` VALUES ('65', '2', '7844', '37');
-INSERT INTO `cargas_pulper` VALUES ('66', '2', '7858', '37');
-INSERT INTO `cargas_pulper` VALUES ('69', '1', '7848', '38');
-INSERT INTO `cargas_pulper` VALUES ('70', '1', '7848', '38');
-INSERT INTO `cargas_pulper` VALUES ('71', '1', '1', '38');
-INSERT INTO `cargas_pulper` VALUES ('72', '1', '522', '38');
-INSERT INTO `cargas_pulper` VALUES ('73', '2', '874', '38');
-INSERT INTO `cargas_pulper` VALUES ('74', '2', '874', '38');
-INSERT INTO `cargas_pulper` VALUES ('75', '2', '85', '38');
-INSERT INTO `cargas_pulper` VALUES ('76', '2', '874', '38');
-INSERT INTO `cargas_pulper` VALUES ('77', '2', '874', '38');
-INSERT INTO `cargas_pulper` VALUES ('78', '2', '874', '38');
-INSERT INTO `cargas_pulper` VALUES ('79', '2', '874', '38');
-INSERT INTO `cargas_pulper` VALUES ('80', '2', '874', '38');
-INSERT INTO `cargas_pulper` VALUES ('81', '3', '5218', '38');
-INSERT INTO `cargas_pulper` VALUES ('82', '3', '521', '38');
-INSERT INTO `cargas_pulper` VALUES ('83', '3', '521', '38');
-INSERT INTO `cargas_pulper` VALUES ('84', '3', '521', '38');
-INSERT INTO `cargas_pulper` VALUES ('85', '3', '52188', '38');
-INSERT INTO `cargas_pulper` VALUES ('86', '3', '521', '38');
-INSERT INTO `cargas_pulper` VALUES ('87', '3', '521', '38');
-INSERT INTO `cargas_pulper` VALUES ('88', '3', '5821', '38');
-INSERT INTO `cargas_pulper` VALUES ('89', '3', '521', '38');
-INSERT INTO `cargas_pulper` VALUES ('90', '3', '899', '38');
-INSERT INTO `cargas_pulper` VALUES ('91', '3', '7777', '34');
-INSERT INTO `cargas_pulper` VALUES ('92', '1', '855', '34');
-INSERT INTO `cargas_pulper` VALUES ('93', '1', '8888', '34');
-INSERT INTO `cargas_pulper` VALUES ('94', '1', '500', '37');
-INSERT INTO `cargas_pulper` VALUES ('95', '1', '500', '37');
-INSERT INTO `cargas_pulper` VALUES ('96', '1', '500', '37');
-INSERT INTO `cargas_pulper` VALUES ('97', '1', '500', '37');
-INSERT INTO `cargas_pulper` VALUES ('98', '1', '8850', '37');
-INSERT INTO `cargas_pulper` VALUES ('99', '1', '850', '37');
-INSERT INTO `cargas_pulper` VALUES ('100', '1', '850', '37');
-INSERT INTO `cargas_pulper` VALUES ('101', '1', '850', '37');
-INSERT INTO `cargas_pulper` VALUES ('102', '1', '850', '37');
-INSERT INTO `cargas_pulper` VALUES ('103', '1', '850', '37');
-INSERT INTO `cargas_pulper` VALUES ('104', '1', '850', '37');
-INSERT INTO `cargas_pulper` VALUES ('105', '1', '0', '37');
-INSERT INTO `cargas_pulper` VALUES ('106', '1', '785', '37');
-INSERT INTO `cargas_pulper` VALUES ('107', '1', '785', '37');
-INSERT INTO `cargas_pulper` VALUES ('108', '1', '785', '37');
-INSERT INTO `cargas_pulper` VALUES ('109', '1', '785', '37');
-INSERT INTO `cargas_pulper` VALUES ('110', '1', '500', '39');
-INSERT INTO `cargas_pulper` VALUES ('111', '1', '620', '39');
-INSERT INTO `cargas_pulper` VALUES ('112', '1', '7500', '39');
-INSERT INTO `cargas_pulper` VALUES ('113', '2', '526', '39');
-INSERT INTO `cargas_pulper` VALUES ('114', '2', '526', '39');
-INSERT INTO `cargas_pulper` VALUES ('115', '2', '526', '39');
-INSERT INTO `cargas_pulper` VALUES ('116', '3', '526', '39');
-INSERT INTO `cargas_pulper` VALUES ('117', '3', '5267', '39');
-INSERT INTO `cargas_pulper` VALUES ('118', '3', '855', '39');
-INSERT INTO `cargas_pulper` VALUES ('119', '2', '8', '39');
-INSERT INTO `cargas_pulper` VALUES ('120', '1', '999', '39');
-INSERT INTO `cargas_pulper` VALUES ('121', '1', '150', '39');
-INSERT INTO `cargas_pulper` VALUES ('122', '3', '8887', '39');
-INSERT INTO `cargas_pulper` VALUES ('123', '3', '888', '39');
-INSERT INTO `cargas_pulper` VALUES ('124', '3', '888', '39');
-INSERT INTO `cargas_pulper` VALUES ('125', '1', '852', '39');
-INSERT INTO `cargas_pulper` VALUES ('126', '1', '852', '39');
-INSERT INTO `cargas_pulper` VALUES ('127', '1', '852', '39');
-INSERT INTO `cargas_pulper` VALUES ('128', '1', '852', '39');
-INSERT INTO `cargas_pulper` VALUES ('129', '2', '85', '39');
-INSERT INTO `cargas_pulper` VALUES ('130', '2', '855', '39');
-INSERT INTO `cargas_pulper` VALUES ('131', '2', '855', '39');
-INSERT INTO `cargas_pulper` VALUES ('132', '2', '8', '39');
-INSERT INTO `cargas_pulper` VALUES ('133', '2', '588', '39');
-INSERT INTO `cargas_pulper` VALUES ('134', '2', '5885', '39');
-INSERT INTO `cargas_pulper` VALUES ('135', '2', '350', '39');
-INSERT INTO `cargas_pulper` VALUES ('136', '3', '255', '39');
-INSERT INTO `cargas_pulper` VALUES ('139', '3', '822', '37');
-INSERT INTO `cargas_pulper` VALUES ('140', '3', '522', '37');
-INSERT INTO `cargas_pulper` VALUES ('143', '2', '255', '40');
-INSERT INTO `cargas_pulper` VALUES ('144', '1', '200', '40');
-INSERT INTO `cargas_pulper` VALUES ('145', '1', '255', '40');
-INSERT INTO `cargas_pulper` VALUES ('146', '1', '200', '40');
-INSERT INTO `cargas_pulper` VALUES ('147', '1', '200', '40');
-INSERT INTO `cargas_pulper` VALUES ('148', '1', '500', '40');
-INSERT INTO `cargas_pulper` VALUES ('149', '3', '200', '40');
-INSERT INTO `cargas_pulper` VALUES ('150', '3', '52', '40');
-INSERT INTO `cargas_pulper` VALUES ('151', '3', '200', '40');
-INSERT INTO `cargas_pulper` VALUES ('152', '3', '255', '37');
-INSERT INTO `cargas_pulper` VALUES ('153', '3', '633', '37');
-INSERT INTO `cargas_pulper` VALUES ('154', '1', '256', '40');
-INSERT INTO `cargas_pulper` VALUES ('155', '1', '895', '40');
-INSERT INTO `cargas_pulper` VALUES ('156', '1', '785', '40');
-INSERT INTO `cargas_pulper` VALUES ('157', '1', '785', '40');
-INSERT INTO `cargas_pulper` VALUES ('158', '1', '785', '40');
-INSERT INTO `cargas_pulper` VALUES ('159', '2', '555', '40');
-INSERT INTO `cargas_pulper` VALUES ('160', '2', '554', '40');
+
+
 
 -- ----------------------------
 -- Table structure for categoria
@@ -188,6 +46,7 @@ CREATE TABLE `categoria` (
   PRIMARY KEY (`IdCategoria`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
+
 -- ----------------------------
 -- Records of categoria
 -- ----------------------------
@@ -195,6 +54,7 @@ INSERT INTO `categoria` VALUES ('1', 'CATEGORIA 1');
 INSERT INTO `categoria` VALUES ('2', 'CATEGORIA 2');
 
 -- ----------------------------
+
 -- Table structure for horas_molienda
 -- ----------------------------
 DROP TABLE IF EXISTS `horas_molienda`;
@@ -207,49 +67,35 @@ CREATE TABLE `horas_molienda` (
   PRIMARY KEY (`IdHora`)
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 
--- ----------------------------
--- Records of horas_molienda
--- ----------------------------
-INSERT INTO `horas_molienda` VALUES ('1', 'BATIDO', '06:00:00', '06:30:00', '37');
-INSERT INTO `horas_molienda` VALUES ('2', 'BATIDO', '06:00:00', '06:30:00', '37');
-INSERT INTO `horas_molienda` VALUES ('3', 'BATIDO', '06:00:00', '06:30:00', '37');
-INSERT INTO `horas_molienda` VALUES ('4', 'BATIDO', '07:00:00', '07:30:00', '37');
-INSERT INTO `horas_molienda` VALUES ('5', 'BATIDO', '08:10:00', '09:10:00', '37');
-INSERT INTO `horas_molienda` VALUES ('6', 'BATIDO', '09:00:00', '09:35:00', '37');
-INSERT INTO `horas_molienda` VALUES ('7', 'BATIDO', '09:55:00', '10:00:00', '37');
-INSERT INTO `horas_molienda` VALUES ('8', 'BATIDO', '11:50:00', '12:20:00', '40');
-INSERT INTO `horas_molienda` VALUES ('9', 'BATIDO', '13:58:00', '15:59:00', '40');
-INSERT INTO `horas_molienda` VALUES ('10', 'BATIDO', '01:00:00', '01:00:00', '40');
-INSERT INTO `horas_molienda` VALUES ('11', 'BATIDO', '17:10:00', '18:15:00', '40');
-INSERT INTO `horas_molienda` VALUES ('12', 'BATIDO', '18:05:00', '19:05:00', '40');
-INSERT INTO `horas_molienda` VALUES ('13', 'BATIDO', '18:00:00', '19:10:00', '40');
-INSERT INTO `horas_molienda` VALUES ('14', 'BATIDO', '07:30:00', '08:00:00', '35');
-INSERT INTO `horas_molienda` VALUES ('15', 'BATIDO', '08:30:00', '09:00:00', '35');
-INSERT INTO `horas_molienda` VALUES ('16', 'BATIDO', '09:00:00', '09:30:00', '35');
-INSERT INTO `horas_molienda` VALUES ('17', 'BATIDO', '10:00:00', '10:30:00', '35');
-INSERT INTO `horas_molienda` VALUES ('18', 'BATIDO', '00:00:00', '12:30:00', '35');
-INSERT INTO `horas_molienda` VALUES ('19', 'BATIDO', '13:00:00', '13:30:00', '35');
-INSERT INTO `horas_molienda` VALUES ('20', 'BATIDO', '14:30:00', '15:00:00', '35');
-INSERT INTO `horas_molienda` VALUES ('21', 'BATIDO', '16:00:00', '16:30:00', '35');
-INSERT INTO `horas_molienda` VALUES ('22', 'BATIDO', '17:00:00', '17:30:00', '35');
 
--- ----------------------------
 -- Table structure for insumos
 -- ----------------------------
 DROP TABLE IF EXISTS `insumos`;
 CREATE TABLE `insumos` (
   `IdInsumo` int(11) NOT NULL AUTO_INCREMENT,
-  `descripcion` varchar(100) NOT NULL,
+  `Descripcion` varchar(100) NOT NULL,
   `IdCategoria` int(100) NOT NULL,
   PRIMARY KEY (`IdInsumo`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+
 
 -- ----------------------------
 -- Records of insumos
 -- ----------------------------
 INSERT INTO `insumos` VALUES ('1', 'Blanco impreso', '1');
 INSERT INTO `insumos` VALUES ('2', 'Mezclado (color)', '1');
+INSERT INTO `insumos` VALUES ('3', 'Poliacrilamida PAM', '2');
+INSERT INTO `insumos` VALUES ('4', 'Policloruro de aluminio (PAC)', '2');
+INSERT INTO `insumos` VALUES ('5', 'Soda caustica', '2');
+INSERT INTO `insumos` VALUES ('6', 'Peroxido de hidrogeno', '2');
+INSERT INTO `insumos` VALUES ('7', 'GSP-8', '2');
+INSERT INTO `insumos` VALUES ('8', 'Aceite vegetal/Hercules', '2');
+INSERT INTO `insumos` VALUES ('9', 'Oxido de polietileno PEO', '2');
+INSERT INTO `insumos` VALUES ('10', 'Carboxilmetilcelulosa CMC', '2');
+INSERT INTO `insumos` VALUES ('11', 'DETAC', '2');
+
 INSERT INTO `insumos` VALUES ('3', 'merma', '1');
+
 
 -- ----------------------------
 -- Table structure for log
@@ -374,29 +220,7 @@ INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-09 21:27:
 INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-10 02:10:43');
 INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-12 15:42:53');
 INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-12 18:43:48');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-13 15:53:49');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-13 17:28:32');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-13 19:48:06');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-13 19:48:06');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-13 21:12:28');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-14 15:43:57');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-14 19:49:53');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-14 21:25:48');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-14 22:11:18');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-14 22:35:30');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-15 01:18:53');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-15 02:07:16');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-15 15:44:29');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-15 17:42:06');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-15 18:40:34');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-15 18:51:29');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-16 01:50:04');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-16 15:45:44');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-16 17:33:15');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-17 01:36:14');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-19 15:44:39');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-19 18:53:24');
-INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-19 20:15:18');
+
 
 -- ----------------------------
 -- Table structure for maquinas
@@ -448,10 +272,44 @@ INSERT INTO `orden_produccion` VALUES ('27', '7894', '3', '2017-06-08', '2017-06
 INSERT INTO `orden_produccion` VALUES ('28', '1256', '3', '2017-06-09', '2017-06-15', '1', 'orden de produccion actualmente activa');
 
 -- ----------------------------
+-- Table structure for pasta
+-- ----------------------------
+DROP TABLE IF EXISTS `pasta`;
+CREATE TABLE `pasta` (
+  `IdPasta` int(11) NOT NULL AUTO_INCREMENT,
+  `IdReporteDiario` int(11) DEFAULT NULL,
+  `Tanque` int(11) DEFAULT NULL,
+  `Dia` varchar(255) DEFAULT NULL,
+  `Noche` varchar(255) DEFAULT NULL,
+  `Consumo` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`IdPasta`)
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of pasta
+-- ----------------------------
+INSERT INTO `pasta` VALUES ('11', '35', '1', '12', null, '123');
+INSERT INTO `pasta` VALUES ('12', '36', '2', null, 'noche', '1223');
+INSERT INTO `pasta` VALUES ('13', '35', '2', '18.60', null, '0');
+INSERT INTO `pasta` VALUES ('14', '35', '3', '12', null, '12');
+INSERT INTO `pasta` VALUES ('15', '35', '4', '23', null, '0');
+INSERT INTO `pasta` VALUES ('16', '35', '5', '2', null, '2');
+INSERT INTO `pasta` VALUES ('18', '35', '6', '5', null, '5');
+INSERT INTO `pasta` VALUES ('19', '36', '1', null, '', '');
+INSERT INTO `pasta` VALUES ('20', '36', '3', null, '34', '4');
+INSERT INTO `pasta` VALUES ('21', '36', '4', null, '', '');
+INSERT INTO `pasta` VALUES ('22', '36', '5', null, 'dfg', 'fdg');
+INSERT INTO `pasta` VALUES ('25', '36', '6', null, '45', '45');
+INSERT INTO `pasta` VALUES ('26', '37', '1', '-', null, 'fg');
+INSERT INTO `pasta` VALUES ('27', '34', '1', null, 'noche', 'ef');
+INSERT INTO `pasta` VALUES ('28', '34', '2', '—', 'dddd', 'dddd');
+
+-- ----------------------------
 -- Table structure for produccion
 -- ----------------------------
 DROP TABLE IF EXISTS `produccion`;
 CREATE TABLE `produccion` (
+  `IdProduccion` int(11) NOT NULL AUTO_INCREMENT,
   `IdReporteDiario` int(11) NOT NULL,
   `NoOrden` varchar(255) NOT NULL,
   `Operador` int(11) DEFAULT NULL,
@@ -461,12 +319,48 @@ CREATE TABLE `produccion` (
   `VelocMaquina` varchar(255) DEFAULT NULL,
   `Peso` varchar(255) DEFAULT NULL,
   `Diametro` varchar(255) DEFAULT NULL,
-  `PesoBase` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `PesoBase` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`IdProduccion`)
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of produccion
 -- ----------------------------
+INSERT INTO `produccion` VALUES ('20', '33', '1-1256', '4', '2', '04:00:00', '04:46:00', '2', '23', '23', '23');
+INSERT INTO `produccion` VALUES ('23', '35', '2-1256', '6', '1', '06:00:00', '07:30:00', '-', '345', '92', '203');
+INSERT INTO `produccion` VALUES ('24', '35', '2-1256', '6', '1', '07:30:00', '09:00:00', '-', '339', '93', '206');
+INSERT INTO `produccion` VALUES ('25', '35', '2-1256', '6', '1', '09:00:00', '11:10:00', '', '425', '100', '205');
+INSERT INTO `produccion` VALUES ('28', '35', '2-1256', '6', '1', '11:10:00', '01:00:00', '', '372', '95', '206');
+INSERT INTO `produccion` VALUES ('29', '35', '2-1256', '6', '1', '01:00:00', '02:40:00', '', '364.5', '94', '20');
+INSERT INTO `produccion` VALUES ('31', '35', '2-1256', '6', '1', '02:40:00', '03:50:00', '', '259.5', '78', '19');
+INSERT INTO `produccion` VALUES ('33', '35', '2-1256', '6', '1', '04:00:00', '06:00:00', '', '497.5', '108', '20');
+INSERT INTO `produccion` VALUES ('34', '35', '2-1256', '4', '2', '06:00:00', '04:00:00', '', '468', '95', '20');
+INSERT INTO `produccion` VALUES ('35', '35', '2-1256', '4', '2', '04:00:00', '06:00:00', '', '516', '105', '20');
+INSERT INTO `produccion` VALUES ('41', '35', '2-1256', '6', '1', '11:56:00', '11:56:00', '', '1', '1', '1');
+INSERT INTO `produccion` VALUES ('42', '35', '2-1256', '4', '1', '02:25:00', '02:25:00', '0', '10', '10', '10');
+INSERT INTO `produccion` VALUES ('43', '35', '2-1256', '6', '1', '02:27:00', '02:27:00', '0', '10', '10', '10');
+INSERT INTO `produccion` VALUES ('44', '35', '2-1256', '6', '1', '03:08:00', '03:08:00', '12.5', '12.5', '12.5', '12.5');
+
+-- ----------------------------
+-- Table structure for reportes
+-- ----------------------------
+DROP TABLE IF EXISTS `reportes`;
+CREATE TABLE `reportes` (
+  `IdReporte` int(11) NOT NULL AUTO_INCREMENT,
+  `NoOrden` varchar(255) NOT NULL,
+  `Tipo` varchar(255) NOT NULL,
+  `Usuario` varchar(255) NOT NULL,
+  `FechaInicio` date DEFAULT NULL,
+  `FechaFin` date DEFAULT NULL,
+  `Estado` int(11) DEFAULT NULL,
+  PRIMARY KEY (`IdReporte`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of reportes
+-- ----------------------------
+INSERT INTO `reportes` VALUES ('1', '8514', 'Reporte Produccion', '2', '2017-05-29', '2017-06-04', '0');
+INSERT INTO `reportes` VALUES ('2', '7845', 'Reporte Produccion', '2', '2017-06-06', '2017-06-24', '1');
 
 -- ----------------------------
 -- Table structure for reporte_diario
@@ -485,11 +379,14 @@ CREATE TABLE `reporte_diario` (
   `ProduccionTotal` varchar(255) DEFAULT NULL,
   `MermaTotal` varchar(255) NOT NULL,
   PRIMARY KEY (`IdReporteDiario`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
+
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
+
 
 -- ----------------------------
 -- Records of reporte_diario
 -- ----------------------------
+
 INSERT INTO `reporte_diario` VALUES ('1', '3-9876', '9876', '6:00pm-6:00am', '2017-06-09', '2017-06-10', '3', '1', 'higienico', null, '');
 INSERT INTO `reporte_diario` VALUES ('24', '1-9876', '9876', '6:00am-6:00pm', '2017-06-07', '2017-06-07', '3', '1', 'HIGIENICO', null, '');
 INSERT INTO `reporte_diario` VALUES ('25', '1-9876', '9876', '6:00pm-6:00am', '2017-06-07', '2017-06-08', '3', '1', 'HIGIENICO', null, '');
@@ -509,6 +406,7 @@ INSERT INTO `reporte_diario` VALUES ('38', '3-1256', '1256', '6:00pm-6:00am', '2
 INSERT INTO `reporte_diario` VALUES ('39', '4-1256', '1256', '6:00am-6:00pm', '2017-06-18', '2017-06-18', '3', '7', 'higienico', null, '');
 INSERT INTO `reporte_diario` VALUES ('40', '4-1256', '1256', '6:00pm-6:00am', '2017-06-19', '2017-06-20', '3', '77', 'higienico', null, '');
 
+
 -- ----------------------------
 -- Table structure for tiempos_muertos
 -- ----------------------------
@@ -524,38 +422,28 @@ CREATE TABLE `tiempos_muertos` (
   `Maquina` varchar(255) DEFAULT NULL,
   `Descripcion` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`IdTiempoMuerto`)
-) ENGINE=InnoDB AUTO_INCREMENT=190 DEFAULT CHARSET=utf8;
+
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8;
+
+
 
 -- ----------------------------
--- Records of tiempos_muertos
+-- Table structure for turnos
 -- ----------------------------
-INSERT INTO `tiempos_muertos` VALUES ('32', '33', '1-1256', '1256', '17:02:00', '6:00am-6:00pm', '18:02:00', '1', 'd');
-INSERT INTO `tiempos_muertos` VALUES ('41', '35', '2-1256', '1256', '18:10:00', '6:00am-6:00pm', '18:25:00', '2', 'Bismarck Francisco EscobarMuñoz');
-INSERT INTO `tiempos_muertos` VALUES ('55', '33', '1-1256', '1256', '09:24:00', '6:00am-6:00pm', '09:24:00', '2', 'd');
-INSERT INTO `tiempos_muertos` VALUES ('56', '33', '1-1256', '1256', '09:25:00', '6:00am-6:00pm', '09:25:00', '1', 'd');
-INSERT INTO `tiempos_muertos` VALUES ('57', '33', '1-1256', '1256', '09:27:00', '6:00am-6:00pm', '09:27:00', '1', 'sd');
-INSERT INTO `tiempos_muertos` VALUES ('58', '33', '1-1256', '1256', '09:27:00', '6:00am-6:00pm', '09:27:00', '1', 'sd');
-INSERT INTO `tiempos_muertos` VALUES ('59', '33', '1-1256', '1256', '09:27:00', '6:00am-6:00pm', '09:27:00', '1', 'sd');
-INSERT INTO `tiempos_muertos` VALUES ('139', '33', '1-1256', '1256', '11:58:00', '6:00am-6:00pm', '12:58:00', '2', 'peuwv');
-INSERT INTO `tiempos_muertos` VALUES ('140', '33', '1-1256', '1256', '17:19:00', '6:00am-6:00pm', '17:35:00', '2', 'PRUEBA DE FUEGO');
-INSERT INTO `tiempos_muertos` VALUES ('141', '33', '1-1256', '1256', '15:10:00', '6:00am-6:00pm', '16:10:00', '2', 'PRUEBA DE TORNILLOS');
-INSERT INTO `tiempos_muertos` VALUES ('142', '33', '1-1256', '1256', '06:00:00', '6:00am-6:00pm', '07:02:00', '2', 'CONTIGO!');
-INSERT INTO `tiempos_muertos` VALUES ('143', '34', '1-1256', '1256', '23:14:00', '6:00pm-6:00am', '00:10:00', '2', 'nos fuimos  a cenar');
-INSERT INTO `tiempos_muertos` VALUES ('144', '35', '2-1256', '1256', '07:30:00', '6:00am-6:00pm', '08:10:00', '2', 'prueba');
-INSERT INTO `tiempos_muertos` VALUES ('145', '35', '2-1256', '1256', '17:30:00', '6:00am-6:00pm', '17:55:00', '2', 'prueba');
-INSERT INTO `tiempos_muertos` VALUES ('159', '36', '2-1256', '1256', '18:00:00', '6:00pm-6:00am', '18:30:00', '1', 'descripcion 1');
-INSERT INTO `tiempos_muertos` VALUES ('175', '35', '2-1256', '1256', '06:00:00', '6:00am-6:00pm', '06:10:00', '1', 'dddd');
-INSERT INTO `tiempos_muertos` VALUES ('176', '35', '2-1256', '1256', '11:30:00', '6:00am-6:00pm', '12:50:00', '1', 'dddd');
-INSERT INTO `tiempos_muertos` VALUES ('177', '35', '2-1256', '1256', '17:30:00', '6:00am-6:00pm', '18:00:00', '1', 'dddd');
-INSERT INTO `tiempos_muertos` VALUES ('178', '34', '1-1256', '1256', '18:00:00', '6:00pm-6:00am', '18:30:00', '1', 'Cambio de cuchillas.');
-INSERT INTO `tiempos_muertos` VALUES ('179', '34', '1-1256', '1256', '23:10:00', '6:00pm-6:00am', '01:05:00', '2', 'Se cambiaron cuchillas y también se cambio el aceite de las maquinas.');
-INSERT INTO `tiempos_muertos` VALUES ('180', '34', '1-1256', '1256', '05:05:00', '6:00pm-6:00am', '05:59:00', '2', 'Se cambiaron cuchillas y también se cambio el aceite de las maquinas.');
-INSERT INTO `tiempos_muertos` VALUES ('181', '34', '1-1256', '1256', '00:00:00', '6:00pm-6:00am', '00:30:00', '1', 'Maquina presento anomalías.');
-INSERT INTO `tiempos_muertos` VALUES ('182', '34', '1-1256', '1256', '23:30:00', '6:00pm-6:00am', '00:05:00', '1', 'Problemas de fluido eléctrico.');
-INSERT INTO `tiempos_muertos` VALUES ('184', '36', '2-1256', '1256', '23:50:00', '6:00pm-6:00am', '00:20:00', '1', 'prueba');
-INSERT INTO `tiempos_muertos` VALUES ('185', '36', '2-1256', '1256', '23:30:00', '6:00pm-6:00am', '01:00:00', '1', 'problemas con luz electrica');
-INSERT INTO `tiempos_muertos` VALUES ('186', '37', '3-1256', '1256', '06:30:00', '6:00am-6:00pm', '07:00:00', '1', 'Problemas de fluido electrico');
-INSERT INTO `tiempos_muertos` VALUES ('187', '40', '4-1256', '1256', '18:00:00', '6:00pm-6:00am', '18:30:00', '1', 'focus');
+DROP TABLE IF EXISTS `turnos`;
+CREATE TABLE `turnos` (
+  `IdTurno` int(11) NOT NULL AUTO_INCREMENT,
+  `Turno` varchar(255) DEFAULT NULL,
+  `Comentario` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`IdTurno`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of turnos
+-- ----------------------------
+INSERT INTO `turnos` VALUES ('1', '6:00am-6:00pm', null);
+INSERT INTO `turnos` VALUES ('2', '6:00pm-6:00am', null);
+
 
 -- ----------------------------
 -- Table structure for usuarios
@@ -569,7 +457,7 @@ CREATE TABLE `usuarios` (
   `Privilegio` varchar(255) DEFAULT NULL,
   `Estado` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`IdUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of usuarios
@@ -577,6 +465,9 @@ CREATE TABLE `usuarios` (
 INSERT INTO `usuarios` VALUES ('1', 'Alder', 'Alder Hernandez', '7C33FC4A0D1662CF5A5E8EB686A1DEC3', '1', '1');
 INSERT INTO `usuarios` VALUES ('2', 'user', 'Bismarck Escobar', 'e10adc3949ba59abbe56e057f20f883e', '1', '1');
 INSERT INTO `usuarios` VALUES ('3', 'user1', 'Bismarck Escobar', 'e10adc3949ba59abbe56e057f20f883e', '4', '1');
+INSERT INTO `usuarios` VALUES ('4', 'Kevin', 'Kevin  Blanco', null, '5', '1');
+INSERT INTO `usuarios` VALUES ('5', 'Mariana', 'Mariana', 'e10adc3949ba59abbe56e057f20f883e', '4', '1');
+INSERT INTO `usuarios` VALUES ('6', 'Carlos', 'Carlos M', null, '5', '1');
 
 -- ----------------------------
 -- View structure for view_cargas_pulper_completo
@@ -609,6 +500,44 @@ INNER JOIN usuarios us ON ord.Usuario = us.IdUsuario
 ORDER BY ord.Estado=1 DESC ;
 
 -- ----------------------------
+
+-- View structure for view_produccion
+-- ----------------------------
+DROP VIEW IF EXISTS `view_produccion`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW `view_produccion` AS SELECT
+	pro.IdProduccion,
+	pro.IdReporteDiario,
+	pro.NoOrden,
+	us.Nombre,
+	pro.Maquina,
+	pro.HoraInicio,
+	pro.HoraFin,
+	pro.VelocMaquina,
+	pro.Peso,
+	pro.Diametro,
+	pro.PesoBase
+FROM
+	produccion pro
+JOIN usuarios us ON us.IdUsuario = pro.Operador ;
+
+-- ----------------------------
+-- View structure for view_reporte
+-- ----------------------------
+DROP VIEW IF EXISTS `view_reporte`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW `view_reporte` AS SELECT
+	rpt.IdReporte AS IdReporte,
+	rpt.NoOrden AS NoOrden,
+	rpt.Tipo AS Tipo,
+	us.Nombre AS Usuario,
+	rpt.FechaInicio AS FechaInicio,
+	rpt.FechaFin AS FechaFin,
+	rpt.Estado AS Estado
+FROM
+	reportes rpt
+INNER JOIN usuarios us ON rpt.Usuario = us.IdUsuario ;
+
+-- ----------------------------
+
 -- View structure for view_reportediario
 -- ----------------------------
 DROP VIEW IF EXISTS `view_reportediario`;
