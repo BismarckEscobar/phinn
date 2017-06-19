@@ -61,6 +61,11 @@ textarea.materialize-textarea:focus:not([readonly]) {
     background-color: #2AB0E6;
 }
 
+#modal12 {
+    min-height: 75%!important;
+    height: 75%;
+}
+
 .btn,
 .btn-large {
     text-decoration: none;
@@ -188,6 +193,11 @@ th {
     font-family: 'robotobold'!important;
     color: white;
     text-transform: uppercase!important;
+}
+
+.titleh5 {
+    font-family:'roboto'!important;
+    color:#831F82!important;
 }
 
 .filtro {
