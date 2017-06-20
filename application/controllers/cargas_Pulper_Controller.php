@@ -101,6 +101,35 @@ class cargas_Pulper_Controller extends CI_Controller {
 		}
 	}
 
+	public function buscarHorasM($idHoraMolienda) {
+		$json=array();
+		$query=$this->cargasPulper_Model->buscarHorasMolienda($idHoraMolienda);
+		if ($query!=FALSE) {
+		foreach ($query as $key) {
+			$horaInicio = date('g:i A', strtotime($key['horaInicio']));
+			$horaFinal = date('g:i A', strtotime($key['horaFin']));
+			$dta = array(
+				'IdHora' => $key['IdHora'],
+				'carga' => $key['carga'],
+				'horaInicio' => $horaInicio,
+				'horaFin' => $horaFinal,
+				'IdReporteDiario' => $key['IdReporteDiario']	
+			);
+			$json[] =$dta;
+		}
+		echo json_encode($json);
+		}else {
+			echo 'FALSE';
+		}
+	}
+
+	public function actualizaHMolienda() {
+		$idHora = $this->input->post('idHora', TRUE);
+		$horaInicio = date("H:i:s", strtotime($this->input->post('timepickerII', TRUE)));
+		$horaFinal = date("H:i:s", strtotime($this->input->post('timepickerFF', TRUE)));
+		$this->cargasPulper_Model->actualizarHoraMolienda($idHora, $horaInicio, $horaFinal);
+	}
+
 	public function sumaRestaHoras($horainicio, $horafin){
 		$dif=date("H.i:s", strtotime("00:00:00") + strtotime($horainicio) - strtotime($horafin) );
 		return $dif;

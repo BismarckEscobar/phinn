@@ -221,7 +221,7 @@
                     </div>
                     <div class="input-field col s6 m6 s6">
                         <input type="text" name="pesobase" id="pesobase">
-                        <label for="pesobase">PESO BASE</label>
+                        <label for="peso">PESO BASE</label>
                     </div>
                 </div>
                 <br>

@@ -62,7 +62,6 @@ class reporte_Model extends CI_Model{
 	}
 
 	public function ultimaFch($IDs) {
-		//$ultimaF = $this->db->query("SELECT ord.FechaInicio FROM orden_produccion as ord where ord.NoOrden=".$IDs."");
 		$result1="";
 		$this->db->where('NoOrden =', $IDs);
 		$this->db->select('FechaInicio');

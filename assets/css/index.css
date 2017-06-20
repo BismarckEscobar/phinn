@@ -78,6 +78,16 @@ textarea.materialize-textarea:focus:not([readonly]) {
     font-size:30px;
     margin-bottom:30px;
 }
+.titulo-secundario {
+    font-family:'robotoblack';
+    color:#831F82;
+    font-size:20px;
+    margin-bottom:30px;
+}
+
+#cerrarHM, #agregarHMolienda, #cerrarHM1, #actualizaHMolienda{
+    background-color:#831F82;
+}
 
 .btn,
 .btn-large {
@@ -301,7 +311,7 @@ input[type=search] {
 }
 
 select {
-    border: 1px solid #3a3535!important;
+    border: 1px solid #c1c1c1!important;
 }
 
 #test5label {
@@ -392,7 +402,13 @@ select {
     padding-top: 0.5px;
 }
 /****** END style MENU LEFT ****/
-
+/*ESTILOS INPUTS VIEW CARGASPULPER*/
+.inputCP {
+    border:none;
+    text-align:center;
+    background:none;
+    width:50px;
+}
 /**
 * instead of linking from https://fonts.googleapis.com/icon?family=Material+Icons
 */
