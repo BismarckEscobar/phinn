@@ -53,5 +53,25 @@ class cargaspulper_Model extends CI_Model {
 			return false;
 		}
 	}
+
+	public function buscarHorasMolienda($idHorasMolienda) {
+		$this->db->where('IdHora', $idHorasMolienda);
+        $query=$this->db->get('horas_molienda');
+        if($query->num_rows()>0){
+            return $query->result_array();
+        }else{
+        	return false;	
+        }   
+	}
+
+	public function actualizarHoraMolienda($idHora, $horaInicio, $horaFinal) {
+		$data = array(
+			'horaInicio' => $horaInicio,
+			'horaFin' => $horaFinal
+			);
+	    $this->db->where('IdHora', $idHora);
+	    $result=$this->db->update('horas_molienda', $data);
+	    echo $result;
+	}
 }
 ?>

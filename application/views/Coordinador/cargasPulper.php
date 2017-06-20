@@ -41,7 +41,7 @@
                     <a class="Btnadd btn waves-effect waves-light" id="btnAgregarf" href="#modal1" style="background-color:#831F82;">AGREGAR
 						<i class="material-icons right">add</i>
                     </a>
-                    <center><h5 id="ocultar">NO HAY DATOS QUE MOSTRAR</h5></center>
+                    <center><h6 id="ocultar">NO HAY DATOS QUE MOSTRAR</h6></center>
 				</div>
 			</div>
 		</div>
@@ -57,7 +57,7 @@
 					<a class="Btnadd btn waves-effect waves-light" id="btnAgregaHM" href="#modal12" style="background-color:#831F82;">AGREGAR
 						<i class="material-icons right">add</i>
                     </a>
-                    <center><h5 id="ocultar2">NO HAY DATOS QUE MOSTRAR</h5></center>
+                    <center><h6 id="ocultar2">NO HAY DATOS QUE MOSTRAR</h6></center>
                     </div>	
 				</div>
 			</div>
@@ -119,7 +119,7 @@
     <div class="modal-content">
 		<div class="card">
 			<div class="card-content">
-				<center><h5 class="card-title" style="font-family: robotoblack; color:#831F82;">AGREGAR HORA MOLIENDA</h5></center>
+				<center><h5 class="card-title titulos">AGREGAR HORA MOLIENDA</h5></center>
 				<div class="row">
 					<div class="col s12 m12">
 						<?php 
@@ -131,7 +131,7 @@
 			                    }
 			            ?>                
 					</div>
-					<h2 class="center" style="font-family:'robotoblack'; color:#831F82;font-size:20px; margin-bottom:30px;">CARGA BATIDO</h2><br><br>
+					<h2 class="titulo-secundario center">CARGA BATIDO</h2><br><br>
 					<div class="row">
 					    <div class="input-field col s12 m6 s6">
 							<input id="timeHM1" name="timeHM1" class="timepicker" type="time">
@@ -144,10 +144,54 @@
 					</div><br><br><br>
 				    <div class="row">                    
 		                <div class="center">
-				      	    <a class="Btnadd btn waves-effect waves-light" id="agregarHMolienda" onclick="guardarHorasMolienda()" href="#" style="background-color:#831F82;">AGREGAR
+				      	    <a class="Btnadd btn waves-effect waves-light" id="agregarHMolienda" onclick="guardarHorasMolienda()" href="#">AGREGAR
 		                        <i class="material-icons right">send</i>
 		                    </a>
-		                    <a class="Btnadd btn waves-effect waves-light" id="cerrarHM" href="#" hre style="background-color:#831F82;">CERRAR
+		                    <a class="Btnadd btn waves-effect waves-light" id="cerrarHM" href="#";>CERRAR
+		                        <i class="material-icons right">clear</i>
+		                    </a>
+				        </div>
+		            </div>				
+				</div>
+			</div>
+		</div>
+    </div>
+  </div>
+  <!-- EDITANDO LAS HORAS MOLIENDAS -->
+  <div id="modal13" class="modal">
+    <div class="modal-content">
+		<div class="card">
+			<div class="card-content">
+				<center><h5 class="card-title titulos">EDITAR HORAS MOLIENDAS</h5></center>
+				<div class="row">
+					<div class="col s12 m12">
+						<?php 
+			                if(!($consecutivo)){                                   
+			                } else {
+			                    foreach ($consecutivo as $key) {
+			                        echo "<input name='idRptD' id='idRptD' type='hidden' value='".$key['IdReporteDiario']."' >";
+			                        }
+			                    }
+			            ?>                
+					</div>
+					<input name='idHora' id='idHora' type='hidden'>
+					<h2 class="titulo-secundario center">CARGA BATIDO</h2><br><br>
+					<div class="row">
+					    <div class="input-field col s12 m6 s6">
+							<input id="timeHM12" name="timeHM12" class="timepicker" type="time">
+							<label for="timeHM12">HORA INICIO</label>
+					    </div>					    
+					    <div class="input-field col s12 m6 s6">
+							<input id="timeHM22" name="timeHM22" class="timepicker" type="time">
+							<label for="timeHM22">HORA FINAL</label>
+					    </div>
+					</div><br><br><br>
+				    <div class="row">                    
+		                <div class="center">
+				      	    <a class="Btnadd btn waves-effect waves-light" id="actualizaHMolienda" onclick="actualizarHorasMolienda()" href="#">ACTUALIZAR
+		                        <i class="material-icons right">send</i>
+		                    </a>
+		                    <a class="Btnadd btn waves-effect waves-light" id="cerrarHM1" href="#">CERRAR
 		                        <i class="material-icons right">clear</i>
 		                    </a>
 				        </div>
