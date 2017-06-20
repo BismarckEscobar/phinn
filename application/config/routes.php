@@ -85,11 +85,7 @@ $route['ValidaFecha/(:any)/(:any)/(:any)'] = 'Ordenproduccion_controller/Validar
   /***************************************************************************************************/
     $route['MateriaPrima/(:any)']= "MateriaPrima_controller/agregaDetalleOrdP1/$1"; 
     $route['GuardarMP']= "MateriaPrima_controller/GuardarMatPri"; 
-    $route['GuardarMPInsumos']= "MateriaPrima_controller/GuardaMPInsumos"; 
     $route['ValidaPasta/(:any)/(:any)'] = "MateriaPrima_controller/ValidarP/$1/$2";
-    $route['ValidaMPInsumo/(:any)/(:any)'] = "MateriaPrima_controller/ValidarIn/$1/$2";
-    $route['EliminaPasta/(:any)'] = "MateriaPrima_controller/EliminarPasta/$1";
-    $route['EliminaMPInsumos/(:any)'] = "MateriaPrima_controller/EliminaInsumos/$1";
 
     $route['guardarTM1/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)']= "tiemposMuertos_Controller/guardarTiempoM/$1/$2/$3/$4/$5/$6/$7/$8";
     
@@ -115,6 +111,10 @@ $route['ValidaFecha/(:any)/(:any)/(:any)'] = 'Ordenproduccion_controller/Validar
     $route['agregarHorasMolienda'] = "cargas_pulper_controller/agregarHorasM";
 
     $route['listandoHorasMolienda/(:any)'] = "cargas_pulper_controller/listarHorasM/$1";
+
+    $route['buscarHorasMolienda/(:any)'] = "cargas_pulper_controller/buscarHorasM/$1";
+
+    $route['actualizaHoraMolienda'] = "cargas_pulper_controller/actualizaHMolienda";
 
 
 
