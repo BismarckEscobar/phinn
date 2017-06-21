@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-06-20 17:41:36
+Date: 2017-06-21 14:54:23
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -25,7 +25,7 @@ CREATE TABLE `cargas_pulper` (
   `Cantidad` float(11,1) DEFAULT NULL,
   `IdReporteDiario` int(11) NOT NULL,
   PRIMARY KEY (`IdCargaPulper`)
-) ENGINE=InnoDB AUTO_INCREMENT=248 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=252 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of cargas_pulper
@@ -117,6 +117,10 @@ INSERT INTO `cargas_pulper` VALUES ('244', '12', '160.0', '46');
 INSERT INTO `cargas_pulper` VALUES ('245', '12', '160.0', '46');
 INSERT INTO `cargas_pulper` VALUES ('246', '12', '160.0', '46');
 INSERT INTO `cargas_pulper` VALUES ('247', '12', '160.0', '46');
+INSERT INTO `cargas_pulper` VALUES ('248', '12', '523.0', '47');
+INSERT INTO `cargas_pulper` VALUES ('249', '1', '500.0', '46');
+INSERT INTO `cargas_pulper` VALUES ('250', '1', '550.0', '46');
+INSERT INTO `cargas_pulper` VALUES ('251', '1', '650.0', '46');
 
 -- ----------------------------
 -- Table structure for categoria
@@ -145,7 +149,7 @@ CREATE TABLE `horas_molienda` (
   `horaFin` time NOT NULL,
   `IdReporteDiario` int(11) NOT NULL,
   PRIMARY KEY (`IdHora`)
-) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of horas_molienda
@@ -186,6 +190,7 @@ INSERT INTO `horas_molienda` VALUES ('71', 'BATIDO', '06:00:00', '06:30:00', '46
 INSERT INTO `horas_molienda` VALUES ('72', 'BATIDO', '07:00:00', '07:30:00', '46');
 INSERT INTO `horas_molienda` VALUES ('73', 'BATIDO', '07:30:00', '08:00:00', '46');
 INSERT INTO `horas_molienda` VALUES ('74', 'BATIDO', '08:00:00', '08:31:00', '46');
+INSERT INTO `horas_molienda` VALUES ('75', 'BATIDO', '18:00:00', '18:30:00', '47');
 
 -- ----------------------------
 -- Table structure for insumos
@@ -358,6 +363,55 @@ INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 00:28:
 INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 00:29:11');
 INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 00:29:26');
 INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 00:37:32');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 01:53:37');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 15:40:22');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 15:42:24');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 16:03:14');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 16:16:20');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 16:34:00');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 16:36:46');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 16:48:58');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 17:37:57');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 17:39:06');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 17:39:30');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 17:39:45');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 17:40:15');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 17:40:23');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 17:56:57');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 17:58:39');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 17:58:46');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 18:03:20');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 18:08:04');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 18:08:11');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 18:10:52');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 18:11:13');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 18:11:58');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 18:12:34');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 18:16:46');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 18:19:32');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 18:25:14');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 18:26:06');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 18:45:56');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 18:46:13');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 18:48:59');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 18:49:06');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 18:55:16');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 19:04:15');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 19:04:49');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 19:07:25');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 19:09:41');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 19:09:53');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 19:23:38');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 19:23:44');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 19:43:36');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 20:01:59');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 21:08:01');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 21:10:09');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 21:17:47');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 21:17:57');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 22:52:14');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 22:52:21');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-06-21 22:53:27');
 
 -- ----------------------------
 -- Table structure for maquinas
@@ -389,7 +443,7 @@ CREATE TABLE `orden_produccion` (
   `Estado` int(1) DEFAULT NULL,
   `comentarios` varchar(300) NOT NULL,
   PRIMARY KEY (`IdOrden`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of orden_produccion
@@ -408,6 +462,8 @@ INSERT INTO `orden_produccion` VALUES ('26', '9876', '3', '2017-06-07', '2017-06
 INSERT INTO `orden_produccion` VALUES ('27', '7894', '3', '2017-06-08', '2017-06-10', '2', 'Nueva orden de producción para lo que resta de la semana');
 INSERT INTO `orden_produccion` VALUES ('28', '1256', '3', '2017-06-09', '2017-06-15', '2', 'orden de produccion actualmente activa');
 INSERT INTO `orden_produccion` VALUES ('29', '2517', '3', '2017-06-20', '2017-06-23', '1', 'Orden de producción de prueba.');
+INSERT INTO `orden_produccion` VALUES ('30', '5842', '2', '2017-06-21', '2017-06-24', '3', 'DDD');
+INSERT INTO `orden_produccion` VALUES ('31', '7852', '2', '2017-06-21', '2017-06-24', '3', 'OTRAD');
 
 -- ----------------------------
 -- Table structure for pasta
@@ -518,7 +574,7 @@ CREATE TABLE `reporte_diario` (
   `ProduccionTotal` varchar(255) DEFAULT NULL,
   `MermaTotal` varchar(255) NOT NULL,
   PRIMARY KEY (`IdReporteDiario`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of reporte_diario
@@ -547,6 +603,7 @@ INSERT INTO `reporte_diario` VALUES ('44', '6-1256', '1256', '1', '2017-06-21', 
 INSERT INTO `reporte_diario` VALUES ('45', '6-1256', '1256', '2', '2017-06-22', '2017-06-23', '3', null, 'higienico', null, '');
 INSERT INTO `reporte_diario` VALUES ('46', '1-2517', '2517', '1', '2017-06-20', '2017-06-20', '3', null, 'higienico', null, '');
 INSERT INTO `reporte_diario` VALUES ('47', '1-2517', '2517', '2', '2017-06-20', '2017-06-21', '3', null, 'higienico', null, '');
+INSERT INTO `reporte_diario` VALUES ('48', '2-2517', '2517', '1', '2017-06-21', '2017-06-21', '5', null, 'HIGIENICO', null, '');
 
 -- ----------------------------
 -- Table structure for tiempos_muertos
@@ -603,7 +660,7 @@ CREATE TABLE `usuarios` (
   `Privilegio` varchar(255) DEFAULT NULL,
   `Estado` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`IdUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of usuarios
@@ -614,6 +671,7 @@ INSERT INTO `usuarios` VALUES ('3', 'user1', 'Bismarck Escobar', 'e10adc3949ba59
 INSERT INTO `usuarios` VALUES ('4', 'Kevin', 'Kevin  Blanco', null, '5', '1');
 INSERT INTO `usuarios` VALUES ('5', 'Mariana', 'Mariana', 'e10adc3949ba59abbe56e057f20f883e', '4', '1');
 INSERT INTO `usuarios` VALUES ('6', 'Carlos', 'Carlos M', null, '5', '1');
+INSERT INTO `usuarios` VALUES ('7', 'user2', 'user2', 'e10adc3949ba59abbe56e057f20f883e', '3', '1');
 
 -- ----------------------------
 -- View structure for view_cargas_pulper_completo
@@ -715,10 +773,35 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW
 	rd.FechaInicio,
 	rd.FechaFinal,
 	rd.Coordinador,
+	us.Nombre,
 	rd.Grupo,
 	rd.TipoPapel,
 	rd.ProduccionTotal,
 	rd.MermaTotal
 FROM
 	reporte_diario rd
-JOIN turnos tr ON rd.Turno = tr.IdTurno ;
+JOIN turnos tr ON rd.Turno = tr.IdTurno
+JOIN usuarios us ON us.IdUsuario = rd.Coordinador ;
+
+-- ----------------------------
+-- View structure for view_vistacoordinador
+-- ----------------------------
+DROP VIEW IF EXISTS `view_vistacoordinador`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW `view_vistacoordinador` AS SELECT
+	rd.IdReporteDiario,
+	rd.Consecutivo,
+	rd.NoOrder,
+	rd.Turno,
+	rd.FechaInicio,
+	rd.FechaFinal,
+	rd.Coordinador,
+	us.Nombre,
+	us.IdUsuario,
+	rd.Grupo,
+	rd.TipoPapel
+FROM
+	reporte_diario rd
+JOIN orden_produccion op ON rd.NoOrder = op.NoOrden
+JOIN usuarios us ON  us.IdUsuario=rd.Coordinador
+WHERE
+	op.Estado = 1 ;

@@ -409,6 +409,15 @@ select {
     background:none;
     width:50px;
 }
+.detalleNumOrd{
+  cursor: pointer;
+}
+.detalleNumOrd:hover{
+  color: orange!important;
+}
+.detalleNumOrdOrange{
+  color: orange!important;
+}
 /**
 * instead of linking from https://fonts.googleapis.com/icon?family=Material+Icons
 */

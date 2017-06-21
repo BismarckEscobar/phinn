@@ -79,6 +79,68 @@ $('#cerrarHM1').click(function() {
     $("#modal13").closeModal();
    location.reload();    
 });
+
+$('#tlbListaRep2').on('click', 'tbody .detalleNumOrd', function () {
+    var table = $('#tlbListaRep2').DataTable();
+    var tr = $(this).closest('tr'); $(this).addClass("detalleNumOrd");
+    var row = table.row(tr);
+    var data = table.row( $(this).parents('tr') ).data();//obtengo todos los datos de la fila que di click
+    //alert (data[1]); //este es el dato de la segunda columna
+
+    if (row.child.isShown()) {// esta fila ya se encuentra visible - cierrala
+        row.child.hide();
+        tr.removeClass('shown');
+        $(this).removeClass("detalleNumOrd");            
+    } else {// muestra la fila
+        $('#loader'+data[1]).show();
+        $('#detail'+data[1]).hide();
+        format(row.child,data[1],data[1]);
+        tr.addClass('shown');
+    }
+});
+function format(callback,noOrden,div) {//funcion para traer llos datos y tabla de detalles
+  var ia=0;
+        $.ajax({
+        url:'detalleOrdenProduccion/'+noOrden,
+        dataType: "json",
+        complete: function (response) {
+            var data = JSON.parse(response.responseText);
+            console.log(data);
+               var thead = '',  tbody = '';
+                for (var key in data) {
+                    thead += '<th class="negra center">N° ORDEN</th>';
+                    thead += '<th class="negra center">TURNO</th>';
+                    thead += '<th class="negra center">FECHA INICIO</th>';
+                    thead += '<th class="negra center">FECHA FIN</th>';
+                    thead += '<th class="negra center">COORDINADOR</th>';
+                    thead += '<th class="negra center">GRUPO</th>';
+                    thead += '<th class="negra center">TIPO PAPEL</th>';
+                }
+               $.each(data, function (i, d) {
+                  $.each(d, function (a, b) {
+                     ia++;
+                  });
+                    for (var x=0; x<ia; x++) {
+                    tbody += '<tr class="center">' +
+                                  '<td>' + d[x]["NoOrder"] + '</td>'+
+                                  '<td>' + d[x]["Turno"] + '</td>'+
+                                  '<td>' + d[x]["FechaInicio"] + '</td>'+
+                                  '<td>' + d[x]["FechaFinal"] + '</td>'+
+                                  '<td>' + d[x]["Nombre"] + '</td>'+
+                                  '<td>' + d[x]["Grupo"] + '</td>'+
+                                  '<td>' + d[x]["TipoPapel"] + '</td>'+
+                              '</tr>';
+                      }                   
+                });
+            callback($('<table id="tlbListaRep2">' + thead + tbody + '</table>')).show();
+             $('#loader'+div).hide();
+             $('#detail'+div).show();
+        },
+        error: function () {
+            $('#output').html('Hubo un error al cargar los detalles!');
+        }
+    });
+  }
 /******************CREAR Y LLENAR TABLA CARGAS PULPER**************************/
 function crearTabla() { 
     var cantColumns=0;var cont1=0; var cont2=0; var cont3=0;
@@ -977,7 +1039,7 @@ $("#TblMaster").DataTable({
     }
 });
 
-$("#tlbListaRep").DataTable({
+$("#tlbListaRep, #tlbListaRep2").DataTable({
     "ordering": false,
     "info": false,
     "bPaginate2": false,

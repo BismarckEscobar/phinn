@@ -53,7 +53,7 @@
 
                                 <div class="col s12 l2">
                                     <div class="card small" >
-                                        <a href='.base_url("index.php/reporte").'>
+                                        <a href='.base_url("index.php/ordProduccion").'>
                                             <div class="card-image">
                                                 <img style="margin-top:20px;" src='.base_url("assets/img/menu/agregar-usuario.png").' >
                                             </div>
@@ -92,7 +92,10 @@
                                     </div>
                               </div>';
                     break;
+                    case 3: redirect('OrdenProduccion');
+                    break;  
                     case 4: redirect('OrdenProduccion');
+                    break;                    
                 }
             }
         ?> 

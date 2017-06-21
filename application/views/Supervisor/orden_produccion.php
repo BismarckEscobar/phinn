@@ -1,4 +1,158 @@
+<?php 
+if ($this->session->userdata("Privilegio") == 3) {?>
 <main class="mdl-layout__content mdl-color--grey-100">
+    <div class="row">
+        <div class="col s12">
+            <div class="card">
+                <div class="card-content">
+                    <center><span class="card-title purple-text accent-4" style="font-family: robotoblack;">ORDEN DE PRODUCCIÓN</span></center>
+                    <?php 
+                    foreach($listaReport as $key) {?>
+                    <div class="row">
+                        <center>
+                            <div class="col s4">
+                                <span class="card-title purple-text accent-4" id="lblnoOrden"><?php echo $key["NoOrden"]?></span><br/>
+                                <label class="labelValidacion">N° ORDEN ACTIVA</label>
+                            </div>
+                            <div class="col s4">
+                                <span id="lblFechaInicio" class="card-title purple-text accent-4"><?php echo $key["FechaInicio"]?></span><br/>
+                                <label  class="labelValidacion">FECHA DE INICIO</label>
+                            </div>
+                            <div class="col s4">
+                                <span id="lblFechaFin" class="card-title purple-text accent-4" id="lblnoOrden"><?php echo $key["FechaFin"]?></span><br/>
+                                <label class="labelValidacion">FECHA FINAL</label>
+                            </div>
+                        </center>
+                    </div>
+                    <?php } ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+     <div class="row">
+        <div class="col s12">
+            <div class="card">
+                <div class="card-content">
+                    <div class="right row">
+                    <div id="OrdeProd" class="col s12 m12">
+                            <a data-tooltip='AGREGAR NUEVA ORDEN' href="#ordenprod" class="modal-trigger tooltipped">
+                                <i class="mdi-image-add-to-photos titulosGen"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <center><h4 class="card-title purple-text accent-4" style="font-family: robotoblack;">ORDENES DE TRABAJOS</h4></center>
+                    <table id="TblMaster" class="striped">
+                        <thead>
+                            <tr class="tblcabecera">
+                                <th>N° ORDEN</th>
+                                <th>TURNO</th>
+                                <th>FECHA INICIO</th>
+                                <th>FECHA FIN</th>
+                                <th>COORDINADOR</th>
+                                <th>GRUPO</th>
+                                <th>TIPO PAPEL</th>
+                            </tr>   
+                        </thead>
+                        <tbody>
+                            <?php
+                            if (($ordenTrabajos)) {
+                            foreach ($ordenTrabajos as $key) {
+                            switch($key["Turno"])
+                                {
+                                    case 1:
+                                    $key["Turno"] = "MATUTINO";
+                                    break;
+                                    case 2:
+                                    $key["Turno"] = "VESPERTINO";
+                                    break;
+                                }?>
+                            
+                            <tr>
+                                <td>
+                                    <a href="../index.php/menuSupervisor/<?php echo $key["IdReporteDiario"]?>"><?php echo $key["Consecutivo"]?></a>
+                                </td>
+                                <td><?php echo $key["Turno"]?></td>
+                                <td><?php echo $key["FechaInicio"]?></td>
+                                <td><?php echo $key["FechaFinal"]?></td>
+                                <td><?php echo $key["Nombre"]?></td>
+                                <td><?php echo $key["Grupo"]?></td>
+                                <td><?php echo $key["TipoPapel"]?></td>
+                            </tr> 
+                    
+                            <?php } ?>   
+                            <?php } ?>              
+                        </tbody>
+                    </table>  
+                </div>
+            </div>
+        </div>
+    </div>
+<!--         <div class="row">
+            <div class="col s12">
+                <div class="card">
+                    <div class="card-content">
+                        <table id="tlbListaRep2" class="striped">
+                            <thead>
+                                <tr class="tblcabecera">
+                                    <th>Detalles</th>
+                                    <th>Nº orden</th>                                 
+                                    <th>Fecha Inicio</th>
+                                    <th>Fecha Fin</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                    if(!($ordenesTrabajosCom)){
+                                    } else {
+                                        foreach ($ordenesTrabajosCom as $list) {
+                                            if($list['Estado'] == 0){
+                                                $activo="<td><a data-tooltip='ORDEN ANULADA' class='btn-flat tooltipped noHover'><i style='color:red; font-size:30px;' class='material-icons'>close</i></a></td>";
+                                                $status="<li><a href='#!' onclick='buscarOrdProd(".$list['IdOrden'].")'>Ver</a></li>";
+                                            }elseif($list['Estado'] == 1){
+                                                $activo="<td><a data-tooltip='ORDEN ACTIVA' class='btn-flat tooltipped noHover'><i style='color:green; font-size:30px;' class='material-icons'>done</i></a></td>";
+                                                $status="<li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 0)'>Anular</a></li>
+                                                         <li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 2)'>Cerrar</a></li>
+                                                         <li><a href='#!' onclick='buscarOrdProd(".$list['IdOrden'].")'>Ver</a></li>";
+                                            }elseif($list['Estado'] == 2){
+                                                $activo="<td><a data-tooltip='ORDEN CERRADA' class='btn-flat tooltipped noHover'><i style='color:red; font-size:30px;' class='material-icons'>not_interested</i></a></td>";
+                                                $status="<li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 0)'>Anular</a></li>
+                                                            <li><a href='#!' onclick='buscarOrdProd(".$list['IdOrden'].")'>Ver</a></li>";
+                                            }elseif($list['Estado'] == 3){
+                                                $activo="<td><a data-tooltip='ORDEN INACTIVA' class='btn-flat tooltipped noHover'><i style='color:red; font-size:30px;' class='material-icons'>info_outline</i></a></td>";
+                                            }
+                                            echo "<tr>
+                                                    <td class='center green-text detalleNumOrd'><i id='detail".$list['IdOrden']."' class='material-icons'>details</i>
+                                                        <div id='loader".$list['IdOrden']."' style='display:none;' class='preloader-wrapper small active' >
+                                                            <div class='spinner-layer spinner-yellow-only'>
+                                                            <div style='overflow: visible!important;' class='circle-clipper left'>
+                                                                <div class='circle'></div>
+                                                            </div><div class='gap-patch'>
+                                                                <div class='circle'></div>
+                                                            </div><div style='overflow: visible!important;' class='circle-clipper right'>
+                                                                <div class='circle'></div>
+                                                            </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>                                                                        
+                                                    <td>".$list['NoOrden']."</td>
+                                                    <td>".$list['FechaInicio']."</td>
+                                                    <td>".$list['FechaFin']."</td>
+                                                    ".$activo."                                                                
+                                                </tr>";
+                                        }
+                                    }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+</main>
+<?php }else if ($this->session->userdata("Privilegio") == 4) {?>
+  <main class="mdl-layout__content mdl-color--grey-100">
     <div class="row">
         <div class="col s12">
             <div class="card">
@@ -32,13 +186,13 @@
         <div class="col s12">
             <div class="card">
                 <div class="card-content">
-                    <div class="right row">
+                   <!--  <div class="right row">
                         <div id="OrdeProd" class="col s12 m12">
                             <a data-tooltip='AGREGAR NUEVA ORDEN' href="#ordenprod" class="modal-trigger tooltipped">
                                 <i class="mdi-image-add-to-photos titulosGen"></i>
                             </a>
-                        </div>
-                    </div>
+                        </div> 
+                    </div>-->
                     <center><h4 class="card-title purple-text accent-4" style="font-family: robotoblack;">ORDENES DE TRABAJOS</h4></center>
                     <table id="TblMaster" class="striped">
                         <thead>
@@ -86,9 +240,8 @@
             </div>
         </div>
     </div>
-
 </main>
-
+<?php } ?>
 <!--/////////////////////////////////////////////////////////////////////////////////////////
                                         MODALES
 //////////////////////////////////////////////////////////////////////////////////////////-->
@@ -135,11 +288,22 @@
                         <input type="text" name="papel" id="papel">
                         <label id="lblpapel" class="labelValidacion">TIPO PAPEL</label>
                     </div>
-                 <?php if ($this->session->userdata("IdUser")) {?>
+                 <?php if ($coordinadores) {?>
                     <div class="input-field col s6 m6 s6">
-                    <input type="hidden" name="coordinador" value="<?php echo $this->session->userdata("IdUser")?>">
+<!--                    <input type="hidden" name="coordinador" value="<?php echo $this->session->userdata("IdUser")?>">
                         <input type="text" readonly name="" id="coordinador" value="<?php echo $this->session->userdata("Nombre")?>">
-                     <label id="lblcoordinador" class="lblValidacion">COORDINADOR</label>
+                     <label id="lblcoordinador" class="lblValidacion">COORDINADOR</label>  -->                   
+                    <select name="coordinador" id="coordinador" class="chosen-select browser-default">
+                        <option value="" disabled selected>COORDINADOR</option>
+                        <?php
+                        if($coordinadores) {
+                            foreach($coordinadores as $key){
+                                echo '<option value="'.$key['IdUsuario'].'">'.$key['Nombre'].'</option>';
+                            }
+                        }
+                        ?>
+                    </select>
+                    <label id="lblmaquina" class="lblValidacion">ESCOJA UN COORDINADOR</label>
                     </div>
                     <?php }?>
                 </div>

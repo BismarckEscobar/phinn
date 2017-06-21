@@ -16,7 +16,9 @@ class Ordenproduccion_controller extends CI_Controller
     {
         $data['coordinadores'] = $this->Ordenproduccion_model->ListarCoord();
         $data['listaReport'] = $this->Ordenproduccion_model->listaReportes();
+        $data['ordenesTrabajosCom'] = $this->Ordenproduccion_model->listaReportesTodos();
         $data['lista'] = $this->Ordenproduccion_model->Listar();
+        $data['ordenTrabajos'] = $this->Ordenproduccion_model->listarOrdenesTrabajo();
         $data['turnos'] = $this->Ordenproduccion_model->ListarTurno();
         $this->load->view('header');
         $this->load->view('dashboardclean');
@@ -116,6 +118,38 @@ class Ordenproduccion_controller extends CI_Controller
     public function sumaRestaHoras($horainicio, $horafin){
         $dif=date("H.i:s", strtotime("00:00:00") + strtotime($horainicio) - strtotime($horafin) );
         return $dif;
+    }
+
+    public function mostrarMenuSupervisor($idReporteD) {
+        $data['listaReport'] = $this->Ordenproduccion_model->listaReportes();
+        $data['consecutivo'] = $this->Ordenproduccion_model->buscarRtpDiario($idReporteD);
+        $this->load->view('header');
+        $this->load->view('dashboardclean');
+        $this->load->view('Supervisor/menu_supervisor', $data);
+        $this->load->view('footer');
+    }
+
+    public function mostrarOrdenesTrabajos($idOrden) {
+        $json=array();
+        $query=$this->Ordenproduccion_model->mostrarOrdTrab($idOrden);
+        foreach ($query as $key) {
+            $dta=array(
+                'IdReporteDiario' => $key['IdReporteDiario'],
+                'Consecutivo' => $key['Consecutivo'],
+                'NoOrder' => $key['NoOrder'],
+                'Turno' => $key['Turno'],
+                'FechaInicio' => $key['FechaInicio'],
+                'FechaFinal' => $key['FechaFinal'],
+                'Coordinador' =>$key['Coordinador'],
+                'Nombre' => $key['Nombre'],
+                'Grupo' => $key['Grupo'],
+                'TipoPapel' => $key['TipoPapel'],
+                'ProduccionTotal' => $key['ProduccionTotal'],
+                'MermaTotal' => $key['MermaTotal']
+                );
+            $json[] =$dta;
+        }
+        echo json_encode($json);
     }
   
 }
