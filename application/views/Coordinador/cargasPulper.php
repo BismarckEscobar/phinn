@@ -35,6 +35,7 @@
 				<div class="card-content" id="tabla-cargas">
                     <div class="row">
                         <div class="col s12 m12">
+						<p class="right-align"><a class="btn purple darken-1 waves-effect waves-light" href="javascript:self.history.back();"><i class="material-icons">keyboard_backspace</i></a></p>
                             <center><h5 class="card-title titulos">CARGAS PULPER</h5></center>
                         </div>
                     </div>

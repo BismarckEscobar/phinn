@@ -36,6 +36,7 @@
         <div class="col s12">
             <div class="card">
                 <div class="card-content">
+                <p class="right-align"><a class="btn purple darken-1 waves-effect waves-light" href="javascript:self.history.back();"><i class="material-icons">keyboard_backspace</i></a></p>
                     <center>
                         <h5 class="card-title purple-text accent-4" style="font-family: robotoblack;">MATERIA PRIMA</h5>
                          <h6 class="card-title purple-text accent-4" style="font-family: robotoblack;">Pasta</h6>

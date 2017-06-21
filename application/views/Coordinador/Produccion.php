@@ -32,11 +32,12 @@
             </div>
         </div>
     </div>
-
+    
     <div class="row">
         <div class="col s12">
             <div class="card">
                 <div class="card-content">
+                <p class="right-align"><a class="btn purple darken-1 waves-effect waves-light" href="javascript:self.history.back();"><i class="material-icons">keyboard_backspace</i></a></p>
                     <center>
                         <h5 class="card-title purple-text accent-4" style="font-family: robotoblack;">PRODUCCION</h5>
                     </center>
@@ -93,7 +94,7 @@
                         </tbody>
                     </table>
                     <div class="row">
-                        <ul class="collection left-align">
+                        <ul class="collection left-align" style="border:1px solid white;">
                             <li class="collection-item avatar">
                                 <div class="row">
                                     <div class="col s4 m4 s4">

@@ -21,7 +21,7 @@
     <div class="container">
         <div class="right row">
             <div id="crearU" class="col s1 m1 l1">
-                <a data-tooltip='CREAR USUARIO' href="#AUsuario" class="modal-trigger tooltipped">
+                <a data-tooltip='CREAR USUARIO' href="#AUsuario" class="purple-text darken-1 modal-trigger tooltipped">
                     <i style='font-size:40px;' class="material-icons">recent_actors</i>
                 </a>
             </div>
@@ -29,7 +29,7 @@
             <div class="col s1 m1 l1"><p></p></div><div class="col s1 m1 l1"><p></p></div>
 
             <div class="col s1 m1 l1">
-                <a data-tooltip='CERRAR' href="<?php echo base_url('index.php/dashboard')?>" class="tooltipped">
+                <a data-tooltip='CERRAR' href="<?php echo base_url('index.php/dashboard')?>" class="purple-text darken-1 tooltipped">
                     <i style='font-size:35px;' class="material-icons">keyboard_backspace</i>
                 </a>
             </div>

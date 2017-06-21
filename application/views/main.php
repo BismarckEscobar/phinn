@@ -11,24 +11,11 @@
             }else{
                 switch ($_SESSION['Privilegio']) {
                     case 1: //ADMINISTRADOR
-                        echo '<div class="col offset-l3 s12 l2">
-                                    <div class="card small" >
-                                        <a href='.base_url("index.php/Empleados").'>
-                                            <div class="card-image">
-                                                <img style="margin-top:20px;" src='.base_url("assets/img/work/Work.png").' >
-                                            </div>
-                                            <div class="card-content center">
-                                                <p style="color:black;">CREAR EMPLEADO</p>
-                                            </div>
-                                        </a>
-                                    </div>
-                              </div>
-
-                              <div class="col s12 l2">
+                        echo ' <div class="col offset-l3 s12 l2">
                                     <div class="card small" >
                                         <a href='.base_url("index.php/Usuarios").'>
                                             <div class="card-image">
-                                                <img style="margin-top:20px;" src='.base_url("assets/img/menu/agregar-usuario.png").' >
+                                                <img style="margin-top:20px;" height="65px" src='.base_url("assets/img/menu/agregar-usuario.png").' >
                                             </div>
                                             <div class="card-content center">
                                                 <p style="color:black;">CREACION DE USUARIO</p>
@@ -38,37 +25,11 @@
                               </div>
 
 
-                              <div class="col s12 l2">
-                                    <div class="card small" >
-                                        <a href='.base_url("index.php/tiemposmuertos").'>
-                                            <div class="card-image">
-                                                <img style="margin-top:20px;" src='.base_url("assets/img/menu/agregar-usuario.png").' >
-                                            </div>
-                                            <div class="card-content center">
-                                                <p style="color:black;">TIEMPOS MUERTOS</p>
-                                            </div>
-                                        </a>
-                                    </div>
-                              </div>
-
                                 <div class="col s12 l2">
                                     <div class="card small" >
                                         <a href='.base_url("index.php/ordProduccion").'>
                                             <div class="card-image">
-                                                <img style="margin-top:20px;" src='.base_url("assets/img/menu/agregar-usuario.png").' >
-                                            </div>
-                                            <div class="card-content center">
-                                                <p style="color:black;">ORDEN PRODUCCIÓN</p>
-                                            </div>
-                                        </a>
-                                    </div>
-                              </div>
-
-                              <div class="col offset-l3 s12 l2">
-                                    <div class="card small" >
-                                        <a href='.base_url("index.php/OrdenProduccion").'>
-                                            <div class="card-image">
-                                                <img style="margin-top:20px;" src='.base_url("assets/img/menu/reportes.jpg").' >
+                                                <img style="margin-top:12px;" src='.base_url("assets/img/menu/orden.png").' >
                                             </div>
                                             <div class="card-content center">
                                                 <p style="color:black;">ORDEN PRODUCCIÓN</p>
