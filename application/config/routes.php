@@ -27,34 +27,34 @@ $route['ValidaFecha/(:any)/(:any)/(:any)'] = 'Ordenproduccion_controller/Validar
     $route['CalSemana'] = 'Reportes/CalSemana';
 
     /*************REDIRECT INDEX REPORTE*************/
-    $route['reporte'] = "reporte_Controller";
+    $route['ordProduccion'] = "ordenProduccionG_Controller";
 
     /*************CAMBIAR ESTADO DE REPORTES*********/
-    $route['cambiarEstadoRpt/(:any)/(:any)']= "reporte_Controller/cambiaStatusRpt/$1/$2";
+    $route['cambiarEstadoRpt/(:any)/(:any)']= "ordenProduccionG_Controller/cambiaStatusRpt/$1/$2";
 
     /*************PARA VALIDAR SI EL NUMERO DE REPORTE YA EXISTE**********************/
-    $route['validarReporte/(:any)']= "reporte_Controller/validaNumRpt/$1";
+    $route['validarReporte/(:any)']= "ordenProduccionG_Controller/validaNumRpt/$1";
 
     /*************VALIDA ORDENES DE PRODUCCION***************************************/
-    $route['validarNoOrden']= "reporte_Controller/validaStatusOrdenP";
+    $route['validarNoOrden']= "ordenProduccionG_Controller/validaStatusOrdenP";
 
     /*************VALIDA FECHA DE ORDEN DE PRODUCCION********************************/
-    $route['validaFechaNoOrden']= "reporte_Controller/validaFechaOrdenP";
+    $route['validaFechaNoOrden']= "ordenProduccionG_Controller/validaFechaOrdenP";
 
     /******RETORNA LA ULTIMA FECHA DEL ULTIMO REGISTRO DE ORDEN DE PRODUCCION******/
-    $route['FechaInicio/(:any)']= "reporte_Controller/obtieneUltFec/$1";
+    $route['FechaInicio/(:any)']= "ordenProduccionG_Controller/obtieneUltFec/$1";
 
     /******GUARDAR CONSECUTIVO DE ORDEN DE PRODUCCION******/
-    $route['consecutivo/(:any)/(:any)']= "reporte_Controller/guardaConsecutivoOrdP/$1/$2";
+    $route['consecutivo/(:any)/(:any)']= "ordenProduccionG_Controller/guardaConsecutivoOrdP/$1/$2";
 
     /************/
-    $route['buscarOrden/(:any)']= "reporte_Controller/buscarOrdenProd/$1";
+    $route['buscarOrden/(:any)']= "ordenProduccionG_Controller/buscarOrdenProd/$1";
 
     /************/
-    $route['validaRpt/(:any)']= "reporte_Controller/buscarOrdenProdEnOrdTr/$1";
+    $route['validaRpt/(:any)']= "ordenProduccionG_Controller/buscarOrdenProdEnOrdTr/$1";
 
     /******CAMBIAR ORDEN ACTIVA POR UNA NUEVA******/
-    $route['cambiarOrdenActiva/(:any)']= "reporte_Controller/cambiarOrdenAct/$1";
+    $route['cambiarOrdenActiva/(:any)']= "ordenProduccionG_Controller/cambiarOrdenAct/$1";
 
 
     /********************LINKS DE TIEMPOS MUERTOS********************************/
@@ -102,23 +102,22 @@ $route['ValidaFecha/(:any)/(:any)/(:any)'] = 'Ordenproduccion_controller/Validar
     $route['actualizarTablaTM']= "tiemposMuertos_Controller/actualizarTablaTM";
 
     /*******************LINKS CARGAS PULPER******************************/
-    $route['cargaspulper/(:any)'] = "cargas_pulper_controller/index/$1";
-    
-    $route['listarFibras'] = "cargas_pulper_controller/listarcargaspulper";
-    
+    $route['cargaspulper/(:any)'] = "cargas_pulper_controller/index/$1";    
+    $route['listarFibras'] = "cargas_pulper_controller/listarcargaspulper";    
     $route['guardarCP'] = "cargas_pulper_controller/guardarCPulper";
-
     $route['listandoCargasPulper/(:any)'] = "cargas_pulper_controller/listarCantidadCargas/$1";
-
     $route['actualizarCargaPulper/(:any)/(:any)'] = "cargas_pulper_controller/actualizarCargaP/$1/$2";
-
     $route['agregarHorasMolienda'] = "cargas_pulper_controller/agregarHorasM";
 
+    /*******************LINKS HORAS MOLIENDA******************************/
     $route['listandoHorasMolienda/(:any)'] = "cargas_pulper_controller/listarHorasM/$1";
-
     $route['buscarHorasMolienda/(:any)'] = "cargas_pulper_controller/buscarHorasM/$1";
-
     $route['actualizaHoraMolienda'] = "cargas_pulper_controller/actualizaHMolienda";
+
+    /************RUTAS SUPERVISOR******************************/
+    $route['menuSupervisor/(:any)']= "Ordenproduccion_controller/mostrarMenuSupervisor/$1";
+
+    $route['detalleOrdenProduccion/(:any)']="Ordenproduccion_controller/mostrarOrdenesTrabajos/$1";
 
 
 
