@@ -9,7 +9,8 @@
                     <label for="search"></label>
                 </div>
             </div>        
-        </div>        
+        </div>
+        
 <!--/////////////////////////////////////////////////////////////////////////////////////////
                    	BOTONES SUPERIORES
 //////////////////////////////////////////////////////////////////////////////////////////-->
@@ -111,7 +112,7 @@
         </div>
         
         <div class="row">
-            <form class="col s12" method="POST" name="formNuevoReporte" id="formNuevoReporte" action="<?php echo base_url()?>index.php/reporte_Controller/guardarReporte">
+            <form class="col s12" method="POST" name="formNuevoReporte" id="formNuevoReporte" action="<?php echo base_url()?>index.php/ordenProduccionG_Controller/guardarReporte">
                 <div class="row">
                     <div class="input-field col s12 m12 s12">
                         <input class="mayuscula" maxlength="4" name="numOrden" placeholder="Nº orden" id="numOrden" type="text" class="required">
@@ -167,7 +168,7 @@
         </div>
         
         <div class="row">
-            <form class="col s12" method="POST" name="formActualizarOrd" id="formActualizarOrd" action="<?php echo base_url()?>index.php/reporte_Controller/editarOrdProd">
+            <form class="col s12" method="POST" name="formActualizarOrd" id="formActualizarOrd" action="<?php echo base_url()?>index.php/ordenProduccionG_Controller/editarOrdProd">
                 <div class="input-field col s6">
                     <input value="#" id="identificador" name="identificador" type="hidden" class="validate">
                 </div>

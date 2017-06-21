@@ -1,7 +1,7 @@
 <?php 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class reporte_Controller extends CI_Controller {
+class ordenProduccionG_Controller extends CI_Controller {
 	public function __construct() {
 		parent:: __construct();
 		$this->load->library('session');
@@ -16,7 +16,7 @@ class reporte_Controller extends CI_Controller {
 		$data['listaReport'] = $this->reporte_Model->listaReportes();
         $this->load->view('header');
         $this->load->view('dashboardclean');
-        $this->load->view('Reportes/reporte', $data);
+        $this->load->view('Supervisor/ordenProduccion', $data);
 		$this->load->view('footer');		
 	}
 
@@ -32,7 +32,7 @@ class reporte_Controller extends CI_Controller {
 			'comentarios' => $this->input->post('comentario', TRUE)
 		);
 			$this->reporte_Model->guardarRep($array);
-			redirect('reporte');
+			redirect('ordProduccion');
 	}
 
 	public function cambiaStatusRpt($idRpt, $status){
@@ -94,7 +94,7 @@ class reporte_Controller extends CI_Controller {
 		);
 		$this->reporte_Model->editarOrden($array, $idUnico);
 
-		redirect('reporte'); 
+		redirect('ordProduccion'); 
 	}
 
 	public function buscarOrdenProdEnOrdTr($codOrd) {
