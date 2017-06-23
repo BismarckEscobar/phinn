@@ -418,6 +418,32 @@ select {
 .detalleNumOrdOrange{
   color: orange!important;
 }
+#tlbListaRep3 th{
+  background: #db7093;
+}
+
+#tablaReporteDiario {
+    font-family: 'robotobold'!important;
+    color: #708090;
+    font-size: 12px;
+    text-transform: uppercase!important;
+    background-color: white;
+    border-collapse: collapse;
+    border-spacing: 0px;
+    border: 1px solid grey;
+    width: 90%;
+    margin: 0 auto;
+}
+#tablaReporteDiario tr td{
+    background-color: white;
+}
+#tablaReporteDiario tr td{
+    border: 1px solid #a9a9a9;    
+    text-align: left;
+    padding: 3px 3px;
+}
+
+
 /**
 * instead of linking from https://fonts.googleapis.com/icon?family=Material+Icons
 */

@@ -7,30 +7,31 @@ if ($this->session->userdata("Privilegio") == 3) {?>
                 <div class="card-content">
                     <center><span class="card-title purple-text accent-4" style="font-family: robotoblack;">ORDEN DE PRODUCCIÓN</span></center>
                     <?php 
-                    foreach($listaReport as $key) {?>
-                    <div class="row">
-                        <center>
-                            <div class="col s4">
-                                <span class="card-title purple-text accent-4" id="lblnoOrden"><?php echo $key["NoOrden"]?></span><br/>
-                                <label class="labelValidacion">N° ORDEN ACTIVA</label>
+                    if ($listaReport) {
+                        foreach($listaReport as $key) {?>
+                            <div class="row">
+                                <center>
+                                    <div class="col s4">
+                                        <span class="card-title purple-text accent-4" id="lblnoOrden"><?php echo $key["NoOrden"]?></span><br/>
+                                        <label class="labelValidacion">N° ORDEN ACTIVA</label>
+                                    </div>
+                                    <div class="col s4">
+                                        <span id="lblFechaInicio" class="card-title purple-text accent-4"><?php echo $key["FechaInicio"]?></span><br/>
+                                        <label  class="labelValidacion">FECHA DE INICIO</label>
+                                    </div>
+                                    <div class="col s4">
+                                        <span id="lblFechaFin" class="card-title purple-text accent-4" id="lblnoOrden"><?php echo $key["FechaFin"]?></span><br/>
+                                        <label class="labelValidacion">FECHA FINAL</label>
+                                    </div>
+                                </center>
                             </div>
-                            <div class="col s4">
-                                <span id="lblFechaInicio" class="card-title purple-text accent-4"><?php echo $key["FechaInicio"]?></span><br/>
-                                <label  class="labelValidacion">FECHA DE INICIO</label>
-                            </div>
-                            <div class="col s4">
-                                <span id="lblFechaFin" class="card-title purple-text accent-4" id="lblnoOrden"><?php echo $key["FechaFin"]?></span><br/>
-                                <label class="labelValidacion">FECHA FINAL</label>
-                            </div>
-                        </center>
-                    </div>
+                        <?php } ?>  
                     <?php } ?>
                 </div>
             </div>
         </div>
     </div>
-    </div>
-     <div class="row">
+<!--<div class="row">
         <div class="col s12">
             <div class="card">
                 <div class="card-content">
@@ -87,15 +88,22 @@ if ($this->session->userdata("Privilegio") == 3) {?>
                 </div>
             </div>
         </div>
-    </div>
-<!--         <div class="row">
+    </div> -->
+        <div class="row">
             <div class="col s12">
                 <div class="card">
                     <div class="card-content">
+                        <div class="right row">
+                            <div id="OrdeProd" class="col s12 m12">
+                                <a data-tooltip='AGREGAR NUEVA ORDEN' href="#ordenprod" class="modal-trigger tooltipped">
+                                    <i class="mdi-image-add-to-photos titulosGen"></i>
+                                </a>
+                            </div>
+                        </div>
                         <table id="tlbListaRep2" class="striped">
                             <thead>
                                 <tr class="tblcabecera">
-                                    <th>Detalles</th>
+                                    <th>Ordenes</th>
                                     <th>Nº orden</th>                                 
                                     <th>Fecha Inicio</th>
                                     <th>Fecha Fin</th>
@@ -123,8 +131,8 @@ if ($this->session->userdata("Privilegio") == 3) {?>
                                                 $activo="<td><a data-tooltip='ORDEN INACTIVA' class='btn-flat tooltipped noHover'><i style='color:red; font-size:30px;' class='material-icons'>info_outline</i></a></td>";
                                             }
                                             echo "<tr>
-                                                    <td class='center green-text detalleNumOrd'><i id='detail".$list['IdOrden']."' class='material-icons'>details</i>
-                                                        <div id='loader".$list['IdOrden']."' style='display:none;' class='preloader-wrapper small active' >
+                                                    <td class='center green-text detalleNumOrd'><i id='detail2".$list['NoOrden']."' class='material-icons'>expand_more</i><i id='detail1".$list['NoOrden']."' style='display:none;' class='material-icons'>expand_less</i>
+                                                        <div id='loader".$list['NoOrden']."' style='display:none;' class='preloader-wrapper small active' >
                                                             <div class='spinner-layer spinner-yellow-only'>
                                                             <div style='overflow: visible!important;' class='circle-clipper left'>
                                                                 <div class='circle'></div>
@@ -149,7 +157,7 @@ if ($this->session->userdata("Privilegio") == 3) {?>
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
 </main>
 <?php }else if ($this->session->userdata("Privilegio") == 4) {?>
   <main class="mdl-layout__content mdl-color--grey-100">
@@ -159,6 +167,9 @@ if ($this->session->userdata("Privilegio") == 3) {?>
                 <div class="card-content">
                     <center><span class="card-title purple-text accent-4" style="font-family: robotoblack;">ORDEN DE PRODUCCIÓN</span></center>
                     <?php 
+                    if ($listaReport) {
+                        
+                    
                     foreach($listaReport as $key) {?>
                     <div class="row">
                         <center>
@@ -176,6 +187,7 @@ if ($this->session->userdata("Privilegio") == 3) {?>
                             </div>
                         </center>
                     </div>
+                    <?php } ?>
                     <?php } ?>
                 </div>
             </div>
