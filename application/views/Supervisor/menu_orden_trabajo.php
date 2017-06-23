@@ -38,7 +38,7 @@
 					<div class="row oculto" style="text-align: center;">
 						<div class="collection1">
 							<div class="col s12 m12">            
-								<p class="right-align"><a class="btn purple darken-1 waves-effect waves-light" href="javascript:self.history.back();"><i class="material-icons">keyboard_backspace</i></a></p>
+								<p class="right-align"><a class="btn purple darken-1 waves-effect waves-light tooltipped" data-tooltip="Regresar" data-position="left" href="../OrdenProduccion"><i class="material-icons">keyboard_backspace</i></a></p>
 								<br><br>
 								<?php
 								/*echo '<div class="col s3 m3"><a href="<?php echo base_url()."index.php/Produccion/"'.$key['IdReporteDiario'].'" class="collection-item activo">PRODUCCIÓN</a></div>

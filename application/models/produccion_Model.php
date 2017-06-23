@@ -32,6 +32,7 @@ class Produccion_Model extends CI_Model
 
     public function Guardar($IdRepD, $noOrden, $Oper,$Maq, $HoraIn, $HoraFin, $Velocidad,$peso, $Diam, $pesobase)
     {
+         
         $data = array(
             "IdReporteDiario" => $IdRepD,
             "NoOrden" => $noOrden,

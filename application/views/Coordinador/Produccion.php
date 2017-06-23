@@ -37,7 +37,9 @@
         <div class="col s12">
             <div class="card">
                 <div class="card-content">
-                <p class="right-align"><a class="btn purple darken-1 waves-effect waves-light" href="javascript:self.history.back();"><i class="material-icons">keyboard_backspace</i></a></p>
+                <p class="right-align"> <a href="../menuOrdenTrabajo/<?php echo $key["IdReporteDiario"]?>" 
+                class="btn purple darken-1 waves-effect waves-light tooltipped" data-position="left" data-tooltip="Regresar">
+                <i class="material-icons">keyboard_backspace</i></a></p>
                     <center>
                         <h5 class="card-title purple-text accent-4" style="font-family: robotoblack;">PRODUCCION</h5>
                     </center>
@@ -226,13 +228,30 @@
                     </div>
                 </div>
                 <br>
+                <?php foreach ($consecutivo as $key) {
+                    if($key['Estado']== 0)
+                    {
+                        echo '        
+                 <div class="row">
+                    <div class="center">
+                        <a class="Btnadd btn waves-effect waves-light disabled" href="#" style="background-color:#831F82;">AGREGAR
+                            <i class="material-icons right">send</i>
+                        </a>
+                        <span class="badge">El Consecutivo ya ha sido cerrado</span>
+                    </div>
+                </div>';
+                    }
+                    else{
+                        echo '                
                 <div class="row">
                     <div class="center">
                         <a id="Prod" class="Btnadd btn waves-effect waves-light" onclick="Guardar()" href="#" style="background-color:#831F82;">AGREGAR
                             <i class="material-icons right">send</i>
                         </a>
                     </div>
-                </div>
+                </div>';
+                    }
+                 }?>
             </form>
         </div>
     </div>
