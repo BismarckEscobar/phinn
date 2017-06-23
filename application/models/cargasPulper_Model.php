@@ -32,6 +32,15 @@ class cargaspulper_Model extends CI_Model {
 		}
 	}
 
+	public function calcularTotalCarga($idReporteDiario) {
+		$query=$this->db->query('SELECT SUM(Cantidad) as sumTotal from cargas_pulper WHERE IdReporteDiario = "'.$idReporteDiario.'"');
+		if ($query->num_rows()>0) {
+			return $query->result_array();
+		}else {
+			return false;
+		}
+	}
+
 	public function actualizarRegistroCarga($idCargaPulper, $cantidad) {
 		$data = array('Cantidad' => $cantidad);
 	    $this->db->where('IdCargaPulper=', $idCargaPulper);
