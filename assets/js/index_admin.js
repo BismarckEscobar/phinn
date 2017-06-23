@@ -7,8 +7,12 @@ $(document).ready(function() {
     var pathname = window.location.pathname;
     if (pathname.match(/cargaspulper.*/)) {
         crearTabla();  
-        listarHorasMolienda();      
+        listarHorasMolienda();    
     };
+    if (pathname.match(/reportesDiarios.*/)) {
+        crearTabla();
+    };
+
     $("#crearU").click(function() { $("#AUsuario").openModal(); });
     $("#crearT").click(function() { $("#ATrabajador").openModal(); });
 
@@ -19,7 +23,6 @@ $(document).ready(function() {
 
     $("#btnAgregarf").click(function() { $("#modal11").openModal(); });  
     $("#btnAgregaHM").click(function() { $("#modal12").openModal(); });   
-    $('#ddlts').dropdown('open');
 
     ///Configurar chosen////
     var config = {
@@ -82,65 +85,97 @@ $('#cerrarHM1').click(function() {
 
 $('#tlbListaRep2').on('click', 'tbody .detalleNumOrd', function () {
     var table = $('#tlbListaRep2').DataTable();
-    var tr = $(this).closest('tr'); $(this).addClass("detalleNumOrd");
+    var tr = $(this).closest('tr'); $(this).addClass("detalleNumOrdOrange");
     var row = table.row(tr);
-    var data = table.row( $(this).parents('tr') ).data();//obtengo todos los datos de la fila que di click
-    //alert (data[1]); //este es el dato de la segunda columna
+    var data = table.row( $(this).parents('tr') ).data();
 
-    if (row.child.isShown()) {// esta fila ya se encuentra visible - cierrala
+    if (row.child.isShown()) {
         row.child.hide();
         tr.removeClass('shown');
-        $(this).removeClass("detalleNumOrd");            
-    } else {// muestra la fila
+        $('#detail1'+data[1]).hide();
+        $('#detail2'+data[1]).show();
+        $(this).removeClass("detalleNumOrdOrange");            
+    } else {        
         $('#loader'+data[1]).show();
-        $('#detail'+data[1]).hide();
+        $('#detail1'+data[1]).show();
+        $('#detail2'+data[1]).hide();
+              
         format(row.child,data[1],data[1]);
         tr.addClass('shown');
     }
 });
-function format(callback,noOrden,div) {//funcion para traer llos datos y tabla de detalles
+function format(callback,noOrden,div) {
   var ia=0;
         $.ajax({
         url:'detalleOrdenProduccion/'+noOrden,
-        dataType: "json",
-        complete: function (response) {
-            var data = JSON.parse(response.responseText);
-            console.log(data);
-               var thead = '',  tbody = '';
-                for (var key in data) {
-                    thead += '<th class="negra center">N° ORDEN</th>';
+        async:true,
+        success: function (response) {
+            var thead = '',  tbody = '';
+            if (response!='false') {
+           var obj = $.parseJSON(response);               
+                    thead += '<tr class="tblcabecera"><th class="negra center">N° ORDEN</th>';
                     thead += '<th class="negra center">TURNO</th>';
                     thead += '<th class="negra center">FECHA INICIO</th>';
                     thead += '<th class="negra center">FECHA FIN</th>';
                     thead += '<th class="negra center">COORDINADOR</th>';
-                    thead += '<th class="negra center">GRUPO</th>';
                     thead += '<th class="negra center">TIPO PAPEL</th>';
-                }
-               $.each(data, function (i, d) {
-                  $.each(d, function (a, b) {
-                     ia++;
-                  });
-                    for (var x=0; x<ia; x++) {
-                    tbody += '<tr class="center">' +
-                                  '<td>' + d[x]["NoOrder"] + '</td>'+
-                                  '<td>' + d[x]["Turno"] + '</td>'+
-                                  '<td>' + d[x]["FechaInicio"] + '</td>'+
-                                  '<td>' + d[x]["FechaFinal"] + '</td>'+
-                                  '<td>' + d[x]["Nombre"] + '</td>'+
-                                  '<td>' + d[x]["Grupo"] + '</td>'+
-                                  '<td>' + d[x]["TipoPapel"] + '</td>'+
-                              '</tr>';
-                      }                   
+                    thead += '<th class="negra center">ESTADO</th></tr>';
+
+                $.each(JSON.parse(response), function(i, item) {  
+                    if (item["Estado"] == 1) {
+                        var html = "<a data-tooltip='ORDEN ACTIVA' onclick='cambiaEstadoRptD("+ item["IdReporteDiario"] +", 0)' class='btn-flat tooltipped noHover'><i style='color:green; font-size:30px;' class='material-icons'>done</i></a>";
+                    }else if (item["Estado"] == 0){
+                        var html = "<a data-tooltip='ORDEN INACTIVA' onclick='cambiaEstadoRptD("+ item["IdReporteDiario"] +", 1)' class='btn-flat tooltipped noHover'><i style='color:green; font-size:30px;' class='material-icons'>done_all</i></a>";
+                    };  
+                    tbody += '<tr >' +
+                                  '<td><a href="../index.php/reportesDiarios/'+item["IdReporteDiario"]+'" target="_blank"</a>'+item["Consecutivo"]+'</td>'+
+                                  '<td>' + item["Turno"] + '</td>'+
+                                  '<td>' + item["FechaInicio"] + '</td>'+
+                                  '<td>' + item["FechaFinal"] + '</td>'+
+                                  '<td>' + item["Nombre"] + '</td>'+
+                                  '<td>' + item["TipoPapel"] + '</td>'+
+                                  '<td>' + html + '</td>'+
+                              '</tr>';                      
                 });
-            callback($('<table id="tlbListaRep2">' + thead + tbody + '</table>')).show();
-             $('#loader'+div).hide();
-             $('#detail'+div).show();
-        },
-        error: function () {
-            $('#output').html('Hubo un error al cargar los detalles!');
+                callback($('<table id="tlbListaRep3" class="striped">' + thead + tbody + '</table>')).show();
+                $('#loader'+div).hide();
+                $('#detail1'+div).show();
+            } else {
+                thead += '<tr class="tblcabecera"><th class="negra center">N° ORDEN</th>';
+                thead += '<th class="negra center">TURNO</th>';
+                thead += '<th class="negra center">FECHA INICIO</th>';
+                thead += '<th class="negra center">FECHA FIN</th>';
+                thead += '<th class="negra center">COORDINADOR</th>';
+                thead += '<th class="negra center">TIPO PAPEL</th></tr>';
+                tbody += '<tr >' +
+                      '<td></td>'+
+                      '<td></td>'+
+                      '<td></td>'+
+                      '<td>No hay datos disponibles</td>'+
+                      '<td></td>'+
+                      '<td></td>'+
+                  '</tr>';
+                callback($('<table id="tlbListaRep3" class="striped">' + thead + tbody + '</table>')).show();
+                $('#loader'+div).hide();
+                $('#detail'+div).show();
+            }
         }
     });
   }
+
+/****************CAMBIA EL ESTADO DEL REPORTE DIARIO*****************************/
+function cambiaEstadoRptD(idRptDiario, estado) {
+    $.ajax({
+        url: "cambiarEstadoRptDiario/"+idRptDiario+"/"+estado,
+        type: 'POST',
+        async: true,
+        success: function(data) {
+            if (data!='FALSE') {
+
+            }
+        }
+    });
+}
 /******************CREAR Y LLENAR TABLA CARGAS PULPER**************************/
 function crearTabla() { 
     var cantColumns=0;var cont1=0; var cont2=0; var cont3=0;
@@ -526,7 +561,18 @@ function validarControlesTiempoMuertos() {
 
 /****************ABRE EL MODEL PARA CREAR NUEVA ORDEN DE PRODUCCION*************************/
 $("#crearR").click(function() {
-    $("#nuevoReporte").openModal();
+    $.ajax({
+            url: "validarNoOrden",
+            type:"POST",
+            async:true,
+            success: function(data){
+                if (data==true) {
+                    mensajeAlerta('Ya existe una orden activa, cierre la anterior y agrege una nueva');
+                    } else {
+                $("#nuevoReporte").openModal();
+            }
+        }
+    });    
 });
 
 /****************ABRE EL MODEL PARA AGREGAR NUEVO TIEMPO MUERTO*************************/
@@ -555,11 +601,11 @@ $("#valOrdP7").on('click', function() {
                     type: "POST",
                     async: true,
                     success: function() {
-                        gotopage("reporte");
+                        gotopage("ordProduccion");
                     }
                 })
             } else {
-                gotopage("reporte");
+                gotopage("ordProduccion");
             };
         }
     });
@@ -815,7 +861,7 @@ function cambiaStatusRpt(idOrden, numOrden, estado){
                 type: "success",
                 confirmButtonText: "CERRAR",
                 }).then(
-                    function(){gotopage("reporte");}
+                    function(){gotopage("ordProduccion");}
                 )}
             })
         }); break;
@@ -843,7 +889,7 @@ function confirmacionCambioStatus(mensaje, textbutton, idOrden, status) {
                     type: "success",
                     confirmButtonText: "CERRAR",
                 }).then(
-                    function() { gotopage("reporte"); }
+                    function() { gotopage("ordProduccion"); }
                 )
             }
         });
@@ -874,7 +920,7 @@ function cambiaOrdenActiva(idOrden, status) {
                     type: "success",
                     confirmButtonText: "CERRAR",
                 }).then(
-                    function() { gotopage("reporte"); }
+                    function() { gotopage("ordProduccion"); }
                 )
             } else {
                 swal({

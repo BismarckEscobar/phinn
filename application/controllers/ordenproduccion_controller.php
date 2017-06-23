@@ -132,24 +132,29 @@ class Ordenproduccion_controller extends CI_Controller
     public function mostrarOrdenesTrabajos($idOrden) {
         $json=array();
         $query=$this->Ordenproduccion_model->mostrarOrdTrab($idOrden);
-        foreach ($query as $key) {
-            $dta=array(
-                'IdReporteDiario' => $key['IdReporteDiario'],
-                'Consecutivo' => $key['Consecutivo'],
-                'NoOrder' => $key['NoOrder'],
-                'Turno' => $key['Turno'],
-                'FechaInicio' => $key['FechaInicio'],
-                'FechaFinal' => $key['FechaFinal'],
-                'Coordinador' =>$key['Coordinador'],
-                'Nombre' => $key['Nombre'],
-                'Grupo' => $key['Grupo'],
-                'TipoPapel' => $key['TipoPapel'],
-                'ProduccionTotal' => $key['ProduccionTotal'],
-                'MermaTotal' => $key['MermaTotal']
-                );
-            $json[] =$dta;
+        if ($query!=false) {
+            foreach ($query as $key) {
+                $dta=array(
+                    'IdReporteDiario' => $key['IdReporteDiario'],
+                    'Consecutivo' => $key['Consecutivo'],
+                    'NoOrder' => $key['NoOrder'],
+                    'Turno' => $key['Turno'],
+                    'FechaInicio' => $key['FechaInicio'],
+                    'FechaFinal' => $key['FechaFinal'],
+                    'Coordinador' =>$key['Coordinador'],
+                    'Nombre' => $key['Nombre'],
+                    'Grupo' => $key['Grupo'],
+                    'TipoPapel' => $key['TipoPapel'],
+                    'ProduccionTotal' => $key['ProduccionTotal'],
+                    'MermaTotal' => $key['MermaTotal'],
+                    'Estado' => $key['Estado']
+                    );
+                $json[] =$dta;
+            }
+            echo json_encode($json);            
+        }else {
+            echo "false";
         }
-        echo json_encode($json);
     }
   
 }

@@ -18,7 +18,7 @@ class Ordenproduccion_model extends CI_Model
     }
 
     public function listaReportesTodos() {
-        $query=$this->db->get('view_orden_produccion');
+        $query=$this->db->get('view_ordProduccionCoordinador');
         if ($query->num_rows()>0) {
             return $query->result_array();
         } else {
@@ -51,7 +51,8 @@ class Ordenproduccion_model extends CI_Model
             "FechaFinal" => $FechaFin,
             "Coordinador" => $Coord,
             "Grupo" => $Grup,
-            "TipoPapel" => $Tipo
+            "TipoPapel" => $Tipo,
+            "Estado" => 1
         );
         $this->db->insert("reporte_diario",$data);
         }
@@ -157,7 +158,6 @@ class Ordenproduccion_model extends CI_Model
             return $query->result_array();
         } else {
             return false;
-        }
-        
+        }        
     }
 }

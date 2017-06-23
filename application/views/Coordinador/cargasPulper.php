@@ -40,7 +40,18 @@
                     </div>
                     <a class="Btnadd btn waves-effect waves-light" id="btnAgregarf" href="#modal1" style="background-color:#831F82;">AGREGAR
 						<i class="material-icons right">add</i>
-                    </a>
+                    </a><br>
+                    <div class="row">
+						<div class="col s4 m4 s4">
+							<div class="card hoverable">
+								<h6 class="center-align"><b class="purple-text darken-1 ">CARGA TOTAL</b></h6>
+								<div class="container">
+									<h6 class="center-align purple-text darken-1"><?php echo $cargaTotal;?></h6><br>
+								</div>
+							</div>
+						</div>
+                    </div><br>
+
                     <center><h6 id="ocultar">NO HAY DATOS QUE MOSTRAR</h6></center>
 				</div>
 			</div>

@@ -10,6 +10,11 @@ class cargas_Pulper_Controller extends CI_Controller {
 	public function index($idReporteD) {
 		$data['consecutivo'] = $this->Ordenproduccion_model->buscarRtpDiario($idReporteD);
 		$data['tipoFibra']= $this->cargasPulper_Model->listaConsumos();
+		$query = $this->cargasPulper_Model->calcularTotalCarga($idReporteD);		
+		foreach ($query as $key) {
+			$cargaTotal = $key['sumTotal'];
+		}
+		$data['cargaTotal'] = $cargaTotal;
 		$this->load->view('header');
 		$this->load->view('dashboardclean');
 		$this->load->view('Coordinador/cargasPulper',$data);
@@ -49,7 +54,7 @@ class cargas_Pulper_Controller extends CI_Controller {
 				'IdCargaPulper' => $key['IdCargaPulper'],
 				'IdInsumo' => $key['IdInsumo'],
 				'Cantidad' => $key['Cantidad'],
-				'IdReporteDiario' => $key['IdReporteDiario']	
+				'IdReporteDiario' => $key['IdReporteDiario']
 			);
 			$json[] =$dta;
 		}
@@ -78,13 +83,14 @@ class cargas_Pulper_Controller extends CI_Controller {
 	}
 
 	public function listarHorasM($idReporteDiario) {
-		$json=array();
+		$json=array(); $tiempoTotal;
 		$query=$this->cargasPulper_Model->listarHorasMolienda($idReporteDiario);
 		if ($query!=FALSE) {
 		foreach ($query as $key) {
 			$horaInicio = date('g:i A', strtotime($key['horaInicio']));
 			$horaFinal = date('g:i A', strtotime($key['horaFin']));
 			$tf=$this->sumaRestaHoras($horaFinal,$horaInicio);
+
 			$dta = array(
 				'IdHora' => $key['IdHora'],
 				'carga' => $key['carga'],
@@ -131,9 +137,12 @@ class cargas_Pulper_Controller extends CI_Controller {
 	}
 
 	public function sumaRestaHoras($horainicio, $horafin){
-		$dif=date("H.i:s", strtotime("00:00:00") + strtotime($horainicio) - strtotime($horafin) );
+		$dif=date("H:i:s", strtotime("00:00:00") + strtotime($horainicio) - strtotime($horafin) );
+		//$min = 
 		return $dif;
 	}
+
+	
 }
 
 ?>
