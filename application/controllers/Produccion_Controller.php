@@ -30,8 +30,13 @@ class Produccion_Controller extends CI_Controller
         $peso = $this->input->get_post("peso");
         $diametro = $this->input->get_post("Diametro");
         $pesobase = $this->input->get_post("pesobase");
+        $duplicado = $this->db->get_where('reporte_diario',array("IdReporteDiario" => $IdRptD,'Estado'=>0));
+         if ($duplicado->num_rows()>0) {
+             echo "Consecutivo ya se ha cerrado";
+         } else {
         $this->produccion_Model->Guardar( $IdRptD, $NoOrden, $operador,$maquina, $HoraInic, $HoraFin,$velocidad, $peso,$diametro, $pesobase);
          //echo  $IdRptD, $NoOrden, $operador,$maquina, $HoraInic, $HoraFin,$velocidad, $peso,$diametro, $pesobase;
+         }
     }
 
         public function agregaDetalleOrdP1($idReporteD) {

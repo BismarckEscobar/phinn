@@ -30,8 +30,13 @@ class MateriaPrima_controller extends CI_Controller
         {
             $noche = "—";
         }
+        $duplicado = $this->db->get_where('reporte_diario',array("IdReporteDiario" => $IdRptD,'Estado'=>0));
+         if ($duplicado->num_rows()>0) {
+             echo "Consecutivo ya se ha cerrado";
+         } else {
        $this->MateriaPrima_model->GuardaMP($IdRptD,$Tanque,$dia,$noche,$consumo);
        //echo $IdRptD .", Tanque ".$Tanque .", Dia ".$dia ."Noche:->".$noche ."Counsumo ".$consumo;
+         }
     }
 
         public function agregaDetalleOrdP1($idReporteD) {
@@ -75,8 +80,13 @@ class MateriaPrima_controller extends CI_Controller
             elseif ($ptanoche == "") {
                 $ptanoche = "—";
             }
+         $duplicado = $this->db->get_where('reporte_diario',array("IdReporteDiario" => $IdRptd,'Estado'=>0));
+         if ($duplicado->num_rows()>0) {
+             echo "Consecutivo ya se ha cerrado";
+         } else {
            $this->MateriaPrima_model->GuardarMPInsumos($IdRptd,$desc,$Dia,$Noche,$ptadia,$ptanoche);
            //echo $IdRptd,$desc,$Dia,$Noche,$ptadia,$ptanoche;
+         }
         }
 
                 public function EliminarPasta($id)

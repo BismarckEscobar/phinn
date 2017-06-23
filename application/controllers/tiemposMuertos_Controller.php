@@ -34,7 +34,12 @@ public function guardarTiempoM() {
 		'Maquina' => $maquina,
 		'Descripcion' => $descripcion
 		);
+		 $duplicado = $this->db->get_where('reporte_diario',array("IdReporteDiario" => $idRptD,'Estado'=>0));
+         if ($duplicado->num_rows()>0) {
+             echo "Consecutivo ya se ha cerrado";
+         } else {
 	$this->tiemposMuertos_Model->guardarTiempoMuerto($array);
+		 }
 	}
 
 	public function buscarDetalleTM($iden) {

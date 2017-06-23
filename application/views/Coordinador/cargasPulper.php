@@ -35,6 +35,9 @@
 				<div class="card-content" id="tabla-cargas">
                     <div class="row">
                         <div class="col s12 m12">
+               <p class="right-align"> <a href="../menuOrdenTrabajo/<?php echo $key["IdReporteDiario"]?>" 
+                class="btn purple darken-1 waves-effect waves-light tooltipped" data-position="left" data-tooltip="Regresar">
+                <i class="material-icons">keyboard_backspace</i></a></p>
                             <center><h5 class="card-title titulos">CARGAS PULPER</h5></center>
                         </div>
                     </div>
@@ -102,9 +105,24 @@
 		            </div><br><br>
 				    <div class="row">                    
 		                <div class="center">
-				      	    <a class="Btnadd btn waves-effect waves-light" id="agregarCPulper" onclick="guardarCargaPulper()" href="#" style="background-color:#831F82;">AGREGAR
-		                        <i class="material-icons right">send</i>
-		                    </a>
+							<?php
+								foreach ($consecutivo as $key) {
+									if ($key['Estado'] == 0) {
+										echo '  
+										 <span class="badge">El Consecutivo ya ha sido cerrado</span><br>  
+										<a class="Btnadd btn waves-effect waves-light disabled" href="#" style="background-color:#831F82;">AGREGAR
+											<i class="material-icons right">send</i>
+										</a>';
+									} else {
+										echo '
+										<a class="Btnadd btn waves-effect waves-light" id="agregarCPulper" onclick="guardarCargaPulper()" href="#" style="background-color:#831F82;">AGREGAR
+											<i class="material-icons right">send</i>
+										</a>
+										';
+									}
+									
+								}
+							?>
 		                    <a class="Btnadd btn waves-effect waves-light" id="cerrarCP" href="#" hre style="background-color:#831F82;">CERRAR
 		                        <i class="material-icons right">clear</i>
 		                    </a>
@@ -144,9 +162,24 @@
 					</div><br><br><br>
 				    <div class="row">                    
 		                <div class="center">
-				      	    <a class="Btnadd btn waves-effect waves-light" id="agregarHMolienda" onclick="guardarHorasMolienda()" href="#">AGREGAR
-		                        <i class="material-icons right">send</i>
-		                    </a>
+				      	 <?php
+						   	foreach ($consecutivo as $key) {
+								   if ($key['Estado'] == 0) {
+									   echo '
+									    <span class="badge">El Consecutivo ya ha sido cerrado</span><br> 
+									<a class="Btnadd btn waves-effect waves-light disabled" href="#">AGREGAR
+										<i class="material-icons right">send</i>
+									</a>
+									   ';
+								   } else {
+									   echo ' 
+									<a class="Btnadd btn waves-effect waves-light" id="agregarHMolienda" onclick="guardarHorasMolienda()" href="#">AGREGAR
+										<i class="material-icons right">send</i>
+									</a>';
+								   }
+								   
+							   }
+						   ?>
 		                    <a class="Btnadd btn waves-effect waves-light" id="cerrarHM" href="#";>CERRAR
 		                        <i class="material-icons right">clear</i>
 		                    </a>
