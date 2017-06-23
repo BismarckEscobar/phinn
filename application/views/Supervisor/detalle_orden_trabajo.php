@@ -158,9 +158,24 @@
             <br>
             <div class="row">                    
                 <div class="center">
-		      	    <a class="Btnadd btn waves-effect waves-light" onclick="guardarTM1()" id="guardarTM1" href="#" style="background-color:#831F82;">AGREGAR
-                        <i class="material-icons right">send</i>
-                    </a>
+                    <?php
+                        foreach ($consecutivo as $key) {
+                            if ($key['Estado'] == 0) {
+                                echo ' 
+                                <span class="badge">El Consecutivo ya ha sido cerrado</span><br>   
+                                <a class="Btnadd btn waves-effect waves-light disabled" href="#" style="background-color:#831F82;">AGREGAR
+                                    <i class="material-icons right">send</i>
+                                </a>';
+                            } else {
+                                echo '
+                                <a class="Btnadd btn waves-effect waves-light" onclick="guardarTM1()" id="guardarTM1" href="#" style="background-color:#831F82;">AGREGAR
+                                    <i class="material-icons right">send</i>
+                                </a>
+                                ';
+                            }
+                            
+                        }
+                    ?>
                     <a class="Btnadd btn waves-effect waves-light" id="cerrarMdl1" href="#" hre style="background-color:#831F82;">CERRAR
                         <i class="material-icons right">clear</i>
                     </a>

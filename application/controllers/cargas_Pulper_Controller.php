@@ -42,7 +42,12 @@ class cargas_Pulper_Controller extends CI_Controller {
 			'IdInsumo' => $IdInsumo,
 			'Cantidad' => $Cantidad
 			);
+		 $duplicado = $this->db->get_where('reporte_diario',array("IdReporteDiario" => $IdReporteDiario,'Estado'=>0));
+         if ($duplicado->num_rows()>0) {
+             echo "Consecutivo ya se ha cerrado";
+         } else {
 		$this->cargasPulper_Model->guardarCargaPulper($array);
+		 }
 	}
 
 	public function listarCantidadCargas($idReporteDiario) {
@@ -79,7 +84,12 @@ class cargas_Pulper_Controller extends CI_Controller {
 			'horaFin' => $horaFinal,
 			'carga' => $carga
 			);
+		$duplicado = $this->db->get_where('reporte_diario',array("IdReporteDiario" => $IdReporteDiario,'Estado'=>0));
+         if ($duplicado->num_rows()>0) {
+             echo "Consecutivo ya se ha cerrado";
+         } else {
 		$this->cargasPulper_Model->guardarHoraMolienda($array);
+		 }
 	}
 
 	public function listarHorasM($idReporteDiario) {

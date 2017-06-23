@@ -11,6 +11,7 @@
             }else{
                 switch ($_SESSION['Privilegio']) {
                     case 1: //ADMINISTRADOR
+
                         echo  '<br><br><br>
                     <div class="container">
                         <div class="row">
@@ -40,6 +41,7 @@
                             </div>
                         </div>
                     </div>';
+
                     break;
                     case 2: 
                         echo '<div class="col offset-l4 s12 l2">

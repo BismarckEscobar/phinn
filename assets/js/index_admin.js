@@ -7,7 +7,7 @@ $(document).ready(function() {
     var pathname = window.location.pathname;
     if (pathname.match(/cargaspulper.*/)) {
         crearTabla();  
-        listarHorasMolienda();    
+        listarHorasMolienda();
     };
     if (pathname.match(/reportesDiarios.*/)) {
         crearTabla();
@@ -17,12 +17,13 @@ $(document).ready(function() {
     $("#crearT").click(function() { $("#ATrabajador").openModal(); });
 
     $("#agregarMP").click(function() { $("#nuevaMatPrim").openModal(); });
-    $(".modaldet").on("click", function() {
-        $("#Detalles").openModal();
+    $("#modinsumo").click(function() {
+        $("#modalInsumo").openModal();
     });
 
     $("#btnAgregarf").click(function() { $("#modal11").openModal(); });  
     $("#btnAgregaHM").click(function() { $("#modal12").openModal(); });   
+
 
     ///Configurar chosen////
     var config = {
@@ -38,12 +39,12 @@ $(document).ready(function() {
         format: 'HH:i uur',
         formatSubmit: 'HH:i',
         hiddenName: true,
-        min: [6,0],
-        max: [17,00],
+        min: [6, 0],
+        max: [17, 00],
         disable: [
-        [12,0],
-        [12,30]
-        ],// done button text
+            [12, 0],
+            [12, 30]
+        ], // done button text
         fromnow: 0
     });
 
@@ -65,9 +66,20 @@ $(document).ready(function() {
             //min: new Date()
     });
 
-/*************PERMITE SOLO NUMEROS EN LOS INPUTS**********************************/
+    /*************PERMITE SOLO NUMEROS EN LOS INPUTS**********************************/
     $('#numOrden').numeric();
     $('.numeric').numeric();
+    $("#Dia").numeric();
+    $("#Noche").numeric();
+    $("#ptadia").numeric();
+    $("#ptanoche").numeric();
+    $("#dia").numeric();
+    $("#noche").numeric();
+    $("#consumo").numeric();
+    $("#peso").numeric();
+    $("#pesobase").numeric();
+    $("#Diametro").numeric();
+    $("#Velocidad").numeric();
 });
 
 $('#cerrarCP').click(function() {
@@ -75,12 +87,12 @@ $('#cerrarCP').click(function() {
     location.reload();
 });
 $('#cerrarHM').click(function() {
-   $("#modal12").closeModal();
-   location.reload();    
+    $("#modal12").closeModal();
+    location.reload();
 });
 $('#cerrarHM1').click(function() {
     $("#modal13").closeModal();
-   location.reload();    
+    location.reload();
 });
 
 $('#tlbListaRep2').on('click', 'tbody .detalleNumOrd', function () {
@@ -177,58 +189,61 @@ function cambiaEstadoRptD(idRptDiario, estado) {
     });
 }
 /******************CREAR Y LLENAR TABLA CARGAS PULPER**************************/
-function crearTabla() { 
-    var cantColumns=0;var cont1=0; var cont2=0; var cont3=0;
-    var IdReporteDiario=$('#idRptD').val();
+function crearTabla() {
+    var cantColumns = 0;
+    var cont1 = 0;
+    var cont2 = 0;
+    var cont3 = 0;
+    var IdReporteDiario = $('#idRptD').val();
     $.ajax({
-        url: "../listandoCargasPulper/"+IdReporteDiario,
-        async:true,
-        success: function(json){                     
-            if (json!='FALSE') {                
+        url: "../listandoCargasPulper/" + IdReporteDiario,
+        async: true,
+        success: function(json) {
+            if (json != 'FALSE') {
                 var obj = $.parseJSON(json);
                 var html = '<table class="striped" id="tblCargasPulper"><thead>';
                 html += '<tr class="tblcabecera"><th>TIPO DE FIBRA (KG)</th>';
                 for (var i = 0; i < obj.length; i++) {
-                    if (obj[i]['IdInsumo']==1) {                        
-                        cont1=cont1+1;                                                                                     
-                    }else if (obj[i]['IdInsumo']==2) {
-                        cont2=cont2+1;
-                    }else if (obj[i]['IdInsumo']==12) {
-                        cont3=cont3+1;
+                    if (obj[i]['IdInsumo'] == 1) {
+                        cont1 = cont1 + 1;
+                    } else if (obj[i]['IdInsumo'] == 2) {
+                        cont2 = cont2 + 1;
+                    } else if (obj[i]['IdInsumo'] == 12) {
+                        cont3 = cont3 + 1;
                     };
-                }; 
-                if (cont1>=cont2 && cont1>=cont3) {
-                    for (var i = 0; i < cont1 ; i++) {
-                        html += '<th>'+(cantColumns=cantColumns+1)+'</th>';
+                };
+                if (cont1 >= cont2 && cont1 >= cont3) {
+                    for (var i = 0; i < cont1; i++) {
+                        html += '<th>' + (cantColumns = cantColumns + 1) + '</th>';
                     };
-                } else if (cont2>=cont3 && cont2>=cont1) {
-                    for (var i = 0; i < cont2 ; i++) {
-                        html += '<th>'+(cantColumns=cantColumns+1)+'</th>';
+                } else if (cont2 >= cont3 && cont2 >= cont1) {
+                    for (var i = 0; i < cont2; i++) {
+                        html += '<th>' + (cantColumns = cantColumns + 1) + '</th>';
                     };
-                }else if (cont3>=cont2 && cont3>=cont1) {
-                    for (var i = 0; i < cont3; i++) {                        
-                        html += '<th>'+(cantColumns=cantColumns+1)+'</th>';
-                    }; 
-                };         
+                } else if (cont3 >= cont2 && cont3 >= cont1) {
+                    for (var i = 0; i < cont3; i++) {
+                        html += '<th>' + (cantColumns = cantColumns + 1) + '</th>';
+                    };
+                };
                 html += '</tr></thead>';
                 html += '<tbody>';
-                html += '<tr><td>BLANCO IMPRESO</td>';                
+                html += '<tr><td>BLANCO IMPRESO</td>';
                 for (var i = 0; i < obj.length; i++) {
-                    if (obj[i]['IdInsumo']==1) {                        
-                        html += '<td><input class="inputCP numeric" id="cargaN'+obj[i]['IdCargaPulper']+'" onchange="actualizandoCargasPulper('+obj[i]['IdCargaPulper']+', this.value)" value="'+obj[i]['Cantidad']+'"/></td>';                                                                                           
+                    if (obj[i]['IdInsumo'] == 1) {
+                        html += '<td><input class="inputCP numeric" id="cargaN' + obj[i]['IdCargaPulper'] + '" onchange="actualizandoCargasPulper(' + obj[i]['IdCargaPulper'] + ', this.value)" value="' + obj[i]['Cantidad'] + '"/></td>';
                     }
                 };
                 html += '</tr>';
-                html += '<tr><td>MEZCLADO (COLOR)</td>';                
+                html += '<tr><td>MEZCLADO (COLOR)</td>';
                 for (var i = 0; i < obj.length; i++) {
-                    if (obj[i]['IdInsumo']==2) {                        
-                        html += '<td><input class="inputCP numeric" id="cargaN'+obj[i]['IdCargaPulper']+'" onchange="actualizandoCargasPulper('+obj[i]['IdCargaPulper']+', this.value)" value="'+obj[i]['Cantidad']+'"/></td>';
+                    if (obj[i]['IdInsumo'] == 2) {
+                        html += '<td><input class="inputCP numeric" id="cargaN' + obj[i]['IdCargaPulper'] + '" onchange="actualizandoCargasPulper(' + obj[i]['IdCargaPulper'] + ', this.value)" value="' + obj[i]['Cantidad'] + '"/></td>';
                     }
                 };
-                html += '<tr><td>MERMA</td>';                
+                html += '<tr><td>MERMA</td>';
                 for (var i = 0; i < obj.length; i++) {
-                    if (obj[i]['IdInsumo']==12) {                        
-                        html += '<td><input class="inputCP numeric" id="cargaN'+obj[i]['IdCargaPulper']+'" onchange="actualizandoCargasPulper('+obj[i]['IdCargaPulper']+', this.value)" value="'+obj[i]['Cantidad']+'"/></td>';                                                                                           
+                    if (obj[i]['IdInsumo'] == 12) {
+                        html += '<td><input class="inputCP numeric" id="cargaN' + obj[i]['IdCargaPulper'] + '" onchange="actualizandoCargasPulper(' + obj[i]['IdCargaPulper'] + ', this.value)" value="' + obj[i]['Cantidad'] + '"/></td>';
                     }
                 };
                 html += '</tr>';
@@ -241,41 +256,41 @@ function crearTabla() {
     });
 }
 /**************AGREGAR HORAS MOLIENDAS******************************/
-function listarHorasMolienda(){
-    var cantColumns=0;
-    var IdReporteDiario=$('#idRptD').val();
+function listarHorasMolienda() {
+    var cantColumns = 0;
+    var IdReporteDiario = $('#idRptD').val();
     $.ajax({
-    url: "../listandoHorasMolienda/"+IdReporteDiario,
-    type:"POST",
-    async:true,
-    success: function(json){
-            if (json!='FALSE') {                
+        url: "../listandoHorasMolienda/" + IdReporteDiario,
+        type: "POST",
+        async: true,
+        success: function(json) {
+            if (json != 'FALSE') {
                 var obj = $.parseJSON(json);
                 var html = '<table class="striped" id=""><thead>';
                 html += '<tr class="tblcabecera"><th>CARGA</th>'
                 html += '<th>HORAS Y MINUTOS</th>';
                 for (var i = 0; i < obj.length; i++) {
-                    html += '<th>'+(cantColumns=cantColumns+1);
-                    html += '<a onclick="buscarHorasMolienda('+obj[i]['IdHora']+')" href="#!" class="purple-text darken-4">';
-                    html += '<i class="material-icons right">create</i></a>';                    
+                    html += '<th>' + (cantColumns = cantColumns + 1);
+                    html += '<a onclick="buscarHorasMolienda(' + obj[i]['IdHora'] + ')" href="#!" class="purple-text darken-4">';
+                    html += '<i class="material-icons right">create</i></a>';
                     html += '</th>';
-                };      
+                };
                 html += '</tr></thead>';
                 html += '<tbody>';
                 html += '<tr><td rowspan="3">BATIDO</td>'
-                html += '<td>HORA INICIO</td>';                
-                for (var i = 0; i < obj.length; i++) {                                        
-                    html += '<td><span>'+obj[i]['horaInicio']+'</span></td>';
+                html += '<td>HORA INICIO</td>';
+                for (var i = 0; i < obj.length; i++) {
+                    html += '<td><span>' + obj[i]['horaInicio'] + '</span></td>';
                 };
                 html += '</tr>';
                 html += '<tr><td>HORA FINAL</td>';
-                for (var i = 0; i < obj.length; i++) {                                        
-                    html += '<td><span>'+obj[i]['horaFin']+'</span></td>';
+                for (var i = 0; i < obj.length; i++) {
+                    html += '<td><span>' + obj[i]['horaFin'] + '</span></td>';
                 };
                 html += '</tr>';
                 html += '<tr><td>TIEMPO</td>';
-                for (var i = 0; i < obj.length; i++) {                                     
-                    html += '<td><span class="editar1">'+obj[i]['tiempo']+'</span></td>';
+                for (var i = 0; i < obj.length; i++) {
+                    html += '<td><span class="editar1">' + obj[i]['tiempo'] + '</span></td>';
                 };
                 html += '</tr>';
                 html += '</tbody></table>';
@@ -289,15 +304,15 @@ function listarHorasMolienda(){
 /****************BUSQUEDA POR ID HORAS MOLIENDA*********************/
 function buscarHorasMolienda(idHoraMolienda) {
     $.ajax({
-        url: "../buscarHorasMolienda/"+idHoraMolienda,
+        url: "../buscarHorasMolienda/" + idHoraMolienda,
         type: 'POST',
         async: true,
         success: function(data) {
-            if (data!='FALSE') {
+            if (data != 'FALSE') {
                 $.each(JSON.parse(data), function(i, item) {
                     $('#timeHM12').val(item['horaInicio']),
-                    $('#timeHM22').val(item['horaFin']),
-                    $('#idHora').val(item['IdHora'])
+                        $('#timeHM22').val(item['horaFin']),
+                        $('#idHora').val(item['IdHora'])
                 });
                 $("#modal13").openModal();
             }
@@ -305,25 +320,25 @@ function buscarHorasMolienda(idHoraMolienda) {
     });
 }
 /*************ACTUALIZANDO HORA MOLIENDA***************************/
-function actualizarHorasMolienda(){
+function actualizarHorasMolienda() {
     var form_data = {
-        idHora : $('#idHora').val(),
-        timepickerII : $('#timeHM12').val(),
-        timepickerFF : $('#timeHM22').val()
+        idHora: $('#idHora').val(),
+        timepickerII: $('#timeHM12').val(),
+        timepickerFF: $('#timeHM22').val()
     };
     $.ajax({
-            url: "../actualizaHoraMolienda",
-            type: "post",
-            async:true,
-            data: form_data,
-            success: function(data){
-                console.log(data);
-            if (data==1) {
-                    Materialize.toast('SE GUARDO CON ÉXITO', 1000);
-                    $('#descipcion').val('');
+        url: "../actualizaHoraMolienda",
+        type: "post",
+        async: true,
+        data: form_data,
+        success: function(data) {
+            console.log(data);
+            if (data == 1) {
+                Materialize.toast('SE GUARDO CON ÉXITO', 1000);
+                $('#descipcion').val('');
             } else {
-                    Materialize.toast('ERROR AL GUARDAR', 1000);
-            };                
+                Materialize.toast('ERROR AL GUARDAR', 1000);
+            };
         }
     });
 }
@@ -331,79 +346,79 @@ function actualizarHorasMolienda(){
 /****************GUARDANDO HORAS MOLIENDA**********************/
 function guardarHorasMolienda() {
     var result = validarControlesTM();
-    if (result!=false) {
+    if (result != false) {
         var form_data = {
-            idRptD : $('#idRptD').val(),
-            timepickerII : $('#timeHM1').val(),
-            timepickerFF : $('#timeHM2').val()
+            idRptD: $('#idRptD').val(),
+            timepickerII: $('#timeHM1').val(),
+            timepickerFF: $('#timeHM2').val()
         };
         $.ajax({
-                url: "../agregarHorasMolienda",
-                type: "post",
-                async:true,
-                data: form_data,
-                success: function(data){
-                if (data==1) {
-                        Materialize.toast('SE GUARDO CON ÉXITO', 1000);
-                        $('#descipcion').val('');
+            url: "../agregarHorasMolienda",
+            type: "post",
+            async: true,
+            data: form_data,
+            success: function(data) {
+                if (data == 1) {
+                    Materialize.toast('SE GUARDO CON ÉXITO', 1000);
+                    $('#descipcion').val('');
                 } else {
-                        Materialize.toast('ERROR AL GUARDAR', 1000);
-                };                
+                    Materialize.toast('ERROR AL GUARDAR', 1000);
+                };
             }
-        }); 
+        });
     };
 }
 /****************VALIDAR TIMEPICKER HORAS MOLIENDA****************************************/
 function validarControlesTM() {
-    var horaInicio=$('#timeHM1').val();
+    var horaInicio = $('#timeHM1').val();
     var horaFinal = $('#timeHM2').val();
     var turno = $('#ordT').text();
-    if (turno=="6:00am-6:00pm") {
+    if (turno == "6:00am-6:00pm") {
         var h1F = moment(horaInicio, ["h:mm A"]).format("HH:mm");
         var h2F = moment(horaFinal, ["h:mm A"]).format("HH:mm");
 
         var h1C = moment('06:00AM', ["h:mm A"]).format("HH:mm");
         var h2C = moment('06:00PM', ["h:mm A"]).format("HH:mm");
-        if (h1F<h1C || h2F>h2C) {
+        if (h1F < h1C || h2F > h2C) {
             mensajeAlerta('ESCOJA UNA HORA DE INICIO Y UNA FINAL ACORDE AL TURNO ACTUAL');
             return false
-        }else {
+        } else {
             return true;
         }
-    }else if (turno=="6:00pm-6:00am") {
-            var h1F = moment(horaInicio, ["h:mm A"]).format("HH:mm");
-            var h2F = moment(horaFinal, ["h:mm A"]).format("HH:mm");
-            var AM = horaInicio.indexOf("AM");
-            var PM = horaFinal.indexOf("PM");
+    } else if (turno == "6:00pm-6:00am") {
+        var h1F = moment(horaInicio, ["h:mm A"]).format("HH:mm");
+        var h2F = moment(horaFinal, ["h:mm A"]).format("HH:mm");
+        var AM = horaInicio.indexOf("AM");
+        var PM = horaFinal.indexOf("PM");
 
-            var h1C = moment('06:00PM', ["h:mm A"]).format("HH:mm");
-            var h2C = moment('06:00AM', ["h:mm A"]).format("HH:mm");
-            if (h1F<h1C && PM>1) {
-                mensajeAlerta('ESCOJA UNA HORA DE INICIO Y UNA FINAL ACORDE AL TURNO ACTUAL');
-                return false;
-            }else if (h1F<h1C && AM<1) {
-                    mensajeAlerta('ESCOJA UNA HORA DE INICIO Y UNA FINAL ACORDE AL TURNO ACTUAL');
-                }else if (h2F>h2C && AM>1) {
-                    mensajeAlerta('ESCOJA UNA HORA DE INICIO Y UNA FINAL ACORDE AL TURNO ACTUAL');
-                    return false;
-                }else if (h2F>h2C && PM<1) {
-                        mensajeAlerta('ESCOJA UNA HORA DE INICIO Y UNA FINAL ACORDE AL TURNO ACTUAL');
-                        return false;
-                    }else {return true;}
-                };
-            }
+        var h1C = moment('06:00PM', ["h:mm A"]).format("HH:mm");
+        var h2C = moment('06:00AM', ["h:mm A"]).format("HH:mm");
+        if (h1F < h1C && PM > 1) {
+            mensajeAlerta('ESCOJA UNA HORA DE INICIO Y UNA FINAL ACORDE AL TURNO ACTUAL');
+            return false;
+        } else if (h1F < h1C && AM < 1) {
+            mensajeAlerta('ESCOJA UNA HORA DE INICIO Y UNA FINAL ACORDE AL TURNO ACTUAL');
+        } else if (h2F > h2C && AM > 1) {
+            mensajeAlerta('ESCOJA UNA HORA DE INICIO Y UNA FINAL ACORDE AL TURNO ACTUAL');
+            return false;
+        } else if (h2F > h2C && PM < 1) {
+            mensajeAlerta('ESCOJA UNA HORA DE INICIO Y UNA FINAL ACORDE AL TURNO ACTUAL');
+            return false;
+        } else { return true; }
+    };
+}
 /************ACTUALIZANDO CARGAS PULPER****************************/
 function actualizandoCargasPulper(idInsumo, cantidad) {
     $.ajax({
-    url: "../actualizarCargaPulper/"+idInsumo+'/'+cantidad,
-    type:"POST",
-    async:true,
-    success: function(data){
-        if (data==true) {
-            Materialize.toast('SE ACTUALIZO UN REGISTRO', 1000);    
-        }else {
-            Materialize.toast('ERROR AL MOMENTO DE ACTUALIZAR', 1000);
-        };        
+        url: "../actualizarCargaPulper/" + idInsumo + '/' + cantidad,
+        type: "POST",
+        async: true,
+        success: function(data) {
+            if (data == true) {
+                Materialize.toast('SE ACTUALIZO UN REGISTRO', 1000);
+            } else {
+                Materialize.toast('ERROR AL MOMENTO DE ACTUALIZAR', 1000);
+            };
         }
     });
 }
@@ -485,17 +500,17 @@ function guardarConsecutivo(noOrden) {
 }
 /****************GUARDAR TIEMPO MUERTO***************************/
 function validarControlesTiempoMuertos() {
-    var result =false;
-    var horaInicio=$('#timepickerII').val();
-    var horaFinal=$('#timepickerFF').val();
-    var maquina=$('#maquina').val();
-    var descipcion=$('#descipcion').val();
+    var result = false;
+    var horaInicio = $('#timepickerII').val();
+    var horaFinal = $('#timepickerFF').val();
+    var maquina = $('#maquina').val();
+    var descipcion = $('#descipcion').val();
     var turno = $('#ordT').text();
-    if (horaInicio=="" || horaFinal=="") {
+    if (horaInicio == "" || horaFinal == "") {
         mensajeAlerta('ESCOJA UNA HORA DE INICIO Y UNA FINAL');
         return false;
-    }else{
-        if(turno=="6:00pm-6:00am") {
+    } else {
+        if (turno == "6:00pm-6:00am") {
             var h1F = moment(horaInicio, ["h:mm A"]).format("HH:mm");
             var h2F = moment(horaFinal, ["h:mm A"]).format("HH:mm");
             var AM = horaInicio.indexOf("AM");
@@ -503,61 +518,61 @@ function validarControlesTiempoMuertos() {
 
             var h1C = moment('06:00PM', ["h:mm A"]).format("HH:mm");
             var h2C = moment('06:00AM', ["h:mm A"]).format("HH:mm");
-            if (h1F<h1C && PM>1) {
+            if (h1F < h1C && PM > 1) {
                 mensajeAlerta('ESCOJA UNA HORA DE INICIO Y UNA FINAL ACORDE AL TURNO ACTUAL');
                 return false;
-            }else {
-                if (h1F<h1C && AM<1) {
+            } else {
+                if (h1F < h1C && AM < 1) {
                     mensajeAlerta('ESCOJA UNA HORA DE INICIO Y UNA FINAL ACORDE AL TURNO ACTUAL');
-                }else{
-                if (h2F>h2C && AM>1) {
-                    mensajeAlerta('ESCOJA UNA HORA DE INICIO Y UNA FINAL ACORDE AL TURNO ACTUAL');
-                    return false;
-                }else {
-                    if (h2F>h2C && PM<1) {
+                } else {
+                    if (h2F > h2C && AM > 1) {
                         mensajeAlerta('ESCOJA UNA HORA DE INICIO Y UNA FINAL ACORDE AL TURNO ACTUAL');
                         return false;
-                    }else{
-                        if (maquina=="") {
-                            mensajeAlerta('SELECCIONE UNA MAQUINA');
+                    } else {
+                        if (h2F > h2C && PM < 1) {
+                            mensajeAlerta('ESCOJA UNA HORA DE INICIO Y UNA FINAL ACORDE AL TURNO ACTUAL');
                             return false;
                         } else {
-                            if (descipcion=="") {
-                                mensajeAlerta('ESCRIBA UNA DESCRIPCIÓN');
+                            if (maquina == "") {
+                                mensajeAlerta('SELECCIONE UNA MAQUINA');
                                 return false;
-                            }else{};
+                            } else {
+                                if (descipcion == "") {
+                                    mensajeAlerta('ESCRIBA UNA DESCRIPCIÓN');
+                                    return false;
+                                } else {};
+                            };
                         };
-                    };
-                }
+                    }
 
                 };
 
             }
-        }else {
-                if (turno=="6:00am-6:00pm") {
-                    var h1F = moment(horaInicio, ["h:mm A"]).format("HH:mm");
-                    var h2F = moment(horaFinal, ["h:mm A"]).format("HH:mm");
+        } else {
+            if (turno == "6:00am-6:00pm") {
+                var h1F = moment(horaInicio, ["h:mm A"]).format("HH:mm");
+                var h2F = moment(horaFinal, ["h:mm A"]).format("HH:mm");
 
-                    var h1C = moment('06:00AM', ["h:mm A"]).format("HH:mm");
-                    var h2C = moment('06:00PM', ["h:mm A"]).format("HH:mm");
-                    if (h1F<h1C || h2F>h2C) {
-                        mensajeAlerta('ESCOJA UNA HORA DE INICIO Y UNA FINAL ACORDE AL TURNO ACTUAL');
-                        return false;
-                    }else {
-                        if (maquina=="") {
-                            mensajeAlerta('SELECCIONE UNA MAQUINA');
+                var h1C = moment('06:00AM', ["h:mm A"]).format("HH:mm");
+                var h2C = moment('06:00PM', ["h:mm A"]).format("HH:mm");
+                if (h1F < h1C || h2F > h2C) {
+                    mensajeAlerta('ESCOJA UNA HORA DE INICIO Y UNA FINAL ACORDE AL TURNO ACTUAL');
+                    return false;
+                } else {
+                    if (maquina == "") {
+                        mensajeAlerta('SELECCIONE UNA MAQUINA');
+                        //return false;
+                    } else {
+                        if (descipcion == "") {
+                            mensajeAlerta('ESCRIBA UNA DESCRIPCIÓN');
                             //return false;
-                        } else {
-                            if (descipcion=="") {
-                                mensajeAlerta('ESCRIBA UNA DESCRIPCIÓN');
-                                //return false;
-                            }else{};
-                        } ;
+                        } else {};
                     };
                 };
-            }
+            };
         }
     }
+}
 
 /****************ABRE EL MODEL PARA CREAR NUEVA ORDEN DE PRODUCCION*************************/
 $("#crearR").click(function() {
@@ -613,49 +628,48 @@ $("#valOrdP7").on('click', function() {
 /****************GUARDANDO TIEMPOS MUERTOS**********************/
 function guardarTM1() {
     var result = validarControlesTiempoMuertos();
-    if (result==false) {        
-    } else {
+    if (result == false) {} else {
         var form_data = {
-        idRptD : $('#idRptD').val(),
-        ordP1 : $('#ordP1').val(),
-        consecutivo : $('#consecutivo').val(),
-        turno1 : $('#turno1').val(),
-        timepickerII : $('#timepickerII').val(),
-        timepickerFF : $('#timepickerFF').val(),
-        maquina : $('#maquina').val(),
-        descipcion11  : $('#descipcion').val()
-    };
+            idRptD: $('#idRptD').val(),
+            ordP1: $('#ordP1').val(),
+            consecutivo: $('#consecutivo').val(),
+            turno1: $('#turno1').val(),
+            timepickerII: $('#timepickerII').val(),
+            timepickerFF: $('#timepickerFF').val(),
+            maquina: $('#maquina').val(),
+            descipcion11: $('#descipcion').val()
+        };
         $.ajax({
             url: "../guardarTM",
             type: "post",
-            async:true,
+            async: true,
             data: form_data,
-            success: function(data){
-                if (data==1) {
+            success: function(data) {
+                if (data == 1) {
                     Materialize.toast('SE GUARDO CON ÉXITO', 1000);
                     $('#descipcion').val('');
                 } else {
                     Materialize.toast('ERROR AL GUARDAR', 1000);
-                };                
+                };
             }
 
-        });   
+        });
     }
 }
 
 /****************GUARDAR TIEMPO MUERTO***************************/
 function validarControlesTiempoMuertos() {
-    var result =false;
-    var horaInicio=$('#timepickerII').val();
-    var horaFinal=$('#timepickerFF').val();
-    var maquina=$('#maquina').val();
-    var descipcion=$('#descipcion').val();
+    var result = false;
+    var horaInicio = $('#timepickerII').val();
+    var horaFinal = $('#timepickerFF').val();
+    var maquina = $('#maquina').val();
+    var descipcion = $('#descipcion').val();
     var turno = $('#ordT').text();
-    if (horaInicio=="" || horaFinal=="") {
+    if (horaInicio == "" || horaFinal == "") {
         mensajeAlerta('ESCOJA UNA HORA DE INICIO Y UNA FINAL');
         return false;
-    }else{
-        if(turno=="6:00pm-6:00am") {
+    } else {
+        if (turno == "6:00pm-6:00am") {
             var h1F = moment(horaInicio, ["h:mm A"]).format("HH:mm");
             var h2F = moment(horaFinal, ["h:mm A"]).format("HH:mm");
             var AM = horaInicio.indexOf("AM");
@@ -663,84 +677,84 @@ function validarControlesTiempoMuertos() {
 
             var h1C = moment('06:00PM', ["h:mm A"]).format("HH:mm");
             var h2C = moment('06:00AM', ["h:mm A"]).format("HH:mm");
-            if (h1F<h1C && PM>1) {
+            if (h1F < h1C && PM > 1) {
                 mensajeAlerta('ESCOJA UNA HORA DE INICIO Y UNA FINAL ACORDE AL TURNO ACTUAL');
                 return false;
-            }else {
-                if (h1F<h1C && AM<1) {
+            } else {
+                if (h1F < h1C && AM < 1) {
                     mensajeAlerta('ESCOJA UNA HORA DE INICIO Y UNA FINAL ACORDE AL TURNO ACTUAL');
-                }else{
-                if (h2F>h2C && AM>1) {
-                    mensajeAlerta('ESCOJA UNA HORA DE INICIO Y UNA FINAL ACORDE AL TURNO ACTUAL');
-                    return false;
-                }else {
-                    if (h2F>h2C && PM<1) {
+                } else {
+                    if (h2F > h2C && AM > 1) {
                         mensajeAlerta('ESCOJA UNA HORA DE INICIO Y UNA FINAL ACORDE AL TURNO ACTUAL');
                         return false;
-                    }else{
-                        if (maquina=="") {
-                            mensajeAlerta('SELECCIONE UNA MAQUINA');
+                    } else {
+                        if (h2F > h2C && PM < 1) {
+                            mensajeAlerta('ESCOJA UNA HORA DE INICIO Y UNA FINAL ACORDE AL TURNO ACTUAL');
                             return false;
                         } else {
-                            if (descipcion=="") {
-                                mensajeAlerta('ESCRIBA UNA DESCRIPCIÓN');
+                            if (maquina == "") {
+                                mensajeAlerta('SELECCIONE UNA MAQUINA');
                                 return false;
-                            }else{};
+                            } else {
+                                if (descipcion == "") {
+                                    mensajeAlerta('ESCRIBA UNA DESCRIPCIÓN');
+                                    return false;
+                                } else {};
+                            };
                         };
-                    };
-                }
+                    }
 
                 };
 
             }
-        }else {
-                if (turno=="6:00am-6:00pm") {
-                    var h1F = moment(horaInicio, ["h:mm A"]).format("HH:mm");
-                    var h2F = moment(horaFinal, ["h:mm A"]).format("HH:mm");
+        } else {
+            if (turno == "6:00am-6:00pm") {
+                var h1F = moment(horaInicio, ["h:mm A"]).format("HH:mm");
+                var h2F = moment(horaFinal, ["h:mm A"]).format("HH:mm");
 
-                    var h1C = moment('06:00AM', ["h:mm A"]).format("HH:mm");
-                    var h2C = moment('06:00PM', ["h:mm A"]).format("HH:mm");
-                    if (h1F<h1C || h2F>h2C) {
-                        mensajeAlerta('ESCOJA UNA HORA DE INICIO Y UNA FINAL ACORDE AL TURNO ACTUAL');
-                        return false;
-                    }else {
-                        if (maquina=="") {
-                            mensajeAlerta('SELECCIONE UNA MAQUINA');
+                var h1C = moment('06:00AM', ["h:mm A"]).format("HH:mm");
+                var h2C = moment('06:00PM', ["h:mm A"]).format("HH:mm");
+                if (h1F < h1C || h2F > h2C) {
+                    mensajeAlerta('ESCOJA UNA HORA DE INICIO Y UNA FINAL ACORDE AL TURNO ACTUAL');
+                    return false;
+                } else {
+                    if (maquina == "") {
+                        mensajeAlerta('SELECCIONE UNA MAQUINA');
+                        //return false;
+                    } else {
+                        if (descipcion == "") {
+                            mensajeAlerta('ESCRIBA UNA DESCRIPCIÓN');
                             //return false;
-                        } else {
-                            if (descipcion=="") {
-                                mensajeAlerta('ESCRIBA UNA DESCRIPCIÓN');
-                                //return false;
-                            }else{};
-                        } ;
+                        } else {};
                     };
                 };
-            }
+            };
         }
     }
+}
 /****************GUARDANDO CARGAS PULPER**********************/
 function guardarCargaPulper() {
-    if ($('#idRptD').val()=="" || $('#tipoFibra').val()==null || $('#cantidad').val()=="") {
+    if ($('#idRptD').val() == "" || $('#tipoFibra').val() == null || $('#cantidad').val() == "") {
         mensajeAlerta('AUN NO HA RELLENADO TODOS LOS CAMPOS');
-    }else{
-            var form_data = {
-            idReporteDiario : $('#idRptD').val(),
-            tipoFibra : $('#tipoFibra').val(),
-            cantidad : $('#cantidad').val()
+    } else {
+        var form_data = {
+            idReporteDiario: $('#idRptD').val(),
+            tipoFibra: $('#tipoFibra').val(),
+            cantidad: $('#cantidad').val()
         };
         $.ajax({
             url: "../guardarCP",
             type: "post",
-            async:true,
+            async: true,
             data: form_data,
-            success: function(data){
-                if (data==1) {
+            success: function(data) {
+                if (data == 1) {
                     Materialize.toast('SE GUARDO CON ÉXITO', 1000);
                     $('#cantidad').val('');
                     $('#cantidad').focus();
                 } else {
                     Materialize.toast('ERROR AL GUARDAR', 1000);
-                };                
+                };
             }
 
         });
@@ -748,26 +762,27 @@ function guardarCargaPulper() {
 }
 /****************ELIMAR TIEMPO MUERTO*********************************************************/
 function eliminarTM(idTiempoMuerto) {
-    swal({ title: 'ELIMINAR',
+    swal({
+        title: 'ELIMINAR',
         text: '¿Desea eliminar permanentemente este registro?',
         type: 'warning',
         showCloseButton: true,
         showCancelButton: true,
         confirmButtonColor: '#831F82',
         confirmButtonText: 'ACEPTAR',
-        cancelButtonText:'CANCELAR'
-        }).then(function(){
-            $.ajax({
-            url: "../eliminarTM/"+idTiempoMuerto,
-            type:"POST",
-            async:true,
-            success: function(data){ 
-                if (data==true) {
+        cancelButtonText: 'CANCELAR'
+    }).then(function() {
+        $.ajax({
+            url: "../eliminarTM/" + idTiempoMuerto,
+            type: "POST",
+            async: true,
+            success: function(data) {
+                if (data == true) {
                     location.reload();
                 }
             }
-        }); 
-    }); 
+        });
+    });
 }
 /****************VALIDA SI EL NUMERO DE ORDEN YA EXISTE***************************************/
 $("#numOrden").on('change', function(event) {
@@ -785,72 +800,80 @@ $("#numOrden").on('change', function(event) {
     });
 });
 /*********CAMBIAR ESTADO A REPORTE**************************/
-function cambiaStatusRpt(idOrden, numOrden, estado){
-    var idOrd=idOrden; var numOrd=numOrden; var status=estado;
-    var miMSS="";
+function cambiaStatusRpt(idOrden, numOrden, estado) {
+    var idOrd = idOrden;
+    var numOrd = numOrden;
+    var status = estado;
+    var miMSS = "";
 
-    switch(estado){
+    switch (estado) {
         case 0:
             $.ajax({
-            url: "validaRpt/" + numOrd,
-            async:true,
-            success: function(data){
-            if (data==true) {
-                mensajeAlerta('No se puede anular esta orden ya que existen uno o más registros enlazados a ella');
+                url: "validaRpt/" + numOrd,
+                async: true,
+                success: function(data) {
+                    if (data == true) {
+                        mensajeAlerta('No se puede anular esta orden ya que existen uno o más registros enlazados a ella');
                     } else {
                         confirmacionCambioStatus('¿Desea anular esta orden de producción?', 'ANULAR', idOrd, status);
                     }
                 }
-            }); break;
+            });
+            break;
         case 1:
             $.ajax({
-            url: "validarNoOrden",
-            type:"POST",
-            async:true,
-            success: function(data){
-                if (data==true) {
-                    swal({ title: 'Ya existe una orden activa',
-                    text: '¿Desea dar de baja a la anterior y agregar esta como orden activa?',
-                    type: 'warning',
-                    showCloseButton: true,
-                    showCancelButton: true,
-                    confirmButtonColor: '#831F82',
-                    confirmButtonText: 'ACEPTAR',
-                    cancelButtonText:'CANCELAR'
-                    }).then(function(){
-                        $.ajax({ 
-                            url:"FechaInicio/" + numOrd,
-                            type: "post",
-                            async:true,
-                            success: function(data) {
-                                var fecha3=moment(data).format('DD/MM/YYYY');
-                                var fec2 = new Date();
-                                var fecha4=moment(fec2).format('DD/MM/YYYY');
-                                if (fecha3>=fecha4) {
-                                    cambiaOrdenActiva(idOrd, 3);
-                                } else{                                    
-                                    swal({ title: "",
-                                        text: 'Esta orden no puede ser seleccionada como activa porque su fecha de inicio ya caduco',
-                                        type: 'warning',                            
-                                        confirmButtonColor: '#831F82',
-                                        confirmButtonText: 'CERRAR'
-                                    }).then()
-                            };
-                        }
-                    });
-                        
-                });         
-            } else {cambiaOrdenActiva(idOrd, 3);}
-        }
-        }); break;
+                url: "validarNoOrden",
+                type: "POST",
+                async: true,
+                success: function(data) {
+                    if (data == true) {
+                        swal({
+                            title: 'Ya existe una orden activa',
+                            text: '¿Desea dar de baja a la anterior y agregar esta como orden activa?',
+                            type: 'warning',
+                            showCloseButton: true,
+                            showCancelButton: true,
+                            confirmButtonColor: '#831F82',
+                            confirmButtonText: 'ACEPTAR',
+                            cancelButtonText: 'CANCELAR'
+                        }).then(function() {
+                            $.ajax({
+                                url: "FechaInicio/" + numOrd,
+                                type: "post",
+                                async: true,
+                                success: function(data) {
+                                    var fecha3 = moment(data).format('DD/MM/YYYY');
+                                    var fec2 = new Date();
+                                    var fecha4 = moment(fec2).format('DD/MM/YYYY');
+                                    if (fecha3 >= fecha4) {
+                                        cambiaOrdenActiva(idOrd, 3);
+                                    } else {
+                                        swal({
+                                            title: "",
+                                            text: 'Esta orden no puede ser seleccionada como activa porque su fecha de inicio ya caduco',
+                                            type: 'warning',
+                                            confirmButtonColor: '#831F82',
+                                            confirmButtonText: 'CERRAR'
+                                        }).then()
+                                    };
+                                }
+                            });
+
+                        });
+                    } else { cambiaOrdenActiva(idOrd, 3); }
+                }
+            });
+            break;
         case 2:
-            swal({ title: "CAMBIAR ESTADO",
+            swal({
+                title: "CAMBIAR ESTADO",
                 text: '¿Desea cerrar esta orden?',
                 type: 'warning',
                 showCloseButton: true,
                 confirmButtonColor: '#831F82',
                 confirmButtonText: 'CERRAR',
                 showCancelButton: true,
+
                 cancelButtonText:'Cancelar',
             }).then(function(){
             $.ajax({ url: "cambiarEstadoRpt/"+idOrd+"/"+status,
@@ -865,6 +888,7 @@ function cambiaStatusRpt(idOrden, numOrden, estado){
                 )}
             })
         }); break;
+
     }
 }
 /****************FUNCION PARA CAMBIAR STATUS DE LA ORDEN DE PRODUCCION********************/
@@ -898,10 +922,11 @@ function confirmacionCambioStatus(mensaje, textbutton, idOrden, status) {
 
 /***************MENSAJE NOTIFICACION*****************************************/
 function mensajeAlerta(mensaje) {
-    swal({ title:'',
+    swal({
+        title: '',
         text: mensaje,
-        type:'warning',
-        showCloseButton:true,
+        type: 'warning',
+        showCloseButton: true,
         confirmButtonColor: '#831F82',
         confirmButtonText: 'ACEPTAR',
     }).then();
@@ -990,20 +1015,20 @@ $('.dropdown-button').click(function() {
 });
 
 /*****************BUSCAR TIEMPO MUERTO POR ID****************************/
-function buscarTiempoM(identificador) { 
+function buscarTiempoM(identificador) {
     $.ajax({
-        url: "../detalleTiempoMuerto/"+identificador,
-        async:true,
-        success: function(json){   
-        $.each(JSON.parse(json), function(i, item) {
-          //$('#IdReporteDiario').text(item['IdReporteDiario']),
-          $('#HoraInicio').text(item['HoraInicio']),
-          $('#HoraFin').text(item['HoraFin']),
-          $('#Maquina').text(item['Maquina']),
-          $('#Descrip').val(item['Descripcion']),
-          $('#interval').text(item['Intervalos']),
-          $('#turno').text(item['Turno']);
-        })
+        url: "../detalleTiempoMuerto/" + identificador,
+        async: true,
+        success: function(json) {
+            $.each(JSON.parse(json), function(i, item) {
+                //$('#IdReporteDiario').text(item['IdReporteDiario']),
+                $('#HoraInicio').text(item['HoraInicio']),
+                    $('#HoraFin').text(item['HoraFin']),
+                    $('#Maquina').text(item['Maquina']),
+                    $('#Descrip').val(item['Descripcion']),
+                    $('#interval').text(item['Intervalos']),
+                    $('#turno').text(item['Turno']);
+            })
             $("#visTiempoM").openModal();
         }
     });
@@ -1012,7 +1037,7 @@ $('#cerrarMdl').click(function() {
     $("#visTiempoM").closeModal();
 });
 $('#cerrarMdl1').click(function() {
-    $("#nuevoTiempoMuerto").closeModal(); 
+    $("#nuevoTiempoMuerto").closeModal();
     location.reload();
 });
 //Cargar pagina
@@ -1533,6 +1558,7 @@ function EditarProd(Operador, Maquina, HoraInicio, HoraFin, Velocidad, Peso, Dia
     $("#lblpeso").text(Peso)
     $("#lbldiametro").text(Diametro)
     $("#lblpesobase").text(PesoBase)
+    $("#Detalles").openModal();
 }
 /*/////////////////////////////////////////////////////////////////////////////////////////
                                FIN  FUNCIONES SOBRE PRODUCCION
@@ -1604,3 +1630,151 @@ $('#Tanque').on("change", function() {
         }
     });
 })
+
+function guardaInsumos() {
+    debugger;
+    var form_data = {
+        idRptd: $("#idRptd").val(),
+        Dia: $("#Dia").val(),
+        Noche: $("#Noche").val(),
+        ptadia: $("#ptadia").val(),
+        ptanoche: $("#ptanoche").val(),
+        descripcion: $("#descripcion").val()
+    };
+    var AJAX = $.ajax({
+        url: "../GuardarMPInsumos",
+        type: "POST",
+        async: true,
+        data: form_data,
+        beforeSend: function(data) {
+            debugger;
+            var Dia = $("#Dia").val(),
+                Noche = $("#Noche").val(),
+                ptadia = $("#ptadia").val(),
+                ptanoche = $("#ptanoche").val(),
+                descripcion = $("#descripcion").val();
+            if (Dia == "" | Noche == "" | ptadia == "" | ptanoche == "" | descripcion == null) {
+                swal({
+                    text: "Todos los campos son requeridos",
+                    type: "info",
+                    confirmButtonText: "CERRAR"
+                });
+                AJAX.abort();
+            }
+        },
+        success: function(data) {
+            debugger;
+            if (data = 1) {
+                Materialize.toast('SE GUARDO CON ÉXITO', 1000);
+            } else {
+                Materialize.toast('ERROR AL GUARDAR', 1000);
+            }
+        }
+    });
+}
+
+$('#descripcion').on("change", function() {
+    var descrip = $('#descripcion option:selected').val(),
+        id = $("#idRptd").val();
+    var ajax = $.ajax({
+        url: "../ValidaMPInsumo/" + id + "/" + descrip,
+        type: "POST",
+        async: true,
+        success: function(data) {
+            if (data == true) {
+                swal({
+                    title: " ",
+                    text: 'ya existe una registro con la misma desripcion para este insumo',
+                    type: 'warning',
+                    showCloseButton: true,
+                    confirmButtonColor: '#831F82',
+                    confirmButtonText: 'ACEPTAR'
+                });
+                $("#btninsumo").hide();
+            } else {
+                $("#btninsumo").show();
+            }
+        }
+    })
+});
+
+function DetalleInsumo(Descripcion, Dia, Noche, Cantidad_PTA_Agua_Dia, Cantidad_PTA_Agua_Noche) {
+    $("#lblDescripcion").text(Descripcion);
+    $("#lblDia").text(Dia);
+    $("#lblNoche").text(Noche);
+    $("#lblptadia").text(Cantidad_PTA_Agua_Dia);
+    $("#lblptanoche").text(Cantidad_PTA_Agua_Noche);
+    $("#DetallesIns").openModal();
+
+}
+
+function DetallePasta(Tanque, Dia, Noche, Consumo) {
+    $("#lblTanque").text(Tanque);
+    $("#lbldia").text(Dia);
+    $("#lblnoche").text(Noche);
+    $("#lblconsumo").text(Consumo);
+    $("#DetallesPasta").openModal();
+
+}
+
+function EliminarInsumo(elem) {
+    debugger;
+    var id = $(elem).attr("id");
+    swal({
+        title: '¿Estas seguro que deseas eliminar este registro?',
+        text: 'esta operacion no podra revertirse',
+        type: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then(function() {
+        $.ajax({
+            url: "../EliminaMPInsumos/" + id,
+            async: true,
+            success: function() {
+                swal({
+                    text: "El registro se ha elimando correctamente",
+                    type: "success",
+                    confirmButtonText: "CERRAR"
+                }).then(
+                    function() {
+                        location.reload();
+                    }
+                )
+            }
+        });
+    })
+}
+
+function Eliminarpasta(elem) {
+    debugger;
+    var id = $(elem).attr("id");
+    swal({
+        title: '¿Estas seguro que deseas eliminar este registro?',
+        text: 'esta operacion no podra revertirse',
+        type: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then(function() {
+        $.ajax({
+            url: "../EliminaPasta/" + id,
+            async: true,
+            success: function() {
+                swal({
+                    text: "El registro se ha elimando correctamente",
+                    type: "success",
+                    confirmButtonText: "CERRAR"
+                }).then(
+                    function() {
+                        location.reload();
+                    }
+                )
+            }
+        });
+    })
+}
