@@ -36,9 +36,13 @@
         <div class="col s12">
             <div class="card">
                 <div class="card-content">
-                <p class="right-align"> <a href="../menuOrdenTrabajo/<?php echo $key["IdReporteDiario"]?>" 
-                class="btn purple darken-1 waves-effect waves-light tooltipped" data-position="left" data-tooltip="Regresar">
-                <i class="material-icons">keyboard_backspace</i></a></p>
+                    <div class="row">
+                        <div class="col s10 m10" style="text-align:left;">
+                            <a href="../menuOrdenTrabajo/<?php echo $key["IdReporteDiario"]?>" class="btn purple darken-1 waves-effect waves-light tooltipped" data-tooltip="Regresar">
+                                <i class="material-icons">keyboard_backspace</i>
+                            </a>
+                        </div>
+                    </div>
                     <center>
                         <h5 class="card-title purple-text accent-4" style="font-family: robotoblack;">MATERIA PRIMA</h5>
                          <h6 class="card-title purple-text accent-4" style="font-family: robotoblack;">Pasta</h6>

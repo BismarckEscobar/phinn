@@ -35,11 +35,16 @@
 		<div class="col s12">
 			<div class="card">
 				<div class="card-content">
+					<div class="row">
+					    <div class="col s6 m6" style="text-align:left;">
+							<a class="btn purple darken-1 waves-effect waves-light tooltipped" data-tooltip="Regresar" href="../OrdenProduccion">
+								<i class="material-icons">keyboard_backspace</i>
+							</a>
+	                    </div>
+					</div><br><br>
 					<div class="row oculto" style="text-align: center;">
 						<div class="collection1">
-							<div class="col s12 m12">            
-								<p class="right-align"><a class="btn purple darken-1 waves-effect waves-light tooltipped" data-tooltip="Regresar" data-position="left" href="../OrdenProduccion"><i class="material-icons">keyboard_backspace</i></a></p>
-								<br><br>
+							<div class="col s12 m12">  
 								<?php
 								/*echo '<div class="col s3 m3"><a href="<?php echo base_url()."index.php/Produccion/"'.$key['IdReporteDiario'].'" class="collection-item activo">PRODUCCIÓN</a></div>
 											 <div class="col s3 m3"><a href="<?php echo base_url()."index.php/tiempoMuerto/"'.$key['IdReporteDiario'].'" class="collection-item1">TIEMPOS MUERTOS</a></div>

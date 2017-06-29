@@ -123,39 +123,42 @@ $('#tlbListaRep2').on('click', 'tbody .detalleNumOrd', function() {
     }
 });
 
-function format(callback, noOrden, div) {
-    var ia = 0;
-    $.ajax({
-        url: 'detalleOrdenProduccion/' + noOrden,
-        async: true,
-        success: function(response) {
-            var thead = '',
-                tbody = '';
-            if (response != 'false') {
-                var obj = $.parseJSON(response);
-                thead += '<tr class="tblcabecera"><th class="negra center">N° ORDEN</th>';
-                thead += '<th class="negra center">TURNO</th>';
-                thead += '<th class="negra center">FECHA INICIO</th>';
-                thead += '<th class="negra center">FECHA FIN</th>';
-                thead += '<th class="negra center">COORDINADOR</th>';
-                thead += '<th class="negra center">TIPO PAPEL</th>';
-                thead += '<th class="negra center">ESTADO</th></tr>';
+function format(callback,noOrden,div) {
+  var ia=0;
+        $.ajax({
+        url:'detalleOrdenProduccion/'+noOrden,
+        async:true,
+        success: function (response) {
+            var thead = '',  tbody = '';
+            if (response!='false') {
+           var obj = $.parseJSON(response);               
+                    thead += '<tr class="tblcabecera"><th class="negra center">N° ORDEN</th>';
+                    thead += '<th class="negra center">TURNO</th>';
+                    thead += '<th class="negra center">FECHA INICIO</th>';
+                    thead += '<th class="negra center">FECHA FIN</th>';
+                    thead += '<th class="negra center">COORDINADOR</th>';
+                    thead += '<th class="negra center">TIPO PAPEL</th>';
+                    thead += '<th class="negra center">ESTADO</th>';
+                    thead += '<th class="negra center">OPCIONES</th></tr>';
 
-                $.each(JSON.parse(response), function(i, item) {
-                    if (item["Estado"] == 1) {
-                        var html = "<a data-tooltip='ORDEN ACTIVA' onclick='cambiaEstadoRptD(" + item["IdReporteDiario"] + ", 0)' class='btn-flat tooltipped noHover'><i style='color:green; font-size:30px;' class='material-icons'>done</i></a>";
-                    } else if (item["Estado"] == 0) {
-                        var html = "<a data-tooltip='ORDEN INACTIVA' onclick='cambiaEstadoRptD(" + item["IdReporteDiario"] + ", 1)' class='btn-flat tooltipped noHover'><i style='color:green; font-size:30px;' class='material-icons'>done_all</i></a>";
-                    };
+                $.each(JSON.parse(response), function(i, item) {  
+                    if (item["Estado"] == 1) {                        
+                        var html = "<a onclick='cambiaEstadoRptD("+item["IdReporteDiario"]+", 0)' class='btn-flat tooltipped noHover'><i style='color:#228b22; font-size:30px;' class='material-icons'>lock_open</i></a>";
+                    }else if (item["Estado"] == 0){                        
+                        var html = "<a onclick='cambiaEstadoRptD("+ item["IdReporteDiario"] +", 1)' class='btn-flat tooltipped noHover'><i style='color:#696969; font-size:30px;' class='material-icons'>lock</i></a>";
+                    };  
+                    var link = "<a onclick='elimarRptDiario("+ item["IdReporteDiario"] +")' class='btn-flat tooltipped noHover'><i style='color:#696969; font-size:30px;' class='material-icons'>delete</i></a>";
                     tbody += '<tr >' +
-                        '<td><a href="../index.php/reportesDiarios/' + item["IdReporteDiario"] + '" target="_blank"</a>' + item["Consecutivo"] + '</td>' +
-                        '<td>' + item["Turno"] + '</td>' +
-                        '<td>' + item["FechaInicio"] + '</td>' +
-                        '<td>' + item["FechaFinal"] + '</td>' +
-                        '<td>' + item["Nombre"] + '</td>' +
-                        '<td>' + item["TipoPapel"] + '</td>' +
-                        '<td>' + html + '</td>' +
-                        '</tr>';
+                                  '<td><a href="../index.php/reportesDiarios/'+item["IdReporteDiario"]+'" target="_blank" class="noHover"</a>'+item["Consecutivo"]+'</td>'+
+                                  '<td>' + item["Turno"] + '</td>'+
+                                  '<td>' + item["FechaInicio"] + '</td>'+
+                                  '<td>' + item["FechaFinal"] + '</td>'+
+                                  '<td>' + item["Nombre"] + '</td>'+
+                                  '<td>' + item["TipoPapel"] + '</td>'+
+                                  '<td>' + html + '</td>'+
+                                  '<td>' + link +'</td>'+
+                              '</tr>';                      
+
                 });
                 callback($('<table id="tlbListaRep3" class="striped">' + thead + tbody + '</table>')).show();
                 $('#loader' + div).hide();
@@ -181,19 +184,65 @@ function format(callback, noOrden, div) {
             }
         }
     });
-}
-
+  }
 /****************CAMBIA EL ESTADO DEL REPORTE DIARIO*****************************/
 function cambiaEstadoRptD(idRptDiario, estado) {
-    $.ajax({
-        url: "cambiarEstadoRptDiario/" + idRptDiario + "/" + estado,
-        type: 'POST',
-        async: true,
-        success: function(data) {
-            if (data != 'FALSE') {
-
+    var miTexto="";
+    if (estado==1) {
+        miTexto="¿Desea activar esta orden de trabajo?";
+    }else if(estado==0) {
+        miTexto="¿Desea cerrar esta orden de trabajo?"
+    }
+    swal({
+        title: '',
+        text: miTexto,
+        type: 'warning',
+        showCloseButton: true,
+        showCancelButton: true,
+        confirmButtonColor: '#831F82',
+        confirmButtonText: 'ACEPTAR',
+        cancelButtonText: 'CANCELAR'
+    }).then(function() {
+        $.ajax({
+            url: "cambiarEstadoRptDiario/"+ idRptDiario + '/' + estado,
+            type: 'post',
+            async: true,
+            success: function(data) {
+                if (data == 1) {
+                    location.reload();
+                } else {
+                    Materialize.toast('ERROR, NO SE PUDO CAMBIAR EL ESTADO', 7000);
+                }
             }
-        }
+        });
+    });
+}
+/*******************ELIMINA UN REPORTE DIARIO SIN REGISTROS********************/
+function elimarRptDiario(idRptDiario){
+    swal({
+        title: '',
+        text: '¿ELIMINAR ESTE REGISTRO?',
+        type: 'warning',
+        showCloseButton: true,
+        showCancelButton: true,
+        confirmButtonColor: '#831F82',
+        confirmButtonText: 'ACEPTAR',
+        cancelButtonText: 'CANCELAR'
+    }).then(function() {
+        $.ajax({
+            url: "validaRptDiario/"+ idRptDiario,
+            type: 'post',
+            async: true,
+            success: function(data) {
+                if (data=='TRUE') {
+                    mensajeAlerta('Este registro no se puede eliminar ya que hay uno o mas datos enlazados a el');
+                }else if(data=='FALSE'){
+                    location.reload();
+                }else if (data=="ERROR") {
+                    Materialize.toast("ERROR AL BORRAR", 7000);
+                };
+            }
+        });
     });
 }
 /******************CREAR Y LLENAR TABLA CARGAS PULPER**************************/
@@ -259,6 +308,8 @@ function crearTabla() {
                 html += '</tbody></table>';
                 $("#btnAgregarf").after(html);
                 $('#ocultar').hide();
+            }else {
+                $('#cantTotalCarga').hide();
             };
         }
     });
@@ -274,7 +325,7 @@ function listarHorasMolienda() {
         success: function(json) {
             if (json != 'FALSE') {
                 var obj = $.parseJSON(json);
-                var html = '<table class="striped" id=""><thead>';
+                var html = '<table class="striped"><thead>';
                 html += '<tr class="tblcabecera"><th>CARGA</th>'
                 html += '<th>HORAS Y MINUTOS</th>';
                 for (var i = 0; i < obj.length; i++) {
@@ -460,9 +511,6 @@ $("#OrdeProd").click(function() {
         }
     });
 });
-
-/*alert($('#cp1').attr('id'));*/
-
 /*******AGREGANDOLE FUNCIONES DE SUBMIT A HREF************************/
 $('#guardaRpt').click(function() {
     var numOrden = $('#numOrden').val();
@@ -480,20 +528,25 @@ $('#guardaRpt').click(function() {
             if (numOrden.length > 4 || numOrden.length < 4) {
                 mensajeAlerta('El número de reporte no tiene el formato correcto');
             } else {
-                var fec11 = $('#fechaInicio').val();
-                var fecha3 = moment(fec11).format('DD/MM/YYYY');
-
-                var fec22 = new Date();
-                var fecha4 = moment(fec22).format('DD/MM/YYYY');
-                if (fecha3 >= fecha4) {
+                var date1 = new Date();
+                var date2 = moment(restaDias(date1)).format('DD/MM/YYYY');                
+                var dateIngresada = $('#fechaInicio').val();
+                var fechaIngF = moment(dateIngresada).format('DD/MM/YYYY');
+                if (fechaIngF >= date2) {
                     $('#formNuevoReporte').submit();
                 } else {
-                    mensajeAlerta('La fecha inicial no puede ser menor a la fecha actual');
+                    mensajeAlerta('La fecha inicial no puede ser mas atras');
                 }
             };
         }
     };
 });
+
+/***************RESTA DIAS****************************/
+function restaDias(fecha, dias){
+  fecha.setDate(fecha.getDate() - 7);
+  return fecha;
+}
 
 /****************GUARDA CONSECUTIVOS ORDEN DE PRODUCCION*******************************/
 function guardarConsecutivo(noOrden) {
@@ -1076,9 +1129,12 @@ function gotopage(mypage) {
 //////////////////////////////////////////////////////////////////////////////////////////*/
 $('#BuscarUsuarios').on('keyup', function() {
     var table = $('#TblMaster').DataTable();
-    table.search(this.value).draw();
+    table.search(this.value).draw(); 
+});
 
-    //$("#TblMaster_filter").hide();filtrarTM
+$('#filtrarRpt').on('keyup', function() {
+    var table = $('#tlbListaRep2').DataTable();
+    table.search(this.value).draw(); 
 });
 
 $('#BuscarINS').on('keyup', function() {
@@ -1113,10 +1169,11 @@ $('#filtrarRep').on('keyup', function() {
     table.search(this.value).draw();
 });
 
+
 $("#TblMaster, #tblMaquinas, #tblIns, #tblTanques, #chkInsumo,#chkTanques").DataTable({
     "ordering": false,
     "info": false,
-    "bPaginate2": false,
+    "bPaginate": false,
     "bfilter": true,
     "pagingType": "full_numbers",
     "aaSorting": [
@@ -1129,7 +1186,6 @@ $("#TblMaster, #tblMaquinas, #tblIns, #tblTanques, #chkInsumo,#chkTanques").Data
     "language": {
         "emptyTable": "No hay datos disponible en la tabla",
         "lengthMenu": "_MENU_",
-        //"search":'<i style="color:#039be5; font-size:40px;" class="material-icons">search</i>',
         "loadingRecords": "",
         "info": "Mostrando _START_ a _END_ de _TOTAL_ registro",
         "infoEmpty": "Mostrando 0 a 0 de 0 registro",
@@ -1147,10 +1203,9 @@ $("#TblMaster, #tblMaquinas, #tblIns, #tblTanques, #chkInsumo,#chkTanques").Data
 $("#tlbListaRep, #tlbListaRep2").DataTable({
     "ordering": false,
     "info": false,
-    "bPaginate2": false,
+    "bPaginate": true,
     "bfilter": true,
     "pagingType": "full_numbers",
-
     "aaSorting": [
         [2, "asc"]
     ],
@@ -1158,7 +1213,6 @@ $("#tlbListaRep, #tlbListaRep2").DataTable({
         [5, 10, -1],
         [5, 10, "Todo"]
     ],
-
     "language": {
         "emptyTable": "No hay datos disponible en la tabla",
         "lengthMenu": "_MENU_",
@@ -1177,7 +1231,7 @@ $("#tlbListaRep, #tlbListaRep2").DataTable({
     }
 });
 
-$("#tlbTiemposMuertos").DataTable({
+/*$("#tlbTiemposMuertos").DataTable({
     "ordering": false,
     "info": false,
     "bPaginate2": false,
@@ -1208,7 +1262,7 @@ $("#tlbTiemposMuertos").DataTable({
             "previous": "Siguiente"
         },
     }
-});
+});*/
 
 $("#tlbTiemposMuertos2").DataTable({
     //"ordering": true,
@@ -1238,7 +1292,7 @@ $("#tlbTiemposMuertos2").DataTable({
     }
 });
 
-$("#tablaProd").DataTable({
+/*$("#tablaProd").DataTable({
     "paginate": true,
     'filter': false,
     "info": false,
@@ -1266,7 +1320,7 @@ $("#tablaProd").DataTable({
             "previous": "Siguiente"
         },
     }
-});
+});*/
 
 $("#tblpasta").DataTable({
     "paginate": false,

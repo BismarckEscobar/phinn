@@ -72,7 +72,7 @@ $route['ValidaFecha/(:any)/(:any)/(:any)'] = 'Ordenproduccion_controller/Validar
     $route['detalleTiempoMuerto/(:any)']= "tiemposMuertos_Controller/buscarDetalleTM/$1";
 
     /********************MENU REPORTE DE TRABAJO************************/
-    $route['reportesDiarios/(:any)']= "reporteDiario_Controller/index/$1";
+    $route['reportesDiarios/(:any)']= "exportarPdf_Controller/index/$1";
     $route['menuOrdenTrabajo/(:any)']= "Ordenproduccion_controller/agregaDetalleOrdT/$1";
     /********************GUARDANDO REGISTRO DE TIEMPO MUERTO POR AJAX****************/
 
@@ -120,7 +120,9 @@ $route['ValidaFecha/(:any)/(:any)/(:any)'] = 'Ordenproduccion_controller/Validar
 
     $route['detalleOrdenProduccion/(:any)']="Ordenproduccion_controller/mostrarOrdenesTrabajos/$1";
 
-    $route['cambiarEstadoRptDiario/(:any)/(:any)'] = "reportediario_controller/cambiaEstadoRptD/$1/$1";
+    $route['cambiarEstadoRptDiario/(:any)/(:any)'] = "reportediario_controller/cambiaEstadoRptD/$1/$2";
+
+    $route['validaRptDiario/(:any)'] = "reportediario_controller/eliminarRegRptDiario/$1";
 
      $route['MenuMantenimiento'] = "Mantenimiento_controller";
 

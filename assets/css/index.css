@@ -402,6 +402,7 @@ select {
     padding-top: 0.5px;
 }
 /****** END style MENU LEFT ****/
+
 /*ESTILOS INPUTS VIEW CARGASPULPER*/
 .inputCP {
     border:none;
@@ -442,8 +443,14 @@ select {
     text-align: left;
     padding: 3px 3px;
 }
-
-
+.iconSearch {
+     color:#800080; 
+     font-size:30px;
+}
+.iconos-gen {
+    color:#696969;
+    font-size:100px;'
+}
 /**
 * instead of linking from https://fonts.googleapis.com/icon?family=Material+Icons
 */
