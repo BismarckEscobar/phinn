@@ -82,5 +82,14 @@ class cargaspulper_Model extends CI_Model {
 	    $result=$this->db->update('horas_molienda', $data);
 	    echo $result;
 	}
+
+	public function calcularHorasMolienda($idReporteDiario) {
+		$query=$this->db->query("CALL sumaHorasMolienda(".$idReporteDiario.")");
+		if ($query->num_rows()>0) {
+			return $query->result_array();
+		} else {
+			return false;
+		}
+	}
 }
 ?>

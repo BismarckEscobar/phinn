@@ -30,7 +30,11 @@
             select{
                 display: block;
                 height: auto;
-                width: 190px;
+                width: 90px;
+                margin-bottom: 10px;
+                color: black;
+                font-size: 15px;
+                border: none;
             }
             
             .dataTables_wrapper .dataTables_filter{ text-align: left; }

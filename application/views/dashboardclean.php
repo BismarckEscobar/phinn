@@ -15,7 +15,7 @@
 			}elseif($this->uri->segment(1)=='menuOrdenTrabajo'){
 				echo '<a href="#" class="brand-logo center">ORDEN DE TRABAJO</a>';
 			}elseif($this->uri->segment(1)=='OrdenProduccion'){
-				echo '<a href="#" class="brand-logo center">ORDEN DE TRABAJO</a>';
+				echo '<a href="#" class="brand-logo center"></a>';
 			}
 	       elseif($this->uri->segment(1)=='Produccion'){
 				echo '<a href="#" class="brand-logo center">PRODUCCION</a>';
@@ -29,9 +29,14 @@
 		    elseif($this->uri->segment(1)=='MateriaPrima'){
 				echo '<a href="#" class="brand-logo center">MATERIA PRIMA</a>';
 		   }
-			echo '<ul class="right hide-on-med-and-down">  
-			<li ><a href="'.base_url("index.php/dashboard").'"><i style="font-size:40px;" class="mdi-action-home tooltipped" data-tooltip="INICIO"></i></a></li>      	
-						<li ><a href="'.base_url("index.php/Salir").'"><i style="font-size:40px;" class="material-icons">power_settings_new</i></a></li>';
+		   if ($this->session->userdata['IdUser']) {
+		   		$usuario = $this->session->userdata['Nombre'];
+		   };
+			echo '<ul class="right hide-on-med-and-down">
+				<li>'.$usuario.'</li>
+				<li ><a href="'.base_url("index.php/dashboard").'"><i style="font-size:40px;" class="mdi-action-home tooltipped" data-tooltip="INICIO"></i></a></li>      	
+				<li ><a href="'.base_url("index.php/Salir").'"><i style="font-size:40px;" class="material-icons">power_settings_new</i></a></li>
+			</ul>';
 		?>
 	</div>
 </nav>

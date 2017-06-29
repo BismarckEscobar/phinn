@@ -6,7 +6,11 @@ class Produccion_Controller extends CI_Controller
     {
         parent::__construct();
         $this->load->model("produccion_Model");
-
+        $this->load->library('session');
+        $user = $this->session->userdata('logged');
+        if (!isset($user)) {
+            redirect(base_url().'index.php','refresh');
+        }
     }
 
     public function index()

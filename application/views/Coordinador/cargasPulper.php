@@ -33,29 +33,32 @@
 		<div class="col s12">
 			<div class="card">
 				<div class="card-content" id="tabla-cargas">
-                    <div class="row">
-                        <div class="col s12 m12">
-               <p class="right-align"> <a href="../menuOrdenTrabajo/<?php echo $key["IdReporteDiario"]?>" 
-                class="btn purple darken-1 waves-effect waves-light tooltipped" data-position="left" data-tooltip="Regresar">
-                <i class="material-icons">keyboard_backspace</i></a></p>
-                            <center><h5 class="card-title titulos">CARGAS PULPER</h5></center>
-                        </div>
-                    </div>
-                    <a class="Btnadd btn waves-effect waves-light" id="btnAgregarf" href="#modal1" style="background-color:#831F82;">AGREGAR
-						<i class="material-icons right">add</i>
-                    </a><br>
-                    <div class="row">
+					<div class="row">
+					    <div class="col s12 m12" style="text-align:left;">
+		                    <div id="retornarP">
+		                        <a data-tooltip='REGRESAR' href="../menuOrdenTrabajo/<?php echo $key["IdReporteDiario"]?>" class="btn purple darken-1 waves-effect waves-light tooltipped">
+		                            <i class="material-icons">keyboard_backspace</i>
+		                        </a>
+		                    </div>  
+		                </div>
+					</div>
+					<div class="row">
+						<div class="col s12 m12">
+							<center><h5 class="card-title titulos">CARGAS PULPER</h5></center>
+							<a class="Btnadd btn waves-effect waves-light" id="btnAgregarf" href="#modal1" style="background-color:#831F82;">AGREGAR
+								<i class="material-icons right">add</i>
+		                    </a>
+		                </div>
+					</div>
+					<center><h6 id="ocultar">NO HAY DATOS QUE MOSTRAR</h6></center>
+					<div class="row">
 						<div class="col s4 m4 s4">
 							<div class="card hoverable">
-								<h6 class="center-align"><b class="purple-text darken-1 ">CARGA TOTAL</b></h6>
-								<div class="container">
-									<h6 class="center-align purple-text darken-1"><?php echo $cargaTotal;?></h6><br>
-								</div>
+								<h6 class="center-align"><b class="purple-text darken-1">CARGA TOTAL</b></h6>
+								<h6 class="center-align purple-text darken-1" style="padding: 10px 10px;"><?php echo $cargaTotal;?></h6>
 							</div>
 						</div>
-                    </div><br>
-
-                    <center><h6 id="ocultar">NO HAY DATOS QUE MOSTRAR</h6></center>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -68,11 +71,19 @@
                         <div class="col s12 m12">
                             <center><h5 class="card-title titulos">HORAS MOLIENDA</h5></center>
                         </div>
-					<a class="Btnadd btn waves-effect waves-light" id="btnAgregaHM" href="#modal12" style="background-color:#831F82;">AGREGAR
+                    </div>
+                    <a class="Btnadd btn waves-effect waves-light" id="btnAgregaHM" href="#modal12" style="background-color:#831F82;">AGREGAR
 						<i class="material-icons right">add</i>
-                    </a>
+                    </a><br>
                     <center><h6 id="ocultar2">NO HAY DATOS QUE MOSTRAR</h6></center>
-                    </div>	
+					<div class="row">
+						<div class="col s4 m4 s4">
+							<div class="card hoverable">
+								<h6 class="center-align"><b class="purple-text darken-1">TIEMPO TOTAL</b></h6>
+								<h6 class="center-align purple-text darken-1" style="padding: 10px 10px;"><?php echo $tiempoTotal;?></h6>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
