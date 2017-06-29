@@ -6,7 +6,6 @@ class Ordenproduccion_controller extends CI_Controller
         parent::__construct();
         $this->load->library('session');
         $user = $this->session->userdata('logged');
-
         if (!isset($user)) {
             redirect(base_url().'index.php','refresh');
         }

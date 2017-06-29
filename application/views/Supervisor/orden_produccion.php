@@ -31,6 +31,17 @@ if ($this->session->userdata("Privilegio") == 3) {?>
             </div>
         </div>
     </div>
+        <div class="container">
+            <div class="Buscar row column">               
+                <div class="col s1 m1 l1 offset-l3 offset-m2">
+                    <i style='color:#039be5; font-size:40px;' class="material-icons purple-text accent-4">search</i>
+                </div>
+                <div class="input-field col s12 m6 l4">
+                    <input  id="filtrarRpt" type="text" placeholder="Buscar" class="validate">
+                    <label for="filtrarRpt"></label>
+                </div>
+            </div>        
+        </div>
 <!--<div class="row">
         <div class="col s12">
             <div class="card">
@@ -93,10 +104,17 @@ if ($this->session->userdata("Privilegio") == 3) {?>
             <div class="col s12">
                 <div class="card">
                     <div class="card-content">
-                        <div class="right row">
-                            <div id="OrdeProd" class="col s12 m12">
-                                <a data-tooltip='AGREGAR NUEVA ORDEN' href="#ordenprod" class="modal-trigger tooltipped">
-                                    <i class="mdi-image-add-to-photos titulosGen"></i>
+                        <div class="row">
+                            <div class="col s6 m6" style="text-align:left;">
+                                <div id="retornarP">
+                                    <a data-tooltip='REGRESAR' href="<?php echo base_url('index.php/dashboard')?>" class="modal-trigger tooltipped">
+                                        <i class="waves-effect waves-purple material-icons titulosGen">keyboard_backspace</i>
+                                    </a>
+                                </div>  
+                            </div>
+                            <div class="col s6 m6" style="text-align:right;">
+                                <a data-tooltip='AGREGAR NUEVA ORDEN' id="OrdeProd" href="#ordenprod" class="modal-trigger tooltipped">
+                                    <i class="waves-effect waves-purple material-icons titulosGen">queue</i>
                                 </a>
                             </div>
                         </div>
@@ -105,8 +123,8 @@ if ($this->session->userdata("Privilegio") == 3) {?>
                                 <tr class="tblcabecera">
                                     <th>Ordenes</th>
                                     <th>Nº orden</th>                                 
-                                    <th>Fecha Inicio</th>
-                                    <th>Fecha Fin</th>
+                                    <th>Inicio</th>
+                                    <th>culminación</th>
                                     <th>Estado</th>
                                 </tr>
                             </thead>
@@ -124,7 +142,7 @@ if ($this->session->userdata("Privilegio") == 3) {?>
                                                          <li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 2)'>Cerrar</a></li>
                                                          <li><a href='#!' onclick='buscarOrdProd(".$list['IdOrden'].")'>Ver</a></li>";
                                             }elseif($list['Estado'] == 2){
-                                                $activo="<td><a data-tooltip='ORDEN CERRADA' class='btn-flat tooltipped noHover'><i style='color:red; font-size:30px;' class='material-icons'>not_interested</i></a></td>";
+                                                $activo="<td><a data-tooltip='ORDEN CERRADA' class='btn-flat tooltipped noHover'><i style='color:#696969; font-size:30px;' class='material-icons'>lock</i></a></td>";
                                                 $status="<li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 0)'>Anular</a></li>
                                                             <li><a href='#!' onclick='buscarOrdProd(".$list['IdOrden'].")'>Ver</a></li>";
                                             }elseif($list['Estado'] == 3){
@@ -167,27 +185,25 @@ if ($this->session->userdata("Privilegio") == 3) {?>
                 <div class="card-content">
                     <center><span class="card-title purple-text accent-4" style="font-family: robotoblack;">ORDEN DE PRODUCCIÓN</span></center>
                     <?php 
-                    if ($listaReport) {
-                        
-                    
-                    foreach($listaReport as $key) {?>
-                    <div class="row">
-                        <center>
-                            <div class="col s4">
-                                <span class="card-title purple-text accent-4" id="lblnoOrden"><?php echo $key["NoOrden"]?></span><br/>
-                                <label class="labelValidacion">N° ORDEN ACTIVA</label>
-                            </div>
-                            <div class="col s4">
-                                <span id="lblFechaInicio" class="card-title purple-text accent-4"><?php echo $key["FechaInicio"]?></span><br/>
-                                <label  class="labelValidacion">FECHA DE INICIO</label>
-                            </div>
-                            <div class="col s4">
-                                <span id="lblFechaFin" class="card-title purple-text accent-4" id="lblnoOrden"><?php echo $key["FechaFin"]?></span><br/>
-                                <label class="labelValidacion">FECHA FINAL</label>
-                            </div>
-                        </center>
-                    </div>
-                    <?php } ?>
+                    if ($listaReport) {                  
+                        foreach($listaReport as $key) {?>
+                        <div class="row">
+                            <center>
+                                <div class="col s4">
+                                    <span class="card-title purple-text accent-4" id="lblnoOrden"><?php echo $key["NoOrden"]?></span><br/>
+                                    <label class="labelValidacion">N° ORDEN ACTIVA</label>
+                                </div>
+                                <div class="col s4">
+                                    <span id="lblFechaInicio" class="card-title purple-text accent-4"><?php echo $key["FechaInicio"]?></span><br/>
+                                    <label  class="labelValidacion">FECHA DE INICIO</label>
+                                </div>
+                                <div class="col s4">
+                                    <span id="lblFechaFin" class="card-title purple-text accent-4" id="lblnoOrden"><?php echo $key["FechaFin"]?></span><br/>
+                                    <label class="labelValidacion">FECHA FINAL</label>
+                                </div>
+                            </center>
+                        </div>
+                        <?php } ?>
                     <?php } ?>
                 </div>
             </div>

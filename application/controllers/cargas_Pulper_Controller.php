@@ -2,15 +2,22 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class cargas_Pulper_Controller extends CI_Controller {
-	
+	public $cantTotal;
 	public function __construct() {
 		parent::__construct();
+		$this->load->library('session');
+        $user = $this->session->userdata('logged');
+        if (!isset($user)) {
+            redirect(base_url().'index.php','refresh');
+        }
 	}
 
 	public function index($idReporteD) {
 		$data['consecutivo'] = $this->Ordenproduccion_model->buscarRtpDiario($idReporteD);
 		$data['tipoFibra']= $this->cargasPulper_Model->listaConsumos();
-		$query = $this->cargasPulper_Model->calcularTotalCarga($idReporteD);		
+
+		$data['tiempoTotal'] = date('H:i:s', strtotime($this->calcularCantHoras($idReporteD)));
+		$query = $this->cargasPulper_Model->calcularTotalCarga($idReporteD);
 		foreach ($query as $key) {
 			$cargaTotal = $key['sumTotal'];
 		}
@@ -106,7 +113,6 @@ class cargas_Pulper_Controller extends CI_Controller {
 			$horaInicio = date('g:i A', strtotime($key['horaInicio']));
 			$horaFinal = date('g:i A', strtotime($key['horaFin']));
 			$tf=$this->sumaRestaHoras($horaFinal,$horaInicio);
-
 			$dta = array(
 				'IdHora' => $key['IdHora'],
 				'carga' => $key['carga'],
@@ -121,6 +127,36 @@ class cargas_Pulper_Controller extends CI_Controller {
 		}else {
 			echo 'FALSE';
 		}
+	}
+
+	public function calcularCantHoras($idReporteDiario) {
+		$tiempoTotal=array();$contTotal=0;
+		$query=$this->cargasPulper_Model->listarHorasMolienda($idReporteDiario);
+		if ($query!=FALSE) {
+			foreach ($query as $key) {	
+				$horaInicio = date('g:i A', strtotime($key['horaInicio']));
+				$horaFinal = date('g:i A', strtotime($key['horaFin']));
+				$tf=$this->sumaRestaHoras($horaFinal,$horaInicio);		
+				$array = array(
+						'horas' => $tf
+					);
+				$tiempoTotal[] = $array;	
+			}
+		for ($i=0;$i<count($tiempoTotal);$i++) { 
+			list($h, $m, $s) = explode(':', $tiempoTotal[$i]['horas']); 
+			$miMunutos =   ($h * 3600) + ($m * 60) + $s;     
+			$this->cantTotal += $miMunutos;
+		}
+			return $this->conversorSegundosHoras($this->cantTotal);	
+		}
+	}
+
+	public function conversorSegundosHoras($tiempo_en_segundos) {
+       $horas = floor($tiempo_en_segundos / 3600);
+       $minutos = floor(($tiempo_en_segundos - ($horas * 3600)) / 60);
+       $segundos = $tiempo_en_segundos - ($horas * 3600) - ($minutos * 60);
+
+       return $horas . ':' . $minutos . ":" . $segundos;
 	}
 
 	public function buscarHorasM($idHoraMolienda) {
@@ -164,7 +200,6 @@ class cargas_Pulper_Controller extends CI_Controller {
 		//$min = 
 		return $dif;
 	}
-
 	
 }
 
