@@ -3,7 +3,7 @@
 		<a style=" margin-top:10px;margin-left:10px;" href="<?php echo base_url('index.php/dashboard')?>" class="brand-logo left"><img src="<?php echo base_url('assets/img/logo/innova-blanco.png')?>" width="140px"></a>
 		<?php
 			if($this->uri->segment(1)=='dashboard' or $this->uri->segment(1)=='Menu'){
-				echo '<a href="#" class="brand-logo center">INICIO</a>';
+				echo '<a href="#" class="brand-logo center"></a>';
 			}elseif($this->uri->segment(1)=='Usuarios'){
 				echo '<a href="#" class="brand-logo center">LISTA DE USUARIOS</a>';
 			}elseif($this->uri->segment(1)=='Empleados'){
@@ -15,7 +15,7 @@
 			}elseif($this->uri->segment(1)=='menuOrdenTrabajo'){
 				echo '<a href="#" class="brand-logo center">ORDEN DE TRABAJO</a>';
 			}elseif($this->uri->segment(1)=='OrdenProduccion'){
-				echo '<a href="#" class="brand-logo center">ORDEN DE TRABAJO</a>';
+				echo '<a href="#" class="brand-logo center"></a>';
 			}
 	       elseif($this->uri->segment(1)=='Produccion'){
 				echo '<a href="#" class="brand-logo center">PRODUCCION</a>';
@@ -28,6 +28,9 @@
 		   }
 		    elseif($this->uri->segment(1)=='MateriaPrima'){
 				echo '<a href="#" class="brand-logo center">MATERIA PRIMA</a>';
+		   }
+		   	elseif($this->uri->segment(1)=='MenuMantenimiento'){
+				echo '<a href="#" class="brand-logo center">MANTENIMIENTO</a>';
 		   }
 			echo '<ul class="right hide-on-med-and-down">  
 			<li ><a href="'.base_url("index.php/dashboard").'"><i style="font-size:40px;" class="mdi-action-home tooltipped" data-tooltip="INICIO"></i></a></li>      	

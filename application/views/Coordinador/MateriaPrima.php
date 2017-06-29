@@ -68,11 +68,6 @@
                                        {
                                             $key['Noche'] = "—";
                                        }
-                                       switch ($key['Tanque']) {
-                                           case $key['Tanque']:
-                                                $key['Tanque'] = "Tanque #".$key['Tanque']."";
-                                               break;
-                                       }
                                        echo '
                                        <tr>                                  
                                             <td>'.$key['Tanque'].'</td>
@@ -348,18 +343,16 @@
                            echo '               
                  <div class="row">
                     <div class="center">
-                        <a class="Btnadd btn waves-effect waves-light disabled" href="#" style="background-color:#831F82;">AGREGAR
-                            <i class="material-icons right">send</i>
+                        <a class="Btnadd btn waves-effect waves-light disabled" href="#" style="background-color:#831F82;">GUARDAR
                         </a>
-                        <span class="badge">El Consecutivo ya ha sido cerrado</span>
+                        <span class="badge red-text darken-4">El Consecutivo ya ha sido cerrado</span>
                     </div>
                 </div>';
                        } else {
                            echo '
                 <div class="row">
                     <div class="center">
-                        <a id="btninsumo" class="Btnadd btn waves-effect waves-light" onclick="guardaInsumos()" href="#" style="background-color:#831F82;">AGREGAR
-                            <i class="material-icons right">send</i>
+                        <a id="btninsumo" class="Btnadd btn waves-effect waves-light" onclick="guardaInsumos()" href="#" style="background-color:#831F82;">GUARDAR
                         </a>
                     </div>
                 </div>
@@ -428,12 +421,13 @@
                     <div class="input-field col s6 m6 s6">
                         <select name="Tanque" id="Tanque" class="chosen-select browser-default">
                             <option disabled selected>TANQUES</option>
-                            <option value="1">Tanque #1</option>
-                            <option value="2">Tanque #2</option>
-                            <option value="3">Tanque #3</option>
-                            <option value="4">Tanque #4</option>
-                            <option value="5">Tanque #5</option>
-                            <option value="6">Tanque #6</option>                  
+                            <?php
+                                foreach ($listaTanques as $key) {
+                                    echo'
+                                    <option value="'.$key['IdTanque'].'">'.$key['Tanque'].'</option>
+                                    ';
+                                }                            
+                            ?>
                         </select>
                          <label id="lbltanque" class="lblValidacion">ELIGE UN TANQUE</label>
                     </div>
@@ -450,10 +444,9 @@
                         echo'               
                 <div class="row">
                     <div class="center">
-                        <a class="Btnadd btn waves-effect waves-light disabled" href="#" style="background-color:#831F82;">AGREGAR
-                            <i class="material-icons right">send</i>
+                        <a class="Btnadd btn waves-effect waves-light disabled" href="#" style="background-color:#831F82;">GUARDAR
                         </a>
-                         <span class="badge">El Consecutivo ya ha sido cerrado</span>
+                         <span class="badge red-text darken-4">El Consecutivo ya ha sido cerrado</span>
                     </div>
                 </div>';
                     }
@@ -461,8 +454,7 @@
                         echo '
                  <div class="row">
                     <div class="center">
-                        <a id="matprim" class="Btnadd btn waves-effect waves-light" onclick="Guardarmp()" href="#" style="background-color:#831F82;">AGREGAR
-                            <i class="material-icons right">send</i>
+                        <a id="matprim" class="Btnadd btn waves-effect waves-light" onclick="Guardarmp()" href="#" style="background-color:#831F82;">GUARDAR
                         </a>
                     </div>
                 </div>

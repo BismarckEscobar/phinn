@@ -32,8 +32,9 @@ class tiemposMuertos_Model extends CI_Model{
         }        
 	}
 
-	public function elimarTiempoMuerto($idTiempoMuerto) {
+	public function elimarTiempoMuerto($idTiempoMuerto,$IdReporteDiario) {
 		$this->db->where('IdTiempoMuerto', $idTiempoMuerto);
+		$this->db->where('IdReporteDiario', $IdReporteDiario);
 		$query=$this->db->delete('tiempos_muertos');
 		if ($query==1) {
 			echo true;

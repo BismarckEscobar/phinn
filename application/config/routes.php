@@ -81,23 +81,23 @@ $route['ValidaFecha/(:any)/(:any)/(:any)'] = 'Ordenproduccion_controller/Validar
   /***************************************************************************************************/
     $route['Produccion/(:any)']= "Produccion_Controller/agregaDetalleOrdP1/$1"; 
     $route['GuardaProduccion']= "Produccion_Controller/GuardarProduccion"; 
-    $route['EliminarProduccion/(:any)']= "Produccion_Controller/Eliminar/$1";
-
+    $route['EliminarProduccion/(:any)/(:any)']= "Produccion_Controller/Eliminar/$1/$2";
+    $route['ActualizarMerma/(:any)/(:any)/(:any)']= "Produccion_Controller/ActualizaMerma/$1/$2/$3";
   /***************************************************************************************************/
     $route['MateriaPrima/(:any)']= "MateriaPrima_controller/agregaDetalleOrdP1/$1"; 
     $route['GuardarMP']= "MateriaPrima_controller/GuardarMatPri"; 
     $route['GuardarMPInsumos']= "MateriaPrima_controller/GuardaMPInsumos"; 
     $route['ValidaPasta/(:any)/(:any)'] = "MateriaPrima_controller/ValidarP/$1/$2";
     $route['ValidaMPInsumo/(:any)/(:any)'] = "MateriaPrima_controller/ValidarIn/$1/$2";
-    $route['EliminaPasta/(:any)'] = "MateriaPrima_controller/EliminarPasta/$1";
-    $route['EliminaMPInsumos/(:any)'] = "MateriaPrima_controller/EliminaInsumos/$1";
+    $route['EliminaPasta/(:any)/(:any)'] = "MateriaPrima_controller/EliminarPasta/$1/$2";
+    $route['EliminaMPInsumos/(:any)/(:any)'] = "MateriaPrima_controller/EliminaInsumos/$1/$2";
 
     $route['guardarTM1/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)']= "tiemposMuertos_Controller/guardarTiempoM/$1/$2/$3/$4/$5/$6/$7/$8";
     
     $route['guardarTM']= "tiemposMuertos_Controller/guardarTiempoM";
 
     /**************************ELIMINAR TIEMPO MUERTO******************************/
-    $route['eliminarTM/(:any)']= "tiemposMuertos_Controller/eliminarTiempoM/$1"; 
+    $route['eliminarTM/(:any)/(:any)']= "tiemposMuertos_Controller/eliminarTiempoM/$1/$2"; 
     
     /***************************ACTUALIZAR TABLA TIEMPOS MUERTOS***********************/
     $route['actualizarTablaTM']= "tiemposMuertos_Controller/actualizarTablaTM";
@@ -107,7 +107,7 @@ $route['ValidaFecha/(:any)/(:any)/(:any)'] = 'Ordenproduccion_controller/Validar
     $route['listarFibras'] = "cargas_pulper_controller/listarcargaspulper";    
     $route['guardarCP'] = "cargas_pulper_controller/guardarCPulper";
     $route['listandoCargasPulper/(:any)'] = "cargas_pulper_controller/listarCantidadCargas/$1";
-    $route['actualizarCargaPulper/(:any)/(:any)'] = "cargas_pulper_controller/actualizarCargaP/$1/$2";
+    $route['actualizarCargaPulper/(:any)/(:any)/(:any)'] = "cargas_pulper_controller/actualizarCargaP/$1/$2/$3";
     $route['agregarHorasMolienda'] = "cargas_pulper_controller/agregarHorasM";
 
     /*******************LINKS HORAS MOLIENDA******************************/
@@ -121,6 +121,28 @@ $route['ValidaFecha/(:any)/(:any)/(:any)'] = 'Ordenproduccion_controller/Validar
     $route['detalleOrdenProduccion/(:any)']="Ordenproduccion_controller/mostrarOrdenesTrabajos/$1";
 
     $route['cambiarEstadoRptDiario/(:any)/(:any)'] = "reportediario_controller/cambiaEstadoRptD/$1/$1";
+
+     $route['MenuMantenimiento'] = "Mantenimiento_controller";
+
+    /************RUTAS MAQUINAS******************************/
+     $route['Maquinas'] = "Maquinas_controller";
+     $route['Guardarmaquina'] = "Maquinas_controller/GuardarMaquina";
+     $route['Eliminarmaquina/(:any)'] = "Maquinas_controller/Eliminarmaquina/$1";
+      
+        /************RUTAS INSUMOS******************************/
+     $route['Insumos'] = "Insumos_controller";   
+     $route['GuardaInsumos'] = "Insumos_controller/GuardarInsumos";  
+     $route['EliminaInsumo/(:any)'] = "Insumos_controller/Eliminar/$1";   
+
+ /************RUTAS TANQUES******************************/
+    $route['Tanques'] = "tanques_controller";   
+    $route['GuardaTanques'] = "tanques_controller/Guardar"; 
+
+    /************RUTAS PLANES******************************/
+   $route['Planes'] = "planes_controller";   
+   $route['Guardaplan'] = "planes_controller/GuardaPlan"; 
+   $route['AgregaDetalle/(:any)'] = "detalleplanes_controller/AgregaDetallePlanes/$1"; 
+
 
 
 
