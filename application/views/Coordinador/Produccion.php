@@ -104,7 +104,17 @@
                                             <h6 class="center-align"><b class="purple-text darken-1 ">Maquina N°1</b></h6>
                                              <h6 class="purple-text darken-1 center-align">Producción (Kg)</h6>
                                              <div class="container">
-                                             <h6 class="center-align purple-text darken-1"><?php echo number_format($total1,1)?></h6>
+                                             <h6 class="center-align"><b><?php echo number_format($total1,1)?></b></h6>
+                                              <h6 class="center-align purple-text darken-1">MERMA (kg)</h6>
+                                             <?php foreach($produccion2 as $key)
+                                             {
+                                                 if($key['Maquina']=='1')
+                                                 {
+                                                     $maq1 = 0;
+                                                     $maq1 = $key['Merma'];
+                                                     echo '<h6 class="center-align"><b>'.$maq1.'</b></h6>';
+                                                 }
+                                             }  ?>
                                              </div>
                                         </div>
                                     </div>
@@ -113,7 +123,17 @@
                                             <h6 class="center-align"><b class="purple-text darken-1">Maquina N°2</b></h6>
                                              <h6 class="purple-text darken-1 center-align">Producción (Kg)</h6>
                                              <div class="container">
-                                             <h6 class="center-align purple-text darken-1"><?php echo number_format($total,1)?></h6>
+                                             <h6 class="center-align"><b><?php echo number_format($total,1)?></b></h6>
+                                              <h6 class="center-align purple-text darken-1">MERMA (kg)</h6>
+                                                       <?php foreach($produccion2 as $key)
+                                             {
+                                                 if($key['Maquina']=='2')
+                                                 {
+                                                     $maq2 = 0;
+                                                     $maq2 = $key['Merma'];
+                                                     echo '<h6 class="center-align"><b>'.$maq2.'</b></h6>';
+                                                 }
+                                             }  ?>
                                              </div>
                                         </div>
                                     </div>
@@ -122,7 +142,13 @@
                                             <h6 class="center-align"><b class="purple-text darken-1">Producción Neta</b></h6>
                                                  <h6 class="purple-text darken-1 center-align">Producción Total (Kg)</h6>
                                                   <div class="container">
-                                                  <h6 id="Total" class="center-align purple-text darken-1"><?php echo number_format($total1 + $total,1)?></h6>
+                                                  <h6 id="Total" class="center-align"><b><?php echo number_format($total1 + $total,1)?></b></h6>
+                                                   <h6 class="center-align purple-text darken-1">MERMA TOTAL (kg)</h6>
+                                                  <?php 
+                                                  $sum = 0;
+                                                  $sum = $maq1 += $maq2;
+                                                        echo '<h6 class="center-align"><b>'.$sum.'</b></h6>';
+                                                  ?>
                                                   </div>
                                         </div>
                                     </div>
@@ -130,8 +156,17 @@
                             </li>
                         </ul>
                     </div>
-                    <div id="agregarP" class="fixed-action-btn">
-                        <a data-tooltip='AGREGAR PRODUCCION' data-position="left" href="#nuevaProduccion" class="modal-trigger tooltipped btn-floating btn-large waves-effect waves-light purple accent-4"><i class="material-icons">add</i></a>
+                     <div class="fixed-action-btn ">
+                        <a class="btn-floating btn-large amber darken-4">
+                        <i class="material-icons">menu</i>
+                        </a>
+                        <ul>
+                        <li><a id="actualizarM" data-tooltip='EDITAR MERMA' data-position="left" href="#Actualizar" class="modal-trigger tooltipped btn-floating waves-effect waves-light purple darken-4"><i class="material-icons">edit</i></a></li>
+                         <a  id="agregarP" data-tooltip='AGREGAR PRODUCCION' data-position="left" href="#nuevaProduccion" class="modal-trigger tooltipped btn-floating waves-effect waves-light purple darken-2"><i class="material-icons">add</i></a>
+                        </ul>
+                    </div>
+                    <div  class="fixed-action-btn">
+                       
                     </div>
                 </div>
             </div>
@@ -228,16 +263,21 @@
                     </div>
                 </div>
                 <br>
+                <div class="row">
+                    <div class="input-field col s6 m6 s6">
+                        <input type="text" name="merma" id="merma">
+                        <label for="merma">MERMA</label>
+                    </div>
+                </div>
                 <?php foreach ($consecutivo as $key) {
                     if($key['Estado']== 0)
                     {
                         echo '        
                  <div class="row">
                     <div class="center">
-                        <a class="Btnadd btn waves-effect waves-light disabled" href="#" style="background-color:#831F82;">AGREGAR
-                            <i class="material-icons right">send</i>
+                        <a class="Btnadd btn waves-effect waves-light disabled" href="#" style="background-color:#831F82;">GUARDAR
                         </a>
-                        <span class="badge">El Consecutivo ya ha sido cerrado</span>
+                        <span class="badge red-text accent-4">El Consecutivo ya ha sido cerrado</span>
                     </div>
                 </div>';
                     }
@@ -245,8 +285,7 @@
                         echo '                
                 <div class="row">
                     <div class="center">
-                        <a id="Prod" class="Btnadd btn waves-effect waves-light" onclick="Guardar()" href="#" style="background-color:#831F82;">AGREGAR
-                            <i class="material-icons right">send</i>
+                        <a id="Prod" class="Btnadd btn waves-effect waves-light" onclick="Guardar()" href="#" style="background-color:#831F82;">GUARDAR
                         </a>
                     </div>
                 </div>';
@@ -256,6 +295,82 @@
         </div>
     </div>
 </div>
+
+
+<div id="Actualizar" class="modal1" style="height:350px;">
+    <div class="modal-content">
+        <div class="right row">
+            <div class="col s1 m1 l1">
+                <a href="#!" class="BtnClose modal-action modal-close noHover">
+                    <i class="material-icons">highlight_off</i>
+                </a>
+            </div>
+        </div>
+        <div class="row noMargen center">
+            <div class="noMargen col s12 m12 l12">
+                <h6 class="center" style="font-family:'robotoblack'; color:#831F82;font-size:30px; margin-bottom:30px;">ACTUALIZAR MERMA</h6>
+            </div>
+        </div>
+
+        <div class="row">
+            <form class="col s12" method="POST" name="formAgregarProd" id="formAgregarProd">
+                <?php 
+                    if(!($consecutivo)){                                   
+                    } else {
+                        foreach ($consecutivo as $key) {
+                            echo "<input name='idRptD' id='idRptD' type='hidden' value='".$key['IdReporteDiario']."' >";
+                            }
+                        }
+                ?>
+                <br>
+                <div class="row">
+                    <div class="input-field col s6 m6 s6">
+                        <select name="Maquina" id="Maquina" class="chosen-select browser-default">
+                            <option value="" disabled selected>MAQUINA</option>
+                            <?PHP
+                            if(!$listaMaq){
+                            } else {
+                                foreach($listaMaq as $key){
+                                    echo '<option value="'.$key['idMaquina'].'">'.$key['maquina'].'</option>';
+                                }
+                            }
+                            ?>
+                        </select>
+                        <label id="lblmaquina" class="lblValidacion">ELIGE UNA MAQUINA</label>
+                    </div>
+                    <div class="input-field col s6 m6 s6">
+                        <input type="text" name="Merma" id="Merma">
+                        <label for="Merma">MERMA</label>
+                    </div>
+                </div>
+                <br><br>
+                <?php foreach ($consecutivo as $key) {
+                    if($key['Estado']== 0)
+                    {
+                        echo '        
+                 <div class="row">
+                    <div class="center">
+                        <a class="Btnadd btn waves-effect waves-light disabled" href="#" style="background-color:#831F82;">ACTUALIZAR
+                        </a>
+                        <span class="badge red-text accent-4">El Consecutivo ya ha sido cerrado</span>
+                    </div>
+                </div>';
+                    }
+                    else{
+                        echo '                
+                <div class="row">
+                    <div class="center">
+                        <a id="ActProd" class="Btnadd btn waves-effect waves-light" href="#" onclick="Actualizamerm(this)" style="background-color:#831F82;">ACTUALIZAR
+                        </a>
+                    </div>
+                </div>';
+                    }
+                 }?>
+            </form>
+        </div>
+    </div>
+</div>
+
 
 
 <div id="Detalles" class="modal1">

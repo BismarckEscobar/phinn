@@ -44,6 +44,7 @@ class MateriaPrima_controller extends CI_Controller
         $data['listamp'] = $this->MateriaPrima_model->ListarPM($idReporteD);
         $data['listaInsumos'] =  $this->MateriaPrima_model->ListarInsumos();
         $data['listaMPInsumos'] =  $this->MateriaPrima_model->ListarPMInsumos($idReporteD);
+        $data['listaTanques'] =  $this->MateriaPrima_model->ListarTanque();
         $this->load->view('header');
         $this->load->view('dashboardclean');
         $this->load->view('Coordinador/MateriaPrima', $data);
@@ -89,14 +90,24 @@ class MateriaPrima_controller extends CI_Controller
          }
         }
 
-                public function EliminarPasta($id)
+        public function EliminarPasta($id,$IdRept)
         {
-            $this->MateriaPrima_model->EliminaPasta($id);
+        $duplicado = $this->db->get_where('reporte_diario',array("IdReporteDiario" => $IdRept,'Estado'=>0));
+         if ($duplicado->num_rows()>0) {
+             echo "Consecutivo ya se ha cerrado";
+         } else {
+            $this->MateriaPrima_model->EliminaPasta($id,$IdRept);
+         }
         }
 
-        public function EliminaInsumos($id)
+        public function EliminaInsumos($id,$IdRept)
         {
-            $this->MateriaPrima_model->EliminaPMInsumo($id);
+        $duplicado = $this->db->get_where('reporte_diario',array("IdReporteDiario" => $IdRept,'Estado'=>0));
+         if ($duplicado->num_rows()>0) {
+             echo "Consecutivo ya se ha cerrado";
+         } else {
+            $this->MateriaPrima_model->EliminaPMInsumo($id,$IdRept);
+         }
         }
 }
 ?>
