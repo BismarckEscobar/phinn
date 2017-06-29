@@ -30,7 +30,7 @@ class Produccion_Model extends CI_Model
         }
     }
 
-    public function Guardar($IdRepD, $noOrden, $Oper,$Maq, $HoraIn, $HoraFin, $Velocidad,$peso, $Diam, $pesobase)
+    public function Guardar($IdRepD, $noOrden, $Oper,$Maq, $HoraIn, $HoraFin, $Velocidad,$peso, $Diam, $pesobase,$Merma)
     {
          
         $data = array(
@@ -43,7 +43,8 @@ class Produccion_Model extends CI_Model
             "VelocMaquina" => $Velocidad,
             "Peso" => $peso,
             "Diametro" => $Diam,
-            "PesoBase" => $pesobase
+            "PesoBase" => $pesobase,
+            "Merma" => $Merma
         );
         $consulta = $this->db->insert("produccion",$data);
         if($consulta){
@@ -71,10 +72,32 @@ class Produccion_Model extends CI_Model
         }
     }
 
-    public function EliminarProd($idProd)
+        public function ListarProd2($IdReporteDiario)
+    {
+        $this->db->where('Merma !=','null');
+        $this->db->where('IdReporteDiario',$IdReporteDiario);
+        $this->db->limit(2);
+        $query = $this->db->get('produccion');
+       if ($query->num_rows()>0) {
+            return $query->result_array();
+        }else{
+            return false;
+        }
+    }
+
+    public function EliminarProd($idProd,$IdRptD)
     {
         $this->db->where('IdProduccion',$idProd);
+        $this->db->where('IdReporteDiario',$IdRptD);
         $this->db->delete("produccion");
+    }
+
+    public function ActualizarMerma($IdReporteDiario , $Merma , $Maq)
+    {
+        $data = array('Merma' => $Merma );
+        $this->db->where('IdReporteDiario=',$IdReporteDiario);
+        $this->db->where('Maquina=',$Maq);
+        $this->db->update('produccion',$data);
     }
 }
 ?>

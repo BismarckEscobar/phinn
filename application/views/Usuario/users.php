@@ -9,7 +9,7 @@
                     <i style='color:#039be5; font-size:40px;' class="material-icons">search</i>
                 </div>
                 <div class="input-field col s12 m6 l4">
-                    <input  id="BuscarUsuarios" type="text" placeholder="Buscar" class="validate">
+                    <input id="BuscarUsuarios" type="text" placeholder="Buscar" class="validate">
                     <label for="search"></label>
                 </div>
             </div>
@@ -18,7 +18,6 @@
         <!--/////////////////////////////////////////////////////////////////////////////////////////
                                        BOTONES
         //////////////////////////////////////////////////////////////////////////////////////////-->
-    <div class="container">
         <div class="right row">
             <div id="crearU" class="col s1 m1 l1">
                 <a data-tooltip='CREAR USUARIO' href="#AUsuario" class="purple-text darken-1 modal-trigger tooltipped">
@@ -26,10 +25,15 @@
                 </a>
             </div>
 
-            <div class="col s1 m1 l1"><p></p></div><div class="col s1 m1 l1"><p></p></div>
+            <div class="col s1 m1 l1">
+                <p></p>
+            </div>
+            <div class="col s1 m1 l1">
+                <p></p>
+            </div>
 
             <div class="col s1 m1 l1">
-                <a data-tooltip='CERRAR' href="<?php echo base_url('index.php/dashboard')?>" class="purple-text darken-1 tooltipped">
+                <a data-tooltip='CERRAR' href="<?php echo base_url('index.php/MenuMantenimiento')?>" class="purple-text darken-1 tooltipped">
                     <i style='font-size:35px;' class="material-icons">keyboard_backspace</i>
                 </a>
             </div>
@@ -38,19 +42,23 @@
         <!-- ////////////////////////////////////////////////////////////////////////////////////////// -->
 
 
-        <div class="div-cont">
-            <table id="TblMaster" class="striped responsive-table col s12 m6 s6">
-                <thead>
-                <tr class="tblcabecera">
-                    <th style="border-radius: 20px 0px 0px 20px;">Nº</th>
-                    <th>NOMBRE COMPLETO</th>
-                    <th>USUARIO</th>
-                    <th>TIPO PERMISO</th>
-                    <th>ESTATUS</th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php
+        <div class="row">
+            <div class="col s12">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="div-cont">
+                            <table id="TblMaster" class="striped responsive-table">
+                                <thead>
+                                    <tr class="tblcabecera">
+                                        <th style="border-radius: 20px 0px 0px 20px;">Nº</th>
+                                        <th>NOMBRE COMPLETO</th>
+                                        <th>USUARIO</th>
+                                        <th>TIPO PERMISO</th>
+                                        <th>ESTATUS</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
 
 
                 if(!($TBUS)){
@@ -90,11 +98,14 @@
                     }
                 }
                 ?>
-                </tbody>
-            </table>
-            </div>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+    </div>
 </main>
 <br>
 
@@ -162,7 +173,6 @@
                     
                     <div class="center">
 			      	    <button name="usersubmit" type="submit" class="Btnadd btn waves-effect waves-light" id="Adduser" style="background-color:#831F82;">GUARDAR
-                            <i class="material-icons right">send</i>
                         </button>
                         <div class="preloader-wrapper active" id="load" style="display: none">
                             <div class="spinner-layer spinner-green-only">
@@ -176,8 +186,6 @@
                             </div>
                         </div>
 			        </div>
-
-
                 </div>
             </form>
         </div>

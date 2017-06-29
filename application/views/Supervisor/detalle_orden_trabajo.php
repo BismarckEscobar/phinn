@@ -78,7 +78,7 @@
                                                     <a onclick='buscarTiempoM(".$key['IdTiempoMuerto'].")' href='#!' data-tooltip='VER' class='modal-trigger tooltipped purple-text darken-4'>
                                                         <i class='material-icons'>visibility</i>
                                                     </a>&nbsp;&nbsp;&nbsp;
-                                                    <a onclick='eliminarTM(".$key['IdTiempoMuerto'].")' href='#!' data-tooltip='ELIMINAR' class='modal-trigger tooltipped purple-text darken-4'>
+                                                    <a onclick='eliminarTM(".$key['IdTiempoMuerto'].",".$key['IdReporteDiario'].")' href='#!' data-tooltip='ELIMINAR' class='modal-trigger tooltipped purple-text darken-4'>
                                                         <i class='material-icons'>delete</i>
                                                     </a>
 										        </td> 
@@ -89,7 +89,7 @@
 						</tbody>
 					</table><br>
 					<div id="agregarTM" class="fixed-action-btn">
-						<a data-tooltip='AGREGAR TIEMPO MUERTO' href="#nuevoTiempoMuerto" class="modal-trigger tooltipped btn-floating btn-large waves-effect waves-light purple accent-4"><i class="material-icons">add</i></a>		
+						<a data-tooltip='AGREGAR TIEMPO MUERTO' href="#nuevoTiempoMuerto" class="modal-trigger tooltipped btn-floating btn-large waves-effect waves-light amber accent-4"><i class="material-icons">add</i></a>		
 					</div><br> 				
     			</div><br><br>
     		</div>
@@ -167,14 +167,12 @@
                         foreach ($consecutivo as $key) {
                             if ($key['Estado'] == 0) {
                                 echo ' 
-                                <span class="badge">El Consecutivo ya ha sido cerrado</span><br>   
-                                <a class="Btnadd btn waves-effect waves-light disabled" href="#" style="background-color:#831F82;">AGREGAR
-                                    <i class="material-icons right">send</i>
+                                <span class="badge red-text darken-4">El Consecutivo ya ha sido cerrado</span><br>   
+                                <a class="Btnadd btn waves-effect waves-light disabled" href="#" style="background-color:#831F82;">Guardar
                                 </a>';
                             } else {
                                 echo '
-                                <a class="Btnadd btn waves-effect waves-light" onclick="guardarTM1()" id="guardarTM1" href="#" style="background-color:#831F82;">AGREGAR
-                                    <i class="material-icons right">send</i>
+                                <a class="Btnadd btn waves-effect waves-light" onclick="guardarTM1()" id="guardarTM1" href="#" style="background-color:#831F82;">GUARDAR
                                 </a>
                                 ';
                             }

@@ -39,6 +39,7 @@ public function guardarTiempoM() {
              echo "Consecutivo ya se ha cerrado";
          } else {
 	$this->tiemposMuertos_Model->guardarTiempoMuerto($array);
+	echo "permite guardar";
 		 }
 	}
 
@@ -81,8 +82,14 @@ public function guardarTiempoM() {
 		echo json_encode($json);
 	}
 
-	public function eliminarTiempoM($idTiempoMuerto) {
-		$this->tiemposMuertos_Model->elimarTiempoMuerto($idTiempoMuerto);
+	public function eliminarTiempoM($idTiempoMuerto,$IdReporteDiario) {
+		 $duplicado = $this->db->get_where('reporte_diario',array("IdReporteDiario" => $IdReporteDiario,'Estado'=>0));
+         if ($duplicado->num_rows()>0) {
+             echo "Consecutivo ya se ha cerrado";
+         } else {
+		$this->tiemposMuertos_Model->elimarTiempoMuerto($idTiempoMuerto,$IdReporteDiario);
+		//echo "Se puede eliminar";
+		 }
 	}
 
 	public function actualizarTablaTM() {

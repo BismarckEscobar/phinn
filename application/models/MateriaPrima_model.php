@@ -22,7 +22,7 @@ class MateriaPrima_model extends CI_Model
     public function ListarPM($IdRept)
     {
         $this->db->where("IdReporteDiario =",$IdRept);
-        $query = $this->db->get('pasta');
+        $query = $this->db->get('view_pasta');
         if ($query->num_rows() > 0) {
             return $query->result_array();
         } else {
@@ -95,16 +95,29 @@ class MateriaPrima_model extends CI_Model
         }
         echo $valor;
     }
-     public function EliminaPasta($id)
+     public function EliminaPasta($id,$IdRept)
     {
         $this->db->where("IdPasta",$id);
+        $this->db->where("IdReporteDiario",$IdRept);
         $this->db->delete('pasta');
     }
 
-    public function EliminaPMInsumo($id)
+    public function EliminaPMInsumo($id,$IdRept)
     {
         $this->db->where("IdMpInsumos",$id);
+        $this->db->where("IdReporteDiario",$IdRept);
         $this->db->delete('mp_insumos');
     }
+
+            public function ListarTanque()
+        {
+            $query = $this->db->get('tanques');
+            if ($query->num_rows()>0) {
+                return $query->result_array();
+            } else {
+                return false;
+            }
+            
+        }
 }
 ?>

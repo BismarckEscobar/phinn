@@ -131,14 +131,12 @@
 								foreach ($consecutivo as $key) {
 									if ($key['Estado'] == 0) {
 										echo '  
-										 <span class="badge">El Consecutivo ya ha sido cerrado</span><br>  
-										<a class="Btnadd btn waves-effect waves-light disabled" href="#" style="background-color:#831F82;">AGREGAR
-											<i class="material-icons right">send</i>
+										 <span class="badge red-text darken-4">El Consecutivo ya ha sido cerrado</span><br>  
+										<a class="Btnadd btn waves-effect waves-light disabled" href="#" style="background-color:#831F82;">GUARDAR
 										</a>';
 									} else {
 										echo '
-										<a class="Btnadd btn waves-effect waves-light" id="agregarCPulper" onclick="guardarCargaPulper()" href="#" style="background-color:#831F82;">AGREGAR
-											<i class="material-icons right">send</i>
+										<a class="Btnadd btn waves-effect waves-light" id="agregarCPulper" onclick="guardarCargaPulper()" href="#" style="background-color:#831F82;">GUARDAR
 										</a>
 										';
 									}
@@ -188,15 +186,13 @@
 						   	foreach ($consecutivo as $key) {
 								   if ($key['Estado'] == 0) {
 									   echo '
-									    <span class="badge">El Consecutivo ya ha sido cerrado</span><br> 
-									<a class="Btnadd btn waves-effect waves-light disabled" href="#">AGREGAR
-										<i class="material-icons right">send</i>
+									    <span class="badge red-text darken-4">El Consecutivo ya ha sido cerrado</span><br> 
+									<a class="Btnadd btn waves-effect waves-light disabled" href="#">GUARDAR
 									</a>
 									   ';
 								   } else {
 									   echo ' 
-									<a class="Btnadd btn waves-effect waves-light" id="agregarHMolienda" onclick="guardarHorasMolienda()" href="#">AGREGAR
-										<i class="material-icons right">send</i>
+									<a class="Btnadd btn waves-effect waves-light" id="agregarHMolienda" onclick="guardarHorasMolienda()" href="#">GUARDAR
 									</a>';
 								   }
 								   
@@ -243,12 +239,28 @@
 					</div><br><br><br>
 				    <div class="row">                    
 		                <div class="center">
-				      	    <a class="Btnadd btn waves-effect waves-light" id="actualizaHMolienda" onclick="actualizarHorasMolienda()" href="#">ACTUALIZAR
-		                        <i class="material-icons right">send</i>
-		                    </a>
-		                    <a class="Btnadd btn waves-effect waves-light" id="cerrarHM1" href="#">CERRAR
-		                        <i class="material-icons right">clear</i>
-		                    </a>
+						 <?php
+						   	foreach ($consecutivo as $key) {
+								   if ($key['Estado'] == 0) {
+									   echo '
+									    <span class="badge red-text darken-4">El Consecutivo ya ha sido cerrado</span><br> 
+									   <a class="Btnadd btn waves-effect waves-light disabled" href="#">ACTUALIZAR
+		                    		   </a>
+									   	<a class="Btnadd btn waves-effect waves-light" id="cerrarHM1" href="#">CERRAR
+											<i class="material-icons right">clear</i>
+										</a>
+									   ';
+								   } else {
+									   echo ' 
+									   <a class="Btnadd btn waves-effect waves-light" id="actualizaHMolienda" onclick="actualizarHorasMolienda()" href="#">ACTUALIZAR
+		                    		   </a>
+									   	<a class="Btnadd btn waves-effect waves-light" id="cerrarHM1" href="#">CERRAR
+											<i class="material-icons right">clear</i>
+										</a>';
+								   }
+								   
+							   }
+						   ?>
 				        </div>
 		            </div>				
 				</div>

@@ -76,8 +76,14 @@ class cargas_Pulper_Controller extends CI_Controller {
 		}
 	}
 
-	public function actualizarCargaP($idCargaPulper, $cantidad) {
-		$this->cargasPulper_Model->actualizarRegistroCarga($idCargaPulper, $cantidad);
+	public function actualizarCargaP($idCargaPulper, $IdReporteDiario, $cantidad) {
+		$duplicado = $this->db->get_where('reporte_diario',array("IdReporteDiario" => $IdReporteDiario,'Estado'=>0));
+         if ($duplicado->num_rows()>0) {
+             echo "Consecutivo ya se ha cerrado";
+         }else{
+		   $this->cargasPulper_Model->actualizarRegistroCarga($idCargaPulper, $IdReporteDiario ,$cantidad);
+		   echo $idCargaPulper, $IdReporteDiario ,$cantidad;
+		 }
 	}
 
 	public function agregarHorasM() {
@@ -177,9 +183,16 @@ class cargas_Pulper_Controller extends CI_Controller {
 
 	public function actualizaHMolienda() {
 		$idHora = $this->input->post('idHora', TRUE);
+		$IdReporteDiario = $this->input->post('idRptD', TRUE);
 		$horaInicio = date("H:i:s", strtotime($this->input->post('timepickerII', TRUE)));
 		$horaFinal = date("H:i:s", strtotime($this->input->post('timepickerFF', TRUE)));
-		$this->cargasPulper_Model->actualizarHoraMolienda($idHora, $horaInicio, $horaFinal);
+		$duplicado = $this->db->get_where('reporte_diario',array("IdReporteDiario" => $IdReporteDiario,'Estado'=>0));
+         if ($duplicado->num_rows()>0) {
+             echo "Consecutivo ya se ha cerrado";
+         }else{
+		$this->cargasPulper_Model->actualizarHoraMolienda($idHora, $IdReporteDiario, $horaInicio, $horaFinal);
+		//echo "Se puede actualizar";
+	   }
 	}
 
 	public function sumaRestaHoras($horainicio, $horafin){

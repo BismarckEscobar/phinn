@@ -6,7 +6,7 @@ $(document).ready(function() {
     /***********LISTO LAS FIBRAS EN CARGAS PULPER*********************/
     var pathname = window.location.pathname;
     if (pathname.match(/cargaspulper.*/)) {
-        crearTabla();  
+        crearTabla();
         listarHorasMolienda();
     };
     if (pathname.match(/reportesDiarios.*/)) {
@@ -17,12 +17,16 @@ $(document).ready(function() {
     $("#crearT").click(function() { $("#ATrabajador").openModal(); });
 
     $("#agregarMP").click(function() { $("#nuevaMatPrim").openModal(); });
-    $("#modinsumo").click(function() {
-        $("#modalInsumo").openModal();
-    });
+    $("#modinsumo").click(function() { $("#modalInsumo").openModal(); });
+    $("#AddIns").click(function() { $("#Insumosmodal").openModal() });
+    $("#AddMaq").click(function() { $("#Maquinasmodal").openModal(); });
+    $("#btnAgregarf").click(function() { $("#modal11").openModal(); });
+    $("#btnAgregaHM").click(function() { $("#modal12").openModal(); });
+    $("#actualizarM").click(function() { $("#Actualizar").openModal(); });
+    $("#AddPlan").click(function() { $("#PlanModal").openModal(); });
+    $("#AddTan").click(function() { $("#Tanquesmodal").openModal(); });
+    $("#btnAddDetPlan").click(function() { $("#DetPlanModal").openModal(); });
 
-    $("#btnAgregarf").click(function() { $("#modal11").openModal(); });  
-    $("#btnAgregaHM").click(function() { $("#modal12").openModal(); });   
 
 
     ///Configurar chosen////
@@ -80,6 +84,7 @@ $(document).ready(function() {
     $("#pesobase").numeric();
     $("#Diametro").numeric();
     $("#Velocidad").numeric();
+    $("#merma").numeric();
 });
 
 $('#cerrarCP').click(function() {
@@ -95,27 +100,29 @@ $('#cerrarHM1').click(function() {
     location.reload();
 });
 
-$('#tlbListaRep2').on('click', 'tbody .detalleNumOrd', function () {
+$('#tlbListaRep2').on('click', 'tbody .detalleNumOrd', function() {
     var table = $('#tlbListaRep2').DataTable();
-    var tr = $(this).closest('tr'); $(this).addClass("detalleNumOrdOrange");
+    var tr = $(this).closest('tr');
+    $(this).addClass("detalleNumOrdOrange");
     var row = table.row(tr);
-    var data = table.row( $(this).parents('tr') ).data();
+    var data = table.row($(this).parents('tr')).data();
 
     if (row.child.isShown()) {
         row.child.hide();
         tr.removeClass('shown');
-        $('#detail1'+data[1]).hide();
-        $('#detail2'+data[1]).show();
-        $(this).removeClass("detalleNumOrdOrange");            
-    } else {        
-        $('#loader'+data[1]).show();
-        $('#detail1'+data[1]).show();
-        $('#detail2'+data[1]).hide();
-              
-        format(row.child,data[1],data[1]);
+        $('#detail1' + data[1]).hide();
+        $('#detail2' + data[1]).show();
+        $(this).removeClass("detalleNumOrdOrange");
+    } else {
+        $('#loader' + data[1]).show();
+        $('#detail1' + data[1]).show();
+        $('#detail2' + data[1]).hide();
+
+        format(row.child, data[1], data[1]);
         tr.addClass('shown');
     }
 });
+
 function format(callback,noOrden,div) {
   var ia=0;
         $.ajax({
@@ -151,10 +158,11 @@ function format(callback,noOrden,div) {
                                   '<td>' + html + '</td>'+
                                   '<td>' + link +'</td>'+
                               '</tr>';                      
+
                 });
                 callback($('<table id="tlbListaRep3" class="striped">' + thead + tbody + '</table>')).show();
-                $('#loader'+div).hide();
-                $('#detail1'+div).show();
+                $('#loader' + div).hide();
+                $('#detail1' + div).show();
             } else {
                 thead += '<tr class="tblcabecera"><th class="negra center">N° ORDEN</th>';
                 thead += '<th class="negra center">TURNO</th>';
@@ -163,16 +171,16 @@ function format(callback,noOrden,div) {
                 thead += '<th class="negra center">COORDINADOR</th>';
                 thead += '<th class="negra center">TIPO PAPEL</th></tr>';
                 tbody += '<tr >' +
-                      '<td></td>'+
-                      '<td></td>'+
-                      '<td></td>'+
-                      '<td>No hay datos disponibles</td>'+
-                      '<td></td>'+
-                      '<td></td>'+
-                  '</tr>';
+                    '<td></td>' +
+                    '<td></td>' +
+                    '<td></td>' +
+                    '<td>No hay datos disponibles</td>' +
+                    '<td></td>' +
+                    '<td></td>' +
+                    '</tr>';
                 callback($('<table id="tlbListaRep3" class="striped">' + thead + tbody + '</table>')).show();
-                $('#loader'+div).hide();
-                $('#detail'+div).show();
+                $('#loader' + div).hide();
+                $('#detail' + div).show();
             }
         }
     });
@@ -279,20 +287,20 @@ function crearTabla() {
                 html += '<tr><td>BLANCO IMPRESO</td>';
                 for (var i = 0; i < obj.length; i++) {
                     if (obj[i]['IdInsumo'] == 1) {
-                        html += '<td><input class="inputCP numeric" id="cargaN' + obj[i]['IdCargaPulper'] + '" onchange="actualizandoCargasPulper(' + obj[i]['IdCargaPulper'] + ', this.value)" value="' + obj[i]['Cantidad'] + '"/></td>';
+                        html += '<td><input class="inputCP numeric" id="cargaN' + obj[i]['IdCargaPulper'] + '" onchange="actualizandoCargasPulper(' + obj[i]['IdCargaPulper'] + ', ' + obj[i]['IdReporteDiario'] + ' ,this.value)" value="' + obj[i]['Cantidad'] + '"/></td>';
                     }
                 };
                 html += '</tr>';
                 html += '<tr><td>MEZCLADO (COLOR)</td>';
                 for (var i = 0; i < obj.length; i++) {
                     if (obj[i]['IdInsumo'] == 2) {
-                        html += '<td><input class="inputCP numeric" id="cargaN' + obj[i]['IdCargaPulper'] + '" onchange="actualizandoCargasPulper(' + obj[i]['IdCargaPulper'] + ', this.value)" value="' + obj[i]['Cantidad'] + '"/></td>';
+                        html += '<td><input class="inputCP numeric" id="cargaN' + obj[i]['IdCargaPulper'] + '" onchange="actualizandoCargasPulper(' + obj[i]['IdCargaPulper'] + ', ' + obj[i]['IdReporteDiario'] + ' , this.value)" value="' + obj[i]['Cantidad'] + '"/></td>';
                     }
                 };
                 html += '<tr><td>MERMA</td>';
                 for (var i = 0; i < obj.length; i++) {
                     if (obj[i]['IdInsumo'] == 12) {
-                        html += '<td><input class="inputCP numeric" id="cargaN' + obj[i]['IdCargaPulper'] + '" onchange="actualizandoCargasPulper(' + obj[i]['IdCargaPulper'] + ', this.value)" value="' + obj[i]['Cantidad'] + '"/></td>';
+                        html += '<td><input class="inputCP numeric" id="cargaN' + obj[i]['IdCargaPulper'] + '" onchange="actualizandoCargasPulper(' + obj[i]['IdCargaPulper'] + ', ' + obj[i]['IdReporteDiario'] + ' ,this.value)" value="' + obj[i]['Cantidad'] + '"/></td>';
                     }
                 };
                 html += '</tr>';
@@ -372,8 +380,10 @@ function buscarHorasMolienda(idHoraMolienda) {
 }
 /*************ACTUALIZANDO HORA MOLIENDA***************************/
 function actualizarHorasMolienda() {
+    debugger;
     var form_data = {
         idHora: $('#idHora').val(),
+        idRptD: $("#idRptD").val(),
         timepickerII: $('#timeHM12').val(),
         timepickerFF: $('#timeHM22').val()
     };
@@ -383,8 +393,10 @@ function actualizarHorasMolienda() {
         async: true,
         data: form_data,
         success: function(data) {
-            if (data == 1) {
-                Materialize.toast('SE GUARDO CON ÉXITO', 1000);
+            debugger;
+            console.log(data);
+            if (data = 1) {
+                Materialize.toast('SE ACTUALIZO CON ÉXITO', 1000);
                 $('#descipcion').val('');
             } else {
                 Materialize.toast('ERROR AL GUARDAR', 1000);
@@ -458,13 +470,15 @@ function validarControlesTM() {
     };
 }
 /************ACTUALIZANDO CARGAS PULPER****************************/
-function actualizandoCargasPulper(idInsumo, cantidad) {
+function actualizandoCargasPulper(idInsumo, IdReporteDiario, cantidad) {
+    debugger;
     $.ajax({
-        url: "../actualizarCargaPulper/" + idInsumo + '/' + cantidad,
+        url: "../actualizarCargaPulper/" + idInsumo + '/' + IdReporteDiario + "/" + cantidad,
         type: "POST",
         async: true,
         success: function(data) {
-            if (data == true) {
+            debugger;
+            if (data = true) {
                 Materialize.toast('SE ACTUALIZO UN REGISTRO', 1000);
             } else {
                 Materialize.toast('ERROR AL MOMENTO DE ACTUALIZAR', 1000);
@@ -629,17 +643,17 @@ function validarControlesTiempoMuertos() {
 /****************ABRE EL MODEL PARA CREAR NUEVA ORDEN DE PRODUCCION*************************/
 $("#crearR").click(function() {
     $.ajax({
-            url: "validarNoOrden",
-            type:"POST",
-            async:true,
-            success: function(data){
-                if (data==true) {
-                    mensajeAlerta('Ya existe una orden activa, cierre la anterior y agrege una nueva');
-                    } else {
+        url: "validarNoOrden",
+        type: "POST",
+        async: true,
+        success: function(data) {
+            if (data == true) {
+                mensajeAlerta('Ya existe una orden activa, cierre la anterior y agrege una nueva');
+            } else {
                 $("#nuevoReporte").openModal();
             }
         }
-    });    
+    });
 });
 
 /****************ABRE EL MODEL PARA AGREGAR NUEVO TIEMPO MUERTO*************************/
@@ -679,6 +693,7 @@ $("#valOrdP7").on('click', function() {
 });
 /****************GUARDANDO TIEMPOS MUERTOS**********************/
 function guardarTM1() {
+    debugger;
     var result = validarControlesTiempoMuertos();
     if (result == false) {} else {
         var form_data = {
@@ -697,7 +712,8 @@ function guardarTM1() {
             async: true,
             data: form_data,
             success: function(data) {
-                if (data == 1) {
+                debugger;
+                if (data = 1) {
                     Materialize.toast('SE GUARDO CON ÉXITO', 1000);
                     $('#descipcion').val('');
                 } else {
@@ -813,7 +829,8 @@ function guardarCargaPulper() {
     };
 }
 /****************ELIMAR TIEMPO MUERTO*********************************************************/
-function eliminarTM(idTiempoMuerto) {
+function eliminarTM(idTiempoMuerto, IdReporteDiario) {
+    debugger;
     swal({
         title: 'ELIMINAR',
         text: '¿Desea eliminar permanentemente este registro?',
@@ -824,8 +841,9 @@ function eliminarTM(idTiempoMuerto) {
         confirmButtonText: 'ACEPTAR',
         cancelButtonText: 'CANCELAR'
     }).then(function() {
+        debugger;
         $.ajax({
-            url: "../eliminarTM/" + idTiempoMuerto,
+            url: "../eliminarTM/" + idTiempoMuerto + "/" + IdReporteDiario,
             type: "POST",
             async: true,
             success: function(data) {
@@ -926,20 +944,24 @@ function cambiaStatusRpt(idOrden, numOrden, estado) {
                 confirmButtonText: 'CERRAR',
                 showCancelButton: true,
 
-                cancelButtonText:'Cancelar',
-            }).then(function(){
-            $.ajax({ url: "cambiarEstadoRpt/"+idOrd+"/"+status,
-                type: "post",
-                async:true,
-                success: function(){
-                swal({title: "EL ESTADO DE LA ORDEN SE CAMBIO CORECTAMENTE!",
-                type: "success",
-                confirmButtonText: "CERRAR",
-                }).then(
-                    function(){gotopage("ordProduccion");}
-                )}
-            })
-        }); break;
+                cancelButtonText: 'Cancelar',
+            }).then(function() {
+                $.ajax({
+                    url: "cambiarEstadoRpt/" + idOrd + "/" + status,
+                    type: "post",
+                    async: true,
+                    success: function() {
+                        swal({
+                            title: "EL ESTADO DE LA ORDEN SE CAMBIO CORECTAMENTE!",
+                            type: "success",
+                            confirmButtonText: "CERRAR",
+                        }).then(
+                            function() { gotopage("ordProduccion"); }
+                        )
+                    }
+                })
+            });
+            break;
 
     }
 }
@@ -1115,6 +1137,19 @@ $('#filtrarRpt').on('keyup', function() {
     table.search(this.value).draw(); 
 });
 
+$('#BuscarINS').on('keyup', function() {
+    var table = $('#tblIns').DataTable();
+    table.search(this.value).draw();
+
+    //$("#TblMaster_filter").hide();filtrarTM
+});
+
+$('#Buscar').on('keyup', function() {
+    var table = $('#tblMaquinas').DataTable();
+    table.search(this.value).draw();
+
+});
+
 $('#filtrarTM').on('keyup', function() {
     var table = $('#tlbTiemposMuertos').DataTable();
     table.search(this.value).draw();
@@ -1134,7 +1169,8 @@ $('#filtrarRep').on('keyup', function() {
     table.search(this.value).draw();
 });
 
-$("#TblMaster, #tlbTiemposMuertos, #tablaProd").DataTable({
+
+$("#TblMaster, #tblMaquinas, #tblIns, #tblTanques, #chkInsumo,#chkTanques").DataTable({
     "ordering": false,
     "info": false,
     "bPaginate": false,
@@ -1515,6 +1551,7 @@ $("#agregarP").click(function() {
 
 
 function Guardar() {
+    debugger;
     var form_data = {
         idRptD: $("#idRptD").val(),
         NoOrden: $("#NoOrden").val(),
@@ -1525,7 +1562,8 @@ function Guardar() {
         Velocidad: $("#Velocidad").val(),
         peso: $("#peso").val(),
         Diametro: $("#Diametro").val(),
-        pesobase: $("#pesobase").val()
+        pesobase: $("#pesobase").val(),
+        merma: $("#merma").val()
     };
     var envio = $.ajax({
         url: "../GuardaProduccion",
@@ -1540,8 +1578,9 @@ function Guardar() {
                 vel = $("#Velocidad").val(),
                 peso = $("#peso").val(),
                 diam = $("#Diametro").val(),
-                pesobase = $("#pesobase").val();
-            if (horain == "" | horafin == "" | oper == "" | maq == "" | peso == "" | pesobase == "" | diam == "") {
+                pesobase = $("#pesobase").val(),
+                merma = $("#merma").val();
+            if (horain == "" | horafin == "" | oper == "" | maq == "" | peso == "" | pesobase == "" | diam == "" | merma == "") {
                 swal({
                     type: "info",
                     text: "TODOS LOS CAMPOS SON REQUERIDOS" + ", " + "DEBE COMPLETAR EL CAMPO FALTANTE",
@@ -1554,7 +1593,7 @@ function Guardar() {
         },
         success: function(data) {
             if (data = 1) {
-
+                debugger;
                 Materialize.toast('SE GUARDO CON ÉXITO', 1000);
                 $("#idRptD").val("")
                 $("#NoOrden").val("")
@@ -1571,8 +1610,9 @@ function Guardar() {
     });
 }
 
-function EliminarProd(elem) {
+function EliminarProd(elem, IDretp) {
     var id = $(elem).attr("id");
+    var IDretp = $("#idRptD").val();
     swal({
         title: '¿Estas seguro que deseas eliminar este registro?',
         text: 'esta operacion no podra revertirse',
@@ -1584,7 +1624,7 @@ function EliminarProd(elem) {
         cancelButtonText: 'Cancelar'
     }).then(function() {
         $.ajax({
-            url: "../EliminarProduccion/" + id,
+            url: "../EliminarProduccion/" + id + "/" + IDretp,
             async: true,
             success: function() {
                 swal({
@@ -1612,6 +1652,63 @@ function EditarProd(Operador, Maquina, HoraInicio, HoraFin, Velocidad, Peso, Dia
     $("#lblpesobase").text(PesoBase)
     $("#Detalles").openModal();
 }
+
+function Actualizamerm() {
+    var IdReporteDiario = $("#idRptD").val(),
+        Merma = $("#Merma").val(),
+        Maquina = $("#Maquina option:selected").val();
+    swal({
+        text: '¿Estas seguro que deseas modificar la cantidad de merma para esta maquina?',
+        type: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Actualizar',
+        cancelButtonText: 'Cancelar'
+    }).then(function() {
+        var AJAX = $.ajax({
+            url: "../ActualizarMerma/" + IdReporteDiario + '/' + Merma + "/" + Maquina,
+            type: "POST",
+            async: true,
+            beforeSend: function(data) {
+                if (Merma == "" | Maquina == "") {
+                    swal({
+                        text: "Debe seleccionar una maquina e ingresar la cantidad de merma," +
+                            " verifica  los datos e inténtalo nuevamente",
+                        type: "warning",
+                        confirmButtonText: "CERRAR"
+                    });
+                    AJAX.abort();
+                }
+            },
+            success: function(data) {
+                if (data = true) {
+                    swal({
+                        text: "CANTIDAD MERMA ACTUALIZADA",
+                        type: "success",
+                        confirmButtonText: "CERRAR"
+                    }).then(
+                        function() {
+                            location.reload();
+                        }
+                    )
+                } else {
+                    swal({
+                        text: "ERROR AL ACTUALIZAR CANTIDAD MERMA",
+                        type: "error",
+                        confirmButtonText: "CERRAR"
+                    }).then(
+                        function() {
+                            location.reload();
+                        }
+                    )
+                };
+            }
+        });
+    })
+
+}
+
 /*/////////////////////////////////////////////////////////////////////////////////////////
                                FIN  FUNCIONES SOBRE PRODUCCION
 //////////////////////////////////////////////////////////////////////////////////////////*/
@@ -1684,7 +1781,6 @@ $('#Tanque').on("change", function() {
 })
 
 function guardaInsumos() {
-    debugger;
     var form_data = {
         idRptd: $("#idRptd").val(),
         Dia: $("#Dia").val(),
@@ -1699,7 +1795,6 @@ function guardaInsumos() {
         async: true,
         data: form_data,
         beforeSend: function(data) {
-            debugger;
             var Dia = $("#Dia").val(),
                 Noche = $("#Noche").val(),
                 ptadia = $("#ptadia").val(),
@@ -1715,7 +1810,6 @@ function guardaInsumos() {
             }
         },
         success: function(data) {
-            debugger;
             if (data = 1) {
                 Materialize.toast('SE GUARDO CON ÉXITO', 1000);
             } else {
@@ -1769,9 +1863,10 @@ function DetallePasta(Tanque, Dia, Noche, Consumo) {
 
 }
 
-function EliminarInsumo(elem) {
+function EliminarInsumo(elem, idrpt) {
     debugger;
     var id = $(elem).attr("id");
+    var idrpt = $("#idRptD").val();
     swal({
         title: '¿Estas seguro que deseas eliminar este registro?',
         text: 'esta operacion no podra revertirse',
@@ -1783,7 +1878,7 @@ function EliminarInsumo(elem) {
         cancelButtonText: 'Cancelar'
     }).then(function() {
         $.ajax({
-            url: "../EliminaMPInsumos/" + id,
+            url: "../EliminaMPInsumos/" + id + "/" + idrpt,
             async: true,
             success: function() {
                 swal({
@@ -1800,9 +1895,10 @@ function EliminarInsumo(elem) {
     })
 }
 
-function Eliminarpasta(elem) {
+function Eliminarpasta(elem, idrpt) {
     debugger;
     var id = $(elem).attr("id");
+    var idrpt = $("#idRptD").val();
     swal({
         title: '¿Estas seguro que deseas eliminar este registro?',
         text: 'esta operacion no podra revertirse',
@@ -1814,7 +1910,7 @@ function Eliminarpasta(elem) {
         cancelButtonText: 'Cancelar'
     }).then(function() {
         $.ajax({
-            url: "../EliminaPasta/" + id,
+            url: "../EliminaPasta/" + id + "/" + idrpt,
             async: true,
             success: function() {
                 swal({
@@ -1829,4 +1925,218 @@ function Eliminarpasta(elem) {
             }
         });
     })
+}
+/////////////////FUNCIONES SOBRE MAQUINAS////////////////////////////
+function GuardarMaquina() {
+    debugger;
+    var form_data = {
+        maquina: $("#maquina").val(),
+        comentario: $("#comentario").val()
+    };
+
+    var AJAX = $.ajax({
+        url: "Guardarmaquina",
+        type: "POST",
+        async: true,
+        data: form_data,
+        beforeSend: function(data) {
+            var maq = $("#maquina").val();
+            var com = $("#comentario").val();
+            if (maq == "" | com == "") {
+                swal({
+                    text: "Todos los campos son requeridos",
+                    type: "info",
+                    confirmButtonText: "CERRAR",
+                });
+                AJAX.abort();
+            }
+        },
+        success: function(data) {
+            debugger;
+            if (data = 1) {
+                Materialize.toast('SE GUARDO CON ÉXITO', 1000);
+            } else {
+                Materialize.toast('ERROR AL GUARDAR', 1000);
+            }
+        }
+    });
+}
+
+function EliminaMaquina(elem) {
+    var id = $(elem).attr('id');
+    swal({
+        title: '¿Estas seguro que deseas eliminar este registro?',
+        text: 'esta operacion no podra revertirse',
+        type: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then(function() {
+
+        $.ajax({
+            url: "Eliminarmaquina/" + id,
+            async: true,
+            success: (function() {
+                swal({
+                    text: "El registro se ha elimando correctamente",
+                    type: "success",
+                    confirmButtonText: "CERRAR"
+                }).then(
+                    function() {
+                        location.reload();
+                    }
+                )
+            })
+        });
+    })
+
+}
+
+function cerrarModalMaq() {
+    $("#Maquinasmodal").closeModal();
+    location.reload();
+}
+
+/////////////////FUNCIONES SOBRE INSUMOS////////////////////////////
+
+function Guardarinsumos() {
+    debugger;
+    var form_data = {
+        Descripcion: $("#Descripcion").val(),
+        categoria: $("#categoria").val(),
+        unidadmedida: $("#unidadmedida").val(),
+        tipo: $("#tipo").val()
+    };
+
+    var AJAX = $.ajax({
+        url: "GuardaInsumos",
+        type: "POST",
+        async: true,
+        data: form_data,
+        beforeSend: function(data) {
+            var desc = $("#Descripcion").val();
+            var cat = $("#categoria").val();
+            var unidad = $("#unidadmedida").val();
+            var tipo = $("#tipo").val();
+            if (desc == "" | cat == "") {
+                swal({
+                    text: "Todos los campos son requeridos",
+                    type: "info",
+                    confirmButtonText: "CERRAR",
+                });
+                AJAX.abort();
+            }
+        },
+        success: function(data) {
+            debugger;
+            if (data = 1) {
+                Materialize.toast('SE GUARDO CON ÉXITO', 1000);
+                $("#Descripcion").val("");
+                $("#categoria").val("");
+            } else {
+                Materialize.toast('ERROR AL GUARDAR', 1000);
+            }
+        }
+    });
+}
+
+function cerrarModalIns() {
+    $("#Insumosmodal").closeModal();
+    location.reload();
+}
+
+function EliminaINS(elem) {
+    var id = $(elem).attr('id');
+    swal({
+        title: '¿Estas seguro que deseas eliminar este registro?',
+        text: 'esta operacion no podra revertirse',
+        type: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then(function() {
+
+        $.ajax({
+            url: "EliminaInsumo/" + id,
+            async: true,
+            success: (function() {
+                swal({
+                    text: "El registro se ha elimando correctamente",
+                    type: "success",
+                    confirmButtonText: "CERRAR"
+                }).then(
+                    function() {
+                        location.reload();
+                    }
+                )
+            })
+        });
+    })
+
+}
+
+/****************************************FUNCIONES SOIBRE PLANES********************************************************/
+function guardaplan() {
+    debugger;
+    var form_data = {
+        fecha: $("#fecha").val(),
+        comentario: $("#comentario").val()
+    };
+    $.ajax({
+        url: "Guardaplan",
+        type: "POST",
+        async: true,
+        data: form_data,
+        success: function(data) {
+            swal({
+                text: "Guardado con exito",
+                type: "success",
+                confirmButtonText: "CERRAR"
+            }).then(
+                function() {
+                    location.reload();
+                }
+            );
+        }
+    });
+}
+
+/***************FUNCIONES SOBRE TANQUES****************** */
+function guardatanque() {
+    var form_data = {
+        tanque: $("#tanque").val()
+    };
+    $.ajax({
+        url: "GuardaTanques",
+        type: "POST",
+        data: form_data,
+        async: true,
+        beforeSend: function(data) {
+            var tanque = $("#tanque").val();
+            if (tanque == "") {
+                swal({
+                    text: "No puede dejar vacio este campo",
+                    type: "warning",
+                    confirmButtonText: "CERRAR"
+                });
+                $.ajax.abort();
+            }
+
+        },
+        success: function(data) {
+            swal({
+                text: "Guardado con exito",
+                type: "success",
+                confirmButtonText: "CERRAR"
+            }).then(
+                function() {
+                    location.reload();
+                }
+            );
+        }
+    });
 }

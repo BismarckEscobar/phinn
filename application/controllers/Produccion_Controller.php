@@ -34,17 +34,19 @@ class Produccion_Controller extends CI_Controller
         $peso = $this->input->get_post("peso");
         $diametro = $this->input->get_post("Diametro");
         $pesobase = $this->input->get_post("pesobase");
+        $merma = $this->input->get_post("merma");
         $duplicado = $this->db->get_where('reporte_diario',array("IdReporteDiario" => $IdRptD,'Estado'=>0));
          if ($duplicado->num_rows()>0) {
              echo "Consecutivo ya se ha cerrado";
          } else {
-        $this->produccion_Model->Guardar( $IdRptD, $NoOrden, $operador,$maquina, $HoraInic, $HoraFin,$velocidad, $peso,$diametro, $pesobase);
-         //echo  $IdRptD, $NoOrden, $operador,$maquina, $HoraInic, $HoraFin,$velocidad, $peso,$diametro, $pesobase;
+        $this->produccion_Model->Guardar( $IdRptD, $NoOrden, $operador,$maquina, $HoraInic, $HoraFin,$velocidad, $peso,$diametro, $pesobase,$merma);
+         echo  $IdRptD, $NoOrden, $operador,$maquina, $HoraInic, $HoraFin,$velocidad, $peso,$diametro, $pesobase , $merma;
          }
     }
 
         public function agregaDetalleOrdP1($idReporteD) {
         $data['produccion'] = $this->produccion_Model->ListarProd($idReporteD);
+        $data['produccion2'] = $this->produccion_Model->ListarProd2($idReporteD);
         $data['consecutivo'] = $this->Ordenproduccion_model->buscarRtpDiario($idReporteD);
         //$data['consecutivo'] = array('NoOrden' => $Norden, 'consecutivo' => $consecutivo, 'turno' => $turno);
         $data ['Operador'] = $this->produccion_Model->Operario();
@@ -55,9 +57,26 @@ class Produccion_Controller extends CI_Controller
         $this->load->view('footer');
     }
 
-    public function Eliminar($idprod)
+    public function Eliminar($idprod,$IdRptD)
     {
-        $this->produccion_Model->EliminarProd($idprod);
+         $duplicado = $this->db->get_where('reporte_diario',array("IdReporteDiario" => $IdRptD,'Estado'=>0));
+         if ($duplicado->num_rows()>0) {
+             echo "Consecutivo ya se ha cerrado";
+         } else {
+        $this->produccion_Model->EliminarProd($idprod,$IdRptD);
+        //echo "Se puede eliminar";
+         }
+    }
+
+    public function ActualizaMerma($IdReporteDiario , $Merma , $Maq)
+    {
+        $duplicado = $this->db->get_where('reporte_diario',array("IdReporteDiario" => $IdReporteDiario,'Estado'=>0));
+         if ($duplicado->num_rows()>0) {
+             echo "Consecutivo ya se ha cerrado";
+         } else {
+        $this->produccion_Model->ActualizarMerma($IdReporteDiario , $Merma , $Maq);
+        //echo "SE PUEDE ACTUALIZAR";
+         }
     }
 }
 ?>

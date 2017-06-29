@@ -41,9 +41,10 @@ class cargaspulper_Model extends CI_Model {
 		}
 	}
 
-	public function actualizarRegistroCarga($idCargaPulper, $cantidad) {
+	public function actualizarRegistroCarga($idCargaPulper, $idReporteDiario, $cantidad) {
 		$data = array('Cantidad' => $cantidad);
 	    $this->db->where('IdCargaPulper=', $idCargaPulper);
+		$this->db->where('IdReporteDiario=', $idReporteDiario);	
 	    $result = $this->db->update('cargas_pulper', $data);
 	    echo $result;
 	}
@@ -73,12 +74,13 @@ class cargaspulper_Model extends CI_Model {
         }   
 	}
 
-	public function actualizarHoraMolienda($idHora, $horaInicio, $horaFinal) {
+	public function actualizarHoraMolienda($idHora, $idReporteDiario ,$horaInicio, $horaFinal) {
 		$data = array(
 			'horaInicio' => $horaInicio,
 			'horaFin' => $horaFinal
 			);
 	    $this->db->where('IdHora', $idHora);
+		$this->db->where('IdReporteDiario', $idReporteDiario);	
 	    $result=$this->db->update('horas_molienda', $data);
 	    echo $result;
 	}
