@@ -2,7 +2,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<title>Reporte diario</title>
+	<title>Reporte Diario</title>
 	<style>
 		table {
 		    color: black;
