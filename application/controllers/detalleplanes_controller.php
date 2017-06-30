@@ -1,3 +1,11 @@
+/**
+ * @author [Cesar Mejia]
+ * @email [analista4.guma@gmail.com]
+ * @create date 2017-06-30 07:30:07
+ * @modify date 2017-06-30 07:30:07
+ * @desc [description]
+*/
+
 <?php 
 defined('BASEPATH') or exit('No direct script access allowed');
 class detalleplanes_controller extends CI_Controller
