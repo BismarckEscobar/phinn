@@ -52,13 +52,99 @@
         </div>
     </div>
 
- <div class="row">
+  <div class="container">
+            <div class="Buscar row column noMargen">
+                <div class="col s1 m1 l1 offset-l3 offset-m2">
+                    <i style='color:#039be5; font-size:40px;' class="material-icons">search</i>
+                </div>
+                <div class="input-field col s12 m6 l4">
+                    <input id="BuscarDetPlan" type="text" placeholder="Buscar" class="validate">
+                    <label for="search"></label>
+                </div>
+            </div>
+        </div>
+
+    <div class="row">
         <div class="col s12">
             <div class="card">
                 <div class="card-content">
-                
-                    <center><span class="card-title purple-text accent-4" style="font-family: robotoblack;"></span></center>
-                    
+                     <div class="col s10 m10" style="text-align:left;">
+                            <a href="<?php echo base_url('index.php/Planes')?>" class="btn purple darken-1 waves-effect waves-light tooltipped" data-position="right" data-tooltip="Regresar">
+                                <i class="material-icons">keyboard_backspace</i>
+                            </a>
+                        </div>
+                        <br><br>
+                    <center><span class="card-title purple-text accent-4" style="font-family: robotoblack;">LISTA PLAN DE TRABAJO</span></center>
+                    <table id="tblDetPlan" class="striped">
+                        <thead>
+                            <tr class="tblcabecera">
+                                <th>IDPlan</th>
+                                <th>COMENTARIO</th>
+                                <th>CATEGORIA</th>
+                                <th>DESCRIPCION</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                  if(!($cat1)){}
+                                  else{
+                                       foreach($cat1 as $key)
+                                       {
+                                            echo'
+                                                <tr>
+                                                    <td>'.$key['IdPlan'].'</td>
+                                                    <td>'.$key['Comentario'].'</td>
+                                                    <td>'.$key['categoria'].'</td>
+                                                    <td>'.$key['Descripcion'].'</td>
+                                                    </tr>
+                                            ';
+                                       } 
+                                  }
+                                     if(!($cat2))
+                                  {}
+                                  else{
+                                      foreach($cat2 as $key)
+                                       {
+                                            echo'<tr>
+                                                    <td>'.$key['IdPlan'].'</td>
+                                                    <td>'.$key['Comentario'].'</td>
+                                                    <td>'.$key['categoria'].'</td>
+                                                    <td>'.$key['Descripcion'].'</td>
+                                            </tr>
+                                            ';
+                                       } 
+                                  }
+                                      if(!($cat3))
+                                  {}
+                                  else{
+                                      foreach($cat3 as $key)
+                                       {
+                                            echo'<tr>
+                                                    <td>'.$key['IdPlan'].'</td>
+                                                    <td>'.$key['Comentario'].'</td>
+                                                    <td>'.$key['categoria'].'</td>
+                                                    <td>'.$key['Descripcion'].'</td>
+                                            </tr>
+                                            ';
+                                       } 
+                                  }
+                                  if(!($cat4))
+                                  {}
+                                  else{
+                                      foreach($cat4 as $key)
+                                       {
+                                            echo'<tr>
+                                                    <td>'.$key['IdPlan'].'</td>
+                                                    <td>'.$key['Comentario'].'</td>
+                                                    <td>'.$key['categoria'].'</td>
+                                                    <td>'.$key['Tanque'].'</td>
+                                            </tr>
+                                            ';
+                                       } 
+                                  }
+                               ?>
+                        </tbody>
+                    </table>
 
                     <div class="fixed-action-btn">
                         <a id="btnAddDetPlan" class="tooltipped btn-floating btn-large amber darken-4" data-position="left" data-tooltip="AGREGAR DETALLE">
@@ -72,7 +158,7 @@
 </main>
 
 
-<div id="DetPlanModal" class="modal1" style="height:2000px; width:80%;">
+<div id="DetPlanModal" class="modal1" style="height:90%; width:90%;">
     <div class="modal-content">
         <div class="right row">
             <div class="col s1 m1 l1">
@@ -87,61 +173,167 @@
             </div>
         </div>
         <div class="row">
-         <form action="" method="post">
-                <div class="col s6 m6 s6">
-                <table id="chkInsumo" class="striped responsive-table">
-                    <thead>
-                      <tr class="tblcabecera">
-                       <th>INSUMOS</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    <?php 
+            <form action="" method="post">
+                <?php
+                 if(!($planes)){                                   
+                 } else {
+                     foreach ($planes as $key) {
+                         echo '<input type="hidden" id="idplan" value="'.$key['IdPlan'].'">';
+                     }
+                 }
+            ?>
+                    <div class="row">
+                        <div class="input-field col s6 m6 s6">
+                            <select name="categorias" id="categorias" class="chosen-select browser-default">
+                        <option disabled selected>CATEGORIA</option>
+                        <?php
+                            if(!($categorias)){}
+                            else{
+                                foreach ($categorias as $key) {
+                                    echo '<option value="'.$key['IdCategoria'].'">'.$key['categoria'].'</option>';
+                                }
+                            }
+                        ?>
+                    </select>
+                        </div>
+                    </div><br><br>
+                    <div class="row">
+                        <div class="col s12 m12 s12">
+                            <table id="chkInsumo" class="striped responsive-table compact">
+                                <thead>
+                                    <tr class="tblcabecera">
+                                        <th style="display:none;"></th>
+                                        <th>RPTD INSUMOS</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php 
                         foreach($insumos as $key)
                         {
+                        echo'<tr>
+                        <td style="display:none;">'.$key['IdInsumo'].'</td>
+                            <td>
+                             <p>
+                                <input type="checkbox" class="val" name="chkinsumo'.$key['IdInsumo'].'" id="chkinsumo'.$key['IdInsumo'].'" value="'.$key['IdInsumo'].'"/>
+                                <label class="purple-text" for="chkinsumo'.$key['IdInsumo'].'">'.$key['Descripcion'].'</label>
+                            </p>
+                            </td>
+                        </tr>'
+                        ;
+                        }
+                    ?>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col s12 m12 s12">
+                            <table id="chkInsumo2" class="striped responsive-table compact">
+                                <thead>
+                                    <tr class="tblcabecera">
+                                        <th style="display:none;"></th>
+                                        <th>RPTD CARGAS PULPER</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php 
+                        foreach($insumos2 as $key)
+                        {
                             echo'<tr>
+                             <td style="display:none;" >'.$key['IdInsumo'].'</td>
                           <td> <p>
-                            <input type="checkbox" name="insumos" id="'.$key['IdInsumo'].'" value="'.$key['IdInsumo'].'"/>
-                            <label class="purple-text" for="'.$key['IdInsumo'].'">'.$key['Descripcion'].'</label>
+                            <input type="checkbox" name="chkinsumo'.$key['IdInsumo'].'" id="chkinsumo'.$key['IdInsumo'].'" value="'.$key['IdInsumo'].'"/>
+                            <label class="purple-text" for="chkinsumo'.$key['IdInsumo'].'">'.$key['Descripcion'].'</label>
                             </p></td>
                         </tr>';
                         }
                     ?>
-                    </tbody>
-                </table>
-                </div>
-                <div class="col s6 m6 s6">
-                    <table id="chkTanques" class="striped responsive-table">
-                        <thead>
-                          <tr class="tblcabecera">
-                            <th>TANQUES</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                              foreach($tanques as $key){
-                                echo'
-                                    <tr>
-                                        <td>
-                                        <p>
-                                            <input type="checkbox" name="tanques" id="'.$key['Tanque'].'" value="'.$key['IdTanque'].'"/>
-                                            <label class="purple-text" for="'.$key['Tanque'].'">'.$key['Tanque'].'</label>
-                                        </p>
-                                        </td>
-                                    </tr>
-                                ';
-                              }
-                            ?>
-                        </tbody>
-                    </table>
-                </div>
-                <br><br>
-                <div class="row">
-                    <div class="center">
-                        <a href="#" class="btn waves-effect waves-light purple darken-2" >GUARDAR</a>
-                        <a href="#" class="btn waves-effect waves-light purple darken-2 modal-action modal-close noHover">CERRAR <i class="material-icons">close</i></a>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
+                    <br>
+                    <div class="row">
+                        <div class="col s12 m12 s12">
+                            <table id="chkInsumo3" class="striped responsive-table compact">
+                                <thead>
+                                    <tr class="tblcabecera">
+                                        <th style="display:none;"></th>
+                                        <th>LDP MATERIA PRIMA</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php 
+                        foreach($insumos3 as $key)
+                        {
+                            echo'<tr>
+                            <td style="display:none;">'.$key['IdInsumo'].'</td>
+                          <td> <p>
+                            <input type="checkbox" name="chkinsumo'.$key['IdInsumo'].'" id="chkinsumo'.$key['IdInsumo'].'" value="'.$key['IdInsumo'].'"/>
+                            <label class="purple-text" for="chkinsumo'.$key['IdInsumo'].'">'.$key['Descripcion'].'</label>
+                            </p></td>
+                        </tr>';
+                        }
+                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col s12 m12 s12">
+                            <table id="chktanques" class="striped responsive-table compact">
+                                <thead>
+                                    <tr class="tblcabecera">
+                                        <th style="display:none;"></th>
+                                        <th>RPTD PASTA</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php 
+                        foreach($tanques as $key)
+                        {
+                            echo'<tr>
+                            <td style="display:none;">'.$key['IdTanque'].'</td>
+                          <td> <p>
+                            <input type="checkbox" name="chk'.$key['IdTanque'].'" id="chk'.$key['IdTanque'].'" value="'.$key['IdTanque'].'"/>
+                            <label class="purple-text" for="chk'.$key['IdTanque'].'">'.$key['Tanque'].'</label>
+                            </p></td>
+                        </tr>';
+                        }
+                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <br>
+                    <?php
+                        foreach ($planes as $key) {
+                            if ($key["Estado"]==1) {
+                                echo '
+                                    <div class="row-fluid">
+                                        <div class="center col s12 m12 s12">
+                                            <a href="#" id="btnSave" onclick="GuardaDetPlan()" class="btn waves-effect waves-light purple darken-2">GUARDAR</a>
+                                            <a href="#" class="btn waves-effect waves-light purple darken-2 modal-action modal-close noHover">CERRAR <i class="material-icons">close</i></a>
+                                        </div>
+                                    </div>
+                                    ';
+                            } else if($key["Estado"]==0){
+                                echo '
+                                    <div class="row-fluid">
+                                        <div class="center col s12 m12 s12">
+                                            <a href="#" class="btn waves-effect disabled waves-light">GUARDAR</a>
+                                            <span class="red-text right"><b>Plan de trabajo cerrado</b></span>
+                                            <a href="#" class="btn waves-effect waves-light purple darken-2 modal-action modal-close noHover">CERRAR <i class="material-icons">close</i></a>
+                                        </div>
+                                    </div>
+                                ';
+                            }
+                            
+                        }
+                    ?>
             </form>
         </div>
     </div>

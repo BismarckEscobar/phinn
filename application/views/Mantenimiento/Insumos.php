@@ -62,11 +62,15 @@
                                                 foreach ($listainsumos as $key) {
                                                     switch ($key['IdCategoria']) {
                                                         case 1:
-                                                            $key['IdCategoria'] = "Categoria 1";
+                                                            $key['IdCategoria'] = "RPTD CARGAS PULPER";
                                                             break;
                                                         
                                                         case 2:
-                                                            $key['IdCategoria'] = "Categoria 2";
+                                                            $key['IdCategoria'] = "RPTD INSUMOS";
+                                                            break;
+
+                                                        case 3:
+                                                            $key['IdCategoria'] = "LDP MATERIA PRIMA";
                                                             break;
                                                     }
                                                     echo '

@@ -39,25 +39,26 @@
             <div class="col s12">
                 <div class="card">
                     <div class="card-content">
-                    <center>
-                           <h5 class="card-title purple-text accent-4" style="font-family: robotoblack;">PLAN</h5>
-                    </center>
-                        <table  class="striped responsive-table">
+                        <center>
+                            <h5 class="card-title purple-text accent-4" style="font-family: robotoblack;">PLAN</h5>
+                        </center>
+                        <table id="tblPlan" class="striped responsive-table">
                             <thead>
-                                 <tr class="tblcabecera">
-                                    <th>ID PLAN</th>
+                                <tr class="tblcabecera">
+                                    <th>PLAN</th>
                                     <th>FECHA</th>
                                     <th>COMENTARIO</th>
                                     <th>ESTADO</th>
                                     <th>ACCIONES</th>
-                                 </tr>
+                                </tr>
                             </thead>
                             <tbody>
                                 <?php 
                                     foreach ($lista as $key) {
                                             echo'
                                             <tr>
-                                              <td><a href="'.base_url('index.php/AgregaDetalle/'.$key['IdPlan'].'').'">'.$key['IdPlan'].'</a></td>
+                                              <td><a href="'.base_url('index.php/AgregaDetalle/'.$key['IdPlan'].'').'">
+                                              <i data-tooltip="anexar informacion" class="tooltipped tyni material-icons">add</i></a></td>
                                               <td>'.$key['Fecha'].'</td>
                                               <td>'.$key['Comentario'].'</td>';
                                               if($key['Estado']==1){
@@ -74,14 +75,14 @@
                                               }
                                                   if($key['Estado']==1){
                                                  echo '<td>
-                                                <a class="tooltipped" data-tooltip="EDITAR PLAN" data-position="left" href="#"><i class="material-icons purple-text darken-4">edit</i></a>
+                                                <a onclick="EditarPlan('."'".$key['IdPlan']."','".$key['Fecha']."','".$key['Comentario']."'".')" class="tooltipped modal-trigger" data-tooltip="EDITAR PLAN" data-position="left" href="javascript:void(0)"><i class="material-icons purple-text darken-4">edit</i></a>
                                                 </td>                                  
                                             ';
                                               }
                                                  else if($key['Estado']==0){
                                                  echo '
                                                <td>
-                                               <a class="tooltipped" data-tooltip="EDITAR PLAN" data-position="left" href="#"><i class="material-icons purple-text darken-4">edit</i></a>
+                                               <a style="pointer-events: none;" href="#"><i class="material-icons grey-text darken-4">edit</i></a>
                                                </td>  
                                                                                     
                                             ';
@@ -95,7 +96,7 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
 </main>
 
@@ -117,21 +118,62 @@
         </div>
         <div class="row">
             <form action="" method="post">
-              <div class="row">
-                  <div class="input-field col s6 m6 s6" style="margin-top:85px;">
-                    <input type="date" name="fecha" class="datepicker" id="fecha" value="">
-                    <label id="lblfecha">FECHA</label>
+                <div class="row">
+                    <div class="input-field col s6 m6 s6" style="margin-top:85px;">
+                        <input type="date" name="fecha" class="datepicker" id="fecha" value="">
+                        <label id="lblfecha">FECHA</label>
+                    </div>
+                    <div class="input-field col s6 m6 s6">
+                        <textarea rows="" class="materialize-textarea" name="comentario" id="comentario" cols=""></textarea>
+                        <label id="lblcomentario">COMENTARIO</label>
+                    </div>
                 </div>
-                <div class="input-field col s6 m6 s6">
-                   <textarea rows="" class="materialize-textarea" name="comentario" id="comentario" cols=""></textarea>
-                    <label id="lblcomentario">COMENTARIO</label>
-                </div>
-              </div>
                 <br><br>
                 <div class="row">
                     <div class="center">
                         <a href="#" class="btn waves-effect waves-light purple darken-2" onclick="guardaplan()">GUARDAR</a>
                         <a href="#" class="btn waves-effect waves-light purple darken-2 modal-action modal-close noHover">CERRAR <i class="material-icons">close</i></a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<div id="ModalPlanEdit" class="modal1" style="height:320px;">
+    <div class="modal-content">
+        <div class="right row">
+            <div class="col s1 m1 l1">
+                <a href="#!" class="BtnClose modal-action modal-close noHover">
+                    <i class="material-icons">highlight_off</i>
+                </a>
+            </div>
+        </div>
+        <div class="row noMargen center">
+            <div class="noMargen col s12 m12 l12">
+                <h6 class="center" style="font-family:'robotoblack'; color:#831F82;font-size:30px; margin-bottom:30px;">EDITAR PLAN</h6>
+            </div>
+        </div>
+        <div class="row">
+            <form action="" method="post">
+                <div class="row">
+                    <div class="input-field col s6 m6 s6">
+                        <input type="hidden" name="IdPlan" id="IdPlan" value="">
+                        <input type="date" name="Fecha" class="datepicker" id="Fecha" value="">
+                        <label id="lblFecha">FECHA</label>
+                    </div>
+                    <div class="input-field col s6 m6 s6">
+                        <input type="text" name="Comentario" id="Comentario" value="">
+                        <label id="lblComentario">COMENTARIO</label>
+                    </div>
+                </div>
+                <br><br>
+                <div class="row">
+                    <div class="center">
+                        <a href="#" onclick="actualizaPlan()" class="btn waves-effect waves-light purple darken-2">ACTUALIZAR</a>
+                        <a href="#" class="btn waves-effect waves-light purple darken-2 modal-action modal-close noHover">CERRAR</a>
                     </div>
                 </div>
             </form>

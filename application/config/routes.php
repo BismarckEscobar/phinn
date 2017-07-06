@@ -139,11 +139,15 @@ $route['ValidaFecha/(:any)/(:any)/(:any)'] = 'Ordenproduccion_controller/Validar
  /************RUTAS TANQUES******************************/
     $route['Tanques'] = "tanques_controller";   
     $route['GuardaTanques'] = "tanques_controller/Guardar"; 
-
+    $route['EliminarTanques/(:any)'] = "tanques_controller/EliminarTanque/$1";
     /************RUTAS PLANES******************************/
    $route['Planes'] = "planes_controller";   
    $route['Guardaplan'] = "planes_controller/GuardaPlan"; 
+   $route['ActualizaPlan'] = "planes_controller/ActualizarPlan"; 
    $route['AgregaDetalle/(:any)'] = "detalleplanes_controller/AgregaDetallePlanes/$1"; 
+   $route['ValidarDetallePlan/(:any)/(:any)/(:any)'] = "detalleplanes_controller/ValidaDetalle/$1/$2/$3"; 
+   
+   $route['GuardarDetalles'] = "detalleplanes_controller/GuardaDetalles"; 
 
 
 

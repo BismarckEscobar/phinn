@@ -47,6 +47,7 @@ class Produccion_Controller extends CI_Controller
         public function agregaDetalleOrdP1($idReporteD) {
         $data['produccion'] = $this->produccion_Model->ListarProd($idReporteD);
         $data['produccion2'] = $this->produccion_Model->ListarProd2($idReporteD);
+        $data['produccion3'] = $this->produccion_Model->ListarProd3($idReporteD);
         $data['consecutivo'] = $this->Ordenproduccion_model->buscarRtpDiario($idReporteD);
         //$data['consecutivo'] = array('NoOrden' => $Norden, 'consecutivo' => $consecutivo, 'turno' => $turno);
         $data ['Operador'] = $this->produccion_Model->Operario();
