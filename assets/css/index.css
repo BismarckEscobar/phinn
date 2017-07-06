@@ -66,27 +66,33 @@ textarea.materialize-textarea:focus:not([readonly]) {
     height: 75%;
 }
 
+
 /*ESTILOS GENERALES*/
+
 .titulosGen {
-    font-size:50px;
-    color:#8b008b;
+    font-size: 50px;
+    color: #8b008b;
 }
 
 .titulos {
-    font-family:'robotoblack';
-    color:#831F82;
-    font-size:30px;
-    margin-bottom:30px;
-}
-.titulo-secundario {
-    font-family:'robotoblack';
-    color:#831F82;
-    font-size:20px;
-    margin-bottom:30px;
+    font-family: 'robotoblack';
+    color: #831F82;
+    font-size: 30px;
+    margin-bottom: 30px;
 }
 
-#cerrarHM, #agregarHMolienda, #cerrarHM1, #actualizaHMolienda{
-    background-color:#831F82;
+.titulo-secundario {
+    font-family: 'robotoblack';
+    color: #831F82;
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+#cerrarHM,
+#agregarHMolienda,
+#cerrarHM1,
+#actualizaHMolienda {
+    background-color: #831F82;
 }
 
 .btn,
@@ -190,13 +196,13 @@ table tr:nth-child(even) {
     background-color: #CCCCCC;
     text-align: center;
 }
+
 td,
 th {
     text-align: center;
 }
 
 .regular {
-
     font-family: 'robotoregular'!important;
 }
 
@@ -219,8 +225,8 @@ th {
 }
 
 .titleh5 {
-    font-family:'roboto'!important;
-    color:#831F82!important;
+    font-family: 'roboto'!important;
+    color: #831F82!important;
 }
 
 .filtro {
@@ -362,65 +368,85 @@ select {
 
 
 /*********ESTILOS PARA TEXT-AREA******************/
+
 .text-area-ord {
-    border-style: solid #8b008b; border-color: #8b008b; height: 100px;
+    border-style: solid #8b008b;
+    border-color: #8b008b;
+    height: 100px;
 }
 
+
 /******** STYLE MENU ORDEN DE TRABAJO ****/
+
 .collection a.collection-item {
     color: #f5f5f5;
 }
+
 .collection .collection-item {
     border-bottom: 5px solid #f5f5f5;
 }
-.collection .activo{
+
+.collection .activo {
     background-color: #8b008b;
     font-weight: 800;
 }
-.border{
+
+.border {
     border-collapse: collapse;
-    border-spacing:0;
+    border-spacing: 0;
 }
-.color1{
-    color:#000000;
+
+.color1 {
+    color: #000000;
 }
-.border tbody> tr{
+
+.border tbody>tr {
     border-bottom-color: #00C853;
 }
-.tab{
+
+.tab {
     background-color: #b9dcbb;
     font-weight: 800;
 }
-.tab tr{
+
+.tab tr {
     border-spacing: 10px;
 }
 
-.total{
+.total {
     text-align: center;
     color: #ffff00;
     font-weight: 800;
     padding-top: 0.5px;
 }
+
+
 /****** END style MENU LEFT ****/
 
+
 /*ESTILOS INPUTS VIEW CARGASPULPER*/
+
 .inputCP {
-    border:none;
-    text-align:center;
-    background:none;
-    width:50px;
+    border: none;
+    text-align: center;
+    background: none;
+    width: 50px;
 }
-.detalleNumOrd{
-  cursor: pointer;
+
+.detalleNumOrd {
+    cursor: pointer;
 }
-.detalleNumOrd:hover{
-  color: orange!important;
+
+.detalleNumOrd:hover {
+    color: orange!important;
 }
-.detalleNumOrdOrange{
-  color: orange!important;
+
+.detalleNumOrdOrange {
+    color: orange!important;
 }
-#tlbListaRep3 th{
-  background: #db7093;
+
+#tlbListaRep3 th {
+    background: #db7093;
 }
 
 #tablaReporteDiario {
@@ -435,22 +461,28 @@ select {
     width: 90%;
     margin: 0 auto;
 }
-#tablaReporteDiario tr td{
+
+#tablaReporteDiario tr td {
     background-color: white;
 }
-#tablaReporteDiario tr td{
-    border: 1px solid #a9a9a9;    
+
+#tablaReporteDiario tr td {
+    border: 1px solid #a9a9a9;
     text-align: left;
     padding: 3px 3px;
 }
+
 .iconSearch {
-     color:#800080; 
-     font-size:30px;
+    color: #800080;
+    font-size: 30px;
 }
+
 .iconos-gen {
-    color:#696969;
-    font-size:100px;'
+    color: #696969;
+    font-size: 100px;
 }
+
+
 /**
 * instead of linking from https://fonts.googleapis.com/icon?family=Material+Icons
 */

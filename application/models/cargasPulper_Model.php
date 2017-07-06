@@ -8,8 +8,7 @@ class cargaspulper_Model extends CI_Model {
 	}
 
 	public function listaConsumos() {
-		$this->db->where('IdCategoria', 1);
-		$query=$this->db->get('insumos');
+		$query=$this->db->get('view_detallesplanescat1');
 		if ($query->num_rows()>0) {
 			return $query->result_array();
 		} else {

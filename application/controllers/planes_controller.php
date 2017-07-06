@@ -6,6 +6,11 @@ class planes_controller extends CI_Controller
     {
         parent::__construct();
         $this->load->model("planes_model");
+        $this->load->library('session');
+        $user = $this->session->userdata('logged');
+        if (!isset($user)) {
+            redirect(base_url().'index.php','refresh');
+        }
     }
 
     public function index()
@@ -26,5 +31,13 @@ class planes_controller extends CI_Controller
        //echo $fecha,$comentario,$estado;
     }
 
+    public function ActualizarPlan()
+    {
+        $id = $this->input->get_post('IdPlan');
+        $fecha = $this->input->get_post('Fecha');
+        $comentario = $this->input->get_post('Comentario');
+        $this->planes_model->ActualizarRegistroPlan($id,$fecha,$comentario);
+       
+    }
 }
 ?>

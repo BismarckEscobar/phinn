@@ -25,7 +25,14 @@ class Maquinas_model extends CI_Model
             'maquina' => $maq,
             'comentario' => $comentario
         );
-        $this->db->insert('maquinas',$data);
+        $duplicado = $this->db->get_where('maquinas',array('maquina' => $maq));
+        if($duplicado->num_rows()>0)
+        {
+            echo "Ya existe un registro";
+        }else{
+            $this->db->insert('maquinas',$data);
+        }
+        
     }
 
     public function EliminarMaq($ID)

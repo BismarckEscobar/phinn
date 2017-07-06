@@ -6,6 +6,11 @@ class tanques_controller extends CI_Controller
     {
         parent::__construct();
         $this->load->model('tanques_model');
+        $this->load->library('session');
+        $user = $this->session->userdata('logged');
+        if (!isset($user)) {
+            redirect(base_url().'index.php','refresh');
+        }
     }
 
     public function index()
@@ -21,6 +26,11 @@ class tanques_controller extends CI_Controller
     {
         $tanque = $this->input->get_post('tanque');
         $this->tanques_model->Guardartanque($tanque);
+    }
+
+    public function EliminarTanque($id)
+    {
+        $this->tanques_model->Eliminar($id);
     }
 }
 ?>

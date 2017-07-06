@@ -38,8 +38,12 @@ class Insumos_model extends CI_Model
             "UnidadMedida" => $UniMed,
             "Tipo" => $Tipo
         );
-
+         $duplicado = $this->db->get_where('insumos',array('Descripcion' => $Desc,'IdCategoria'=>$IdCat));
+        if($duplicado->num_rows()>0){
+            echo "Ya existe un registro";
+        }else{
         $this->db->insert("insumos",$datos);
+        }
     }
 
     public function EliminarIns($Id)

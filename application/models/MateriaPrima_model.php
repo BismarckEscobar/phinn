@@ -47,8 +47,7 @@ class MateriaPrima_model extends CI_Model
 
     public function ListarInsumos()
     {
-        $this->db->where('IdCategoria',2);
-        $query = $this->db->get('insumos');
+        $query = $this->db->get('view_detallesplanescat2');
         if ($query->num_rows()>0) {
             return $query->result_array();
         } else {
@@ -111,7 +110,7 @@ class MateriaPrima_model extends CI_Model
 
             public function ListarTanque()
         {
-            $query = $this->db->get('tanques');
+            $query = $this->db->get('view_detallesplanescat4');
             if ($query->num_rows()>0) {
                 return $query->result_array();
             } else {

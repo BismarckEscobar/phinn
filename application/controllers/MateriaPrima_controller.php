@@ -29,11 +29,11 @@ class MateriaPrima_controller extends CI_Controller
         $consumo = $this->input->get_post("consumo");   
         if($dia == "")
         {
-            $dia = "—";
+            $dia = 0;
         }
         elseif($noche == "")
         {
-            $noche = "—";
+            $noche = 0;
         }
         $duplicado = $this->db->get_where('reporte_diario',array("IdReporteDiario" => $IdRptD,'Estado'=>0));
          if ($duplicado->num_rows()>0) {
@@ -75,16 +75,16 @@ class MateriaPrima_controller extends CI_Controller
             $ptadia = $this->input->get_post("ptadia");
             $ptanoche = $this->input->get_post("ptanoche");
             if ($Dia == "") {
-                $Dia = "—";
+                $Dia = 0;
             } 
             elseif($Noche == ""){
-                $Noche = "—";
+                $Noche = 0;
             }
             if ($ptadia == "") {
-                $ptadia = "—";
+                $ptadia = 0;
             }
             elseif ($ptanoche == "") {
-                $ptanoche = "—";
+                $ptanoche = 0;
             }
          $duplicado = $this->db->get_where('reporte_diario',array("IdReporteDiario" => $IdRptd,'Estado'=>0));
          if ($duplicado->num_rows()>0) {

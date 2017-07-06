@@ -131,7 +131,7 @@
 								foreach ($consecutivo as $key) {
 									if ($key['Estado'] == 0) {
 										echo '  
-										 <span class="badge red-text darken-4">El Consecutivo ya ha sido cerrado</span><br>  
+										 <span class="badge red-text darken-4"><b>El Consecutivo ya ha sido cerrado</b></span><br>  
 										<a class="Btnadd btn waves-effect waves-light disabled" href="#" style="background-color:#831F82;">GUARDAR
 										</a>';
 									} else {
@@ -186,7 +186,7 @@
 						   	foreach ($consecutivo as $key) {
 								   if ($key['Estado'] == 0) {
 									   echo '
-									    <span class="badge red-text darken-4">El Consecutivo ya ha sido cerrado</span><br> 
+									    <span class="badge red-text darken-4"><b>El Consecutivo ya ha sido cerrado</b></span><br> 
 									<a class="Btnadd btn waves-effect waves-light disabled" href="#">GUARDAR
 									</a>
 									   ';

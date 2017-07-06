@@ -123,41 +123,42 @@ $('#tlbListaRep2').on('click', 'tbody .detalleNumOrd', function() {
     }
 });
 
-function format(callback,noOrden,div) {
-  var ia=0;
-        $.ajax({
-        url:'detalleOrdenProduccion/'+noOrden,
-        async:true,
-        success: function (response) {
-            var thead = '',  tbody = '';
-            if (response!='false') {
-           var obj = $.parseJSON(response);               
-                    thead += '<tr class="tblcabecera"><th class="negra center">N° ORDEN</th>';
-                    thead += '<th class="negra center">TURNO</th>';
-                    thead += '<th class="negra center">FECHA INICIO</th>';
-                    thead += '<th class="negra center">FECHA FIN</th>';
-                    thead += '<th class="negra center">COORDINADOR</th>';
-                    thead += '<th class="negra center">TIPO PAPEL</th>';
-                    thead += '<th class="negra center">ESTADO</th>';
-                    thead += '<th class="negra center">OPCIONES</th></tr>';
+function format(callback, noOrden, div) {
+    var ia = 0;
+    $.ajax({
+        url: 'detalleOrdenProduccion/' + noOrden,
+        async: true,
+        success: function(response) {
+            var thead = '',
+                tbody = '';
+            if (response != 'false') {
+                var obj = $.parseJSON(response);
+                thead += '<tr class="tblcabecera"><th class="negra center">N° ORDEN</th>';
+                thead += '<th class="negra center">TURNO</th>';
+                thead += '<th class="negra center">FECHA INICIO</th>';
+                thead += '<th class="negra center">FECHA FIN</th>';
+                thead += '<th class="negra center">COORDINADOR</th>';
+                thead += '<th class="negra center">TIPO PAPEL</th>';
+                thead += '<th class="negra center">ESTADO</th>';
+                thead += '<th class="negra center">OPCIONES</th></tr>';
 
-                $.each(JSON.parse(response), function(i, item) {  
-                    if (item["Estado"] == 1) {                        
-                        var html = "<a onclick='cambiaEstadoRptD("+item["IdReporteDiario"]+", 0)' class='btn-flat tooltipped noHover'><i style='color:#228b22; font-size:30px;' class='material-icons'>lock_open</i></a>";
-                    }else if (item["Estado"] == 0){                        
-                        var html = "<a onclick='cambiaEstadoRptD("+ item["IdReporteDiario"] +", 1)' class='btn-flat tooltipped noHover'><i style='color:#696969; font-size:30px;' class='material-icons'>lock</i></a>";
-                    };  
-                    var link = "<a onclick='elimarRptDiario("+ item["IdReporteDiario"] +")' class='btn-flat tooltipped noHover'><i style='color:#696969; font-size:30px;' class='material-icons'>delete</i></a>";
+                $.each(JSON.parse(response), function(i, item) {
+                    if (item["Estado"] == 1) {
+                        var html = "<a onclick='cambiaEstadoRptD(" + item["IdReporteDiario"] + ", 0)' class='btn-flat tooltipped noHover'><i style='color:#228b22; font-size:30px;' class='material-icons'>lock_open</i></a>";
+                    } else if (item["Estado"] == 0) {
+                        var html = "<a onclick='cambiaEstadoRptD(" + item["IdReporteDiario"] + ", 1)' class='btn-flat tooltipped noHover'><i style='color:#696969; font-size:30px;' class='material-icons'>lock</i></a>";
+                    };
+                    var link = "<a onclick='elimarRptDiario(" + item["IdReporteDiario"] + ")' class='btn-flat tooltipped noHover'><i style='color:#696969; font-size:30px;' class='material-icons'>delete</i></a>";
                     tbody += '<tr >' +
-                                  '<td><a href="../index.php/reportesDiarios/'+item["IdReporteDiario"]+'" target="_blank" class="noHover"</a>'+item["Consecutivo"]+'</td>'+
-                                  '<td>' + item["Turno"] + '</td>'+
-                                  '<td>' + item["FechaInicio"] + '</td>'+
-                                  '<td>' + item["FechaFinal"] + '</td>'+
-                                  '<td>' + item["Nombre"] + '</td>'+
-                                  '<td>' + item["TipoPapel"] + '</td>'+
-                                  '<td>' + html + '</td>'+
-                                  '<td>' + link +'</td>'+
-                              '</tr>';                      
+                        '<td><a href="../index.php/reportesDiarios/' + item["IdReporteDiario"] + '" target="_blank" class="noHover"</a>' + item["Consecutivo"] + '</td>' +
+                        '<td>' + item["Turno"] + '</td>' +
+                        '<td>' + item["FechaInicio"] + '</td>' +
+                        '<td>' + item["FechaFinal"] + '</td>' +
+                        '<td>' + item["Nombre"] + '</td>' +
+                        '<td>' + item["TipoPapel"] + '</td>' +
+                        '<td>' + html + '</td>' +
+                        '<td>' + link + '</td>' +
+                        '</tr>';
 
                 });
                 callback($('<table id="tlbListaRep3" class="striped">' + thead + tbody + '</table>')).show();
@@ -184,14 +185,14 @@ function format(callback,noOrden,div) {
             }
         }
     });
-  }
+}
 /****************CAMBIA EL ESTADO DEL REPORTE DIARIO*****************************/
 function cambiaEstadoRptD(idRptDiario, estado) {
-    var miTexto="";
-    if (estado==1) {
-        miTexto="¿Desea activar esta orden de trabajo?";
-    }else if(estado==0) {
-        miTexto="¿Desea cerrar esta orden de trabajo?"
+    var miTexto = "";
+    if (estado == 1) {
+        miTexto = "¿Desea activar esta orden de trabajo?";
+    } else if (estado == 0) {
+        miTexto = "¿Desea cerrar esta orden de trabajo?"
     }
     swal({
         title: '',
@@ -204,7 +205,7 @@ function cambiaEstadoRptD(idRptDiario, estado) {
         cancelButtonText: 'CANCELAR'
     }).then(function() {
         $.ajax({
-            url: "cambiarEstadoRptDiario/"+ idRptDiario + '/' + estado,
+            url: "cambiarEstadoRptDiario/" + idRptDiario + '/' + estado,
             type: 'post',
             async: true,
             success: function(data) {
@@ -218,7 +219,7 @@ function cambiaEstadoRptD(idRptDiario, estado) {
     });
 }
 /*******************ELIMINA UN REPORTE DIARIO SIN REGISTROS********************/
-function elimarRptDiario(idRptDiario){
+function elimarRptDiario(idRptDiario) {
     swal({
         title: '',
         text: '¿ELIMINAR ESTE REGISTRO?',
@@ -230,15 +231,15 @@ function elimarRptDiario(idRptDiario){
         cancelButtonText: 'CANCELAR'
     }).then(function() {
         $.ajax({
-            url: "validaRptDiario/"+ idRptDiario,
+            url: "validaRptDiario/" + idRptDiario,
             type: 'post',
             async: true,
             success: function(data) {
-                if (data=='TRUE') {
+                if (data == 'TRUE') {
                     mensajeAlerta('Este registro no se puede eliminar ya que hay uno o mas datos enlazados a el');
-                }else if(data=='FALSE'){
+                } else if (data == 'FALSE') {
                     location.reload();
-                }else if (data=="ERROR") {
+                } else if (data == "ERROR") {
                     Materialize.toast("ERROR AL BORRAR", 7000);
                 };
             }
@@ -308,7 +309,7 @@ function crearTabla() {
                 html += '</tbody></table>';
                 $("#btnAgregarf").after(html);
                 $('#ocultar').hide();
-            }else {
+            } else {
                 $('#cantTotalCarga').hide();
             };
         }
@@ -380,7 +381,7 @@ function buscarHorasMolienda(idHoraMolienda) {
 }
 /*************ACTUALIZANDO HORA MOLIENDA***************************/
 function actualizarHorasMolienda() {
-    debugger;
+
     var form_data = {
         idHora: $('#idHora').val(),
         idRptD: $("#idRptD").val(),
@@ -393,7 +394,7 @@ function actualizarHorasMolienda() {
         async: true,
         data: form_data,
         success: function(data) {
-            debugger;
+
             console.log(data);
             if (data = 1) {
                 Materialize.toast('SE ACTUALIZO CON ÉXITO', 1000);
@@ -471,13 +472,13 @@ function validarControlesTM() {
 }
 /************ACTUALIZANDO CARGAS PULPER****************************/
 function actualizandoCargasPulper(idInsumo, IdReporteDiario, cantidad) {
-    debugger;
+
     $.ajax({
         url: "../actualizarCargaPulper/" + idInsumo + '/' + IdReporteDiario + "/" + cantidad,
         type: "POST",
         async: true,
         success: function(data) {
-            debugger;
+
             if (data = true) {
                 Materialize.toast('SE ACTUALIZO UN REGISTRO', 1000);
             } else {
@@ -529,7 +530,7 @@ $('#guardaRpt').click(function() {
                 mensajeAlerta('El número de reporte no tiene el formato correcto');
             } else {
                 var date1 = new Date();
-                var date2 = moment(restaDias(date1)).format('DD/MM/YYYY');                
+                var date2 = moment(restaDias(date1)).format('DD/MM/YYYY');
                 var dateIngresada = $('#fechaInicio').val();
                 var fechaIngF = moment(dateIngresada).format('DD/MM/YYYY');
                 if (fechaIngF >= date2) {
@@ -543,9 +544,9 @@ $('#guardaRpt').click(function() {
 });
 
 /***************RESTA DIAS****************************/
-function restaDias(fecha, dias){
-  fecha.setDate(fecha.getDate() - 7);
-  return fecha;
+function restaDias(fecha, dias) {
+    fecha.setDate(fecha.getDate() - 7);
+    return fecha;
 }
 
 /****************GUARDA CONSECUTIVOS ORDEN DE PRODUCCION*******************************/
@@ -693,7 +694,7 @@ $("#valOrdP7").on('click', function() {
 });
 /****************GUARDANDO TIEMPOS MUERTOS**********************/
 function guardarTM1() {
-    debugger;
+
     var result = validarControlesTiempoMuertos();
     if (result == false) {} else {
         var form_data = {
@@ -712,7 +713,7 @@ function guardarTM1() {
             async: true,
             data: form_data,
             success: function(data) {
-                debugger;
+
                 if (data = 1) {
                     Materialize.toast('SE GUARDO CON ÉXITO', 1000);
                     $('#descipcion').val('');
@@ -830,7 +831,7 @@ function guardarCargaPulper() {
 }
 /****************ELIMAR TIEMPO MUERTO*********************************************************/
 function eliminarTM(idTiempoMuerto, IdReporteDiario) {
-    debugger;
+
     swal({
         title: 'ELIMINAR',
         text: '¿Desea eliminar permanentemente este registro?',
@@ -841,7 +842,7 @@ function eliminarTM(idTiempoMuerto, IdReporteDiario) {
         confirmButtonText: 'ACEPTAR',
         cancelButtonText: 'CANCELAR'
     }).then(function() {
-        debugger;
+
         $.ajax({
             url: "../eliminarTM/" + idTiempoMuerto + "/" + IdReporteDiario,
             type: "POST",
@@ -1129,12 +1130,12 @@ function gotopage(mypage) {
 //////////////////////////////////////////////////////////////////////////////////////////*/
 $('#BuscarUsuarios').on('keyup', function() {
     var table = $('#TblMaster').DataTable();
-    table.search(this.value).draw(); 
+    table.search(this.value).draw();
 });
 
 $('#filtrarRpt').on('keyup', function() {
     var table = $('#tlbListaRep2').DataTable();
-    table.search(this.value).draw(); 
+    table.search(this.value).draw();
 });
 
 $('#BuscarINS').on('keyup', function() {
@@ -1169,11 +1170,55 @@ $('#filtrarRep').on('keyup', function() {
     table.search(this.value).draw();
 });
 
+$('#BuscarTanq').on('keyup', function() {
+    var table = $('#tblTanques').DataTable();
+    table.search(this.value).draw();
+});
 
-$("#TblMaster, #tblMaquinas, #tblIns, #tblTanques, #chkInsumo,#chkTanques").DataTable({
+$('#BuscarPlan').on('keyup', function() {
+    var table = $('#tblPlan').DataTable();
+    table.search(this.value).draw();
+});
+
+$('#BuscarDetPlan').on('keyup', function() {
+    var table = $('#tblDetPlan').DataTable();
+    table.search(this.value).draw();
+})
+
+$("#tablaProd").DataTable({
+    "ordering": true,
+    "info": true,
+    "bPaginate": true,
+    "bfilter": true,
+    "pagingType": "full_numbers",
+    "aaSorting": [
+        [0, "asc"]
+    ],
+    "lengthMenu": [
+        [5, 10, -1],
+        [5, 10, "Todo"]
+    ],
+    "language": {
+        "emptyTable": "No hay datos disponible en la tabla",
+        "lengthMenu": "_MENU_",
+        "loadingRecords": "",
+        "info": "Mostrando _START_ a _END_ de _TOTAL_ registro",
+        "infoEmpty": "Mostrando 0 a 0 de 0 registro",
+        "infoFiltered": "(filtrado de _MAX_ registros totales)",
+        "zeroRecords": "No se han encontrado resultados para tu búsqueda",
+        "paginate": {
+            "first": "Primera",
+            "last": "Última ",
+            "next": "Anterior",
+            "previous": "Siguiente"
+        }
+    }
+});
+
+$("#TblMaster, #tblMaquinas, #tblIns, #tblTanques").DataTable({
     "ordering": false,
     "info": false,
-    "bPaginate": false,
+    "bPaginate": true,
     "bfilter": true,
     "pagingType": "full_numbers",
     "aaSorting": [
@@ -1212,6 +1257,34 @@ $("#tlbListaRep, #tlbListaRep2").DataTable({
     "lengthMenu": [
         [5, 10, -1],
         [5, 10, "Todo"]
+    ],
+    "language": {
+        "emptyTable": "No hay datos disponible en la tabla",
+        "lengthMenu": "_MENU_",
+        //"search":'<i style="color:#039be5; font-size:40px;" class="material-icons">search</i>',
+        "loadingRecords": "",
+        "info": "Mostrando _START_ a _END_ de _TOTAL_ registro",
+        "infoEmpty": "Mostrando 0 a 0 de 0 registro",
+        "infoFiltered": "(filtrado de _MAX_ registros totales)",
+        "zeroRecords": "No se han encontrado resultados para tu búsqueda",
+        "paginate": {
+            "first": "Primera",
+            "last": "Última ",
+            "next": "Anterior",
+            "previous": "Siguiente"
+        },
+    }
+});
+
+$("#tblDetPlan,#tblPlan").DataTable({
+    "ordering": true,
+    "info": true,
+    "bPaginate": true,
+    "bfilter": true,
+    "pagingType": "full_numbers",
+    "lengthMenu": [
+        [6, 10, -1],
+        [6, 10, "Todo"]
     ],
     "language": {
         "emptyTable": "No hay datos disponible en la tabla",
@@ -1551,7 +1624,7 @@ $("#agregarP").click(function() {
 
 
 function Guardar() {
-    debugger;
+
     var form_data = {
         idRptD: $("#idRptD").val(),
         NoOrden: $("#NoOrden").val(),
@@ -1588,21 +1661,24 @@ function Guardar() {
                 });
                 envio.abort();
                 envio = null;
-
             }
         },
         success: function(data) {
             if (data = 1) {
-                debugger;
-                Materialize.toast('SE GUARDO CON ÉXITO', 1000);
-                $("#idRptD").val("")
-                $("#NoOrden").val("")
-                $("#timepickerII").val("")
-                $("#timepickerFF").val("")
-                $("#Velocidad").val("")
-                $("#peso").val("")
-                $("#Diametro").val("")
-                $("#pesobase").val("")
+
+                swal({
+                    type: "success",
+                    text: "SE GUARDO CORRECTAMENTE",
+                    confirmButtonText: "CERRAR"
+                }).then(function() {
+                    $("#timepickerII").val("")
+                    $("#timepickerFF").val("")
+                    $("#operador option:selected").val()
+                    $("#maquina option:selected").val()
+                    $("#peso").val("")
+                    $("#Diametro").val("")
+                    $("#pesobase").val("")
+                });
             } else {
                 Materialize.toast('ERROR AL GUARDAR', 1000);
             }
@@ -1717,7 +1793,7 @@ function Actualizamerm() {
                                 FUNCIONES SOBRE MATERIA PRIMA
 //////////////////////////////////////////////////////////////////////////////////////////*/
 function Guardarmp() {
-    debugger;
+
     var form_data1 = {
         idRptD: $("#idRptD").val(),
         Tanque: $("#Tanque").val(),
@@ -1731,7 +1807,7 @@ function Guardarmp() {
         async: true,
         data: form_data1,
         beforeSend: function(data) {
-            debugger;
+
             var tanq = $("#Tanque").val(),
                 day = $("#dia").val(),
                 night = $("#noche").val(),
@@ -1787,7 +1863,7 @@ function guardaInsumos() {
         Noche: $("#Noche").val(),
         ptadia: $("#ptadia").val(),
         ptanoche: $("#ptanoche").val(),
-        descripcion: $("#descripcion").val()
+        descripcion: $("#descripcion option:selected").val()
     };
     var AJAX = $.ajax({
         url: "../GuardarMPInsumos",
@@ -1864,7 +1940,7 @@ function DetallePasta(Tanque, Dia, Noche, Consumo) {
 }
 
 function EliminarInsumo(elem, idrpt) {
-    debugger;
+
     var id = $(elem).attr("id");
     var idrpt = $("#idRptD").val();
     swal({
@@ -1896,7 +1972,7 @@ function EliminarInsumo(elem, idrpt) {
 }
 
 function Eliminarpasta(elem, idrpt) {
-    debugger;
+
     var id = $(elem).attr("id");
     var idrpt = $("#idRptD").val();
     swal({
@@ -1928,7 +2004,7 @@ function Eliminarpasta(elem, idrpt) {
 }
 /////////////////FUNCIONES SOBRE MAQUINAS////////////////////////////
 function GuardarMaquina() {
-    debugger;
+
     var form_data = {
         maquina: $("#maquina").val(),
         comentario: $("#comentario").val()
@@ -1952,7 +2028,7 @@ function GuardarMaquina() {
             }
         },
         success: function(data) {
-            debugger;
+
             if (data = 1) {
                 Materialize.toast('SE GUARDO CON ÉXITO', 1000);
             } else {
@@ -2002,7 +2078,7 @@ function cerrarModalMaq() {
 /////////////////FUNCIONES SOBRE INSUMOS////////////////////////////
 
 function Guardarinsumos() {
-    debugger;
+
     var form_data = {
         Descripcion: $("#Descripcion").val(),
         categoria: $("#categoria").val(),
@@ -2030,7 +2106,7 @@ function Guardarinsumos() {
             }
         },
         success: function(data) {
-            debugger;
+
             if (data = 1) {
                 Materialize.toast('SE GUARDO CON ÉXITO', 1000);
                 $("#Descripcion").val("");
@@ -2081,7 +2157,7 @@ function EliminaINS(elem) {
 
 /****************************************FUNCIONES SOIBRE PLANES********************************************************/
 function guardaplan() {
-    debugger;
+
     var form_data = {
         fecha: $("#fecha").val(),
         comentario: $("#comentario").val()
@@ -2091,6 +2167,18 @@ function guardaplan() {
         type: "POST",
         async: true,
         data: form_data,
+        beforeSend: function(data) {
+            var fecha = $("#fecha").val();
+            var comentario = $("#comentario").val();
+            if (fecha == "" || comentario == "") {
+                swal({
+                    text: "Todos los campos son requeridos",
+                    type: "warning",
+                    confirmButtonText: "CERRAR"
+                });
+                $.ajax.abort();
+            }
+        },
         success: function(data) {
             swal({
                 text: "Guardado con exito",
@@ -2101,6 +2189,53 @@ function guardaplan() {
                     location.reload();
                 }
             );
+        }
+    });
+}
+
+function EditarPlan(IdPlan, Fecha, Comentario) {
+    $("#IdPlan").val(IdPlan);
+    $("#Fecha").val(Fecha);
+    $("#Comentario").val(Comentario);
+    $("#ModalPlanEdit").openModal();
+
+}
+
+function actualizaPlan() {
+
+    var form_data = {
+        IdPlan: $("#IdPlan").val(),
+        Fecha: $("#Fecha").val(),
+        Comentario: $("#Comentario").val()
+    };
+    $.ajax({
+        url: "ActualizaPlan",
+        type: "POST",
+        data: form_data,
+        async: true,
+        success: function(data) {
+
+            if (data == "FALSE") {
+                swal({
+                    text: "Este plan no se puede modificar ya que hay uno o mas datos enlazados a el",
+                    type: "error",
+                    confirmButtonText: "CERRAR"
+                });
+            } else if (data == "TRUE") {
+                swal({
+                    text: "Se actualizo correctamente",
+                    type: "success",
+                    confirmButtonText: "CERRAR"
+                }).then(function() {
+                    location.reload();
+                });
+            } else if (data = "ERROR") {
+                swal({
+                    text: "No se pudo actualizar el plan",
+                    type: "error",
+                    confirmButtonText: "CERRAR"
+                });
+            }
         }
     });
 }
@@ -2137,6 +2272,126 @@ function guardatanque() {
                     location.reload();
                 }
             );
+        }
+    });
+}
+
+function DeleteTanq(elem) {
+    var id = $(elem).attr('id');
+    $.ajax({
+        url: "EliminarTanques/" + id,
+        type: "POST",
+        async: true,
+        success: function() {
+            swal({
+                text: "El tanque se elimino correctamente",
+                type: "success",
+                confirmButtonText: "CERRAR"
+            }).then(function() {
+                location.reload();
+            });
+        }
+    });
+}
+
+/***************FIN FUNCIONES SOBRE TANQUES****************** */
+function GuardaDetPlan() {
+    var table = $('#chkInsumo').DataTable();
+    var insumos1 = new Array();
+    var insumos2 = new Array();
+    var insumos3 = new Array();
+    var tanques = new Array();
+    var Posi = 0;
+    table.rows().eq(0).each(function(index) {
+        var id = $("#idplan").val();
+        var cat = $("#categorias").val();
+        var row = table.row(index);
+        var data = row.data();
+        var idInsumo = data[0];
+        if ($('#chkinsumo' + data[0]).is(':checked')) {
+            insumos1[Posi] = id + "," + cat + "," + data[0];
+            Posi++;
+        }
+    });
+
+    var table = $('#chkInsumo2').DataTable();
+    var Posi = 0;
+    table.rows().eq(0).each(function(index) {
+        var id = $("#idplan").val();
+        var cat = $("#categorias").val();
+        var row = table.row(index);
+        var data = row.data();
+        var idInsumo = data[0];
+        if ($('#chkinsumo' + data[0]).is(':checked')) {
+            insumos2[Posi] = id + "," + cat + "," + data[0];
+            Posi++;
+        }
+    });
+
+    var table = $('#chkInsumo3').DataTable();
+    var Posi = 0;
+    table.rows().eq(0).each(function(index) {
+        var id = $("#idplan").val();
+        var cat = $("#categorias").val();
+        var row = table.row(index);
+        var data = row.data();
+        var idInsumo = data[0];
+        if ($('#chkinsumo' + data[0]).is(':checked')) {
+            insumos3[Posi] = id + "," + cat + "," + data[0];
+            Posi++;
+        }
+    });
+
+    var table = $('#chktanques').DataTable();
+    var Posi = 0;
+    table.rows().eq(0).each(function(index) {
+        var id = $("#idplan").val();
+        var cat = $("#categorias").val();
+        var row = table.row(index);
+        var data = row.data();
+        var idTanque = data[0];
+        if ($('#chk' + data[0]).is(':checked')) {
+            tanques[Posi] = id + "," + cat + "," + data[0];
+            Posi++;
+        }
+    });
+
+    var form_data = {
+        insumos1: insumos1,
+        insumos2: insumos2,
+        insumos3: insumos3,
+        tanques: tanques
+    };
+    $.ajax({
+        url: "../GuardarDetalles",
+        type: "POST",
+        async: true,
+        data: form_data,
+        beforeSend: function(data) {
+
+            var cat = $("#categorias").val();
+            if (cat == null) {
+                swal({
+                    text: "Debe seleccionar una categoria",
+                    type: "warning",
+                    confirmButtonText: "CERRAR"
+                });
+                $.ajax.abort();
+            }
+        },
+        success: function(data) {
+            if (data = 1) {
+                swal({
+                    text: "Guardado con exito",
+                    type: "success",
+                    confirmButtonText: "CERRAR"
+                }).then(
+                    function() {
+                        location.reload();
+                    }
+                );
+                console.log(form_data);
+            }
         }
     });
 }

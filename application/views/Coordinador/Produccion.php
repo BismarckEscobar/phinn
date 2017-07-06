@@ -110,15 +110,23 @@
                                              <div class="container">
                                              <h6 class="center-align"><b><?php echo number_format($total1,1)?></b></h6>
                                               <h6 class="center-align purple-text darken-1">MERMA (kg)</h6>
-                                             <?php foreach($produccion2 as $key)
-                                             {
-                                                 if($key['Maquina']=='1')
-                                                 {
+                                             <?php                                             
                                                      $maq1 = 0;
-                                                     $maq1 = $key['Merma'];
-                                                     echo '<h6 class="center-align"><b>'.$maq1.'</b></h6>';
-                                                 }
-                                             }  ?>
+                                                     if(!($produccion2))
+                                                     {
+                                                          echo '<h6 class="center-align"><b>'.number_format($maq1,1).'</b></h6>';
+                                                     }
+                                                     else{
+                                                foreach($produccion2 as $key)
+                                                        {
+                                                            if($key['Maquina']=='1')
+                                                            {
+                                                                $maq1 = $key['Merma'];
+                                                                echo '<h6 class="center-align"><b>'.number_format($maq1,1).'</b></h6>';
+                                                            }
+                                                        }    
+                                                   }         
+                                             ?>
                                              </div>
                                         </div>
                                     </div>
@@ -129,15 +137,22 @@
                                              <div class="container">
                                              <h6 class="center-align"><b><?php echo number_format($total,1)?></b></h6>
                                               <h6 class="center-align purple-text darken-1">MERMA (kg)</h6>
-                                                       <?php foreach($produccion2 as $key)
-                                             {
-                                                 if($key['Maquina']=='2')
-                                                 {
-                                                     $maq2 = 0;
-                                                     $maq2 = $key['Merma'];
-                                                     echo '<h6 class="center-align"><b>'.$maq2.'</b></h6>';
-                                                 }
-                                             }  ?>
+                                                <?php  
+                                                $maq2 = 0;
+                                                if(!($produccion3)){
+                                                     echo '<h6 class="center-align"><b>'. number_format($maq2,1).'</b></h6>';
+                                                }
+                                                else{
+                                                foreach($produccion3 as $key)
+                                                    {
+                                                        if($key['Maquina']=='2')
+                                                        {                                         
+                                                            $maq2 = $key['Merma'];
+                                                            echo '<h6 class="center-align"><b>'. number_format($maq2,1).'</b></h6>';
+                                                        }
+                                                    }
+                                                }
+                                             ?>
                                              </div>
                                         </div>
                                     </div>
@@ -149,9 +164,9 @@
                                                   <h6 id="Total" class="center-align"><b><?php echo number_format($total1 + $total,1)?></b></h6>
                                                    <h6 class="center-align purple-text darken-1">MERMA TOTAL (kg)</h6>
                                                   <?php 
-                                                  $sum = 0;
-                                                  $sum = $maq1 += $maq2;
-                                                        echo '<h6 class="center-align"><b>'.$sum.'</b></h6>';
+                                                     $sum = 0;
+                                                     $sum = $maq1 += $maq2;
+                                                        echo '<h6 class="center-align"><b>'. number_format($sum,1).'</b></h6>';
                                                   ?>
                                                   </div>
                                         </div>
@@ -281,7 +296,7 @@
                     <div class="center">
                         <a class="Btnadd btn waves-effect waves-light disabled" href="#" style="background-color:#831F82;">GUARDAR
                         </a>
-                        <span class="badge red-text accent-4">El Consecutivo ya ha sido cerrado</span>
+                        <span class="badge red-text accent-4"><b>El Consecutivo ya ha sido cerrado</b></span>
                     </div>
                 </div>';
                     }
