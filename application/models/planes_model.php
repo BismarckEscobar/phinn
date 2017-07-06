@@ -42,5 +42,26 @@ class planes_model extends CI_Model
         }
         
     }
+
+     public function ActualizarRegistroPlan($idPlan,$fecha,$comentario)
+     {
+        $duplicado = $this->db->get_where('detalle_planes',array("IdPlan" => $idPlan));
+            $datos = array(
+                "IdPlan" => $idPlan,
+               "Fecha" => $fecha,
+               "Comentario" => $comentario      
+            );
+            if ($duplicado->num_rows()>0) {
+             echo "FALSE";
+         }else{
+            $this->db->where('IdPlan=', $idPlan);
+			$query=$this->db->update('planes',$datos); 
+			if ($query == 1) {
+				echo "TRUE";
+			}else{
+				echo "ERROR";
+			}
+        }
+     }
 }
 ?>

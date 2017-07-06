@@ -17,5 +17,11 @@ class reporteDiario_Controller extends CI_Controller
 	public function cambiaEstadoRptD($idRptDiario, $estado) {
         $this->reporteDiario_Model->cambiarEstadoReporteD($idRptDiario, $estado);
     }
+
+	public function eliminarRegRptDiario($id)
+	{
+		$this->reporteDiario_Model->eliminarRptDiario($id);
+	}
+
 }
 ?>

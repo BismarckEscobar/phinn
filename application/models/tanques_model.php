@@ -22,7 +22,18 @@ class tanques_model extends CI_Model
     public function Guardartanque($tanque)
     {
         $data = array("Tanque" => $tanque);
-        $this->db->insert('tanques',$data);
+        $duplicado = $this->db->get_where('tanques',array('Tanque' => $tanque));
+        if($duplicado->num_rows()>0){
+            echo "Ya existe un registro";
+        }else{
+           $this->db->insert('tanques',$data);
+        }
+    }
+
+    public function Eliminar($id)
+    {
+        $this->db->where('IdTanque',$id);
+        $this->db->delete('tanques');
     }
 }
 ?>

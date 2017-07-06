@@ -6,6 +6,11 @@ class Insumos_controller extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Insumos_model');
+        $this->load->library('session');
+        $user = $this->session->userdata('logged');
+        if (!isset($user)) {
+            redirect(base_url().'index.php','refresh');
+        }
     }
 
     public function index()

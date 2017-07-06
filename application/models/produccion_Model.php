@@ -72,11 +72,26 @@ class Produccion_Model extends CI_Model
         }
     }
 
-        public function ListarProd2($IdReporteDiario)
+    public function ListarProd2($IdReporteDiario)
     {
-        $this->db->where('Merma !=','null');
+        $this->db->distinct();
+        $this->db->select('Merma,Maquina');
+        $this->db->where("Maquina",1);
         $this->db->where('IdReporteDiario',$IdReporteDiario);
-        $this->db->limit(2);
+        $query = $this->db->get('produccion');
+       if ($query->num_rows()>0) {
+            return $query->result_array();
+        }else{
+            return false;
+        }
+    }
+
+       public function ListarProd3($IdReporteDiario)
+    {
+        $this->db->distinct();
+        $this->db->select('Merma,Maquina');
+        $this->db->where("Maquina",2);
+        $this->db->where('IdReporteDiario',$IdReporteDiario);
         $query = $this->db->get('produccion');
        if ($query->num_rows()>0) {
             return $query->result_array();

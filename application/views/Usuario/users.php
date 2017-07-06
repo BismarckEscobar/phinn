@@ -50,7 +50,7 @@
                             <table id="TblMaster" class="striped responsive-table">
                                 <thead>
                                     <tr class="tblcabecera">
-                                        <th style="border-radius: 20px 0px 0px 20px;">Nº</th>
+                                        <th>Nº</th>
                                         <th>NOMBRE COMPLETO</th>
                                         <th>USUARIO</th>
                                         <th>TIPO PERMISO</th>

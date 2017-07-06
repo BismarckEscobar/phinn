@@ -49,6 +49,7 @@
                                         <tr class="tblcabecera">
                                             <th>ID TANQUE</th>
                                             <th>TANQUE</th>
+                                            <th>ACCIONES</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -58,6 +59,7 @@
                                                 <tr>
                                                     <td>'.$key['IdTanque'].'</td>
                                                     <td>'.$key['Tanque'].'</td>
+                                                    <td><a class="tooltipped" data-tooltip="Eliminar" data-position="right" href="javascript:void(0)" id="'.$key['IdTanque'].'" onclick="DeleteTanq(this)"><i class="material-icons purple-text">delete</i></a></td>
                                                 </tr>
                                                ';
                                            }

@@ -65,13 +65,6 @@
                                 if (!($listamp)) {
                                 } else {
                                     foreach ($listamp as $key) {
-                                       if($key['Dia'] == "")
-                                       {
-                                            $key['Dia'] = "—";
-                                       }elseif($key['Noche'] == "")
-                                       {
-                                            $key['Noche'] = "—";
-                                       }
                                        echo '
                                        <tr>                                  
                                             <td>'.$key['Tanque'].'</td>
@@ -122,7 +115,7 @@
                             {}
                             else{
                                 foreach ($listaMPInsumos as $key) {
-                                                          echo '
+                              echo '
                               <tr>
                                 <td>'.$key['Descripcion'].'</td>
                                 <td>'.$key['Dia'].'</td>
@@ -349,7 +342,7 @@
                     <div class="center">
                         <a class="Btnadd btn waves-effect waves-light disabled" href="#" style="background-color:#831F82;">GUARDAR
                         </a>
-                        <span class="badge red-text darken-4">El Consecutivo ya ha sido cerrado</span>
+                        <span class="badge red-text darken-4"><b>El Consecutivo ya ha sido cerrado</b></span>
                     </div>
                 </div>';
                        } else {
@@ -428,7 +421,7 @@
                             <?php
                                 foreach ($listaTanques as $key) {
                                     echo'
-                                    <option value="'.$key['IdTanque'].'">'.$key['Tanque'].'</option>
+                                    <option value="'.$key['IdInsumo'].'">'.$key['Tanque'].'</option>
                                     ';
                                 }                            
                             ?>
@@ -450,7 +443,7 @@
                     <div class="center">
                         <a class="Btnadd btn waves-effect waves-light disabled" href="#" style="background-color:#831F82;">GUARDAR
                         </a>
-                         <span class="badge red-text darken-4">El Consecutivo ya ha sido cerrado</span>
+                         <span class="badge red-text darken-4"><b>El Consecutivo ya ha sido cerrado</b></span>
                     </div>
                 </div>';
                     }
