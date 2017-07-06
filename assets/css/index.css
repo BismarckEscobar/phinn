@@ -410,18 +410,31 @@ select {
     background:none;
     width:50px;
 }
+.inputControlPiso {
+    border:none;
+    text-align:center;
+    background:none;
+    width:90%;
+    height: 30px;
+}
 .detalleNumOrd{
   cursor: pointer;
 }
 .detalleNumOrd:hover{
-  color: orange!important;
+  color: #800080!important;
 }
 .detalleNumOrdOrange{
-  color: orange!important;
+  color: #800080!important;
 }
 #tlbListaRep3 th{
   background: #db7093;
 }
+
+.expand-more {
+    font-size: 35px;
+    color: #800080;
+}
+
 
 #tablaReporteDiario {
     font-family: 'robotobold'!important;
@@ -450,6 +463,34 @@ select {
 .iconos-gen {
     color:#696969;
     font-size:100px;'
+}
+#tblDetalleOrdeT {
+    width: 95%;
+}
+.celda-tr{
+    background-color: #f8dbfd;
+    color: black;
+
+}
+#tblDetalleOrdeT tr:nth-child(odd) {
+    background-color: #f3e5f5;
+    text-align: center;
+}
+#tblDetalleOrdeT  tr:nth-child(even) {
+    background-color: #f3e5f5;
+    text-align: center;
+}
+
+#tblDetalleOrdeT td {
+    width: 10px; /*Aquí va el ancho de la Celda*/
+    height: auto; /*Aquí el Alto*/
+    text-transform: uppercase!important;
+}
+#contenedor-tipo-fibras {
+    width: 60%;
+    height: auto;
+    padding: 20px 20px;
+    margin: 0 auto;
 }
 /**
 * instead of linking from https://fonts.googleapis.com/icon?family=Material+Icons
