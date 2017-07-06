@@ -126,6 +126,7 @@ if ($this->session->userdata("Privilegio") == 3) {?>
                                     <th>Inicio</th>
                                     <th>culminación</th>
                                     <th>Estado</th>
+                                    <th>OPCIONES</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -147,9 +148,13 @@ if ($this->session->userdata("Privilegio") == 3) {?>
                                                             <li><a href='#!' onclick='buscarOrdProd(".$list['IdOrden'].")'>Ver</a></li>";
                                             }elseif($list['Estado'] == 3){
                                                 $activo="<td><a data-tooltip='ORDEN INACTIVA' class='btn-flat tooltipped noHover'><i style='color:red; font-size:30px;' class='material-icons'>info_outline</i></a></td>";
+                                                $status="<li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 0)'>Anular</a></li>
+                                                        <li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 1)'>Activar</a></li>
+                                                        <li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 2)'>Cerrar</a></li>
+                                                        <li><a href='#!' onclick='buscarOrdProd(".$list['IdOrden'].")'>Ver</a></li>";
                                             }
                                             echo "<tr>
-                                                    <td class='center green-text detalleNumOrd'><i id='detail2".$list['NoOrden']."' class='material-icons'>expand_more</i><i id='detail1".$list['NoOrden']."' style='display:none;' class='material-icons'>expand_less</i>
+                                                    <td class='center green-text detalleNumOrd'><i id='detail2".$list['NoOrden']."' class='material-icons expand-more'>expand_more</i><i id='detail1".$list['NoOrden']."' style='display:none;' class='material-icons expand-more'>expand_less</i>
                                                         <div id='loader".$list['NoOrden']."' style='display:none;' class='preloader-wrapper small active' >
                                                             <div class='spinner-layer spinner-yellow-only'>
                                                             <div style='overflow: visible!important;' class='circle-clipper left'>
@@ -165,7 +170,13 @@ if ($this->session->userdata("Privilegio") == 3) {?>
                                                     <td>".$list['NoOrden']."</td>
                                                     <td>".$list['FechaInicio']."</td>
                                                     <td>".$list['FechaFin']."</td>
-                                                    ".$activo."                                                                
+                                                    ".$activo."
+                                                    <td>
+                                                        <a class='dropdown-button btn-floating' id='ddlts' data-activates='dropdown".$list['IdOrden']."' href='#!'><i class='material-icons left'>mode_edit</i></a>
+                                                        <ul id='dropdown".$list['IdOrden']."' class='dropdown-content'>
+                                                    ".$status."
+                                                        </ul>
+                                                    </td>                                                                 
                                                 </tr>";
                                         }
                                     }

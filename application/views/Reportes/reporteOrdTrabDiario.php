@@ -1,5 +1,5 @@
-<?php print_r($horasMolienda); ?>
 <!doctype html>
+<?php $mermaTotalF1=0; ?>
 <html lang="en">
 <head>
 	<title>Reporte Diario</title>
@@ -85,33 +85,33 @@
 			<table id="tablaReporteDiario">
 				<?php  
 				if ($cabeceraRpt) {
-					foreach ($cabeceraRpt as $key) { ?>
-						<tr>
-							<td style="text-align: center;"><img class="image" src="<?php echo base_url();?>assets/img/logo/logoinnova.png"></td>
-							<td class="titulos-tablas"><span>PROCESO HUMEDO</span></td>
-							<td colspan="2" class="titulos-tablas"><span>ORDEN PRODUCCION N°: </span><span class="totales"><?php echo $key['NoOrder']; ?></span></td>
+					foreach ($cabeceraRpt as $key) {
+					 echo "<tr>
+							<td style='text-align: center;'><img class='image' src='".base_url()."assets/img/logo/logoinnova.png'></td>
+							<td class='titulos-tablas'><span>PROCESO HUMEDO</span></td>
+							<td colspan='2' class='titulos-tablas'><span>ORDEN PRODUCCION N°: </span><span class='totales'>".$key['NoOrder']."</span></td>
 						</tr>
 						<tr>
-							<td><span>REPORTE PRODUCCION: </span><span class="totales"><?php echo $key['Consecutivo']; ?></span></td>
-							<td><span>TIPO PAPEL: </span><span class="totales"><?php echo $key['TipoPapel']; ?></span></td>
-							<td colspan="2" class="titulos-tablas"><span>PRODUCCION TOTAL(kg): </span><span class="totales"><?php echo $key['ProduccionTotal']; ?></span></td>
+							<td><span>REPORTE PRODUCCION: </span><span class='totales'>".$key['Consecutivo']."</span></td>
+							<td><span>TIPO PAPEL: </span><span class='totales'>".$key['TipoPapel']."</span></td>
+							<td colspan='2' class='titulos-tablas'><span>PRODUCCION TOTAL(kg): </span><span class='totales'>".$key['ProduccionTotal']."</span></td>
 						</tr>
 						<tr>
-							<td><span>Fecha Inicio: </span><?php echo $key['FechaInicio']; ?></td>
-							<td rowspan="1"><span>Hora Inicio:</span></td>
-							<td rowspan="3" class="titulos-tablas"><span>TURNO:</span><br /> <span class="totales"><?php echo $key['Turno']; ?></span></td>								
-							<td rowspan="3" class="titulos-tablas"><span>MERMA: </span><br /> <span class="totales"><?php echo $key['MermaTotal']; ?></span></td>									
+							<td><span>Fecha Inicio: </span>".$key['FechaInicio']."</td>
+							<td rowspan='1'><span>Hora Inicio:</span></td>
+							<td rowspan='3' class='titulos-tablas'><span>TURNO:</span><br /> <span class='totales'>".$key['Turno']."</span></td>								
+							<td rowspan='3' class='titulos-tablas'><span>MERMA: </span><br /> <span class='totales'>".$mermaTotal."</span></td>
 						</tr>
 						<tr>
-							<td><span>Fecha Fin: </span><span class="totales"><?php echo $key['FechaFinal']; ?></span></td>
-							<td rowspan="1"><span>Hora Fin: </span></td>																	
+							<td><span>Fecha Fin: </span><span class='totales'>".$key['FechaFinal']."</span></td>
+							<td rowspan='1'><span>Hora Fin: </span></td>																	
 						</tr>
 						<tr>
-							<td><span>Coordinador: </span><span class="totales"><?php echo $key['Nombre']; ?></span></td>
-							<td><span>Grupo:</span><span class="totales"><?php echo $key['Grupo']; ?></span></td>
-						</tr>
-					<?php } ?>
-				<?php } ?>
+							<td><span>Coordinador: </span><span class='totales'>".$key['Nombre']."</span></td>
+							<td><span>Grupo:</span><span class='totales'>".$key['Grupo']."</span></td>
+						</tr>";
+					}
+				} ?>
 			</table>	
 		</div>		
 		<div class="titulos">
@@ -124,11 +124,13 @@
 					<?php 
 						if ($produccion) {
 							foreach ($produccion as $key) { 
-								if($key['Maquina']==1) {?>									
-									<th style="text-align:center;" colspan="7">Operador maq. 1: <?php echo $key['Nombre']?></th>									
-								<?php break; } ?>
-							<?php } ?>
-						<?php } ?>
+								if($key['Maquina']==1) {									
+									echo "<th style='text-align:center;' colspan='7'>Operador maq. 1: ".$key['Nombre']."</th>";
+								break; 
+							}
+						}
+					} 
+					?>
 					</tr>
 					<tr>
 						<th style="text-align:center;">#</th>
@@ -142,33 +144,38 @@
 				</thead>
 				<tbody>
 					<?php
-						if ($produccion) { $cont=0;
+						if ($produccion) { $cont=0;$prd=0; $merma=0; $prdNeta=0;
 							foreach ($produccion as $key) { 
-								if ($key['Maquina']==1) { ?>
-									<tr>
-										<td style="text-align:center;"><?php echo $cont=$cont+1 ?></td>
-										<td style="text-align:center;"><?php echo $key['HoraInicio'] ?></td>
-										<td style="text-align:center;"><?php echo $key['HoraFin'] ?></td>
-										<td style="text-align:center;"><?php echo $key['VelocMaquina'] ?></td>
-										<td style="text-align:center;"><?php echo $key['Peso'] ?></td>
-										<td style="text-align:center;"><?php echo $key['Diametro'] ?></td>
-										<td style="text-align:center;"><?php echo $key['PesoBase'] ?></td>
-									</tr>
-								<?php } ?>
-							<?php } ?>
-					<?php } ?>
-					<tr>
-						<td colspan="3" style="text-align:center;"><span>producción(kg)</span></td>
-						<td colspan="4" style="text-align:center;">500</td>
+								if ($key['Maquina']==1) {
+									$prd=$prd+$key['Peso']; $merma=$key['Merma']; $prdNeta=$prd+$merma; $mermaTotalF1 = $mermaTotalF1 + $merma;
+								echo "<tr>
+										<td style='text-align:center;'>".($cont=$cont+1)."</td>
+										<td style='text-align:center;'>".$key['HoraInicio']."</td>
+										<td style='text-align:center;'>".$key['HoraFin']."</td>
+										<td style='text-align:center;'>".$key['VelocMaquina']."</td>
+										<td style='text-align:center;'>".$key['Peso']."</td>
+										<td style='text-align:center;'>".$key['Diametro']."</td>
+										<td style='text-align:center;'>".$key['PesoBase']."</td>
+									</tr>";
+									
+								 }
+							 } 
+					 } ?>
+					<?php 
+					echo 
+					"<tr>
+						<td colspan='3' style='text-align:center;'><span>producción(kg)</span></td>
+						<td colspan='4' style='text-align:center;'>".$prd."</td>
 					</tr>
 					<tr>
-						<td colspan="3" style="text-align:center;"><span>merma(kg)</span></td>
-						<td colspan="4" style="text-align:center;">500</td>			
+						<td colspan='3' style='text-align:center;'><span>merma(kg)</span></td>
+						<td id='merma1' colspan='4' style='text-align:center;'>".$merma."</td>
 					</tr>
 					<tr>
-						<td colspan="3" style="text-align:center;"><span>producción neta</span></td>
-						<td colspan="4" style="text-align:center;">500</td>
-					</tr>
+						<td colspan='3' style='text-align:center;'><span>producción neta</span></td>
+						<td colspan='4' style='text-align:center;'>".$prdNeta."</td>
+					</tr>";
+					?>
 				</tbody>
 			</table>
 		</div>
@@ -179,11 +186,13 @@
 					<?php 
 						if ($produccion) {
 							foreach ($produccion as $key) { 
-								if($key['Maquina']==2) {?>									
-									<th style="text-align:center;" colspan="7">Operador maq. 2: <?php echo $key['Nombre']?></th>									
-								<?php break; } ?>
-							<?php } ?>
-						<?php } ?>
+								if($key['Maquina']==2) {									
+									echo "<th style='text-align:center;' colspan='7'>Operador maq. 1: ".$key['Nombre']."</th>";
+								break; 
+							}
+						}
+					} 
+					?>
 					</tr>
 					<tr>
 						<th style="text-align:center;">#</th>
@@ -195,35 +204,40 @@
 						<th style="text-align:center;">PESO BASE</th>
 					</tr>
 				</thead>
-				<tbody>						
+				<tbody>
 					<?php
-						if ($produccion) { $cont=0;
+						if ($produccion) { $cont=0;$prd=0; $merma=0; $prdNeta=0;
 							foreach ($produccion as $key) { 
-								if ($key['Maquina']==2) { ?>
-									<tr>
-										<td style="text-align:center;"><?php echo $cont=$cont+1 ?></td>
-										<td style="text-align:center;"><?php echo $key['HoraInicio'] ?></td>
-										<td style="text-align:center;"><?php echo $key['HoraFin'] ?></td>
-										<td style="text-align:center;"><?php echo $key['VelocMaquina'] ?></td>
-										<td style="text-align:center;"><?php echo $key['Peso'] ?></td>
-										<td style="text-align:center;"><?php echo $key['Diametro'] ?></td>
-										<td style="text-align:center;"><?php echo $key['PesoBase'] ?></td>
-									</tr>
-								<?php } ?>
-							<?php } ?>
-						<?php } ?>
-					<tr>
-						<td colspan="3" style="text-align:center;"><span>producción(kg)</span></td>
-						<td colspan="4" style="text-align:center;">500</td>
+								if ($key['Maquina']==2) {
+									$prd=$prd+$key['Peso']; $merma=$key['Merma']; $prdNeta=$prd+$merma; $mermaTotalF1 = $mermaTotalF1 + $merma;
+								echo "<tr>
+										<td style='text-align:center;'>".($cont=$cont+1)."</td>
+										<td style='text-align:center;'>".$key['HoraInicio']."</td>
+										<td style='text-align:center;'>".$key['HoraFin']."</td>
+										<td style='text-align:center;'>".$key['VelocMaquina']."</td>
+										<td style='text-align:center;'>".$key['Peso']."</td>
+										<td style='text-align:center;'>".$key['Diametro']."</td>
+										<td style='text-align:center;'>".$key['PesoBase']."</td>
+									</tr>";
+									
+								 }
+							 } 
+					 } ?>
+					<?php 
+					echo 
+					"<tr>
+						<td colspan='3' style='text-align:center;'><span>producción(kg)</span></td>
+						<td colspan='4' style='text-align:center;'>".$prd."</td>
 					</tr>
 					<tr>
-						<td colspan="3" style="text-align:center;"><span>merma(kg)</span></td>
-						<td colspan="4" style="text-align:center;">500</td>			
+						<td colspan='3' style='text-align:center;'><span>merma(kg)</span></td>
+						<td id='merma1' colspan='4' style='text-align:center;'>".$merma."</td>
 					</tr>
 					<tr>
-						<td colspan="3" style="text-align:center;"><span>producción neta</span></td>
-						<td colspan="4" style="text-align:center;">500</td>
-					</tr>				
+						<td colspan='3' style='text-align:center;'><span>producción neta</span></td>
+						<td colspan='4' style='text-align:center;'>".$prdNeta."</td>
+					</tr>";
+					?>
 				</tbody>
 			</table>
 		</div>		
@@ -244,16 +258,16 @@
 				<?php 
 					if ($tiemposM) {
 						foreach ($tiemposM as $key) {
-							if ($key['Maquina']==1) { ?>
-								<tr>
-									<td style="text-align:center;"><?php echo $key['HoraInicio'] ?></td>
-									<td style="text-align:center;"><?php echo $key['HoraFin'] ?></td>
-									<td style="text-align:center;"><?php echo $key['Intervalos'] ?></td>
-									<td><?php echo $key['Descripcion'] ?></td>
-								</tr>
-							<?php } ?>
-						<?php } ?>
-				<?php } ?>
+							if ($key['Maquina']==1) {
+							echo "<tr>
+									<td style='text-align:center;'>".$key['HoraInicio']."</td>
+									<td style='text-align:center;'>".$key['HoraFin']."</td>
+									<td style='text-align:center;'>".$key['Intervalos']."</td>
+									<td>".$key['Descripcion']."</td>
+								</tr>";
+							 }
+						 }
+				 } ?>
 			</tbody>
 		</table>
 		<table>
@@ -261,7 +275,7 @@
 				<tr>
 					<th colspan="2" style="text-align:center;">TIEMPO</th>	
 					<th rowspan="2" style="text-align:center;">MINUTOS</th>
-					<th rowspan="2" style="text-align:center;">TIEMPO MUERTO MQ. 2</th>
+					<th rowspan="2" style="text-align:center;">TIEMPO MUERTO MQ. 1</th>
 				</tr>
 				<tr>
 					<th style="text-align:center;">DE</th>
@@ -272,16 +286,16 @@
 				<?php 
 					if ($tiemposM) {
 						foreach ($tiemposM as $key) {
-							if ($key['Maquina']==2) { ?>
-								<tr>
-									<td style="text-align:center;"><?php echo $key['HoraInicio'] ?></td>
-									<td style="text-align:center;"><?php echo $key['HoraFin'] ?></td>
-									<td style="text-align:center;"><?php echo $key['Intervalos'] ?></td>
-									<td><?php echo $key['Descripcion'] ?></td>
-								</tr>
-							<?php } ?>
-						<?php } ?>
-				<?php } ?>
+							if ($key['Maquina']==2) {
+							echo "<tr>
+									<td style='text-align:center;'>".$key['HoraInicio']."</td>
+									<td style='text-align:center;'>".$key['HoraFin']."</td>
+									<td style='text-align:center;'>".$key['Intervalos']."</td>
+									<td>".$key['Descripcion']."</td>
+								</tr>";
+							 }
+						 }
+				 } ?>
 			</tbody>
 		</table>		
 		<div class="titulos"> <span>CARGAS PULPER</span><span class="totales"> (<b>TOTAL:</b><?php echo $cargaTotal;?>)</span></div>
@@ -377,30 +391,27 @@
 			</thead>
 			<tbody>
 				<?php 
-					if ($horasMolienda) { ?>
-				<tr>
-					<td rowspan="3" style="text-align:center;">BATIDO</td>
-						<td style="text-align:center;">INICIO</td>
-						<?php 
-							for ($i=0; $i<count($horasMolienda);$i++) { ?>
-								<td style="text-align:center;"><?php echo $horasMolienda[$i]['horaInicio']; ?></td>
-						<?php } ?>						
-				</tr>
-				<tr>
-					<td style="text-align:center;">FINAL</td>
-					<?php 
-						for ($i=0; $i<count($horasMolienda);$i++) { ?>
-							<td style="text-align:center;"><?php echo $horasMolienda[$i]['horaFin']; ?></td>
-					<?php } ?>						
-				</tr>
-				<tr>
-					<td style="text-align:center;">TIEMPO</td>
-					<?php 
-						for ($i=0; $i<count($horasMolienda);$i++) { ?>
-							<td style="text-align:center;"><?php echo $horasMolienda[$i]['tiempo']; ?></td>
-					<?php } ?>						
-				</tr>
-				<?php } ?>
+					if ($horasMolienda) {
+						echo "
+							<tr>
+								<td rowspan='3' style='text-align:center;'>BATIDO</td>
+								<td style='text-align:center;'>INICIO</td>";
+								for ($i=0; $i<count($horasMolienda);$i++) {
+									echo "<td style='text-align:center;'>".$horasMolienda[$i]['horaInicio']."</td></tr>";
+								}
+						echo "
+							<tr>
+								<td style='text-align:center;'>FINAL</td>";
+								for ($i=0; $i<count($horasMolienda);$i++) {
+									echo "<td style='text-align:center;'>".$horasMolienda[$i]['horaFin']."</td></tr>";
+								}
+						echo "
+							<tr>
+								<td style='text-align:center;'>TIEMPO</td>";
+								for ($i=0; $i<count($horasMolienda);$i++) {
+									echo "<td style='text-align:center;'>".$horasMolienda[$i]['tiempo']."</td></tr>";
+								}
+						} ?>
 			</tbody>
 		</table>		
 		<div class="titulos">
@@ -419,28 +430,16 @@
 				<tbody>						
 					<?php 
 						if ($pasta) {
-							foreach ($pasta as $key) { ?>
-							<tr>
-								<?php if ($key['Tanque']==1) {
-									$tanque="Tanque #1";
-								} elseif ($key['Tanque']==2) {
-									$tanque="Tanque #2";
-								} elseif ($key['Tanque']==3) {
-									$tanque="Tanque #3";
-								} elseif ($key['Tanque']==4) {
-									$tanque="Tanque #4";
-								} elseif ($key['Tanque']==5) {
-									$tanque="Tanque #5";
-								} elseif ($key['Tanque']==6) {
-									$tanque="Tanque #6";
-								}?>
-								<td style="text-align:center;"><?php echo $tanque;?></td>
-								<td style="text-align:center;"><?php echo $key['Dia'];?></td>
-								<td style="text-align:center;"><?php echo $key['Noche'];?></td>
-								<td style="text-align:center;"><?php echo $key['Consumo'];?></td>
-							</tr>
-							<?php } ?>
-					<?php } ?>						
+							foreach ($pasta as $key) { 
+							echo "<tr>
+									<td style='text-align:center;'>".$key['Tanque']."</td>
+									<td style='text-align:center;'>".$key['Dia']."</td>
+									<td style='text-align:center;'>".$key['Noche']."</td>
+									<td style='text-align:center;'>".$key['Consumo']."</td>
+								</tr>";
+							 }
+							}
+					 ?>				
 				</tbody>
 			</table>
 		</div>
@@ -462,16 +461,16 @@
 				<tbody>
 					<?php 
 						if ($insumos) {
-							foreach ($insumos as $key) { ?>
-								<tr>
-									<td style="text-align:center;"><?php echo $key['Descripcion']; ?></td>
-									<td style="text-align:center;"><?php echo $key['Dia']; ?></td>
-									<td style="text-align:center;"><?php echo $key['Noche']; ?></td>
-									<td style="text-align:center;"><?php echo $key['Cantidad_PTA_Agua_Dia']; ?></td>
-									<td style="text-align:center;"><?php echo $key['Cantidad_PTA_Agua_Noche']; ?></td>
-								</tr>
-							<?php } ?>
-						<?php } ?>											
+							foreach ($insumos as $key) {
+								echo "<tr>
+									<td style='text-align:center;'>".$key['Descripcion']."</td>
+									<td style='text-align:center;'>".$key['Dia']."</td>
+									<td style='text-align:center;'>".$key['Noche']."</td>
+									<td style='text-align:center;'>".$key['Cantidad_PTA_Agua_Dia']."</td>
+									<td style='text-align:center;'>".$key['Cantidad_PTA_Agua_Noche']."</td>
+								</tr>";
+							 }
+						 } ?>											
 				</tbody>
 			</table>
 		</div>

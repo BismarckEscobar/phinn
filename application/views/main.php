@@ -61,15 +61,7 @@
                     echo '<br><br><br>
                     <div class="container">
                         <div class="row">
-                            <div class="col s3 m3">
-                                <center>                          
-                                    <a data-tooltip="ORDENES PRODUCCIÓN" href='.base_url("index.php/ordProduccion").' class="modal-trigger tooltipped purple-text darken-4">
-                                        <i class="material-icons large">poll</i>
-                                        <center><span class="titulo-secundario">ORDENES PRODUCCIÓN</span></center>
-                                    </a>
-                                </center>
-                            </div>
-                            <div class="col s3 m3">
+                            <div class="col s4 m4">
                                 <center>                                    
                                     <a data-tooltip="ORDENES DE TRABAJO" href='.base_url("index.php/OrdenProduccion").' class="modal-trigger tooltipped purple-text darken-4">
                                         <i class="material-icons large">content_paste</i>
@@ -77,7 +69,7 @@
                                     </a>                                  
                                 </center>                                
                             </div>
-                            <div class="col s3 m3">
+                            <div class="col s4 m4">
                                 <center>                                   
                                     <a data-tooltip="PLAN DE TRABAJO" href='.base_url("index.php/Planes").' class="modal-trigger tooltipped purple-text darken-4">
                                         <i class="material-icons  large center-align">assignment_turned_in</i>
@@ -85,7 +77,7 @@
                                     </a>                                    
                                 </center>                                
                             </div> 
-                            <div class="col s3 m3">
+                            <div class="col s4 m4">
                                 <center>                                   
                                     <a data-tooltip="MANTENIMIENTO" href='.base_url("index.php/MenuMantenimiento").' class="modal-trigger tooltipped purple-text darken-4">
                                         <i class="material-icons  large center-align">settings</i>

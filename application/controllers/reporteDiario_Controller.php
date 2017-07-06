@@ -22,5 +22,6 @@ class reporteDiario_Controller extends CI_Controller
 	{
 		$this->reporteDiario_Model->eliminarRptDiario($id);
 	}
+
 }
 ?>
