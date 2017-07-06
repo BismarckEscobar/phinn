@@ -76,8 +76,6 @@ $route['ValidaFecha/(:any)/(:any)/(:any)'] = 'Ordenproduccion_controller/Validar
     $route['menuOrdenTrabajo/(:any)']= "Ordenproduccion_controller/agregaDetalleOrdT/$1";
     /********************GUARDANDO REGISTRO DE TIEMPO MUERTO POR AJAX****************/
 
-    $route['guardarTM/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)']= "tiemposMuertos_Controller/guardarTiempoM/$1/$2/$3/$4/$5/$6/$7/$8";
-
   /***************************************************************************************************/
     $route['Produccion/(:any)']= "Produccion_Controller/agregaDetalleOrdP1/$1"; 
     $route['GuardaProduccion']= "Produccion_Controller/GuardarProduccion"; 
@@ -92,8 +90,7 @@ $route['ValidaFecha/(:any)/(:any)/(:any)'] = 'Ordenproduccion_controller/Validar
     $route['EliminaPasta/(:any)/(:any)'] = "MateriaPrima_controller/EliminarPasta/$1/$2";
     $route['EliminaMPInsumos/(:any)/(:any)'] = "MateriaPrima_controller/EliminaInsumos/$1/$2";
 
-    $route['guardarTM1/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)']= "tiemposMuertos_Controller/guardarTiempoM/$1/$2/$3/$4/$5/$6/$7/$8";
-    
+      
     $route['guardarTM']= "tiemposMuertos_Controller/guardarTiempoM";
 
     /**************************ELIMINAR TIEMPO MUERTO******************************/
@@ -148,6 +145,16 @@ $route['ValidaFecha/(:any)/(:any)/(:any)'] = 'Ordenproduccion_controller/Validar
    $route['ValidarDetallePlan/(:any)/(:any)/(:any)'] = "detalleplanes_controller/ValidaDetalle/$1/$2/$3"; 
    
    $route['GuardarDetalles'] = "detalleplanes_controller/GuardaDetalles"; 
+
+   /*****************RUTAS CONTROL PISO***************************************/
+   $route['controlPiso/(:any)'] = "controlPiso_Controller/index/$1";
+   $route['filtroInsumos/(:any)'] = "controlPiso_Controller/filtroTiposInsumos/$1";
+   $route['insumoDetalle/(:any)'] = "controlPiso_Controller/detalleInsumo/$1";
+   $route['validaExisteCPEncab/(:any)'] = "controlPiso_Controller/validaExisteControlPisoEncabezado/$1";
+   $route['guardarControlPisoDetalle'] = "controlPiso_Controller/guardandoControlPiso";
+   $route['guardarEncabezado'] = "controlPiso_Controller/guardandoControlPisoEncabezado";
+
+
 
 
 

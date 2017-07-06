@@ -12,18 +12,37 @@ class exportarPdf_Controller extends CI_Controller {
         $data['cargaTotal'] = $this->listandoCargaTotalPulper($idReporteDiario);        
         $data['horasMolienda'] = $this->listandoHorasMolienda($idReporteDiario);        
         $data['cargasPulper'] = $query=$this->cargasPulper_Model->listarCargasP($idReporteDiario);		
-        $data['produccion'] = $this->produccion_Model->ListarProd($idReporteDiario);		
+        $query = $this->produccion_Model->ListarProd($idReporteDiario);
+        $data['mermaTotal'] = $this->calculandoMermaTotal($query);
+        $data['produccion'] = $query;
         $data['consecutivo'] = $this->Ordenproduccion_model->buscarRtpDiario($idReporteDiario);
 		$data['pasta'] = $this->MateriaPrima_model->ListarPM($idReporteDiario);
         $data['insumos'] = $this->MateriaPrima_model->ListarPMInsumos($idReporteDiario);
         $data['totalHrsM'] = date('H:i', strtotime($this->calcularCantHoras($idReporteDiario)));
         $data['cabeceraRpt'] = $this->reporteDiario_Model->caberaReporte($idReporteDiario);
-		$PdfCliente = new mPDF('utf-8','A4');
+        $PdfCliente = new mPDF('utf-8','A4');
         $PdfCliente->SetFooter("Página {PAGENO} de {nb}");
         $PdfCliente -> writeHTML($this->load->view('Reportes/reporteOrdTrabDiario',$data,true));
         $PdfCliente->Output();
 	}
     /*LISTANDO REPORTES*/
+    public function calculandoMermaTotal($array) {
+        $mermaTotal=0;$mermaMq1=0;$mermaMq2=0;
+        foreach ($array as $key) {
+            if ($key['Maquina'] == 1) {
+                $mermaMq1=$key['Merma'];
+                continue;
+            }
+            if ($key['Maquina'] == 2) {
+                $mermaMq2=$key['Merma'];
+                continue;
+            }       
+        }
+        $mermaTotal=$mermaMq1+$mermaMq2;
+        return $mermaTotal;
+    }
+
+
     public function listandoTiempoMuerto($idReporteDiario) {
         $list = $this->tiemposMuertos_Model->listarTM($idReporteDiario);
         $array = array();
@@ -106,7 +125,6 @@ class exportarPdf_Controller extends CI_Controller {
                 $horaInicio = date('g:i A', strtotime($key['horaInicio']));
                 $horaFinal = date('g:i A', strtotime($key['horaFin']));
                 $tf=$this->sumaRestaHoras($horaFinal,$horaInicio);
-
                 $dta = array(
                     'horaInicio' => $horaInicio,
                     'horaFin' => $horaFinal,
