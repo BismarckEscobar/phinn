@@ -82,6 +82,7 @@
                                 <th>COMENTARIO</th>
                                 <th>CATEGORIA</th>
                                 <th>DESCRIPCION</th>
+                                <th>ACCIONES</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -96,6 +97,7 @@
                                                     <td>'.$key['Comentario'].'</td>
                                                     <td>'.$key['categoria'].'</td>
                                                     <td>'.$key['Descripcion'].'</td>
+                                                    <td><a onclick="EliminaDetPlan(this)" href="javascript:void(0)" id="'.$key['IdDetallePlan'].'"><i class="material-icons purple-text">delete</i></a></td>
                                                     </tr>
                                             ';
                                        } 
@@ -110,6 +112,7 @@
                                                     <td>'.$key['Comentario'].'</td>
                                                     <td>'.$key['categoria'].'</td>
                                                     <td>'.$key['Descripcion'].'</td>
+                                                    <td><a onclick="EliminaDetPlan(this)" href="javascript:void(0)" id="'.$key['IdDetallePlan'].'"><i class="material-icons purple-text">delete</i></a></td>
                                             </tr>
                                             ';
                                        } 
@@ -124,6 +127,7 @@
                                                     <td>'.$key['Comentario'].'</td>
                                                     <td>'.$key['categoria'].'</td>
                                                     <td>'.$key['Descripcion'].'</td>
+                                                    <td><a onclick="EliminaDetPlan(this)" href="javascript:void(0)" id="'.$key['IdDetallePlan'].'"><i class="material-icons purple-text">delete</i></a></td>
                                             </tr>
                                             ';
                                        } 
@@ -138,6 +142,7 @@
                                                     <td>'.$key['Comentario'].'</td>
                                                     <td>'.$key['categoria'].'</td>
                                                     <td>'.$key['Tanque'].'</td>
+                                                    <td><a onclick="EliminaDetPlan(this)" href="javascript:void(0)" id="'.$key['IdDetallePlan'].'"><i class="material-icons purple-text">delete</i></a></td>
                                             </tr>
                                             ';
                                        } 
@@ -208,20 +213,23 @@
                                 </thead>
                                 <tbody>
                                     <?php 
-                        foreach($insumos as $key)
-                        {
-                        echo'<tr>
-                        <td style="display:none;">'.$key['IdInsumo'].'</td>
-                            <td>
-                             <p>
-                                <input type="checkbox" class="val" name="chkinsumo'.$key['IdInsumo'].'" id="chkinsumo'.$key['IdInsumo'].'" value="'.$key['IdInsumo'].'"/>
-                                <label class="purple-text" for="chkinsumo'.$key['IdInsumo'].'">'.$key['Descripcion'].'</label>
-                            </p>
-                            </td>
-                        </tr>'
-                        ;
-                        }
-                    ?>
+                                    if(!($insumos))
+                                    {}else{
+                                            foreach($insumos as $key)
+                                            {
+                                            echo'<tr>
+                                            <td style="display:none;">'.$key['IdInsumo'].'</td>
+                                                <td>
+                                                <p>
+                                                    <input type="checkbox" class="val" name="chkinsumo'.$key['IdInsumo'].'" id="chkinsumo'.$key['IdInsumo'].'" value="'.$key['IdInsumo'].'"/>
+                                                    <label class="purple-text" for="chkinsumo'.$key['IdInsumo'].'">'.$key['Descripcion'].'</label>
+                                                </p>
+                                                </td>
+                                            </tr>'
+                                            ;
+                                            }
+                                        }
+                                    ?>
                                 </tbody>
                             </table>
 
@@ -239,17 +247,20 @@
                                 </thead>
                                 <tbody>
                                     <?php 
-                        foreach($insumos2 as $key)
-                        {
-                            echo'<tr>
-                             <td style="display:none;" >'.$key['IdInsumo'].'</td>
-                          <td> <p>
-                            <input type="checkbox" name="chkinsumo'.$key['IdInsumo'].'" id="chkinsumo'.$key['IdInsumo'].'" value="'.$key['IdInsumo'].'"/>
-                            <label class="purple-text" for="chkinsumo'.$key['IdInsumo'].'">'.$key['Descripcion'].'</label>
-                            </p></td>
-                        </tr>';
-                        }
-                    ?>
+                                    if(!($insumos2))
+                                    {}else{
+                                            foreach($insumos2 as $key)
+                                            {
+                                                echo'<tr>
+                                                <td style="display:none;" >'.$key['IdInsumo'].'</td>
+                                            <td> <p>
+                                                <input type="checkbox" name="chkinsumo'.$key['IdInsumo'].'" id="chkinsumo'.$key['IdInsumo'].'" value="'.$key['IdInsumo'].'"/>
+                                                <label class="purple-text" for="chkinsumo'.$key['IdInsumo'].'">'.$key['Descripcion'].'</label>
+                                                </p></td>
+                                            </tr>';
+                                            }
+                                        }
+                                    ?>
                                 </tbody>
                             </table>
                         </div>
@@ -266,17 +277,20 @@
                                 </thead>
                                 <tbody>
                                     <?php 
-                        foreach($insumos3 as $key)
-                        {
-                            echo'<tr>
-                            <td style="display:none;">'.$key['IdInsumo'].'</td>
-                          <td> <p>
-                            <input type="checkbox" name="chkinsumo'.$key['IdInsumo'].'" id="chkinsumo'.$key['IdInsumo'].'" value="'.$key['IdInsumo'].'"/>
-                            <label class="purple-text" for="chkinsumo'.$key['IdInsumo'].'">'.$key['Descripcion'].'</label>
-                            </p></td>
-                        </tr>';
-                        }
-                    ?>
+                                    if(!($insumos3)){}
+                                    else{
+                                        foreach($insumos3 as $key)
+                                        {
+                                            echo'<tr>
+                                            <td style="display:none;">'.$key['IdInsumo'].'</td>
+                                        <td> <p>
+                                            <input type="checkbox" name="chkinsumo'.$key['IdInsumo'].'" id="chkinsumo'.$key['IdInsumo'].'" value="'.$key['IdInsumo'].'"/>
+                                            <label class="purple-text" for="chkinsumo'.$key['IdInsumo'].'">'.$key['Descripcion'].'</label>
+                                            </p></td>
+                                        </tr>';
+                                        }
+                                      }
+                                    ?>
                                 </tbody>
                             </table>
                         </div>
@@ -293,17 +307,21 @@
                                 </thead>
                                 <tbody>
                                     <?php 
-                        foreach($tanques as $key)
-                        {
-                            echo'<tr>
-                            <td style="display:none;">'.$key['IdTanque'].'</td>
-                          <td> <p>
-                            <input type="checkbox" name="chk'.$key['IdTanque'].'" id="chk'.$key['IdTanque'].'" value="'.$key['IdTanque'].'"/>
-                            <label class="purple-text" for="chk'.$key['IdTanque'].'">'.$key['Tanque'].'</label>
-                            </p></td>
-                        </tr>';
-                        }
-                    ?>
+                                    if(!($tanques))
+                                    {}
+                                    else{
+                                        foreach($tanques as $key)
+                                        {
+                                            echo'<tr>
+                                            <td style="display:none;">'.$key['IdTanque'].'</td>
+                                        <td> <p>
+                                            <input type="checkbox" name="chk'.$key['IdTanque'].'" id="chk'.$key['IdTanque'].'" value="'.$key['IdTanque'].'"/>
+                                            <label class="purple-text" for="chk'.$key['IdTanque'].'">'.$key['Tanque'].'</label>
+                                            </p></td>
+                                        </tr>';
+                                        }
+                                     }
+                                ?>
                                 </tbody>
                             </table>
                         </div>

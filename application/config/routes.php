@@ -143,9 +143,9 @@ $route['ValidaFecha/(:any)/(:any)/(:any)'] = 'Ordenproduccion_controller/Validar
    $route['ActualizaPlan'] = "planes_controller/ActualizarPlan"; 
    $route['AgregaDetalle/(:any)'] = "detalleplanes_controller/AgregaDetallePlanes/$1"; 
    $route['ValidarDetallePlan/(:any)/(:any)/(:any)'] = "detalleplanes_controller/ValidaDetalle/$1/$2/$3"; 
-   
-   $route['GuardarDetalles'] = "detalleplanes_controller/GuardaDetalles"; 
 
+   $route['GuardarDetalles'] = "detalleplanes_controller/GuardaDetalles"; 
+   $route['EliminaDetalles/(:any)'] = "detalleplanes_controller/EliminarDetalle/$1"; 
    /*****************RUTAS CONTROL PISO***************************************/
    $route['controlPiso/(:any)'] = "controlPiso_Controller/index/$1";
    $route['filtroInsumos/(:any)'] = "controlPiso_Controller/filtroTiposInsumos/$1";
