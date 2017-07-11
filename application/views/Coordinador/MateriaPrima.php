@@ -47,8 +47,12 @@
                         <h5 class="card-title purple-text accent-4" style="font-family: robotoblack;">MATERIA PRIMA</h5>
                          <h6 class="card-title purple-text accent-4" style="font-family: robotoblack;">Pasta</h6>
                     </center>
-                    <div id="agregarMP">
-                        <a data-tooltip='AGREGAR PASTA' data-position="right" href="#nuevaMatPrim" class="modal-trigger left-align tooltipped btn waves-effect waves-light purple">AGREGAR  <i class="material-icons">add</i></a>
+                    <div class="row">
+                        <div class="col s12 m12">
+                            <a class="Btnadd btn waves-effect waves-light" id="agregarMP" href="#nuevaMatPrim" style="background-color:#831F82;">AGREGAR
+                                <i class="material-icons right">add</i>
+                            </a>
+                        </div>
                     </div>
                     <table id="tblpasta" class="striped responsive-table">
                         <thead>
@@ -95,8 +99,12 @@
                     <center>
                          <h6 class="card-title purple-text accent-4" style="font-family: robotoblack;">Insumos</h6>
                     </center>
-                    <div>
-                        <a id="modinsumo" href="#modalInsumo" data-tooltip="AGREGAR INSUMO" data-position="right" class="modal-trigger tooltipped btn waves-effect waves-light purple darken-1">Agregar <i class="material-icons">add</i></a>
+                    <div class="row">
+                        <div class="col s12 m12">
+                            <a class="Btnadd btn waves-effect waves-light" id="modinsumo" href="#modalInsumo" style="background-color:#831F82;">AGREGAR
+                                <i class="material-icons right">add</i>
+                            </a>
+                        </div>
                     </div>
                     <table id="" class="striped responsive-table">
                         <thead>
@@ -335,13 +343,15 @@
                 </div>
                 <br>
                 <?php
-                    foreach ($consecutivo as $key) {
+                    foreach ($consecutivo as $key) {$modalHTML="'modalInsumo'";
                        if ($key['Estado'] == 0) {
                            echo '               
                  <div class="row">
                     <div class="center">
                         <a class="Btnadd btn waves-effect waves-light disabled" href="#" style="background-color:#831F82;">GUARDAR
                         </a>
+                        <a class="Btnadd btn waves-effect waves-light" onclick="cerrarModales('.$modalHTML.',false)" href="#!" style="background-color:#831F82;">cerrar
+                        </a> 
                         <span class="badge red-text darken-4"><b>El Consecutivo ya ha sido cerrado</b></span>
                     </div>
                 </div>';
@@ -350,6 +360,8 @@
                 <div class="row">
                     <div class="center">
                         <a id="btninsumo" class="Btnadd btn waves-effect waves-light" onclick="guardaInsumos()" href="#" style="background-color:#831F82;">GUARDAR
+                        </a>
+                        <a class="Btnadd btn waves-effect waves-light" onclick="cerrarModales('.$modalHTML.',true)" href="#!" style="background-color:#831F82;">cerrar
                         </a>
                     </div>
                 </div>
@@ -438,13 +450,15 @@
                 </div>
                <br>
                <?php
-                foreach ($consecutivo as $key) {
+                foreach ($consecutivo as $key) { $modalHTML="'nuevaMatPrim'";
                     if($key['Estado'] == 0)
                     {
                         echo'               
                 <div class="row">
                     <div class="center">
                         <a class="Btnadd btn waves-effect waves-light disabled" href="#" style="background-color:#831F82;">GUARDAR
+                        </a>
+                        <a class="Btnadd btn waves-effect waves-light" onclick="cerrarModales('.$modalHTML.',false)" href="#!" style="background-color:#831F82;">cerrar
                         </a>
                          <span class="badge red-text darken-4"><b>El Consecutivo ya ha sido cerrado</b></span>
                     </div>
@@ -455,6 +469,8 @@
                  <div class="row">
                     <div class="center">
                         <a id="matprim" class="Btnadd btn waves-effect waves-light" onclick="Guardarmp()" href="#" style="background-color:#831F82;">GUARDAR
+                        </a>
+                        <a class="Btnadd btn waves-effect waves-light" onclick="cerrarModales('.$modalHTML.',true)" href="#!" style="background-color:#831F82;">cerrar
                         </a>
                     </div>
                 </div>

@@ -13,10 +13,13 @@ class controlPiso_Controller extends CI_Controller
 	}
 
 	public function index($consecutivo) {
+		$data['consumoElectrico'] = $this->controlPiso_Model->visualizarConsumoElec($consecutivo);
 		$data['detalleOrdTrabajo'] = $this->controlPiso_Model->detalleOrdTrabajo($consecutivo);		
 		$data['tiposFibras'] = $this->controlPiso_Model->listaInsumos();
 		$data['detalle'] = $this->controlPiso_Model->detalleControlPiso($consecutivo);
 		$data['pastaDetalle'] = $this->controlPiso_Model->mostrarDetallePasta($consecutivo);
+		
+		
 		$this->load->view('header');
         $this->load->view('dashboardclean');
         $this->load->view('Supervisor/controlPiso', $data);
@@ -38,12 +41,11 @@ class controlPiso_Controller extends CI_Controller
 		}else {
 			echo "FALSE";
 		}
-
 	}
 
-	public function detalleInsumo($idInsumo) {
+	public function detalleInsumo($idInsumo,$consecutivo) {
 		$json=array();
-		$query = $this->controlPiso_Model->detalleInsumoById($idInsumo);
+		$query = $this->controlPiso_Model->detalleInsumoById($idInsumo,$consecutivo);
 		if ($query!=1) {
 			foreach ($query as $key) {
 				$data = array(
@@ -55,10 +57,9 @@ class controlPiso_Controller extends CI_Controller
 				$json[] = $data;
 			}
 			echo json_encode($json);
-		}else {
+		}elseif ($query==1) {
 			echo 1;
 		}
-
 	}
 
 	public function validaExisteControlPisoEncabezado($consecutivo) {
@@ -67,6 +68,10 @@ class controlPiso_Controller extends CI_Controller
 
 	public function guardandoControlPiso() {
 		$this->controlPiso_Model->guardandoDetalleControlPiso($this->input->post('consecutivo'), $this->input->post('detalle'), $this->input->post('encabezado'));
+	}
+
+	public function guardandoConsumoElectrico() {
+		$this->controlPiso_Model->guardandoRegistroElectrico($this->input->post('consumoElectrico'));
 	}
 }
 

@@ -2,7 +2,7 @@
     <main></main>
     <footer class="page-footer" style="background-color: #831F82 !important;">
         <div class="footer-copyright center" style="background-color: #831F82!important; font-family:'robotomedium';color:white;">         
-                © <?php echo date('Y')?> Copyright GCIT-GUMA
+                © <?php echo date('Y')?> Copyright INNOVA INDUSTRIAS
         </div>
     </footer>
     

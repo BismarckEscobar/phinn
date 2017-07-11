@@ -138,7 +138,6 @@
                 <div class="row">                    
                     <div class="center">
 			      	    <a class="Btnadd btn waves-effect waves-light" id="guardaRpt" href="#" hre style="background-color:#831F82;">GUARDAR
-                            <i class="material-icons right">send</i>
                         </a>
 			        </div>
                 </div>
@@ -197,7 +196,6 @@
                 <div class="row">                    
                     <div class="center">
                         <a class="Btnadd btn waves-effect waves-light" id="actualizarRpt" href="#" style="background-color:#831F82;">ACTUALIZAR
-                            <i class="material-icons right">send</i>
                         </a>
                     </div>
                 </div>

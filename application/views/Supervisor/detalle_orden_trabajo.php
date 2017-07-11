@@ -113,8 +113,7 @@
             <div class="noMargen col s12 m12 l12">
                 <h6 class="center titulos">AGREGAR TIEMPO MUERTO</h6>
             </div>
-        </div>
-        
+        </div>        
         <div class="row">
             <?php 
                 if(!($consecutivo)){                                   
@@ -179,9 +178,8 @@
                             
                         }
                     ?>
-                    <a class="Btnadd btn waves-effect waves-light" id="cerrarMdl1" href="#" hre style="background-color:#831F82;">CERRAR
-                        <i class="material-icons right">clear</i>
-                    </a>
+                <a class="Btnadd btn waves-effect waves-light" onclick="cerrarModales('nuevoTiempoMuerto',true)" href="#!" style="background-color:#831F82;">cerrar
+                </a>
 		        </div>
             </div>
         </div>
@@ -234,8 +232,7 @@
             </ul>
             <div class="row">                    
                 <div class="center">
-                    <a class="Btnadd btn waves-effect waves-light" id="cerrarMdl" href="#" style="background-color:#831F82;">CERRAR
-                        <i class="material-icons right">clear</i>
+                    <a class="Btnadd btn waves-effect waves-light" onclick="cerrarModales('visTiempoM',false)" href="#!" style="background-color:#831F82;">cerrar
                     </a>
                 </div>
             </div>

@@ -295,12 +295,11 @@ if ($this->session->userdata("Privilegio") == 3) {?>
             </div>
         </div>
         <div class="row">
-            <div class="col s12">
-                <center>
-                    <h5><span class="pink-text">ORDEN DE TRABAJO N°: </span>
-                    <span class="pink-text" id="spanNoOrdenT"><?php echo $key["NoOrden"]?></span></h5>
-                    <label>( PROCESO HUMEDO )</label>    
-                </center>            
+            <div class="row noMargen center">
+                <div class="noMargen col s12 m12 l12">
+                    <h6 class="center titulos">ORDEN DE TRABAJO N°: <span id="spanNoOrdenT"></span></h6>
+                    <label>( PROCESO HUMEDO )</label> 
+                </div>
             </div>
         </div>
         <div class="row">
@@ -374,12 +373,11 @@ if ($this->session->userdata("Privilegio") == 3) {?>
                         <label id="lblturno" class="lblValidacion">ELIGE UN TURNO</label>
                     </div>
                    <br><br>
+                </div><br><br>
+                <div class="center">
+                    <button name="usersubmit" type="submit" class="Btnadd btn waves-effect waves-light" id="AddOrden" style="background-color:#831F82;">GUARDAR
+                    </button>
                 </div>
-                 <div class="center">
-                        <button name="usersubmit" type="submit" class="Btnadd btn waves-effect waves-light" id="AddOrden" style="background-color:#831F82;">GUARDAR
-                            <i class="mdi-content-send right"></i>
-                        </button>
-                    </div>
             </form>
         </div>
     </div>

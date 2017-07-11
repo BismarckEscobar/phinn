@@ -20,6 +20,16 @@ class controlPiso_Model extends CI_Model {
 		}		
 	}
 
+	public function visualizarConsumoElec($consecutivo) {
+		$this->db->where('consecutivo', $consecutivo);
+		$query=$this->db->get('consumoElectrico');
+		if ($query->num_rows()>0) {
+			return $query->result_array();
+		} else {
+			return false;
+		}
+	}
+
 	public function mostrarDetallePasta($consecutivo) {
 		$data=array();
 		$query = $this->db->query("call infoPasta(2, '".$consecutivo."')");
@@ -50,11 +60,6 @@ class controlPiso_Model extends CI_Model {
 			$query->next_result();			
 			$query = $this->db->query("call infoPasta(1, '".$consecutivo."')");
 			foreach ($query->result_array() as $key) {
-				if ($key['Turno']==1) {
-					$pasta = $key['Dia'];
-				}else {
-					$pasta = $key['Noche'];
-				};
 				if ($key['Tanque']==1) {
 					$tanque = 'Tanque 1';
 				}elseif ($key['Tanque']==2) {
@@ -76,6 +81,7 @@ class controlPiso_Model extends CI_Model {
 			}
 			return $data;
 		}
+			$query->next_result();
 			$query->free_result();
 	}
 
@@ -120,9 +126,6 @@ class controlPiso_Model extends CI_Model {
 			return $data;			
 			$query->free_result();
 		} else {
-			$query->next_result();
-			$query->free_result();
-
 			$this->db->where('Consecutivo', $consecutivo);
 	        $query=$this->db->get('reporte_diario');
 	        if (count($query)>=2) {
@@ -164,6 +167,8 @@ class controlPiso_Model extends CI_Model {
 					);
             	}
             return $data;
+            $query->next_result();
+			$query->free_result();
 		}
 	}
 
@@ -188,11 +193,14 @@ class controlPiso_Model extends CI_Model {
 		}
 	}
 
-	public function detalleInsumoById($idInsumo) {
-		$this->db->where('IdInsumo', $idInsumo);
-		$query=$this->db->get('control_piso_detalle');
+	public function detalleInsumoById($idInsumo,$consecutivo) {
+		$this->db->where('control_piso_detalle.IdInsumo', $idInsumo);
+		$this->db->where('control_piso.Consecutivo', $consecutivo);
+		$this->db->from('control_piso_detalle');
+		$this->db->join('control_piso', 'control_piso.idControlPiso = control_piso_detalle.idControlPiso');
+		$query = $this->db->get();
 		if ($query->num_rows()>0) {
-			return 1;
+			return 1;	
 		}else {
 			$this->db->where('IdInsumo', $idInsumo);
 			$query1=$this->db->get('insumos');
@@ -221,26 +229,8 @@ class controlPiso_Model extends CI_Model {
 
 		for ($i=0; $i < count($encabezado) ; $i++) {
 			$index1 = explode(",",$encabezado[$i]);
-			$data2 = array(
-			'noOrden'=> $index1[0],
-			'consecutivo' => $index1[1],
-			'fechaInicio' => date("Y/m/d", strtotime($index1[2])),
-			'fechaFinalizacion' => date("Y/m/d", strtotime($index1[3])),
-			'fechaCreacion' => date("Y/m/d", strtotime($index1[4])),
-			'producto' => $index1[5],
-			'grupo' => $index1[6],
-			'maquina' => $index1[7],
-			'horaInicio' => date("H:i:s", strtotime($index1[8])),
-			'horaFinal' => date("H:i:s", strtotime($index1[9]))
-			);
-			if ($query->num_rows()>0) {
-				$this->db->where('consecutivo', $consecutivo);
-			    $result=$this->db->update('control_piso', $data2);
-			} else {
-				$result = $this->db->insert('control_piso', $data2);
-			}
+			$result = $this->db->query("call encabezadoControlPiso(".$index1[0].",'".$index1[1]."','".date("Y/m/d", strtotime($index1[2]))."','".date("Y/m/d", strtotime($index1[3]))."','".date("Y/m/d", strtotime($index1[4]))."','".$index1[5]."','".$index1[6]."','".$index1[7]."','".date("H:i:s", strtotime($index1[8]))."','".date("H:i:s", strtotime($index1[9]))."')");
 		}
-
 		if ($result) {
 
 		    $query = $this->db->query('SELECT cp.idControlPiso as idControlPiso from control_piso as cp WHERE consecutivo = "'.$consecutivo.'"');
@@ -249,10 +239,26 @@ class controlPiso_Model extends CI_Model {
 		    }
 			for ($i=0; $i < count($detalle); $i++) {	
 				$index2 = explode(",",$detalle[$i]);
-				$result = $this->db->query("call detalleControlPiso(".$index2[0].",'".$index2[1]."','".$index2[2]."','".$index2[3]."','".$index2[4]."',".$index2[5].",".$index2[6].",".$index2[7].",".$idControlPiso.")");				
+				$result = $this->db->query("call detalleControlPiso(".$index2[0].",'".$index2[1]."','".$index2[2]."','".$index2[3]."','".$index2[4]."',".$index2[5].",".$index2[6].",".$index2[7].",".$idControlPiso.")");
 			}
-		}		
-		
+		}
+		if ($result) {
+			echo 1;
+		}else{
+			echo 0;
+		}
+	}
+
+	public function guardandoRegistroElectrico($registroElectrico) {
+		for ($i=0; $i < count($registroElectrico); $i++) { 
+			$index = explode(",",$registroElectrico[$i]);
+			$horaInicio = date('H:i:s', strtotime($index[2]));
+			$horaFinal = date('H:i:s', strtotime($index[3]));
+			$result = $this->db->query("call consumoElectrico('".$index[0]."','".$index[1]."','".$horaInicio."','".$horaFinal."',".$index[4].",".$index[5].",'".$index[6]."')");
+		}
+		if ($result) {
+			echo 1;
+		}
 	}
 }
 ?>

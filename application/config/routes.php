@@ -24,7 +24,7 @@ $route['GuardaOrden'] = 'Ordenproduccion_controller/GuardarRD';
 $route['ValidaFecha/(:any)/(:any)/(:any)'] = 'Ordenproduccion_controller/ValidarFecha/$1/$2/$3';
 
     /*************LINKS DE REPORTES***********/
-    $route['CalSemana'] = 'Reportes/CalSemana';
+    
 
     /*************REDIRECT INDEX REPORTE*************/
     $route['ordProduccion'] = "ordenProduccionG_Controller";
@@ -75,8 +75,6 @@ $route['ValidaFecha/(:any)/(:any)/(:any)'] = 'Ordenproduccion_controller/Validar
     $route['reportesDiarios/(:any)']= "exportarPdf_Controller/index/$1";
     $route['menuOrdenTrabajo/(:any)']= "Ordenproduccion_controller/agregaDetalleOrdT/$1";
     /********************GUARDANDO REGISTRO DE TIEMPO MUERTO POR AJAX****************/
-
-  /***************************************************************************************************/
     $route['Produccion/(:any)']= "Produccion_Controller/agregaDetalleOrdP1/$1"; 
     $route['GuardaProduccion']= "Produccion_Controller/GuardarProduccion"; 
     $route['EliminarProduccion/(:any)/(:any)']= "Produccion_Controller/Eliminar/$1/$2";
@@ -149,10 +147,12 @@ $route['ValidaFecha/(:any)/(:any)/(:any)'] = 'Ordenproduccion_controller/Validar
    /*****************RUTAS CONTROL PISO***************************************/
    $route['controlPiso/(:any)'] = "controlPiso_Controller/index/$1";
    $route['filtroInsumos/(:any)'] = "controlPiso_Controller/filtroTiposInsumos/$1";
-   $route['insumoDetalle/(:any)'] = "controlPiso_Controller/detalleInsumo/$1";
-   $route['validaExisteCPEncab/(:any)'] = "controlPiso_Controller/validaExisteControlPisoEncabezado/$1";
+   $route['insumoDetalle/(:any)/(:any)'] = "controlPiso_Controller/detalleInsumo/$1/$2";
    $route['guardarControlPisoDetalle'] = "controlPiso_Controller/guardandoControlPiso";
-   $route['guardarEncabezado'] = "controlPiso_Controller/guardandoControlPisoEncabezado";
+   $route['guardarConsumoElect'] = "controlPiso_Controller/guardandoConsumoElectrico";
+
+    $route['reporteControlPiso/(:any)'] = "exportarPdf_Controller/reporteControlPiso/$1";  
+
 
 
 
