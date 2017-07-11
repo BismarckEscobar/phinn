@@ -16,6 +16,7 @@ $(document).ready(function() {
     $("#crearU").click(function() { $("#AUsuario").openModal(); });
     $("#crearT").click(function() { $("#ATrabajador").openModal(); });
 
+    $("#agregaElect").click(function() { $("#agregaElectricidad").openModal(); });
     $("#agregarMP").click(function() { $("#nuevaMatPrim").openModal(); });
     $("#modinsumo").click(function() { $("#modalInsumo").openModal(); });
     $("#AddIns").click(function() { $("#Insumosmodal").openModal() });
@@ -35,7 +36,7 @@ $(document).ready(function() {
         $(selector).chosen(config[selector]);
     }
 
-    $('#timepicker , #timepicker1, #timepickerII, #timepickerFF, #timeHM1, #timeHM2, #timeHM12, #timeHM22').pickatime({
+    $('#timepicker , #timepicker1, #timepickerII, #timepickerFF, #horaFinalCons, #horaInicioCons, #timeHM1, #timeHM2, #timeHM12, #timeHM22').pickatime({
         default: '', // default time, 'now' or '13:14' e.g.
         donetext: 'aceptar',
         format: 'HH:i uur',
@@ -85,14 +86,6 @@ $(document).ready(function() {
     $("#merma").numeric();
 });
 
-$('#cerrarCP').click(function() {
-    $("#modal11").closeModal();
-    location.reload();
-});
-$('#cerrarHM').click(function() {
-    $("#modal12").closeModal();
-    location.reload();
-});
 $('#cerrarHM1').click(function() {
     $("#modal13").closeModal();
     location.reload();
@@ -149,7 +142,7 @@ function format(callback,noOrden,div) {
                     };  
                     var link = "<a onclick='elimarRptDiario("+ item["IdReporteDiario"] +")' class='btn-flat tooltipped noHover'><i style='color:#696969; font-size:30px;' class='material-icons'>delete</i></a>";
                     tbody += '<tr >' +
-                                  '<td><a href="../index.php/reportesDiarios/'+item["IdReporteDiario"]+'" target="_blank" class="noHover"</a>'+item["Consecutivo"]+'</td>'+
+                                  '<td><a href="../index.php/reportesDiarios/'+item["IdReporteDiario"]+'" target="_blank" class="noHover">'+item["Consecutivo"]+'</a></td>'+
                                   '<td>' + item["Turno"] + '</td>'+
                                   '<td>' + item["FechaInicio"] + '</td>'+
                                   '<td>' + item["FechaFinal"] + '</td>'+
@@ -195,11 +188,13 @@ function format(callback,noOrden,div) {
 function agregarFilas() {
     var t = $('#tblControlPiso').DataTable();    
     var idInsumo = $('#descripcionInsumo').val();
+    var consecutivoHTML= $("#consecutivo").text();
     $.ajax({
-        url: "../insumoDetalle/"+idInsumo,
+        url: "../insumoDetalle/"+idInsumo+"/"+consecutivoHTML,
         type: "POST",
         async: true,
         success: function(data) {
+            console.log(data);
             if (data!=1) {
                 $.each(JSON.parse(data), function(i, item){
                     t.row.add( [
@@ -213,9 +208,9 @@ function agregarFilas() {
                         '<input class="inputControlPiso numeric" id="consumo'+item['IdInsumo']+'" value=""/>'
                     ] ).draw( false );
                 });                
-            }else {
+            }else if (data==1) {
                 mensajeAlerta('Ya existe un registro de este insumo');
-            }
+            };
 
         }
     });
@@ -252,11 +247,12 @@ function guardarControlPiso() {
     var fechaCreacion= fechaCreacion;
     var producto= $('#tipoPapel').text();
     var grupo= $('#grupo').val();
+    var grupo2 = grupo.replace(",", "-");
     var maquina= maquinas;
     var horaInicio= $('#horaInicio').text();
     var horaFinal= $('#horaFin').text();
 
-    encabezadoCPiso[pos1] = noOrden+","+consecutivoHTML+","+fechaInicio+","+fechaFin+","+fechaCreacion+","+producto+","+grupo+","+maquina+","+horaInicio+","+horaFinal;
+    encabezadoCPiso[pos1] = noOrden+","+consecutivoHTML+","+fechaInicio+","+fechaFin+","+fechaCreacion+","+producto+","+grupo2+","+maquina+","+horaInicio+","+horaFinal;
 
     var table = $('#tblControlPiso').DataTable();
     var array = new Array();
@@ -270,7 +266,7 @@ function guardarControlPiso() {
         var requisado = $("#requisado"+idItem).val();
         var piso = $("#piso"+idItem).val();
         var consumo = $("#consumo"+idItem).val();
-        detalleCPiso[pos] = data[0] + "," + data[1] + "," + codigo + "," + data[3] + "," + data[4] + "," + requisado + "," + piso + "," + consumo;
+        detalleCPiso[pos] = data[0] + "," + data[1] + "," + codigo + "," + data[3] + "," + data[4] + "," + requisado + "," + piso + "," + consumo + "," + consecutivoHTML;
         pos++;
     });
 
@@ -294,6 +290,39 @@ function guardarControlPiso() {
         }
     });
 }
+/******************AGREGA Y ACTUALIZA CONSUMO ELECTRICO************************/
+function agregaActualizaConsumoElec() {
+    var registroElectrico = new Array();    
+    var fechaInicioCons = $('#fechaInicCons').val();    
+    var fechaFinCons = $('#fechaFinCons').val();
+    var consecutivoHTML= $("#consecutivo").text();
+    var horaInicioCons = $('#horaInicioCons').val();
+    var horaFinalCons = $('#horaFinalCons').val();
+    var consumoInicial = $('#consumoInicial').val();
+    var consumoFinal = $('#consumoFinal').val();
+
+    registroElectrico[0] = fechaInicioCons + "," + fechaFinCons  + "," + horaInicioCons + "," + horaFinalCons + "," + consumoInicial + "," + consumoFinal + "," + consecutivoHTML;
+
+    var form_data = {
+        consumoElectrico: registroElectrico
+    };
+
+    $.ajax({
+        url: "../guardarConsumoElect",
+        type: "POST",
+        async: true,
+        data: form_data,
+        success: function(data) {
+            if (data == 1) {
+                Materialize.toast('SE GUARDO CON ÉXITO', 1000);
+            } else {
+                Materialize.toast('ERROR AL GUARDAR', 1000);
+            };
+        }
+    });
+
+
+}
 /****************FILTRANDO TIPOS DE INSUMOS**********************************/
 $("#tipoFibra").on('change', function(event) {
     var tipoInsumo = $('#tipoFibra').val();    
@@ -310,9 +339,6 @@ $("#tipoFibra").on('change', function(event) {
         }
     });  
 });
-
-
-}
 
 /****************CAMBIA EL ESTADO DEL REPORTE DIARIO*****************************/
 function cambiaEstadoRptD(idRptDiario, estado) {
@@ -488,7 +514,6 @@ function listarHorasMolienda() {
         }
     });
 }
-
 /****************BUSQUEDA POR ID HORAS MOLIENDA*********************/
 function buscarHorasMolienda(idHoraMolienda) {
     $.ajax({
@@ -533,7 +558,6 @@ function actualizarHorasMolienda() {
         }
     });
 }
-
 /****************GUARDANDO HORAS MOLIENDA**********************/
 function guardarHorasMolienda() {
     var result = validarControlesTM();
@@ -1235,13 +1259,22 @@ function buscarTiempoM(identificador) {
 $('#cerrarMdl').click(function() {
     $("#visTiempoM").closeModal();
 });
-$('#cerrarMdl1').click(function() {
-    $("#nuevoTiempoMuerto").closeModal();
-    location.reload();
-});
+
+/*$('#cerrarConsumoElec').click(function() {
+    $("#agregaElectricidad").closeModal();
+});*/
 //Cargar pagina
 function gotopage(mypage) {
     $(location).attr('href', mypage);
+}
+
+function cerrarModales(modal, recargar) {
+    if (recargar==true) {
+        $("#"+modal).closeModal();
+        location.reload();
+    }else {
+        $("#"+modal).closeModal();
+    }
 }
 /*/////////////////////////////////////////////////////////////////////////////////////////
                                     FIN MIS FUNCIONES
@@ -1309,9 +1342,9 @@ $('#BuscarDetPlan').on('keyup', function() {
     table.search(this.value).draw();
 })
 
-$("#tablaProd").DataTable({
-    "ordering": true,
-    "info": true,
+$("#tablaProd, #tlbListaRep2, #tlbTiemposMuertos2, #TblMaster, #tblMaquinas, #tblIns, #tblTanques, #chkInsumo, #chkTanques, #tblDetPlan,#tblPlan").DataTable({
+    "ordering": false,
+    "info": false,
     "bPaginate": true,
     "bfilter": true,
     "pagingType": "full_numbers",
@@ -1320,7 +1353,7 @@ $("#tablaProd").DataTable({
     ],
     "lengthMenu": [
         [5, 10, -1],
-        [5, 10, "Todo"]
+        [20, 30, "Todo"]
     ],
     "language": {
         "emptyTable": "No hay datos disponible en la tabla",
@@ -1339,19 +1372,18 @@ $("#tablaProd").DataTable({
     }
 });
 
-
-$("#TblMaster, #tblMaquinas, #tblIns, #tblTanques, #chkInsumo,#chkTanques, #tblControlPiso").DataTable({
+$("#tblControlPiso").DataTable({
     "ordering": false,
     "info": false,
-    "bPaginate": true,
-    "bfilter": true,
+    "bPaginate": false,
+    "bfilter": false,
     "pagingType": "full_numbers",
     "aaSorting": [
         [0, "asc"]
     ],
     "lengthMenu": [
-        [5, 10, -1],
-        [5, 10, "Todo"]
+        [20, 10, -1],
+        [20, 30, "Todo"]
     ],
     "language": {
         "emptyTable": "No hay datos disponible en la tabla",
@@ -1369,188 +1401,6 @@ $("#TblMaster, #tblMaquinas, #tblIns, #tblTanques, #chkInsumo,#chkTanques, #tblC
         }
     }
 });
-
-$("#tlbListaRep, #tlbListaRep2").DataTable({
-    "ordering": false,
-    "info": false,
-    "bPaginate": true,
-    "bfilter": true,
-    "pagingType": "full_numbers",
-    "aaSorting": [
-        [2, "asc"]
-    ],
-    "lengthMenu": [
-        [5, 10, -1],
-        [5, 10, "Todo"]
-    ],
-    "language": {
-        "emptyTable": "No hay datos disponible en la tabla",
-        "lengthMenu": "_MENU_",
-        //"search":'<i style="color:#039be5; font-size:40px;" class="material-icons">search</i>',
-        "loadingRecords": "",
-        "info": "Mostrando _START_ a _END_ de _TOTAL_ registro",
-        "infoEmpty": "Mostrando 0 a 0 de 0 registro",
-        "infoFiltered": "(filtrado de _MAX_ registros totales)",
-        "zeroRecords": "No se han encontrado resultados para tu búsqueda",
-        "paginate": {
-            "first": "Primera",
-            "last": "Última ",
-            "next": "Anterior",
-            "previous": "Siguiente"
-        },
-    }
-});
-
-$("#tblDetPlan,#tblPlan").DataTable({
-    "ordering": true,
-    "info": true,
-    "bPaginate": true,
-    "bfilter": true,
-    "pagingType": "full_numbers",
-    "lengthMenu": [
-        [6, 10, -1],
-        [6, 10, "Todo"]
-    ],
-    "language": {
-        "emptyTable": "No hay datos disponible en la tabla",
-        "lengthMenu": "_MENU_",
-        //"search":'<i style="color:#039be5; font-size:40px;" class="material-icons">search</i>',
-        "loadingRecords": "",
-        "info": "Mostrando _START_ a _END_ de _TOTAL_ registro",
-        "infoEmpty": "Mostrando 0 a 0 de 0 registro",
-        "infoFiltered": "(filtrado de _MAX_ registros totales)",
-        "zeroRecords": "No se han encontrado resultados para tu búsqueda",
-        "paginate": {
-            "first": "Primera",
-            "last": "Última ",
-            "next": "Anterior",
-            "previous": "Siguiente"
-        },
-    }
-});
-
-/*$("#tlbTiemposMuertos").DataTable({
-    "ordering": false,
-    "info": false,
-    "bPaginate2": false,
-    "bfilter": true,
-    "pagingType": "full_numbers",
-
-    "aaSorting": [
-        [2, "asc"]
-    ],
-    "lengthMenu": [
-        [5, 10, -1],
-        [5, 10, "Todo"]
-    ],
-
-    "language": {
-        "emptyTable": "No hay datos disponible en la tabla",
-        "lengthMenu": "_MENU_",
-        //"search":'<i style="color:#039be5; font-size:40px;" class="material-icons">search</i>',
-        "loadingRecords": "",
-        "info": "Mostrando _START_ a _END_ de _TOTAL_ registro",
-        "infoEmpty": "Mostrando 0 a 0 de 0 registro",
-        "infoFiltered": "(filtrado de _MAX_ registros totales)",
-        "zeroRecords": "No se han encontrado resultados para tu búsqueda",
-        "paginate": {
-            "first": "Primera",
-            "last": "Última ",
-            "next": "Anterior",
-            "previous": "Siguiente"
-        },
-    }
-});*/
-
-$("#tlbTiemposMuertos2").DataTable({
-    //"ordering": true,
-    "paginate": false,
-    'filter': false,
-    "info": false,
-    "bPaginate2": false,
-    "bfilter": false,
-    //"pagingType": "full_numbers",
-    //"aaSorting": [[2, "asc"]],
-    //"lengthMenu": [[5,10,-1], [5,10,"Todo"]],
-    "language": {
-        "emptyTable": "No hay datos disponible en la tabla",
-        "lengthMenu": "_MENU_",
-        //"search":'<i style="color:#039be5; font-size:40px;" class="material-icons">search</i>',
-        "loadingRecords": "",
-        "info": "Mostrando _START_ a _END_ de _TOTAL_ registro",
-        "infoEmpty": "Mostrando 0 a 0 de 0 registro",
-        "infoFiltered": "(filtrado de _MAX_ registros totales)",
-        "zeroRecords": "No se han encontrado resultados para tu búsqueda",
-        "paginate": {
-            "first": "Primera",
-            "last": "Última ",
-            "next": "Anterior",
-            "previous": "Siguiente"
-        },
-    }
-});
-
-/*$("#tablaProd").DataTable({
-    "paginate": true,
-    'filter': false,
-    "info": false,
-    "bPaginate2": false,
-    "bfilter": false,
-    //"pagingType": "full_numbers",
-    //"aaSorting": [[2, "asc"]],
-    "lengthMenu": [
-        [5, 10, -1],
-        [5, 10, "Todo"]
-    ],
-    "language": {
-        "emptyTable": "No hay datos disponible en la tabla",
-        "lengthMenu": "_MENU_",
-        //"search":'<i style="color:#039be5; font-size:40px;" class="material-icons">search</i>',
-        "loadingRecords": "",
-        "info": "Mostrando _START_ a _END_ de _TOTAL_ registro",
-        "infoEmpty": "Mostrando 0 a 0 de 0 registro",
-        "infoFiltered": "(filtrado de _MAX_ registros totales)",
-        "zeroRecords": "No se han encontrado resultados para tu búsqueda",
-        "paginate": {
-            "first": "Primera",
-            "last": "Última ",
-            "next": "Anterior",
-            "previous": "Siguiente"
-        },
-    }
-});*/
-
-$("#tblpasta").DataTable({
-    "paginate": false,
-    'filter': false,
-    "info": false,
-    "bPaginate2": false,
-    "bfilter": false,
-    //"pagingType": "full_numbers",
-    //"aaSorting": [[2, "asc"]],
-    "lengthMenu": [
-        [5, 10, -1],
-        [5, 10, "Todo"]
-    ],
-    "language": {
-        "emptyTable": "No hay datos disponible en la tabla",
-        "lengthMenu": "_MENU_",
-        //"search":'<i style="color:#039be5; font-size:40px;" class="material-icons">search</i>',
-        "loadingRecords": "",
-        "info": "Mostrando _START_ a _END_ de _TOTAL_ registro",
-        "infoEmpty": "Mostrando 0 a 0 de 0 registro",
-        "infoFiltered": "(filtrado de _MAX_ registros totales)",
-        "zeroRecords": "No se han encontrado resultados para tu búsqueda",
-        "paginate": {
-            "first": "Primera",
-            "last": "Última ",
-            "next": "Anterior",
-            "previous": "Siguiente"
-        },
-    }
-});
-
-
 
 /*/////////////////////////////////////////////////////////////////////////////////////////
                                 FIN FUNCIONES SOBRE USUARIO

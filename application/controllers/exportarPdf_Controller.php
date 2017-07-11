@@ -6,6 +6,11 @@ class exportarPdf_Controller extends CI_Controller {
 	public function __construct() {
 		parent:: __construct();
 		$this->load->library('MPDF/mpdf');
+        $this->load->library('session');
+        $user = $this->session->userdata('logged');
+        if (!isset($user)) {
+            redirect(base_url().'index.php','refresh');
+        }
 	}
 	public function index($idReporteDiario) {
         $data['tiemposM'] = $this->listandoTiempoMuerto($idReporteDiario);
@@ -27,21 +32,16 @@ class exportarPdf_Controller extends CI_Controller {
 	}
     /*LISTANDO REPORTES*/
     public function calculandoMermaTotal($array) {
-        $mermaTotal=0;$mermaMq1=0;$mermaMq2=0;
+        $mermaMq1=0;$mermaMq2=0;
         foreach ($array as $key) {
             if ($key['Maquina'] == 1) {
                 $mermaMq1=$key['Merma'];
-                continue;
-            }
-            if ($key['Maquina'] == 2) {
+            }else if ($key['Maquina'] == 2) {
                 $mermaMq2=$key['Merma'];
-                continue;
             }       
         }
-        $mermaTotal=$mermaMq1+$mermaMq2;
-        return $mermaTotal;
+        return $mermaMq1+$mermaMq2;
     }
-
 
     public function listandoTiempoMuerto($idReporteDiario) {
         $list = $this->tiemposMuertos_Model->listarTM($idReporteDiario);
@@ -147,6 +147,16 @@ class exportarPdf_Controller extends CI_Controller {
     public function sumaRestaHoras($horainicio, $horafin){
         $dif=date("H:i:s", strtotime("00:00:00") + strtotime($horainicio) - strtotime($horafin) );
         return $dif;
+    }
+
+    public function reporteControlPiso($consecutivo) {
+        $data['controPisoDetalle'] = $this->reporteDiario_Model->reporteControlPiso($consecutivo);        
+        $data['pastaDetalle'] = $this->controlPiso_Model->mostrarDetallePasta($consecutivo);
+        $PdfCliente = new mPDF('utf-8','A4');
+        
+        $PdfCliente->SetFooter("Página {PAGENO} de {nb}");
+        $PdfCliente -> writeHTML($this->load->view('Reportes/reporteControlPiso', $data, true));
+        $PdfCliente->Output();
     }
 }
 ?>
