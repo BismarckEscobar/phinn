@@ -63,6 +63,17 @@ class reporteDiario_Model extends CI_Model
 			}
 		}
     }
+
+    public function reporteControlPiso($consecutivo) {
+    	$query=$this->db->query("CALL reporteControlPiso('".$consecutivo."')");
+		if ($query->num_rows()>0) {
+			$query->next_result();
+			return $query->result_array();
+			$query->free_result();
+		} else {
+			return false;
+		}
+    }
 }
 
 ?>

@@ -288,13 +288,15 @@
                         <label for="merma">MERMA</label>
                     </div>
                 </div>
-                <?php foreach ($consecutivo as $key) {
+                <?php foreach ($consecutivo as $key) { $modalHTML="'nuevaProduccion'";
                     if($key['Estado']== 0)
                     {
                         echo '        
                  <div class="row">
                     <div class="center">
                         <a class="Btnadd btn waves-effect waves-light disabled" href="#" style="background-color:#831F82;">GUARDAR
+                        </a>
+                        <a class="Btnadd btn waves-effect waves-light" onclick="cerrarModales('.$modalHTML.',false)" href="#!" style="background-color:#831F82;">cerrar
                         </a>
                         <span class="badge red-text accent-4"><b>El Consecutivo ya ha sido cerrado</b></span>
                     </div>
@@ -305,6 +307,8 @@
                 <div class="row">
                     <div class="center">
                         <a id="Prod" class="Btnadd btn waves-effect waves-light" onclick="Guardar()" href="#" style="background-color:#831F82;">GUARDAR
+                        </a>
+                        <a class="Btnadd btn waves-effect waves-light" onclick="cerrarModales('.$modalHTML.',true)" href="#!" style="background-color:#831F82;">cerrar
                         </a>
                     </div>
                 </div>';

@@ -143,9 +143,8 @@
 									
 								}
 							?>
-		                    <a class="Btnadd btn waves-effect waves-light" id="cerrarCP" href="#" hre style="background-color:#831F82;">CERRAR
-		                        <i class="material-icons right">clear</i>
-		                    </a>
+		                <a class="Btnadd btn waves-effect waves-light" onclick="cerrarModales('modal11',true)" href="#!" style="background-color:#831F82;">cerrar
+		                </a>
 				        </div>
 		            </div>				
 				</div>
@@ -198,9 +197,8 @@
 								   
 							   }
 						   ?>
-		                    <a class="Btnadd btn waves-effect waves-light" id="cerrarHM" href="#";>CERRAR
-		                        <i class="material-icons right">clear</i>
-		                    </a>
+			                <a class="Btnadd btn waves-effect waves-light" onclick="cerrarModales('modal12',true)" href="#!" style="background-color:#831F82;">cerrar
+			                </a>
 				        </div>
 		            </div>				
 				</div>

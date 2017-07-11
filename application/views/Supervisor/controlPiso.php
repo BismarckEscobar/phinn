@@ -67,8 +67,17 @@
 			<div class="card">
 				<div class="card-content">
 					<div class="row">
-						<a class="Btnadd btn waves-effect waves-light" id="" onclick="" href="#!" style="background-color:#831F82;float:right;">reporte	                        
-	                    </a>
+						<div class="col s12">
+					<?php 
+						if ($detalleOrdTrabajo) {
+						echo "
+							<a class='Btnadd btn waves-effect waves-light' target='_blank' href='../reporteControlPiso/".$detalleOrdTrabajo['Consecutivo']."' style='background-color:#831F82; float: right; margin-left:10px;'>reporte 
+						    </a>";						
+						}
+					?>
+						<a class="Btnadd btn waves-effect waves-light" id="agregaElect" href="#agregaElectricidad" style="background-color:#831F82; float: right;">electricidad                        
+						</a>
+						</div>
 					</div>
 					<center><span class="card-title accent-4 titulos">MATERIA PRIMA DIRECTA (MP)</span></center>
 						<div id="contenedor-tipo-fibras">
@@ -115,7 +124,7 @@
 												foreach ($detalle as $key) {
 													echo "
 													<tr>
-														<td>".$key['IdInsumo']."</td>
+														<td style='width:100px;'>".$key['IdInsumo']."</td>
 														<td>".$key['tipo']."</td>
 														<td><input class='inputControlPiso numeric' id='codigo".$key['IdInsumo']."' value=".$key['codigo']." /></td>
 														<td>".$key['descripcion']."</td>
@@ -172,3 +181,79 @@
 		</div>
 	</div>
 </main>
+<!--PANTALLA MODAL: AGREGAR CONSUMO ELECTRICO-->
+<div id="agregaElectricidad" class="modal">
+    <div class="modal-content">
+        <div class="right row">
+            <div class="col s1 m1 l1">
+                <a href="#!" class="BtnClose modal-action modal-close noHover">
+                    <i class="material-icons">highlight_off</i>
+                </a>
+            </div>
+        </div>        
+        <div class="row noMargen center">
+            <div class="noMargen col s12 m12 l12">
+                <h6 class="center" style="font-family:'robotoblack'; color:#831F82;font-size:30px; margin-bottom:30px;">ELECTRICIDAD Kwh</h6>
+			</div>
+        </div>
+        <?php 
+        if ($consumoElectrico) {
+        	foreach ($consumoElectrico as $key) {
+        		$fechaInicio = $key['fechaInicio'];
+        		$fechaFin = $key['fechaFin'];
+        		$horaInicio = $key['horaInicio'];
+        		$horaFinal = $key['horaFinal'];
+        		$consumoInicial = $key['consumoInicial'];
+        		$consumoFinal = $key['consumoFinal'];
+        	}
+        }else {
+    	    $fechaInicio = "";
+    		$fechaFin = "";
+    		$horaInicio = "";
+    		$horaFinal = "";
+    		$consumoInicial = "";
+    		$consumoFinal = "";
+        }
+		echo "
+        <div class='row'>
+            <div class='input-field col s12 m6 s6'>
+                <input type='text' id='fechaInicCons' value='".$fechaInicio."' name='fechaInicCons' class='datepicker'>
+                <label for='fechaInicCons'>Fecha inicio</label>
+            </div>
+            
+            <div class='input-field col s12 m6 s6'>
+                <input type='text' id='fechaFinCons' value='".$fechaFin."' name='fechaFinCons' class='datepicker'>
+                <label for='fechaFinCons'>Fecha final</label>
+            </div>
+        </div><br>
+        <div class='row'>
+            <div class='input-field col s6 m6 s6'>
+                <input id='horaInicioCons' class='timepicker' value='".$horaInicio."' name='horaInicioCons' type='time'>
+                <label for='horaInicioCons'>Hora inicio</label>
+            </div>
+            <div class='input-field col s6 m6 s6'>
+                <input id='horaFinalCons' class='timepicker' name='horaFinalCons' value='".$horaFinal."' type='time'>
+                <label for='horaFinalCons'>Hora final</label>
+            </div>
+        </div><br>
+		<div class='row'>
+            <div class='input-field col s6 m6 s6'>
+                <input  id='consumoInicial' type='text' value='".$consumoInicial."' class='validate'>
+                <label for='consumoInicial'>Consumo Inicial</label>
+            </div>
+            <div class='input-field col s6 m6 s6'>
+                <input  id='consumoFinal' type='text' value='".$consumoFinal."' class='validate'>
+                <label for='consumoFinal'>Consumo Final</label>
+            </div>
+		</div><br><br>";        
+        ?>
+        <div class="row">                    
+            <div class="center">
+                <a class="Btnadd btn waves-effect waves-light" onclick="agregaActualizaConsumoElec()" id="agregaConsumo" href="#!" style="background-color:#831F82;">guardar
+                </a>
+                <a class="Btnadd btn waves-effect waves-light" id="cerrarConsumoElec" onclick="cerrarModales('agregaElectricidad',false)" href="#!" style="background-color:#831F82;">cerrar
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -80,6 +80,12 @@ textarea.materialize-textarea:focus:not([readonly]) {
     font-size: 30px;
     margin-bottom: 30px;
 }
+.titulos-menu-superior {
+    font-family: 'robotoblack';
+    color: white;
+    font-size: 12px;
+    margin-bottom: 30px;
+}
 
 .titulo-secundario {
     font-family: 'robotoblack';
