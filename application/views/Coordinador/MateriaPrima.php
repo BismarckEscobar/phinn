@@ -431,10 +431,13 @@
                         <select name="Tanque" id="Tanque" class="chosen-select browser-default">
                             <option disabled selected>TANQUES</option>
                             <?php
+                            if(!($listaTanques))
+                            {}else{
                                 foreach ($listaTanques as $key) {
                                     echo'
                                     <option value="'.$key['IdInsumo'].'">'.$key['Tanque'].'</option>
                                     ';
+                                  }
                                 }                            
                             ?>
                         </select>

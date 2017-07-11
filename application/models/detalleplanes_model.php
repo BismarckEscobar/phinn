@@ -191,5 +191,11 @@ class detalleplanes_model extends CI_Model
         
     }   
 
+    public function EliminarDet($ID)
+    {
+        $this->db->where("IdDetallePlan",$ID);
+        $this->db->delete('detalle_planes');
+    }
+
 }
 ?>

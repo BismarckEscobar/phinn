@@ -60,5 +60,11 @@ class detalleplanes_controller extends CI_Controller
     {
         $this->detalleplanes_model->ValidaDetPlan($id,$cat,$idinsumo);
     }
+
+    public function EliminarDetalle($ID)
+    {
+        $this->detalleplanes_model->EliminarDet($ID);
+    }
+
 }
 ?>

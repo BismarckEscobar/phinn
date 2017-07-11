@@ -10,6 +10,7 @@ class tanques_model extends CI_Model
 
     public function ListarTanque()
         {
+            $this->db->order_by('Tanque','ASC');
             $query = $this->db->get('tanques');
             if ($query->num_rows()>0) {
                 return $query->result_array();

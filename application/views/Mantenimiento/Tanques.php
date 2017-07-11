@@ -54,6 +54,8 @@
                                     </thead>
                                     <tbody>
                                         <?php
+                                        if(!($tanques))
+                                        {}else{
                                            foreach ($tanques as $key) {
                                                echo'
                                                 <tr>
@@ -63,6 +65,7 @@
                                                 </tr>
                                                ';
                                            }
+                                        }
                                         ?>
                                     </tbody>
                                 </table>   
