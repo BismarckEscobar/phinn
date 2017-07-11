@@ -54,6 +54,8 @@
                             </thead>
                             <tbody>
                                 <?php 
+                                if(!($lista))
+                                {}else{
                                     foreach ($lista as $key) {
                                             echo'
                                             <tr>
@@ -74,10 +76,10 @@
                                             ';
                                               }
                                                   if($key['Estado']==1){
-                                                 echo '<td>
-                                                <a onclick="EditarPlan('."'".$key['IdPlan']."','".$key['Fecha']."','".$key['Comentario']."'".')" class="tooltipped modal-trigger" data-tooltip="EDITAR PLAN" data-position="left" href="javascript:void(0)"><i class="material-icons purple-text darken-4">edit</i></a>
-                                                </td>                                  
-                                            ';
+                                                 echo "<td>
+                                                <a onclick='EditarPlan(".'"'.$key['IdPlan'].'","'.$key['Fecha'].'","'.$key['Comentario'].'"'.")' class='tooltipped modal-trigger' data-tooltip='EDITAR PLAN' data-position='left' href='javascript:void(0)'><i class='material-icons purple-text darken-4'>edit</i></a>
+                                                </td>                             
+                                            ";
                                               }
                                                  else if($key['Estado']==0){
                                                  echo '
@@ -88,7 +90,8 @@
                                             ';
                                               }
                                               echo' </tr>';
-                                        }
+                                         }
+                                     }
                                 ?>
                             </tbody>
                         </table>
