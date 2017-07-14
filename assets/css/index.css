@@ -97,7 +97,12 @@ textarea.materialize-textarea:focus:not([readonly]) {
 #cerrarHM,
 #agregarHMolienda,
 #cerrarHM1,
-#actualizaHMolienda {
+#actualizaHMolienda,
+#grdMaquina,
+#cerrarMDL,
+#guardarTanq,
+#guardarPL,
+#actPlanes {
     background-color: #831F82;
 }
 
@@ -526,6 +531,16 @@ select {
     height: auto;
     padding: 20px 20px;
     margin: 0 auto;
+}
+
+.content-select {
+    width: 50%;
+    margin: 0 auto;
+    margin-top: 70px;
+    padding: 20px 20px;
+}
+.nomostrarOrdenAct, .nomostrarOrdenAnul, .nomostrarOrdenCerr, .nomostrarOrdenInac {
+    display: none;
 }
 
 

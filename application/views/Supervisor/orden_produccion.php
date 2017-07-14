@@ -113,9 +113,22 @@ if ($this->session->userdata("Privilegio") == 3) {?>
                                 </div>  
                             </div>
                             <div class="col s6 m6" style="text-align:right;">
-                                <a data-tooltip='AGREGAR NUEVA ORDEN' id="OrdeProd" href="#ordenprod" class="modal-trigger tooltipped">
-                                    <i class="waves-effect waves-purple material-icons titulosGen">queue</i>
+                                <a id="OrdeProd" href="#ordenprod" class="Btnadd btn waves-effect waves-light" style="background-color:#831F82; font-size: 12px;">ORDEN TRABAJO
                                 </a>
+                                <a id="abrirMdlNOrd" href="#ModalNuevaOrdProduccion" class="Btnadd btn waves-effect waves-light" style="background-color:#831F82; font-size: 12px;">ORDEN PROD.
+                                </a>  
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12 m12" style="text-align:right;">
+                                <input type="checkbox" id="ordActiva" checked/>
+                                <label for="ordActiva">Activa</label>
+                                <input type="checkbox" id="ordInactiva" />
+                                <label for="ordInactiva">Inactiva</label>
+                                <input type="checkbox" id="ordCerrada" />
+                                <label for="ordCerrada">Cerrada</label>
+                                <input type="checkbox" id="ordAnulada" />
+                                <label for="ordAnulada">Anulada</label>
                             </div>
                         </div>
                         <table id="tlbListaRep2" class="striped">
@@ -131,29 +144,33 @@ if ($this->session->userdata("Privilegio") == 3) {?>
                             </thead>
                             <tbody>
                                 <?php
-                                    if(!($ordenesTrabajosCom)){
-                                    } else {
+                                    if ($ordenesTrabajosCom) {
+                                        $clase="mostrar";
                                         foreach ($ordenesTrabajosCom as $list) {
                                             if($list['Estado'] == 0){
                                                 $activo="<td><a data-tooltip='ORDEN ANULADA' class='btn-flat tooltipped noHover'><i style='color:red; font-size:30px;' class='material-icons'>close</i></a></td>";
                                                 $status="<li><a href='#!' onclick='buscarOrdProd(".$list['IdOrden'].")'>Ver</a></li>";
+                                                $ocultarOrden="OrdenAnulada";
                                             }elseif($list['Estado'] == 1){
                                                 $activo="<td><a data-tooltip='ORDEN ACTIVA' class='btn-flat tooltipped noHover'><i style='color:green; font-size:30px;' class='material-icons'>done</i></a></td>";
                                                 $status="<li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 0)'>Anular</a></li>
                                                          <li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 2)'>Cerrar</a></li>
                                                          <li><a href='#!' onclick='buscarOrdProd(".$list['IdOrden'].")'>Ver</a></li>";
+                                                $ocultarOrden="OrdenActiva";
                                             }elseif($list['Estado'] == 2){
                                                 $activo="<td><a data-tooltip='ORDEN CERRADA' class='btn-flat tooltipped noHover'><i style='color:#696969; font-size:30px;' class='material-icons'>lock</i></a></td>";
                                                 $status="<li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 0)'>Anular</a></li>
                                                             <li><a href='#!' onclick='buscarOrdProd(".$list['IdOrden'].")'>Ver</a></li>";
+                                                $ocultarOrden="OrdenCerrada";
                                             }elseif($list['Estado'] == 3){
                                                 $activo="<td><a data-tooltip='ORDEN INACTIVA' class='btn-flat tooltipped noHover'><i style='color:red; font-size:30px;' class='material-icons'>info_outline</i></a></td>";
                                                 $status="<li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 0)'>Anular</a></li>
                                                         <li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 1)'>Activar</a></li>
                                                         <li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 2)'>Cerrar</a></li>
                                                         <li><a href='#!' onclick='buscarOrdProd(".$list['IdOrden'].")'>Ver</a></li>";
+                                                $ocultarOrden="OrdenInactiva";
                                             }
-                                            echo "<tr>
+                                            echo "<tr class='".$ocultarOrden."'>
                                                     <td class='center green-text detalleNumOrd'><i id='detail2".$list['NoOrden']."' class='material-icons expand-more'>expand_more</i><i id='detail1".$list['NoOrden']."' style='display:none;' class='material-icons expand-more'>expand_less</i>
                                                         <div id='loader".$list['NoOrden']."' style='display:none;' class='preloader-wrapper small active' >
                                                             <div class='spinner-layer spinner-yellow-only'>
@@ -377,6 +394,117 @@ if ($this->session->userdata("Privilegio") == 3) {?>
                 <div class="center">
                     <button name="usersubmit" type="submit" class="Btnadd btn waves-effect waves-light" id="AddOrden" style="background-color:#831F82;">GUARDAR
                     </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- NUEVA ORDEN PRODUCCION -->
+<div id="ModalNuevaOrdProduccion" class="modal">
+    <div class="modal-content">
+        <div class="right row">
+            <div class="col s1 m1 l1">
+                <a href="#!" class="BtnClose modal-action modal-close noHover">
+                    <i class="material-icons">highlight_off</i>
+                </a>
+            </div>
+        </div>        
+        <div class="row noMargen center">
+            <div class="noMargen col s12 m12 l12">
+                <h6 class="center titulos">NUEVA ORDEN DE PRODUCCIÓN</h6>
+            </div>
+        </div>        
+        <div class="row">
+            <form class="col s12" method="post" name="formNuevaOrden" id="formNuevaOrden" action="<?php echo base_url()?>index.php/ordenProduccionG_Controller/guardarOrdenSupervisor">
+                <div class="row">
+                    <div class="input-field col s12 m12 s12">
+                        <input class="mayuscula" maxlength="4" name="numOrden" placeholder="Nº orden" id="numOrden" type="text" class="required">
+                        <label id="lblNumeroOrden" class="labelValidacion">DIGITE EL Nº ORDEN</label>
+                    </div>                   
+                </div>
+                <br>
+                <div class="row">
+                    <div class="input-field col s12 m6 s6">
+                        <input type="text" id="fechaInicio" name="fechaInicio" class="datepicker">
+                        <label for="fechaInicio">Fecha inicio</label>
+                    </div>
+                    
+                    <div class="input-field col s12 m6 s6">
+                        <input type="text" id="fechaFinal" name="fechaFinal" class="datepicker">
+                        <label for="fechaFinal">Fecha final</label>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="input-field col s12 m12 s12">
+                      <textarea id="comentario" class="text-area-ord" name="comentario"></textarea>
+                      <label for="comentario">Comentarios</label>
+                    </div>                  
+                </div>
+                <br>
+                <div class="row">                    
+                    <div class="center">
+                        <a class="Btnadd btn waves-effect waves-light" id="nuevaOrdProduccion" href="#!" style="background-color:#831F82;">GUARDAR
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- ACTUALIZAR ORDEN PRODUCCION -->
+<div id="nuevaOrdenP" class="modal">
+    <div class="modal-content">
+        <div class="right row">
+            <div class="col s1 m1 l1">
+                <a href="#!" class="BtnClose modal-action modal-close noHover">
+                    <i class="material-icons">highlight_off</i>
+                </a>
+            </div>
+        </div>        
+        <div class="row noMargen center">
+            <div class="noMargen col s12 m12 l12">
+                <h6 class="center titulos" id="title1">EDITANDO ORDEN DE PRODUCCIÓN</h6>
+                <h6 class="center" id="title2" type="hide">ORDEN DE PRODUCCIÓN ANULADA</h6>
+            </div>
+        </div>
+        
+        <div class="row">
+            <form class="col s12" method="POST" name="formActualizarOrd" id="formActualizarOrd" action="<?php echo base_url()?>index.php/ordenProduccionG_Controller/editarOrdProdSupervisor">
+                <div class="input-field col s6">
+                    <input value="#" id="identificador" name="identificador" type="hidden" class="validate">
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m12 s12">
+                        <input disabled data-tooltip='Nº ORDEN' class="mayuscula" maxlength="4" name="numOrden1" id="numOrden1" placeholder="Nº orden" type="text" class="required">
+                        <label id="lblNumeroOrden" class="labelValidacion">Nº ORDEN</label>
+                    </div>                   
+                </div>
+                <br>
+                <div class="row">
+                    <div class="input-field col s12 m6 s6">
+                        <input type="text" id="fechaInicio1" name="fechaInicio1" class="datepicker">
+                        <label for="fechaInicio">Fecha inicio</label>
+                    </div>
+                    
+                    <div class="input-field col s12 m6 s6">
+                        <input type="text" id="fechaFinal1" name="fechaFinal1" class="datepicker">
+                        <label for="fechaFinal">Fecha final</label>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="input-field col s12 m12 s12">
+                      <textarea id="comentario1" class="text-area-ord" name="comentario1"></textarea>
+                      <label for="comentario">Comentarios</label>
+                    </div>                  
+                </div>
+                <br>
+                <div class="row">                    
+                    <div class="center">
+                        <a class="Btnadd btn waves-effect waves-light" id="actualizarRpt" href="#" style="background-color:#831F82;">ACTUALIZAR
+                        </a>
+                    </div>
                 </div>
             </form>
         </div>
