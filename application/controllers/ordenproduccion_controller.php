@@ -64,9 +64,16 @@ class Ordenproduccion_controller extends CI_Controller
                 $interval = $datetime1->diff($datetime2);
                 $tf = $interval->format("%H:%I");
             }       
-            if ($row['Maquina']==1) {
-                $maquina="Maquina 1";
-            } else {$maquina="Maquina 2";}
+         	if ($row['Maquina'] == 1) {
+				$maquina="Maquina 1";
+			} 
+			else if($row['Maquina'] == 2)
+			{
+				$maquina="Maquina 2";
+			}
+			else if($row['Maquina'] == 3){
+				$maquina="Maquina 3";
+			}
 
             $array[$i]['IdTiempoMuerto'] = $row['IdTiempoMuerto'];
             $array[$i]['IdReporteDiario'] = $row['IdReporteDiario'];
