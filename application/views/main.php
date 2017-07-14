@@ -76,6 +76,14 @@
                                         <center><span class="titulo-secundario">PLAN DE TRABAJO</span></center>
                                     </a>                                    
                                 </center>                                
+                            </div>
+                            <div class="col s3 m3">
+                                <center>                                   
+                                    <a data-tooltip="REPORTES" href='.base_url("index.php/reportes").' class="modal-trigger tooltipped purple-text darken-4">
+                                        <i class="material-icons large center-align">trending_up</i>
+                                        <center><span class="titulo-secundario">REPORTES</span></center>
+                                    </a>                                    
+                                </center>                                
                             </div> 
                             <div class="col s3 m3">
                                 <center>                                   
@@ -84,15 +92,7 @@
                                         <center><span class="titulo-secundario">MANTENIMIENTO</span></center>
                                     </a>                                    
                                 </center>                                
-                            </div> 
-                                 <div class="col s3 m3">
-                                <center>                                   
-                                    <a data-tooltip="REPORTES" href="#" class="modal-trigger tooltipped purple-text darken-4">
-                                        <i class="material-icons large center-align">trending_up</i>
-                                        <center><span class="titulo-secundario">REPORTES</span></center>
-                                    </a>                                    
-                                </center>                                
-                            </div> 
+                            </div>
                         </div>
                     </div>';
                     break;  

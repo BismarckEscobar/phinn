@@ -65,15 +65,66 @@ class reporteDiario_Model extends CI_Model
     }
 
     public function reporteControlPiso($consecutivo) {
-    	$query=$this->db->query("CALL reporteControlPiso('".$consecutivo."')");
+    	$query=$this->db->query("CALL reporteControlPiso('".$consecutivo."')");   	
+		if ($query->num_rows()>0) {
+			$res = $query->result_array();
+			$query->free_result();
+			$query->next_result();
+			return $res;
+		} else {
+			$query->free_result();
+			$query->next_result();
+			return false;
+		}
+    }
+
+    public function llenaComboOrdenProd() {
+    	$this->db->select('IdOrden');
+    	$this->db->select('NoOrden');
+    	$query=$this->db->get('orden_produccion');
+    	if ($query->num_rows()>0) {
+    		return $query->result_array();
+    	}else {
+    		return false;
+    	}
+    }
+
+    public function filtrandoOrdenesTrabajo($noOrden) {
+    	$json=array();
+    	$this->db->select('IdReporteDiario');
+    	$this->db->select('consecutivo');
+    	$this->db->select('Turno');
+    	$this->db->where('NoOrder=', $noOrden);
+    	$query=$this->db->get('reporte_diario');
+    	if ($query->num_rows()>0) {
+    		foreach ($query->result_array() as $key) {
+    			if ($key['Turno']==1) {
+    				$turno = 'Matutino';
+    			}elseif ($key['Turno']==2) {
+    				$turno = 'Vespertino';
+    			}
+    			$data = array(
+    			'IdReporteDiario' => $key['IdReporteDiario'],
+    			'consecutivo' => $key['consecutivo'].' / '.$turno
+    		);
+    			$json[] = $data;
+    		}	
+    	}
+    	echo json_encode($json);
+    }
+
+    public function reporteConsoliadoFinal($consecutivo) {
+    	$query=$this->db->query("CALL cabeceraConsolidado('".$consecutivo."')");   	
 		if ($query->num_rows()>0) {
 			$query->next_result();
 			return $query->result_array();
 			$query->free_result();
 		} else {
+			$query->free_result();
+			$query->next_result();
 			return false;
 		}
-    }
+	}
 }
 
 ?>

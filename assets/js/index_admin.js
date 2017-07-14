@@ -12,6 +12,13 @@ $(document).ready(function() {
     if (pathname.match(/reportesDiarios.*/)) {
         crearTabla();
     };
+    if (pathname.match(/OrdenProduccion.*/)) {
+        if($('#ordActiva').is(':checked') ) {
+            $( ".OrdenAnulada" ).removeClass( "OrdenAnulada" ).addClass( "nomostrarOrdenAnul" );
+            $( ".OrdenCerrada" ).removeClass( "OrdenCerrada" ).addClass( "nomostrarOrdenCerr" );
+            $( ".OrdenInactiva" ).removeClass( "OrdenInactiva" ).addClass( "nomostrarOrdenInac" );
+        }
+    };
 
     $("#crearU").click(function() { $("#AUsuario").openModal(); });
     $("#crearT").click(function() { $("#ATrabajador").openModal(); });
@@ -27,6 +34,7 @@ $(document).ready(function() {
     $("#AddPlan").click(function() { $("#PlanModal").openModal(); });
     $("#AddTan").click(function() { $("#Tanquesmodal").openModal(); });
     $("#btnAddDetPlan").click(function() { $("#DetPlanModal").openModal(); });
+    $("#abrirMdlNOrd").click(function() { $("#ModalNuevaOrdProduccion").openModal(); });
 
     ///Configurar chosen////
     var config = {
@@ -257,6 +265,9 @@ function guardarControlPiso() {
     var fechaCreacion= fechaCreacion;
     var producto= $('#tipoPapel').text();
     var grupo= $('#grupo').val();
+    if (grupo=="") {
+        grupo="indefinido,indefinido";
+    }
     var grupo2 = grupo.replace(",", "-");
     var maquina= maquinas;
     var horaInicio= $('#horaInicio').text();
@@ -275,6 +286,9 @@ function guardarControlPiso() {
 
         var idItem=data[0];
         var codigo = $("#codigo"+idItem).val();
+        if (codigo=="") {
+            codigo="0";
+        }
         var requisado = $("#requisado"+idItem).val();
         var piso = $("#piso"+idItem).val();
         var consumo = $("#consumo"+idItem).val();
@@ -352,6 +366,46 @@ $("#tipoFibra").on('change', function(event) {
         }
     });
 });
+
+/****************FILTRANDO ORDENES DE TRABAJO**********************************/
+$("#ordProduccion").on('change', function(event) {
+    var noOrden = $('#ordProduccion option:selected').text();
+    $.ajax({
+        url: "filtrandoReportesTrabajo/" + noOrden,
+        type: "POST",
+        async: true,
+        success: function(data) {
+            $('#ordTrabajo').empty();
+            $.each(JSON.parse(data), function(i, item) {
+                $("#ordTrabajo").append('<option value="' + item['IdReporteDiario'] + '">' + item['consecutivo'] + '</option>');
+            });
+            $('#ordTrabajo').trigger("chosen:updated");
+        }
+    });
+});
+/****************GENERAR REPORTES****************************/
+function generarReportes() {
+    var ordenProd = $('#ordProduccion').val();
+    var IdRptDiario = $("#ordTrabajo").val();
+    var html = $("#ordTrabajo option:selected").text();
+    var html2 = html.split("/");
+    var consecutivo = html2[0];
+    if (ordenProd==null) {
+        mensajeAlerta('ESCOJA UNA ORDEN DE PRODUCCIÓN');
+    }else if (!$('#rptDiario').is(':checked') && (!$('#rptControlPiso').is(':checked')) && (!$('#rptConsolidado').is(':checked'))) {
+        mensajeAlerta('DEBE SELECCIONAR EL TIPO DE REPORTE QUE DESEA GENERAR');
+    }else {
+        if ($('#rptDiario').is(':checked') ) {
+            window.open('reportesDiarios/' + IdRptDiario + '', '_blank');
+        }
+        if ($('#rptControlPiso').is(':checked') ) {
+            window.open('reporteControlPiso/' + consecutivo + '', '_blank');
+        }
+        if ($('#rptConsolidado').is(':checked')) {
+            window.open('reporteConsolidado/' + consecutivo + '', '_blank');
+        }
+    }
+}
 
 /****************CAMBIA EL ESTADO DEL REPORTE DIARIO*****************************/
 function cambiaEstadoRptD(idRptDiario, estado) {
@@ -676,7 +730,7 @@ $("#OrdeProd").click(function() {
         }
     });
 });
-/*******AGREGANDOLE FUNCIONES DE SUBMIT A HREF************************/
+/*******NUEVA ORDEN DE PRODUCCION GERENTE************************/
 $('#guardaRpt').click(function() {
     var numOrden = $('#numOrden').val();
     var fechaInicio = $('#fechaInicio').val();
@@ -697,8 +751,31 @@ $('#guardaRpt').click(function() {
             };
         }
     };
-});
 
+});
+/*******NUEVA ORDEN DE PRODUCCION SUPERVISOR************************/
+$('#nuevaOrdProduccion').click(function() {
+    var numOrden = $('#numOrden').val();
+    var fechaInicio = $('#fechaInicio').val();
+    var fechaFinal = $('#fechaFinal').val();
+
+    if (numOrden == '' || fechaInicio == '' || fechaFinal == '') {
+        mensajeAlerta('Todavia no ha rellenado los campos necesarios');
+    } else {
+        var f1 = new Date(fechaInicio);
+        var f2 = new Date(fechaFinal);
+        if (f1 > f2) {
+            mensajeAlerta('La fecha inicial no puede ser mayor a la final');
+        } else {
+            if (numOrden.length > 4 || numOrden.length < 4) {
+                mensajeAlerta('El número de reporte no tiene el formato correcto');
+            } else {
+                $('#formNuevaOrden').submit();
+            };
+        }
+    };
+
+});
 /****************GUARDA CONSECUTIVOS ORDEN DE PRODUCCION*******************************/
 function guardarConsecutivo(noOrden) {
     var noOrden1 = noOrden;
@@ -1359,7 +1436,7 @@ $('#BuscarDetPlan').on('keyup', function() {
 
 
 
-$("#tablaProd, #tlbListaRep2, #tlbTiemposMuertos2, #TblMaster, #tblMaquinas, #tblIns, #tblTanques, #chkInsumo, #chkTanques, #tblDetPlan,#tblPlan").DataTable({
+$("#tablaProd, #tlbListaRep2, #tlbTiemposMuertos, #tlbListaRep, #tlbTiemposMuertos2, #TblMaster, #tblMaquinas, #tblIns, #tblTanques, #chkInsumo, #chkTanques, #tblDetPlan,#tblPlan").DataTable({
 
     "ordering": false,
     "info": false,
@@ -1370,7 +1447,7 @@ $("#tablaProd, #tlbListaRep2, #tlbTiemposMuertos2, #TblMaster, #tblMaquinas, #tb
         [0, "asc"]
     ],
     "lengthMenu": [
-        [5, 10, -1],
+        [20, 10, -1],
         [20, 30, "Todo"]
     ],
     "language": {
@@ -2147,10 +2224,38 @@ function EliminaINS(elem) {
     })
 
 }
+/*******************FILTRA POR ESTADOS DE ORDENES DE PRODUCCION*******************************/
+    $("#ordActiva").on( 'change', function() {
+        if(!$(this).is(':checked') ) {
+            $( ".OrdenActiva" ).removeClass( "OrdenActiva" ).addClass( "nomostrarOrdenAct" );
+        }else {
+            $( ".nomostrarOrdenAct" ).removeClass( "nomostrarOrdenAct" ).addClass( "OrdenActiva" );
+        }
+    });
+    $("#ordCerrada").on( 'change', function() {
+        if($(this).is(':checked') ) {
+            $( ".nomostrarOrdenCerr" ).removeClass( "nomostrarOrdenCerr" ).addClass( "OrdenCerrada" );
+        }else {
+            $( ".OrdenCerrada" ).removeClass( "OrdenCerrada" ).addClass( "nomostrarOrdenCerr" );
+        }
+    });
+    $("#ordAnulada").on( 'change', function() {
+        if($(this).is(':checked') ) {
+            $( ".nomostrarOrdenAnul" ).removeClass( "nomostrarOrdenAnul" ).addClass( "OrdenAnulada" );
+        }else {
+            $( ".OrdenAnulada" ).removeClass( "OrdenAnulada" ).addClass( "nomostrarOrdenAnul" );
+        }
+    });
+    $("#ordInactiva").on( 'change', function() {
+        if($(this).is(':checked') ) {
+            $( ".nomostrarOrdenInac" ).removeClass( "nomostrarOrdenInac" ).addClass( "OrdenInactiva" );
+        }else {
+            $( ".OrdenInactiva" ).removeClass( "OrdenInactiva" ).addClass( "nomostrarOrdenInac" );
+        }
+    });
 
 /****************************************FUNCIONES SOIBRE PLANES********************************************************/
 function guardaplan() {
-
     var form_data = {
         fecha: $("#fecha").val(),
         comentario: $("#comentario").val()

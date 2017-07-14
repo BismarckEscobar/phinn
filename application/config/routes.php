@@ -25,7 +25,7 @@ $route['ValidaFecha/(:any)/(:any)/(:any)'] = 'Ordenproduccion_controller/Validar
 
     /*************LINKS DE REPORTES***********/
     
-
+    $route['reportes'] = "reportes_controller";
     /*************REDIRECT INDEX REPORTE*************/
     $route['ordProduccion'] = "ordenProduccionG_Controller";
 
@@ -151,11 +151,8 @@ $route['ValidaFecha/(:any)/(:any)/(:any)'] = 'Ordenproduccion_controller/Validar
    $route['guardarControlPisoDetalle'] = "controlPiso_Controller/guardandoControlPiso";
    $route['guardarConsumoElect'] = "controlPiso_Controller/guardandoConsumoElectrico";
 
-    $route['reporteControlPiso/(:any)'] = "exportarPdf_Controller/reporteControlPiso/$1";  
+    $route['reporteControlPiso/(:any)'] = "exportarPdf_Controller/reporteControlPiso/$1";
 
+    $route['filtrandoReportesTrabajo/(:any)'] = "reportes_controller/filtrandoOrdTrabajoByIdOrdProd/$1";
 
-
-
-
-
-
+    $route['reporteConsolidado/(:any)'] = "exportarPdf_Controller/rptConsolidadoFinal/$1";

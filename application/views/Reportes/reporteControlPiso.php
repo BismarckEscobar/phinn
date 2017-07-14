@@ -2,7 +2,7 @@
 <?php $mermaTotalF1=0; ?>
 <html lang="en">
 <head>
-	<title>Reporte Diario</title>
+	<title>Reporte Control de piso</title>
 	<style>
 		#footer {			
 			padding: 30px 30px;

@@ -3,10 +3,10 @@
 ///////////////////////////////////////////////////////////-->
 <main class="mdl-layout__content mdl-color--grey-100">
     <div class="contenedor">
-        <div class="container">
+        <div class="container"><br>
             <div class="Buscar row column noMargen">
                 <div class="col s1 m1 l1 offset-l3 offset-m2">
-                    <i style='color:#039be5; font-size:40px;' class="material-icons">search</i>
+                    <i class="material-icons iconSearch">search</i>
                 </div>
                 <div class="input-field col s12 m6 l4">
                     <input id="BuscarUsuarios" type="text" placeholder="Buscar" class="validate">
@@ -18,34 +18,24 @@
         <!--/////////////////////////////////////////////////////////////////////////////////////////
                                        BOTONES
         //////////////////////////////////////////////////////////////////////////////////////////-->
-        <div class="right row">
-            <div id="crearU" class="col s1 m1 l1">
-                <a data-tooltip='CREAR USUARIO' href="#AUsuario" class="purple-text darken-1 modal-trigger tooltipped">
-                    <i style='font-size:40px;' class="material-icons">recent_actors</i>
-                </a>
-            </div>
-
-            <div class="col s1 m1 l1">
-                <p></p>
-            </div>
-            <div class="col s1 m1 l1">
-                <p></p>
-            </div>
-
-            <div class="col s1 m1 l1">
-                <a data-tooltip='CERRAR' href="<?php echo base_url('index.php/MenuMantenimiento')?>" class="purple-text darken-1 tooltipped">
-                    <i style='font-size:35px;' class="material-icons">keyboard_backspace</i>
-                </a>
-            </div>
-        </div>
-        <br><br>
-        <!-- ////////////////////////////////////////////////////////////////////////////////////////// -->
-
-
         <div class="row">
             <div class="col s12">
                 <div class="card">
                     <div class="card-content">
+                        <div class="row">
+                            <div class="col s6 m6" style="text-align:left;">
+                                <div id="retornarP">
+                                    <a data-tooltip='REGRESAR' href="<?php echo base_url('index.php/MenuMantenimiento')?>" class="purple-text darken-1 tooltipped">
+                                        <i class="waves-effect waves-purple material-icons titulosGen">keyboard_backspace</i>
+                                    </a>
+                                </div>  
+                            </div>
+                            <div class="col s6 m6" style="text-align:right;">
+                                <a data-tooltip='CREAR USUARIO' href="#AUsuario"  id="crearU" class="purple-text darken-1 modal-trigger tooltipped">
+                                    <i class="waves-effect waves-purple material-icons titulosGen">recent_actors</i>
+                                </a>       
+                            </div>       
+                        </div><br>
                         <div class="div-cont">
                             <table id="TblMaster" class="striped responsive-table">
                                 <thead>
@@ -87,9 +77,9 @@
                             $activo ="<td><a data-tooltip='CAMBIAR A ACTIVO' href='javascript:void(0)' class='btn-flat tooltipped noHover' onclick='BorrarUsuario(".'"'.$key['IdUsuario'].'","'.$key['Estado'].'"'.")'><i style='color:red; font-size:30px;' class='material-icons'>close</i></a></td>";
                         }
                         echo "<tr>
-                                    <td class='regular'>".$c."</td>
-                                    <td class='bold'>".$key['Nombre']."</td>
-                                    <td class='bold'>".$key['Usuario']."</td>
+                                    <td>".$c."</td>
+                                    <td>".$key['Nombre']."</td>
+                                    <td>".$key['Usuario']."</td>
                                     <td>".$per."</td>
                                     ".$activo."
                                   </tr>";
@@ -106,8 +96,7 @@
             </div>
         </div>
     </div>
-</main>
-<br>
+</main><br>
 
 <!--/////////////////////////////////////////////////////////////////////////////////////////
                                         MODALES

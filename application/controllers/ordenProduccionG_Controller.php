@@ -35,6 +35,21 @@ class ordenProduccionG_Controller extends CI_Controller {
 			redirect('ordProduccion');
 	}
 
+	public function guardarOrdenSupervisor() {
+		$fechaInicio = date('Y-m-d', strtotime($this->input->post('fechaInicio', TRUE)));
+		$fechaFinal = date('Y-m-d', strtotime($this->input->post('fechaFinal', TRUE)));
+		$array = array(
+			'NoOrden' => $this->input->post('numOrden', TRUE),
+			'Usuario' => $this->session->userdata('IdUser'),
+			'FechaInicio' => $fechaInicio,
+			'FechaFin' => $fechaFinal,
+			'Estado' => 3,
+			'comentarios' => $this->input->post('comentario', TRUE)
+		);
+			$this->reporte_Model->guardarRep($array);
+			redirect('OrdenProduccion');
+	}
+
 	public function cambiaStatusRpt($idRpt, $status){
 	$this->reporte_Model->cambiaStatusRpt1($idRpt, $status);
 	}
@@ -94,7 +109,21 @@ class ordenProduccionG_Controller extends CI_Controller {
 		);
 		$this->reporte_Model->editarOrden($array, $idUnico);
 
-		redirect('ordProduccion'); 
+		redirect('ordProduccion');
+	}
+
+	public function editarOrdProdSupervisor() {
+		$idUnico=$this->input->post('identificador', TRUE);
+		$fechaInicio = date('Y-m-d', strtotime($this->input->post('fechaInicio1', TRUE)));
+		$fechaFinal = date('Y-m-d', strtotime($this->input->post('fechaFinal1', TRUE)));
+		$array = array(
+		'FechaInicio' => $fechaInicio,
+		'FechaFin' => $fechaFinal,
+		'comentarios' => $this->input->post('comentario1', TRUE)
+		);
+		$this->reporte_Model->editarOrden($array, $idUnico);
+
+		redirect('OrdenProduccion');
 	}
 
 	public function buscarOrdenProdEnOrdTr($codOrd) {

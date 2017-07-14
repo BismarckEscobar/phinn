@@ -1,10 +1,9 @@
 <main class="mdl-layout__content mdl-color--grey-100">
     <div class="contenedor">
-
-        <div class="container">
+        <div class="container"><br>
             <div class="Buscar row column noMargen">
                 <div class="col s1 m1 l1 offset-l3 offset-m2">
-                    <i style='color:#039be5; font-size:40px;' class="material-icons">search</i>
+                    <i class="material-icons iconSearch">search</i>
                 </div>
                 <div class="input-field col s12 m6 l4">
                     <input id="BuscarPlan" type="text" placeholder="Buscar" class="validate">
@@ -12,33 +11,24 @@
                 </div>
             </div>
         </div>
-
-        <div class="right row">
-            <div class="col s1 m1 l1">
-                <a data-tooltip='CREAR PLAN' data-position="left" id="AddPlan" href="#PlanModal" class="purple-text darken-1 modal-trigger tooltipped">
-                    <i style='font-size:40px;' class="material-icons">library_add</i>
-                </a>
-            </div>
-
-            <div class="col s1 m1 l1">
-                <p></p>
-            </div>
-            <div class="col s1 m1 l1">
-                <p></p>
-            </div>
-        </div>
-        <div class="left row">
-            <div class="col s1 m1 l1">
-                <a data-tooltip='CERRAR' href="<?php echo base_url('index.php/dashboard')?>" class="btn purple darken-1 tooltipped">
-                    <i style='font-size:35px;' class="material-icons">keyboard_backspace</i>
-                </a>
-            </div>
-        </div>
-
         <div class="row">
             <div class="col s12">
                 <div class="card">
                     <div class="card-content">
+                        <div class="row">
+                            <div class="col s6 m6" style="text-align:left;">
+                                <div id="retornarP">
+                                    <a data-tooltip='REGRESAR' href="<?php echo base_url('index.php/dashboard')?>" class="modal-trigger tooltipped">
+                                        <i class="waves-effect waves-purple material-icons titulosGen">keyboard_backspace</i>
+                                    </a>
+                                </div>  
+                            </div>
+                            <div class="col s6 m6" style="text-align:right;">
+                                <a data-tooltip='CREAR PLAN' data-position="left" id="AddPlan" href="#PlanModal" class="purple-text darken-1 modal-trigger tooltipped">
+                                    <i class="waves-effect waves-purple material-icons titulosGen">queue</i>
+                                </a>       
+                            </div>       
+                        </div><br>
                         <center>
                             <h5 class="card-title purple-text accent-4" style="font-family: robotoblack;">PLAN</h5>
                         </center>
@@ -134,8 +124,7 @@
                 <br><br>
                 <div class="row">
                     <div class="center">
-                        <a href="#" class="btn waves-effect waves-light purple darken-2" onclick="guardaplan()">GUARDAR</a>
-                        <a href="#" class="btn waves-effect waves-light purple darken-2 modal-action modal-close noHover">CERRAR <i class="material-icons">close</i></a>
+                        <a href="#" id="guardarPL" class="btn waves-effect waves-light" onclick="guardaplan()">GUARDAR</a>
                     </div>
                 </div>
             </form>
@@ -175,8 +164,7 @@
                 <br><br>
                 <div class="row">
                     <div class="center">
-                        <a href="#" onclick="actualizaPlan()" class="btn waves-effect waves-light purple darken-2">ACTUALIZAR</a>
-                        <a href="#" class="btn waves-effect waves-light purple darken-2 modal-action modal-close noHover">CERRAR</a>
+                        <a href="#" id="actPlanes" onclick="actualizaPlan()" class="btn waves-effect waves-light">ACTUALIZAR</a>
                     </div>
                 </div>
             </form>

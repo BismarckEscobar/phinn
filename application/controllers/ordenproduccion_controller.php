@@ -97,11 +97,9 @@ class Ordenproduccion_controller extends CI_Controller
             $array[$i]['Maquina'] = '-';
             $array[$i]['Descripcion'] = '-';
 
-        } 
-
+        }
         $data['tiemposM'] = $array;
         $data['consecutivo'] = $this->Ordenproduccion_model->buscarRtpDiario($idReporteD);
-        //$data['consecutivo'] = array('NoOrden' => $Norden, 'consecutivo' => $consecutivo, 'turno' => $turno);
         $data['listaMaq'] = $this->Ordenproduccion_model->listarMaquinas();
         $this->load->view('header');
         $this->load->view('dashboardclean');
@@ -110,7 +108,6 @@ class Ordenproduccion_controller extends CI_Controller
     }
 
     public function agregaDetalleOrdT($idReporteD) {
-        //$data['consecutivo'] = array('NoOrden' => $Norden, 'consecutivo' => $consecutivo, 'turno' => $turno);
         $data['consecutivo'] = $this->Ordenproduccion_model->buscarRtpDiario($idReporteD);
         $this->load->view('header');
         $this->load->view('dashboardclean');

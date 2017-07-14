@@ -30,7 +30,7 @@ class controlPiso_Model extends CI_Model {
 		}
 	}
 
-	public function mostrarDetallePasta($consecutivo) {
+    public function mostrarDetallePasta($consecutivo) {
 		$data=array();
 		$query = $this->db->query("call infoPasta(2, '".$consecutivo."')");
 		if ($query->num_rows()>0) {
@@ -54,10 +54,12 @@ class controlPiso_Model extends CI_Model {
 				);
 				$data[] = $array;
 			}
-			return $data;
+			$query->free_result();
 			$query->next_result();
+			return $data;
 		}else {
-			$query->next_result();			
+			$query->free_result();	
+			$query->next_result();
 			$query = $this->db->query("call infoPasta(1, '".$consecutivo."')");
 			foreach ($query->result_array() as $key) {
 				if ($key['Tanque']==1) {
@@ -79,10 +81,10 @@ class controlPiso_Model extends CI_Model {
 				);
 				$data[] = $array;
 			}
+			$query->free_result();
+			$query->next_result();
 			return $data;
 		}
-			$query->next_result();
-			$query->free_result();
 	}
 
 	public function detalleOrdTrabajo($consecutivo) {
@@ -121,14 +123,16 @@ class controlPiso_Model extends CI_Model {
 					'horaInicio' => $horaInicio,
 					'horaFinal' => $horaFinal
 				);
-			}
-			$query->next_result();
-			return $data;			
+			}			
 			$query->free_result();
+			$query->next_result();
+			return $data;
 		} else {
+			$query->free_result();
+			$query->next_result();
 			$this->db->where('Consecutivo', $consecutivo);
 	        $query=$this->db->get('reporte_diario');
-	        if (count($query)>=2) {
+	        if (count($query->result_array())==2) {
 	        	foreach ($query->result_array() as $key) {
 	        		if ($key['Turno']==1) {
 						$fechaInicio= date("Y/m/d", strtotime($key['FechaInicio']));									
@@ -138,7 +142,7 @@ class controlPiso_Model extends CI_Model {
 						$horaFin="06:00am";
 					}
 	        	}
-        	}elseif (count($query)<2) {
+        	}elseif (count($query->result_array())<2) {
         		foreach ($query->result_array() as $key) {
         			if ($key['Turno']==1) {
 						$fechaInicio= date("Y/m/d", strtotime($key['FechaInicio']));
@@ -151,24 +155,24 @@ class controlPiso_Model extends CI_Model {
 					}
         		}
         	}
-            	foreach ($query->result_array() as $key) {
-	            	$data = array(
-	            		'IdReporteDiario' => $key['IdReporteDiario'],
-						'NoOrder' => $key['NoOrder'],
-						'Consecutivo' => $key['Consecutivo'],
-						'FechaInicio' => $fechaInicio,
-						'FechaFinal' => $fechaFinal,
-						'TipoPapel' => $key['TipoPapel'],
-						'grupo' => '',
-						'maquina1' => 0,
-						'maquina2' => 0,
-						'horaInicio' => $horaInicio,
-						'horaFinal' => $horaFin
-					);
-            	}
-            return $data;
-            $query->next_result();
+        	foreach ($query->result_array() as $key) {
+            	$data = array(
+            		'IdReporteDiario' => $key['IdReporteDiario'],
+					'NoOrder' => $key['NoOrder'],
+					'Consecutivo' => $key['Consecutivo'],
+					'FechaInicio' => $fechaInicio,
+					'FechaFinal' => $fechaFinal,
+					'TipoPapel' => $key['TipoPapel'],
+					'grupo' => '',
+					'maquina1' => 0,
+					'maquina2' => 0,
+					'horaInicio' => $horaInicio,
+					'horaFinal' => $horaFin
+				);
+        	}
 			$query->free_result();
+			return $data;
+			$query->next_result();
 		}
 	}
 
@@ -258,6 +262,16 @@ class controlPiso_Model extends CI_Model {
 		}
 		if ($result) {
 			echo 1;
+		}
+	}
+
+	public function consumoElectrico($consecutivo) {
+		$this->db->where('consecutivo', $consecutivo);
+		$query = $this->db->get('consumoelectrico');
+		if ($query->num_rows()>0) {
+			return $query->result_array();
+		}else {
+			return false;
 		}
 	}
 }

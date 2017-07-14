@@ -3,6 +3,15 @@
 		<div class="col s12">
 			<div class="card">
 				<div class="card-content">
+					<div class="row">
+                        <div class="col s6 m6" style="text-align:left;">
+                            <div id="retornarP">
+                                <a data-tooltip='REGRESAR' href="<?php echo base_url('index.php/OrdenProduccion')?>" class="modal-trigger tooltipped">
+                                    <i class="waves-effect waves-purple material-icons titulosGen">keyboard_backspace</i>
+                                </a>
+                            </div>  
+                        </div>    
+                    </div>
 					<center><span class="card-title accent-4 titulos">CONTROL PISO INVENTARIO</span></center>
 					<?php 
 					if ($detalleOrdTrabajo) {
@@ -68,13 +77,6 @@
 				<div class="card-content">
 					<div class="row">
 						<div class="col s12">
-					<?php 
-						if ($detalleOrdTrabajo) {
-						echo "
-							<a class='Btnadd btn waves-effect waves-light' target='_blank' href='../reporteControlPiso/".$detalleOrdTrabajo['Consecutivo']."' style='background-color:#831F82; float: right; margin-left:10px;'>reporte 
-						    </a>";						
-						}
-					?>
 						<a class="Btnadd btn waves-effect waves-light" id="agregaElect" href="#agregaElectricidad" style="background-color:#831F82; float: right;">electricidad                        
 						</a>
 						</div>
@@ -142,7 +144,7 @@
 							</div>
 						</div>
 						<div class="right row">							
-							<a class="Btnadd btn waves-effect waves-light" id="agregarRows" onclick="guardarControlPiso()" href="#!" hre style="background-color:#831F82;">guardar			  
+							<a class="Btnadd btn waves-effect waves-light" id="agregarRows" onclick="guardarControlPiso()" href="#!" style="background-color:#831F82;">guardar			  
 		                    </a>	
 						</div><br><br>
 						<div class="row1" style="width:70%; margin: 0 auto;">
