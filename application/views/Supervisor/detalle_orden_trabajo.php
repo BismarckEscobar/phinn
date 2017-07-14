@@ -145,7 +145,19 @@
                         if(!$listaMaq){
                         } else {
                             foreach($listaMaq as $key){
-                                echo '<option value="'.$key['idMaquina'].'">'.$key['maquina'].'</option>';
+                                   $maq="";
+                                 switch ($key['idMaquina']) {
+                                            case '1':
+                                                $maq = " <span>(Yankee 1 - Jumbo Roll)</span>";
+                                                break;
+                                            case '2':
+                                                $maq = "<span>(Yankee 2 - Jumbo Roll)</span>";
+                                                break;
+                                            case '3':
+                                                $maq = "<span>(Caldera y Plan tratamiento)</span>";
+                                                break;
+                                        }
+                                echo '<option value="'.$key['idMaquina'].'">'.$key['maquina'].' '.$maq.'</option>';
                             }
                         }
                         ?>

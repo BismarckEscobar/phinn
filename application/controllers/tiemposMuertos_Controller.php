@@ -38,8 +38,8 @@ public function guardarTiempoM() {
          if ($duplicado->num_rows()>0) {
              echo "Consecutivo ya se ha cerrado";
          } else {
-	$this->tiemposMuertos_Model->guardarTiempoMuerto($array);
-	echo "permite guardar";
+	        $this->tiemposMuertos_Model->guardarTiempoMuerto($array);
+     	    echo "permite guardar";
 		 }
 	}
 
@@ -63,9 +63,16 @@ public function guardarTiempoM() {
 				$interval = $datetime1->diff($datetime2);
 				$tf = $interval->format("%H:%I");
 			}		
-			if ($key['Maquina']==1) {
+			if ($key['Maquina'] == 1) {
 				$maquina="Maquina 1";
-			} else {$maquina="Maquina 2";}
+			} 
+			else if($key['Maquina'] == 2)
+			{
+				$maquina="Maquina 2";
+			}
+			else if($key['Maquina'] == 3){
+				$maquina="Maquina 3";
+			}
 			$dta = array(			
 			'IdTiempoMuerto' => $key['IdTiempoMuerto'],
 			'IdReporteDiario' => $key['IdReporteDiario'],
