@@ -1,17 +1,3 @@
-/*
-Navicat MySQL Data Transfer
-
-Source Server         : localhost-new
-Source Server Version : 50505
-Source Host           : localhost:3306
-Source Database       : phinn
-
-Target Server Type    : MYSQL
-Target Server Version : 50505
-File Encoding         : 65001
-
-Date: 2017-07-14 14:16:24
-*/
 
 SET FOREIGN_KEY_CHECKS=0;
 
@@ -698,7 +684,7 @@ INSERT INTO `usuarios` VALUES ('7', 'user2', 'user2', 'e10adc3949ba59abbe56e057f
 -- View structure for view_cargas_pulper_completo
 -- ----------------------------
 DROP VIEW IF EXISTS `view_cargas_pulper_completo`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost`  VIEW `view_cargas_pulper_completo` AS SELECT
+CREATE ALGORITHM=UNDEFINED   VIEW `view_cargas_pulper_completo` AS SELECT
 insumos.descripcion,
 cargas_pulper.IdCargaPulper,
 cargas_pulper.IdInsumo,
@@ -712,7 +698,7 @@ cargas_pulper ;
 -- View structure for view_detallesplanescat1
 -- ----------------------------
 DROP VIEW IF EXISTS `view_detallesplanescat1`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW `view_detallesplanescat1` AS SELECT
+CREATE  VIEW `view_detallesplanescat1` AS SELECT
 	dp.IdDetallePlan,
 	dp.IdPlan,
 	p.Comentario,
@@ -733,7 +719,7 @@ AND p.Estado = 1 ;
 -- View structure for view_detallesplanescat2
 -- ----------------------------
 DROP VIEW IF EXISTS `view_detallesplanescat2`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW `view_detallesplanescat2` AS SELECT
+CREATE  VIEW `view_detallesplanescat2` AS SELECT
 	dp.IdPlan,
 	dp.IdDetallePlan,
 	dp.IdInsumo,
@@ -754,7 +740,7 @@ AND p.Estado = 1 ;
 -- View structure for view_detallesplanescat3
 -- ----------------------------
 DROP VIEW IF EXISTS `view_detallesplanescat3`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW `view_detallesplanescat3` AS SELECT
+CREATE  VIEW `view_detallesplanescat3` AS SELECT
 	dp.IdPlan,
 	dp.IdDetallePlan,
 	p.Comentario,
@@ -775,7 +761,7 @@ AND p.Estado = 1 ;
 -- View structure for view_detallesplanescat4
 -- ----------------------------
 DROP VIEW IF EXISTS `view_detallesplanescat4`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW `view_detallesplanescat4` AS SELECT DISTINCT
+CREATE  VIEW `view_detallesplanescat4` AS SELECT DISTINCT
 	dp.IdPlan,
 	dp.IdDetallePlan,
 	dp.IdInsumo,
@@ -796,7 +782,7 @@ AND p.Estado = 1 ;
 -- View structure for view_mp_insumos
 -- ----------------------------
 DROP VIEW IF EXISTS `view_mp_insumos`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost`  VIEW `view_mp_insumos` AS SELECT
+CREATE ALGORITHM=UNDEFINED   VIEW `view_mp_insumos` AS SELECT
 	mp.IdMpInsumos,
 mp.IdReporteDiario,
 i.Descripcion,
@@ -813,7 +799,7 @@ insumos i on mp.Descripcion = i.IdInsumo ;
 -- View structure for view_orden_produccion
 -- ----------------------------
 DROP VIEW IF EXISTS `view_orden_produccion`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW `view_orden_produccion` AS SELECT
+CREATE  VIEW `view_orden_produccion` AS SELECT
 	ord.IdOrden AS IdOrden,
 	ord.NoOrden AS NoOrden,
 	us.Nombre AS Usuario,
@@ -829,7 +815,7 @@ ORDER BY ord.Estado=1 DESC ;
 -- View structure for view_ordproduccioncoordinador
 -- ----------------------------
 DROP VIEW IF EXISTS `view_ordproduccioncoordinador`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW `view_ordproduccioncoordinador` AS SELECT
+CREATE  VIEW `view_ordproduccioncoordinador` AS SELECT
                 ord.IdOrden AS IdOrden,
                 ord.NoOrden AS NoOrden,
                 us.Nombre AS Usuario,
@@ -846,7 +832,7 @@ ORDER BY ord.Estado=1 DESC ;
 -- View structure for view_pasta
 -- ----------------------------
 DROP VIEW IF EXISTS `view_pasta`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost`  VIEW `view_pasta` AS SELECT
+CREATE ALGORITHM=UNDEFINED   VIEW `view_pasta` AS SELECT
 	p.IdPasta,
 	p.IdReporteDiario,
 	t.Tanque,
@@ -861,7 +847,7 @@ INNER JOIN tanques t ON t.IdTanque = p.Tanque ;
 -- View structure for view_produccion
 -- ----------------------------
 DROP VIEW IF EXISTS `view_produccion`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW `view_produccion` AS SELECT
+CREATE  VIEW `view_produccion` AS SELECT
 	pro.IdProduccion,
 	pro.IdReporteDiario,
 	pro.NoOrden,
@@ -883,7 +869,7 @@ order by Maquina asc ;
 -- View structure for view_reporte
 -- ----------------------------
 DROP VIEW IF EXISTS `view_reporte`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW `view_reporte` AS SELECT
+CREATE  VIEW `view_reporte` AS SELECT
 	rpt.IdReporte AS IdReporte,
 	rpt.NoOrden AS NoOrden,
 	rpt.Tipo AS Tipo,
@@ -899,7 +885,7 @@ INNER JOIN usuarios us ON rpt.Usuario = us.IdUsuario ;
 -- View structure for view_reportediario
 -- ----------------------------
 DROP VIEW IF EXISTS `view_reportediario`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW `view_reportediario` AS SELECT
+CREATE  VIEW `view_reportediario` AS SELECT
 	rd.IdReporteDiario,
 	rd.Consecutivo,
 	rd.NoOrder,
@@ -921,7 +907,7 @@ WHERE op.Estado = 1 ;
 -- View structure for view_reportediariodetalle
 -- ----------------------------
 DROP VIEW IF EXISTS `view_reportediariodetalle`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW `view_reportediariodetalle` AS SELECT
+CREATE  VIEW `view_reportediariodetalle` AS SELECT
 	rd.IdReporteDiario,
 	rd.Consecutivo,
 	rd.NoOrder,
@@ -945,7 +931,7 @@ ORDER BY rd.Consecutivo ASC ;
 -- View structure for view_vistacoordinador
 -- ----------------------------
 DROP VIEW IF EXISTS `view_vistacoordinador`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW `view_vistacoordinador` AS SELECT
+CREATE  VIEW `view_vistacoordinador` AS SELECT
 	rd.IdReporteDiario,
 	rd.Consecutivo,
 	rd.NoOrder,
@@ -968,7 +954,7 @@ WHERE rd.Estado = 1 ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `cabeceraConsolidado`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `cabeceraConsolidado`(IN consecutivoC VARCHAR(50))
+CREATE  PROCEDURE `cabeceraConsolidado`(IN consecutivo VARCHAR(50))
 BEGIN
 SET @produccionReal = (SELECT SUM(ProduccionTotal) FROM reporte_diario WHERE Consecutivo=consecutivoC);
 SET @mermaMq1 = (SELECT SUM(DISTINCT Merma)	FROM produccion	WHERE	NoOrden = consecutivoC AND Maquina = 1);
@@ -1023,7 +1009,7 @@ DELIMITER ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `cabeceraReporteDiario`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `cabeceraReporteDiario`(IN idReporteD INT)
+CREATE  PROCEDURE `cabeceraReporteDiario`(IN idReporteD INT)
 BEGIN
  SELECT
 	rd.NoOrder,
@@ -1050,7 +1036,7 @@ DELIMITER ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `consumoElectrico`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `consumoElectrico`(IN fechaInicioC date, IN fechaFinaLC date, IN horaInicioC time, IN horaFinC time, IN consumoInicialC DECIMAL(10,2), IN consumoFinalC DECIMAL(10,2), IN consecutivoC VARCHAR(10) )
+CREATE  PROCEDURE `consumoElectrico`(IN fechaInicioC date, IN fechaFinaLC date, IN horaInicioC time, IN horaFinC time, IN consumoInicialC DECIMAL(10,2), IN consumoFinalC DECIMAL(10,2), IN consecutivoC VARCHAR(10) )
 BEGIN
 IF EXISTS ( SELECT consecutivo FROM consumoElectrico WHERE	consecutivo = consecutivoC)
 THEN
@@ -1099,7 +1085,7 @@ DELIMITER ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `controlPisoInfo`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `controlPisoInfo`(IN consecutivo VARCHAR(50))
+CREATE  PROCEDURE `controlPisoInfo`(IN consecutivo VARCHAR(50))
 BEGIN
 	SELECT
 		cp.idControlPiso,
@@ -1125,7 +1111,7 @@ DELIMITER ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `detalleControlPiso`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `detalleControlPiso`(IN idInsumoC INT,IN tipoC VARCHAR (100),
+CREATE  PROCEDURE `detalleControlPiso`(IN idInsumoC INT,IN tipoC VARCHAR (100),
 	IN codigoC VARCHAR (30),
 	IN descripcionC VARCHAR (100),
 	IN unidadMedidadC VARCHAR (15),
@@ -1184,7 +1170,7 @@ DELIMITER ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `encabezadoControlPiso`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `encabezadoControlPiso`(
+CREATE  PROCEDURE `encabezadoControlPiso`(
 	IN noOrdenC INT,
 	IN consecutivoC VARCHAR (10),
 	IN fechaInicioC date,
@@ -1252,7 +1238,7 @@ DELIMITER ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `infoPasta`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `infoPasta`(IN turno INT,
+CREATE  PROCEDURE `infoPasta`(IN turno INT,
 	IN consecutivo VARCHAR (10))
 BEGIN
 	SELECT
@@ -1275,7 +1261,7 @@ DELIMITER ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `reporteControlPiso`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `reporteControlPiso`(IN consecutivo VARCHAR(10))
+CREATE  PROCEDURE `reporteControlPiso`(IN consecutivo VARCHAR(10))
 BEGIN
 	SELECT
 		cp.consecutivo,
