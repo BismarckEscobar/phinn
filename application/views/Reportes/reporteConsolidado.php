@@ -61,11 +61,6 @@
 			margin-bottom:2px;
 			margin-top: 5px;
 		}
-		.table-control {			
-			text-align: center;
-			width: 98%;
-			margin-top: 5px;
-		}
 		.titulos {
 			width: 100%;			
 			text-align: center;
@@ -86,7 +81,7 @@
 			font-weight: bold;
 			font-size: 10px;
 		}
-		.span {
+		.span-1 {
 			text-transform: uppercase!important;
 			font-weight: bold;
 			font-size: 16px;
@@ -109,6 +104,39 @@
 		.table-produccion th{
 			padding: 5px 5px;
 		}
+		.contenedor-uno {
+			display: block;			
+			padding:5px 5px;
+			width: 30%;			
+			float: left;
+			margin: 0 auto;
+			margin-left: 2px;			
+			height: auto;
+
+		}
+		.contenedor-dos {				
+			padding:5px 5px;	
+			width: 66%;
+			height: auto;			
+			text-align: center;
+			float: right;
+		}
+		.content-medium {			
+			width: 98%;
+			margin: 0 auto;
+			overflow:hidden;
+			padding: 5px 5px;
+		}
+		.table-1 {
+			width: 100%;			
+		}
+		.span {
+			text-transform: uppercase!important;
+			font-family: 'arial'!important;
+			font-size: 10px;
+			font-weight: normal;
+		}
+
 	</style>
 </head>
 <body>
@@ -121,8 +149,8 @@
 							if ($consolidadoFinal) {
 							echo "
 								<td><img class='image' src='".base_url()."assets/img/logo/logoinnova.png'></td>
-								<td><center><span class='span'>INNOVA INDUSTRIAS, S.A.</span></center></td>
-								<td><span class='span'>".$consolidadoFinal[0]['Consecutivo']."</span></td>";
+								<td><center><span class='span-1'>INNOVA INDUSTRIAS, S.A.</span></center></td>
+								<td><span class='span-1'>".$consolidadoFinal[0]['Consecutivo']."</span></td>";
 							}
 						?>
 					</tr>
@@ -141,15 +169,15 @@
 					<table id='tablaReporteDiario'>
 						<tr>
 							<td colspan='3' class='titulos-tablas'><span>orden de producción no.</span></td>
-							<td class='titulos-tablas'><span>".$consolidadoFinal[0]['NoOrder']."</span></td>
+							<td class='titulos-tablas'><span class='span'>".$consolidadoFinal[0]['NoOrder']."</span></td>
 							<td class='titulos-tablas'><span>fecha inicio</span></td>
-							<td class='titulos-tablas'><span>".$consolidadoFinal[0]['FechaInicio']."</span></td>
+							<td class='titulos-tablas'><span class='span'>".$consolidadoFinal[0]['FechaInicio']."</span></td>
 						</tr>
 						<tr>
 							<td colspan='3' class='titulos-tablas'><span>producto</span></td>
-							<td class='titulos-tablas'><span>".$consolidadoFinal[0]['Producto']."</span></td>
+							<td class='titulos-tablas'><span class='span'>".$consolidadoFinal[0]['Producto']."</span></td>
 							<td class='titulos-tablas'><span>fecha final</span></td>
-							<td class='titulos-tablas'><span>".$consolidadoFinal[0]['FechaFinal']."</span></td>
+							<td class='titulos-tablas'><span class='span'>".$consolidadoFinal[0]['FechaFinal']."</span></td>
 						</tr>
 						<tr>
 							<td class='titulos-tablas'><span>lote</span></td>
@@ -157,27 +185,27 @@
 						</tr>
 						<tr>
 							<td class='titulos-tablas'><span>hora inicio</span></td>
-							<td class='titulos-tablas'><span>".$horaInicio."</span></td>
+							<td class='titulos-tablas'><span class='span'>".$horaInicio."</span></td>
 							<td class='titulos-tablas'><span>hora final</span></td>
-							<td class='titulos-tablas'><span>".$horaFinal."</span></td>
+							<td class='titulos-tablas'><span class='span'>".$horaFinal."</span></td>
 							<td class='titulos-tablas'><span>horas a producir</span></td>
-							<td class='titulos-tablas'><span>".$horasProd."</span></td>
+							<td class='titulos-tablas'><span class='span'>".$horasProd."</span></td>
 						</tr>
 					</table>
 					<table id='tablaReporteDiario'>
 						<tr>
 							<td colspan='3' class='titulos-tablas'><span>producto</span></td>
-							<td class='titulos-tablas'><span>".$consolidadoFinal[0]['Producto']."</span></td>
+							<td class='titulos-tablas'><span class='span'>".$consolidadoFinal[0]['Producto']."</span></td>
 							<td class='titulos-tablas'><span>código</span></td>
 							<td colspan='3' class='titulos-tablas'><span></span></td>
 						</tr>
 						<tr>
 							<td colspan='3' class='titulos-tablas'><span>prod. total(unds y kls)</span></td>
-							<td class='titulos-tablas'><span>".$consolidadoFinal[0]['produccionTotal']."</span></td>
+							<td class='titulos-tablas'><span class='span'>".$consolidadoFinal[0]['produccionTotal']."</span></td>
 							<td class='titulos-tablas'><span>prod. real(unds y kls)</span></td>
-							<td class='titulos-tablas'><span>".$consolidadoFinal[0]['produccionReal']."</span></td>
+							<td class='titulos-tablas'><span class='span'>".$consolidadoFinal[0]['produccionReal']."</span></td>
 							<td class='titulos-tablas'><span>merma producción</span></td>
-							<td class='titulos-tablas'><span>".$consolidadoFinal[0]['mermaTotal']."</span></td>
+							<td class='titulos-tablas'><span class='span'>".$consolidadoFinal[0]['mermaTotal']."</span></td>
 						</tr>
 					</table>";
 				} ?>
@@ -230,12 +258,23 @@
 					$totalCarga = abs($consolidadoFinal[0]['cargaDia']) + abs($consolidadoFinal[0]['cargaNoche']);
 					$totalYankee1 = abs($consolidadoFinal[0]['modMMaquina1']) + abs($consolidadoFinal[0]['modVMaquina1']);
 					$totalYankee2 = abs($consolidadoFinal[0]['modMMaquina2']) + abs($consolidadoFinal[0]['modVMaquina2']);
+					$totalCaldera = abs($consolidadoFinal[0]['modMMaquina3']) + abs($consolidadoFinal[0]['modVMaquina3']);
+					$totalMerma = abs($consolidadoFinal[0]['mermaMatMQ1']) + abs($consolidadoFinal[0]['mermaVespMQ2']);
 				 	echo "
 					<tr>
 						<td style='text-align:center;'>PULPER 1-PASTA RECICLADA</td>
 						<td style='text-align:center;'>".abs(number_format($consolidadoFinal[0]['cargaDia'], 2))."</td>
 						<td style='text-align:center;'>".abs(number_format($consolidadoFinal[0]['cargaNoche'], 2))."</td>
 						<td style='text-align:center;'>".abs(number_format($totalCarga, 2))."</td>						
+						<td style='text-align:center;'>2</td>
+						<td style='text-align:center;'>2</td>
+						<td style='text-align:center;'>4</td>
+					</tr>
+					<tr>
+						<td style='text-align:center;'>PULPER 3-PASTA DE MERMA</td>
+						<td style='text-align:center;'>".abs(number_format($consolidadoFinal[0]['mermaMatMQ1'], 2))."</td>
+						<td style='text-align:center;'>".abs(number_format($consolidadoFinal[0]['mermaVespMQ2'], 2))."</td>
+						<td style='text-align:center;'>".abs(number_format($totalMerma, 2))."</td>						
 						<td style='text-align:center;'>2</td>
 						<td style='text-align:center;'>2</td>
 						<td style='text-align:center;'>4</td>
@@ -257,6 +296,24 @@
 						<td style='text-align:center;'>2</td>
 						<td style='text-align:center;'>2</td>
 						<td style='text-align:center;'>4</td>
+					</tr>
+					<tr>
+						<td style='text-align:center;'>CALDERA</td>
+						<td style='text-align:center;'>".abs(number_format($consolidadoFinal[0]['modMMaquina3'], 2))."</td>
+						<td style='text-align:center;'>".abs(number_format($consolidadoFinal[0]['modVMaquina3'], 2))."</td>
+						<td style='text-align:center;'>".abs(number_format($totalCaldera, 2))."</td>						
+						<td style='text-align:center;'>2</td>
+						<td style='text-align:center;'>2</td>
+						<td style='text-align:center;'>4</td>
+					</tr>
+					<tr>
+					<td style='text-align:center;'>PLANTA TRATAMIENTO</td>
+						<td style='text-align:center;'>".abs(number_format($consolidadoFinal[0]['modMMaquina3'], 2))."</td>
+						<td style='text-align:center;'>".abs(number_format($consolidadoFinal[0]['modVMaquina3'], 2))."</td>
+						<td style='text-align:center;'>".abs(number_format($totalCaldera, 2))."</td>						
+						<td style='text-align:center;'>2</td>
+						<td style='text-align:center;'>2</td>
+						<td style='text-align:center;'>4</td>
 					</tr>";
 				 } 
 				?>				
@@ -266,71 +323,91 @@
 		<div class="titulos">
 			<span>costos indirectos de fabricación</span>
 		</div>
-		<table>
-			<thead>
-				<tr>
-					<th style='text-align:center;'>DESCRIPCIÓN DE LA ACTIVIDAD</th>
-					<th style='text-align:center;'>HORAS</th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php 
-					if($consolidadoFinal) {
-					$totalCarga = abs($consolidadoFinal[0]['cargaDia']) + abs($consolidadoFinal[0]['cargaNoche']);
-					$totalYankee1 = abs($consolidadoFinal[0]['modMMaquina1']) + abs($consolidadoFinal[0]['modVMaquina1']);
-					$totalYankee2 = abs($consolidadoFinal[0]['modMMaquina2']) + abs($consolidadoFinal[0]['modVMaquina2']);
-				 	echo "
-					<tr>
-						<td style='text-align:center;'>Pulper 1-PASTA TRATADA</td>
-						<td style='text-align:center;'>".abs(number_format($totalCarga, 2))."</td>
-					</tr>
-					<tr>
-						<td style='text-align:center;'>YANKEE 1 - JUMBO ROLL</td>
-						<td style='text-align:center;'>".abs(number_format($totalYankee1, 2))."</td>						
-					</tr>
-					<tr>
-						<td style='text-align:center;'>YANKEE 2 - JUMBO ROLL</td>
-						<td style='text-align:center;'>".abs(number_format($totalYankee2, 2))."</td>
-					</tr>";	
-					}
-				?>
-			</tbody>
-		</table><br>
-		<table >
-			<thead>
-				<tr>
-					<td style="text-align:center;" colspan="7"><b>ELECTRICIDAD Kwh</b></td>
-				</tr>
-				<tr>
-					<td style="text-align:center;"><span>FECHA INICIO</span></td>
-					<td style="text-align:center;"><span>FECHA FINALIZACIÓN</span></td>
-					<td style="text-align:center;"><span>HORA INICIO</span></td>
-					<td style="text-align:center;"><span>HORA FINALIZACIÓN</span></td>
-					<td style="text-align:center;"><span>CONSUMO INICIAL</span></td>
-					<td style="text-align:center;"><span>CONSUMO FINAL</span></td>
-					<td style="text-align:center;"><span>TOTAL</span></td>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<?php 
-						if ($consumoElectrico) {
-							$horaInicio = date('g:i A', strtotime($consumoElectrico[0]['horaInicio']));
-							$horaFinal = date('g:i A', strtotime($consumoElectrico[0]['horaFinal']));
-							$total = ($consumoElectrico[0]['consumoFinal'] - $consumoElectrico[0]['consumoInicial']) * 560;					
-					echo "
-							<td style='text-align:center;'>".$consumoElectrico[0]['fechaInicio']."</td>
-							<td style='text-align:center;'>".$consumoElectrico[0]['fechaFin']."</td>
-							<td style='text-align:center;'>".$horaInicio."</td>
-							<td style='text-align:center;'>".$horaFinal."</td>
-							<td style='text-align:center;'>".number_format($consumoElectrico[0]['consumoInicial'],2)."</td>
-							<td style='text-align:center;'>".number_format($consumoElectrico[0]['consumoFinal'],2)."</td>
-							<td style='text-align:center;'>".number_format($total,2)."</td>";
-						}
-					?>
-				</tr>
-			</tbody>
-		</table>
+		<div class="content-medium">
+			<div class="contenedor-uno">
+				<table class="table-1">
+					<thead>
+						<tr>
+							<th style='text-align:center;'>DESCRIPCIÓN DE LA ACTIVIDAD</th>
+							<th style='text-align:center;'>HORAS</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php 
+							if($consolidadoFinal) {
+							$totalCarga = abs($consolidadoFinal[0]['cargaDia']) + abs($consolidadoFinal[0]['cargaNoche']);
+							$totalYankee1 = abs($consolidadoFinal[0]['modMMaquina1']) + abs($consolidadoFinal[0]['modVMaquina1']);
+							$totalYankee2 = abs($consolidadoFinal[0]['modMMaquina2']) + abs($consolidadoFinal[0]['modVMaquina2']);
+							$totalCaldera = abs($consolidadoFinal[0]['modMMaquina3']) + abs($consolidadoFinal[0]['modVMaquina3']);
+							$totalMerma = abs($consolidadoFinal[0]['mermaMatMQ1']) + abs($consolidadoFinal[0]['mermaVespMQ2']);
+						 	echo "
+							<tr>
+								<td style='text-align:center;'>Pulper 1-PASTA TRATADA</td>
+								<td style='text-align:center;'>".abs(number_format($totalCarga, 2))."</td>
+							</tr>
+							<tr>
+								<td style='text-align:center;'>Pulper 3-Pasta de mermas</td>
+								<td style='text-align:center;'>".abs(number_format($totalMerma, 2))."</td>
+							</tr>
+							<tr>
+								<td style='text-align:center;'>YANKEE 1 - JUMBO ROLL</td>
+								<td style='text-align:center;'>".abs(number_format($totalYankee1, 2))."</td>						
+							</tr>
+							<tr>
+								<td style='text-align:center;'>YANKEE 2 - JUMBO ROLL</td>
+								<td style='text-align:center;'>".abs(number_format($totalYankee2, 2))."</td>
+							</tr>
+							<tr>
+								<td style='text-align:center;'>CALDERA</td>
+								<td style='text-align:center;'>".abs(number_format($totalCaldera, 2))."</td>
+							</tr>
+							<tr>
+								<td style='text-align:center;'>PLANTA TRATAMIENTO</td>
+								<td style='text-align:center;'>".abs(number_format($totalCaldera, 2))."</td>
+							</tr>";	
+							}
+						?>
+					</tbody>
+				</table>			
+			</div>
+			<div class="contenedor-dos">
+				<table class="table-1">
+					<thead>
+						<tr>
+							<td style="text-align:center;" colspan="7"><b>ELECTRICIDAD Kwh</b></td>
+						</tr>
+						<tr>
+							<td style="text-align:center;"><span>FECHA INICIO</span></td>
+							<td style="text-align:center;"><span>FECHA FINALIZACIÓN</span></td>
+							<td style="text-align:center;"><span>HORA INICIO</span></td>
+							<td style="text-align:center;"><span>HORA FINALIZACIÓN</span></td>
+							<td style="text-align:center;"><span>CONSUMO INICIAL</span></td>
+							<td style="text-align:center;"><span>CONSUMO FINAL</span></td>
+							<td style="text-align:center;"><span>TOTAL</span></td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<?php 
+								if ($consumoElectrico) {
+									$horaInicio = date('g:i A', strtotime($consumoElectrico[0]['horaInicio']));
+									$horaFinal = date('g:i A', strtotime($consumoElectrico[0]['horaFinal']));
+									$total = ($consumoElectrico[0]['consumoFinal'] - $consumoElectrico[0]['consumoInicial']) * 560;					
+							echo "
+									<td style='text-align:center;'>".$consumoElectrico[0]['fechaInicio']."</td>
+									<td style='text-align:center;'>".$consumoElectrico[0]['fechaFin']."</td>
+									<td style='text-align:center;'>".$horaInicio."</td>
+									<td style='text-align:center;'>".$horaFinal."</td>
+									<td style='text-align:center;'>".number_format($consumoElectrico[0]['consumoInicial'],2)."</td>
+									<td style='text-align:center;'>".number_format($consumoElectrico[0]['consumoFinal'],2)."</td>
+									<td style='text-align:center;'>".number_format($total,2)."</td>";
+								}
+							?>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
 		<div id="footer">
 			<table class="footer">
 				<tr>

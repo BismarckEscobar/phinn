@@ -539,8 +539,12 @@ select {
     margin-top: 70px;
     padding: 20px 20px;
 }
-.nomostrarOrdenAct, .nomostrarOrdenAnul, .nomostrarOrdenCerr, .nomostrarOrdenInac {
+.nomostrarOrdenAct, .nomostrarOrdenAnul, .nomostrarOrdenCerr, .nomostrarOrdenInac, .noMostrarMaquina1, .noMostrarMaquina2, .noMostrarMaquina3 {
     display: none;
+}
+#label-ordActiva, #label-ordActiva, #label-ordInactiva, #label-ordCerrada, #label-ordAnulada, #label-maquina1, #label-maquina2, #label-maquina3 {
+  font-size: 15px;
+  margin-right: 20px;
 }
 
 

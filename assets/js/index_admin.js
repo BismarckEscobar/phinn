@@ -2254,6 +2254,35 @@ function EliminaINS(elem) {
         }
     });
 
+    /*******************FILTRA POR MAQUINAS/TIEMPOS MUERTOS*******************************/
+    $("#maquina1").on( 'change', function() {
+        if($(this).is(':checked') ) {
+            $( ".mostrarMaquina2" ).removeClass( "mostrarMaquina2" ).addClass( "noMostrarMaquina2" );
+            $( ".mostrarMaquina3" ).removeClass( "mostrarMaquina3" ).addClass( "noMostrarMaquina3" );
+        }else {
+            $( ".noMostrarMaquina2" ).removeClass( "noMostrarMaquina2" ).addClass( "mostrarMaquina2" );
+            $( ".noMostrarMaquina3" ).removeClass( "noMostrarMaquina3" ).addClass( "mostrarMaquina3" );
+        }
+    });
+    $("#maquina2").on( 'change', function() {
+        if($(this).is(':checked') ) {
+            $( ".mostrarMaquina1" ).removeClass( "mostrarMaquina1" ).addClass( "noMostrarMaquina1" );
+            $( ".mostrarMaquina3" ).removeClass( "mostrarMaquina3" ).addClass( "noMostrarMaquina3" );
+        }else {
+            $( ".noMostrarMaquina1" ).removeClass( "noMostrarMaquina1" ).addClass( "mostrarMaquina1" );
+            $( ".noMostrarMaquina3" ).removeClass( "noMostrarMaquina3" ).addClass( "mostrarMaquina3" );
+        }
+    });
+    $("#maquina3").on( 'change', function() {
+        if($(this).is(':checked') ) {
+            $( ".mostrarMaquina1" ).removeClass( "mostrarMaquina1" ).addClass( "noMostrarMaquina1" );
+            $( ".mostrarMaquina2" ).removeClass( "mostrarMaquina2" ).addClass( "noMostrarMaquina2" );
+        }else {
+            $( ".noMostrarMaquina1" ).removeClass( "noMostrarMaquina1" ).addClass( "mostrarMaquina1" );
+            $( ".noMostrarMaquina2" ).removeClass( "noMostrarMaquina2" ).addClass( "mostrarMaquina2" );
+        }
+    });
+
 /****************************************FUNCIONES SOIBRE PLANES********************************************************/
 function guardaplan() {
     var form_data = {

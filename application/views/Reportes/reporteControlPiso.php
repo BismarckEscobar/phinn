@@ -85,6 +85,12 @@
 			font-weight: bold;
 			font-size: 10px;
 		}
+		.span {
+			text-transform: uppercase!important;
+			font-family: 'arial'!important;
+			font-size: 10px;
+			font-weight: normal;
+		}
 	</style>
 </head>
 <body>
@@ -118,27 +124,27 @@
 					<table id='tablaReporteDiario'>
 						<tr>
 							<td class='titulos-tablas'><span>orden producción</span></td>
-							<td class='titulos-tablas'><span>".$controPisoDetalle[0]['noOrden']."</span></td>
+							<td class='titulos-tablas'><span class='span'>".$controPisoDetalle[0]['noOrden']."</span></td>
 							<td class='titulos-tablas'><span>fecha</span></td>
-							<td class='titulos-tablas'><span>".$controPisoDetalle[0]['fechaInicio']." / ".$controPisoDetalle[0]['fechaFinalizacion']."</span></td>
+							<td class='titulos-tablas'><span class='span'>".$controPisoDetalle[0]['fechaInicio']." / ".$controPisoDetalle[0]['fechaFinalizacion']."</span></td>
 							<td class='titulos-tablas'><span>maquina</span></td>
 							<td class='titulos-tablas'><span>yankee</span></td>
 						</tr>
 						<tr>
 							<td class='titulos-tablas'><span>producto</span></td>
-							<td class='titulos-tablas'><span>".$controPisoDetalle[0]['producto']."</span></td>
+							<td class='titulos-tablas'><span class='span'>".$controPisoDetalle[0]['producto']."</span></td>
 							<td class='titulos-tablas'><span>hora inicio</span></td>
-							<td class='titulos-tablas'><span>".$horaInicio."</span></td>
+							<td class='titulos-tablas'><span class='span'>".$horaInicio."</span></td>
 							<td class='titulos-tablas'><span>mp 1</span></td>
-							<td>".$chkMaq1."</td>
+							<td class='span'>".$chkMaq1."</td>
 						</tr>
 						<tr>
 							<td class='titulos-tablas'><span>grupo</span></td>
-							<td class='titulos-tablas'><span>".$controPisoDetalle[0]['grupo']."</span></td>
+							<td class='titulos-tablas'><span class='span'>".$controPisoDetalle[0]['grupo']."</span></td>
 							<td class='titulos-tablas'><span>hora final</span></td>
-							<td class='titulos-tablas'><span>".$horaFinal."</span></td>
+							<td class='titulos-tablas'><span class='span'>".$horaFinal."</span></td>
 							<td class='titulos-tablas'><span>mp 2</span></td>
-							<td>".$chkMaq2."</td>
+							<td class='span'>".$chkMaq2."</td>
 						</tr>
 					</table>";
 					} ?>
