@@ -119,16 +119,16 @@ if ($this->session->userdata("Privilegio") == 3) {?>
                                 </a>  
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row"><br>
                             <div class="col s12 m12" style="text-align:right;">
                                 <input type="checkbox" id="ordActiva" checked/>
-                                <label for="ordActiva">Activa</label>
+                                <label id="label-ordActiva" for="ordActiva">Activa</label>
                                 <input type="checkbox" id="ordInactiva" />
-                                <label for="ordInactiva">Inactiva</label>
+                                <label id="label-ordInactiva" for="ordInactiva">Inactiva</label>
                                 <input type="checkbox" id="ordCerrada" />
-                                <label for="ordCerrada">Cerrada</label>
+                                <label id="label-ordCerrada" for="ordCerrada">Cerrada</label>
                                 <input type="checkbox" id="ordAnulada" />
-                                <label for="ordAnulada">Anulada</label>
+                                <label id="label-ordAnulada" for="ordAnulada">Anulada</label>
                             </div>
                         </div>
                         <table id="tlbListaRep2" class="striped">
@@ -292,6 +292,141 @@ if ($this->session->userdata("Privilegio") == 3) {?>
                             <?php } ?>              
                         </tbody>
                     </table>  
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<?php }else if ($this->session->userdata("Privilegio") == 1) {?>
+<main class="mdl-layout__content mdl-color--grey-100">
+    <div class="row">
+        <div class="col s12">
+            <div class="card">
+                <div class="card-content">
+                    <center><span class="card-title purple-text accent-4" style="font-family: robotoblack;">ORDEN DE PRODUCCIÓN</span></center>
+                    <?php 
+                    if ($listaReport) {
+                        foreach($listaReport as $key) {?>
+                            <div class="row">
+                                <center>
+                                    <div class="col s4">
+                                        <span class="card-title purple-text accent-4" id="lblnoOrden"><?php echo $key["NoOrden"]?></span><br/>
+                                        <label class="labelValidacion">N° ORDEN ACTIVA</label>
+                                    </div>
+                                    <div class="col s4">
+                                        <span id="lblFechaInicio" class="card-title purple-text accent-4"><?php echo $key["FechaInicio"]?></span><br/>
+                                        <label  class="labelValidacion">FECHA DE INICIO</label>
+                                    </div>
+                                    <div class="col s4">
+                                        <span id="lblFechaFin" class="card-title purple-text accent-4" id="lblnoOrden"><?php echo $key["FechaFin"]?></span><br/>
+                                        <label class="labelValidacion">FECHA FINAL</label>
+                                    </div>
+                                </center>
+                            </div>
+                        <?php } ?>  
+                    <?php } ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col s12">
+                <div class="col s1 m1 l1 offset-l3 offset-m2">
+                    <i style='color:#039be5; font-size:40px;' class="material-icons purple-text accent-4">search</i>
+                </div>
+                <div class="input-field col s12 m6 l4">
+                    <input  id="filtrarRpt" type="text" placeholder="Buscar" class="validate">
+                    <label for="filtrarRpt"></label>
+                </div>
+            </div>
+        </div>        
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <div class="card">
+                <div class="card-content">
+                    <div class="row"><br>
+                        <div class="col s12 m12" style="text-align:right;">
+                            <input type="checkbox" id="ordActiva" checked/>
+                            <label id="label-ordActiva" for="ordActiva">Activa</label>
+                            <input type="checkbox" id="ordInactiva" />
+                            <label id="label-ordInactiva" for="ordInactiva">Inactiva</label>
+                            <input type="checkbox" id="ordCerrada" />
+                            <label id="label-ordCerrada" for="ordCerrada">Cerrada</label>
+                            <input type="checkbox" id="ordAnulada" />
+                            <label id="label-ordAnulada" for="ordAnulada">Anulada</label>
+                        </div>
+                    </div>
+                    <table id="tlbListaRep2" class="striped">
+                        <thead>
+                            <tr class="tblcabecera">
+                                <th>Ordenes</th>
+                                <th>Nº orden</th>                                 
+                                <th>Inicio</th>
+                                <th>culminación</th>
+                                <th>Estado</th>
+                                <th>OPCIONES</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                if ($ordenesTrabajosCom) {
+                                    $clase="mostrar";
+                                    foreach ($ordenesTrabajosCom as $list) {
+                                        if($list['Estado'] == 0){
+                                            $activo="<td><a data-tooltip='ORDEN ANULADA' class='btn-flat tooltipped noHover'><i style='color:red; font-size:30px;' class='material-icons'>close</i></a></td>";
+                                            $status="<li><a href='#!' onclick='buscarOrdProd(".$list['IdOrden'].")'>Ver</a></li>";
+                                            $ocultarOrden="OrdenAnulada";
+                                        }elseif($list['Estado'] == 1){
+                                            $activo="<td><a data-tooltip='ORDEN ACTIVA' class='btn-flat tooltipped noHover'><i style='color:green; font-size:30px;' class='material-icons'>done</i></a></td>";
+                                            $status="<li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 0)'>Anular</a></li>
+                                                     <li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 2)'>Cerrar</a></li>
+                                                     <li><a href='#!' onclick='buscarOrdProd(".$list['IdOrden'].")'>Ver</a></li>";
+                                            $ocultarOrden="OrdenActiva";
+                                        }elseif($list['Estado'] == 2){
+                                            $activo="<td><a data-tooltip='ORDEN CERRADA' class='btn-flat tooltipped noHover'><i style='color:#696969; font-size:30px;' class='material-icons'>lock</i></a></td>";
+                                            $status="<li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 0)'>Anular</a></li>
+                                                        <li><a href='#!' onclick='buscarOrdProd(".$list['IdOrden'].")'>Ver</a></li>";
+                                            $ocultarOrden="OrdenCerrada";
+                                        }elseif($list['Estado'] == 3){
+                                            $activo="<td><a data-tooltip='ORDEN INACTIVA' class='btn-flat tooltipped noHover'><i style='color:red; font-size:30px;' class='material-icons'>info_outline</i></a></td>";
+                                            $status="<li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 0)'>Anular</a></li>
+                                                    <li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 1)'>Activar</a></li>
+                                                    <li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 2)'>Cerrar</a></li>
+                                                    <li><a href='#!' onclick='buscarOrdProd(".$list['IdOrden'].")'>Ver</a></li>";
+                                            $ocultarOrden="OrdenInactiva";
+                                        }
+                                        echo "<tr class='".$ocultarOrden."'>
+                                                <td class='center green-text detalleNumOrd'><i id='detail2".$list['NoOrden']."' class='material-icons expand-more'>expand_more</i><i id='detail1".$list['NoOrden']."' style='display:none;' class='material-icons expand-more'>expand_less</i>
+                                                    <div id='loader".$list['NoOrden']."' style='display:none;' class='preloader-wrapper small active' >
+                                                        <div class='spinner-layer spinner-yellow-only'>
+                                                        <div style='overflow: visible!important;' class='circle-clipper left'>
+                                                            <div class='circle'></div>
+                                                        </div><div class='gap-patch'>
+                                                            <div class='circle'></div>
+                                                        </div><div style='overflow: visible!important;' class='circle-clipper right'>
+                                                            <div class='circle'></div>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                </td>                                                                        
+                                                <td>".$list['NoOrden']."</td>
+                                                <td>".$list['FechaInicio']."</td>
+                                                <td>".$list['FechaFin']."</td>
+                                                ".$activo."
+                                                <td>
+                                                    <a class='dropdown-button btn-floating' id='ddlts' data-activates='dropdown".$list['IdOrden']."' href='#!'><i class='material-icons left'>mode_edit</i></a>
+                                                    <ul id='dropdown".$list['IdOrden']."' class='dropdown-content'>
+                                                ".$status."
+                                                    </ul>
+                                                </td>                                                                 
+                                            </tr>";
+                                    }
+                                }
+                            ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

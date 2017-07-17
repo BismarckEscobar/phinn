@@ -3,6 +3,15 @@
         <div class="col s12">
             <div class="card">
                 <div class="card-content">
+                    <div class="row">
+                        <div class="col s6 m6" style="text-align:left;">
+                            <div id="retornarP">
+                                <a data-tooltip='REGRESAR' href="<?php echo base_url('index.php/dashboard')?>" class="modal-trigger tooltipped">
+                                    <i class="waves-effect waves-purple material-icons titulosGen">keyboard_backspace</i>
+                                </a>
+                            </div>  
+                        </div>    
+                    </div>
                     <center><span class="card-title purple-text accent-4" style="font-family: robotoblack;">DETALLE DE ORDEN DE TRABAJO</span></center>
                     <div class="row">
                         <center>
@@ -47,6 +56,14 @@
                     <center>
                         <h5 class="card-title purple-text accent-4" style="font-family: robotoblack;">PRODUCCION</h5>
                     </center>
+                    <div class="row"><br>
+                        <div class="col s12 m12" style="text-align:right;">
+                            <input type="checkbox" id="maquina1"/>
+                            <label id="label-maquina1" for="maquina1">Maquina 1</label>
+                            <input type="checkbox" id="maquina2" />
+                            <label id="label-maquina2" for="maquina2">Maquina 2</label>
+                        </div>
+                    </div> 
                     <table id="tablaProd" class="striped responsive-table">
                         <thead>
                             <tr class="tblcabecera">
@@ -70,14 +87,16 @@
                                                 foreach ($produccion as $key) {                         
 
                                                     if($key['Maquina']=='1'){
-                                                        $total1 +=$key['Peso']; 
+                                                        $total1 +=$key['Peso'];
+                                                        $class="mostrarMaquina1";
                                                     }
                                                     else if($key['Maquina']=='2')
                                                     {
                                                             $total +=$key['Peso'];
+                                                            $class="mostrarMaquina2";
                                                     }
                                                     echo "
-                                                        <tr>
+                                                        <tr class='".$class."'>
                                                             <td>".$key['Nombre']."</td>
                                                             <td>".$key['Maquina']."</td>
                                                             <td>".$key['HoraInicio']."</td>
@@ -195,13 +214,6 @@
 <!--MODALES -->
 <div id="nuevaProduccion" class="modal1" style="height:600px;">
     <div class="modal-content">
-        <div class="right row">
-            <div class="col s1 m1 l1">
-                <a href="#!" class="BtnClose modal-action modal-close noHover">
-                    <i class="material-icons">highlight_off</i>
-                </a>
-            </div>
-        </div>
         <div class="row noMargen center">
             <div class="noMargen col s12 m12 l12">
                 <h6 class="center" style="font-family:'robotoblack'; color:#831F82;font-size:30px; margin-bottom:30px;">AGREGAR PRODUCCION</h6>

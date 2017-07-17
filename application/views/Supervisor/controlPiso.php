@@ -185,14 +185,7 @@
 </main>
 <!--PANTALLA MODAL: AGREGAR CONSUMO ELECTRICO-->
 <div id="agregaElectricidad" class="modal">
-    <div class="modal-content">
-        <div class="right row">
-            <div class="col s1 m1 l1">
-                <a href="#!" class="BtnClose modal-action modal-close noHover">
-                    <i class="material-icons">highlight_off</i>
-                </a>
-            </div>
-        </div>        
+    <div class="modal-content">   
         <div class="row noMargen center">
             <div class="noMargen col s12 m12 l12">
                 <h6 class="center" style="font-family:'robotoblack'; color:#831F82;font-size:30px; margin-bottom:30px;">ELECTRICIDAD Kwh</h6>

@@ -1,3 +1,17 @@
+/*
+Navicat MySQL Data Transfer
+
+Source Server         : localhost-new
+Source Server Version : 50505
+Source Host           : localhost:3306
+Source Database       : phinn
+
+Target Server Type    : MYSQL
+Target Server Version : 50505
+File Encoding         : 65001
+
+Date: 2017-07-17 09:16:01
+*/
 
 SET FOREIGN_KEY_CHECKS=0;
 
@@ -150,18 +164,18 @@ CREATE TABLE `control_piso_detalle` (
   `idControlPiso` int(11) NOT NULL,
   `IdInsumo` int(11) DEFAULT NULL,
   PRIMARY KEY (`idDetalle`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of control_piso_detalle
 -- ----------------------------
-INSERT INTO `control_piso_detalle` VALUES ('8', 'Fibra', '78', 'Blanco impreso', 'Kg', '8585.00', '8.00', '8577.00', '2', '1');
+INSERT INTO `control_piso_detalle` VALUES ('8', 'Fibra', '454', 'Blanco impreso', 'Kg', '525.00', '5.00', '520.00', '2', '1');
 INSERT INTO `control_piso_detalle` VALUES ('9', 'Fibra', '78', 'Mezclado (color)', 'Kg', '522.00', '22.00', '500.00', '2', '2');
 INSERT INTO `control_piso_detalle` VALUES ('10', 'Fibra', '45', 'Poliacrilamida PAM', 'Kg', '625.00', '5.00', '620.00', '2', '3');
 INSERT INTO `control_piso_detalle` VALUES ('11', 'Fibra', '45', 'Merma', 'Kg', '211.00', '11.00', '200.00', '2', '12');
 INSERT INTO `control_piso_detalle` VALUES ('12', 'quimico', '877', 'gas butano', 'lts', '562.00', '2.00', '560.00', '2', '13');
 INSERT INTO `control_piso_detalle` VALUES ('13', 'Quimico', '0', 'DETAC', 'Kg', '444.00', '44.00', '400.00', '2', '11');
-INSERT INTO `control_piso_detalle` VALUES ('14', 'Fibra', '77', 'Blanco impreso', 'Kg', '77.00', '7.00', '70.00', '3', '1');
+INSERT INTO `control_piso_detalle` VALUES ('14', 'Fibra', '454', 'Blanco impreso', 'Kg', '525.00', '5.00', '520.00', '3', '1');
 INSERT INTO `control_piso_detalle` VALUES ('15', 'Fibra', '458', 'Mezclado (color)', 'Kg', '485.00', '5.00', '480.00', '3', '2');
 INSERT INTO `control_piso_detalle` VALUES ('16', 'Fibra', '888', 'Poliacrilamida PAM', 'Kg', '8888.00', '8.00', '8880.00', '3', '3');
 INSERT INTO `control_piso_detalle` VALUES ('17', 'Fibra', '454', 'Blanco impreso', 'Kg', '525.00', '5.00', '520.00', '4', '1');
@@ -169,6 +183,8 @@ INSERT INTO `control_piso_detalle` VALUES ('18', 'Quimico', '58', 'Soda caustica
 INSERT INTO `control_piso_detalle` VALUES ('19', 'Quimico', '45', 'Peroxido de hidrogeno', 'Kg', '856.00', '6.00', '850.00', '4', '6');
 INSERT INTO `control_piso_detalle` VALUES ('20', 'Quimico', '488', 'GSP-8', 'Kg', '488.00', '8.00', '480.00', '4', '7');
 INSERT INTO `control_piso_detalle` VALUES ('21', 'Quimico', '458', 'Aceite vegetal/Hercules', 'Kg', '599.00', '9.00', '590.00', '4', '8');
+INSERT INTO `control_piso_detalle` VALUES ('22', 'Quimico', '88', 'Oxido de polietileno PEO', 'Kg', '888.00', '8.00', '880.00', '4', '9');
+INSERT INTO `control_piso_detalle` VALUES ('23', 'Quimico', '8999', 'DETAC', 'Kg', '9999.00', '9.00', '9990.00', '4', '11');
 
 -- ----------------------------
 -- Table structure for detalle_planes
@@ -206,7 +222,7 @@ CREATE TABLE `horas_molienda` (
   `horaFin` time NOT NULL,
   `IdReporteDiario` int(11) NOT NULL,
   PRIMARY KEY (`IdHora`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of horas_molienda
@@ -229,6 +245,7 @@ INSERT INTO `horas_molienda` VALUES ('15', 'BATIDO', '01:00:00', '01:30:00', '64
 INSERT INTO `horas_molienda` VALUES ('16', 'BATIDO', '02:30:00', '03:00:00', '64');
 INSERT INTO `horas_molienda` VALUES ('17', 'BATIDO', '04:00:00', '04:30:00', '64');
 INSERT INTO `horas_molienda` VALUES ('18', 'BATIDO', '05:00:00', '05:30:00', '64');
+INSERT INTO `horas_molienda` VALUES ('19', 'BATIDO', '06:10:00', '09:20:00', '67');
 
 -- ----------------------------
 -- Table structure for insumos
@@ -354,6 +371,16 @@ INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-07-14 01:16:
 INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-07-14 15:58:52');
 INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-07-14 16:23:25');
 INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-07-14 22:15:02');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-07-14 22:56:39');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-07-14 23:41:40');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-07-15 00:29:45');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-07-15 00:38:11');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-07-15 01:20:14');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-07-15 01:23:14');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-07-15 01:26:45');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-07-15 01:40:14');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-07-17 15:55:34');
+INSERT INTO `log` VALUES (null, 'INGRESO AL SISTEMA EXITOSO', '2017-07-17 16:37:54');
 
 -- ----------------------------
 -- Table structure for maquinas
@@ -364,13 +391,14 @@ CREATE TABLE `maquinas` (
   `maquina` varchar(30) NOT NULL,
   `comentario` varchar(300) NOT NULL,
   PRIMARY KEY (`idMaquina`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of maquinas
 -- ----------------------------
 INSERT INTO `maquinas` VALUES ('1', 'Maquina 1', 'Maquina 1 2017/06/05');
 INSERT INTO `maquinas` VALUES ('2', 'Maquina 2', 'Maquina 2 2017/06/05');
+INSERT INTO `maquinas` VALUES ('3', 'Maquina 3', 'Caldera');
 
 -- ----------------------------
 -- Table structure for mp_insumos
@@ -571,7 +599,7 @@ CREATE TABLE `reporte_diario` (
 -- ----------------------------
 -- Records of reporte_diario
 -- ----------------------------
-INSERT INTO `reporte_diario` VALUES ('61', '1-8585', '8585', '1', '2017-07-12', '2017-07-12', '3', null, 'Higienico', '3586.5', '', '');
+INSERT INTO `reporte_diario` VALUES ('61', '1-8585', '8585', '1', '2017-07-12', '2017-07-12', '3', null, 'Higienico', '3586.5', '', '\0');
 INSERT INTO `reporte_diario` VALUES ('62', '1-8585', '8585', '2', '2017-07-12', '2017-07-13', '3', null, 'Higienico', '6052', '', '');
 INSERT INTO `reporte_diario` VALUES ('63', '1-8965', '8965', '1', '2017-07-17', '2017-07-17', '3', null, 'Higienico', null, '', '');
 INSERT INTO `reporte_diario` VALUES ('64', '1-8965', '8965', '2', '2017-07-17', '2017-07-18', '3', null, 'Higienico', null, '', '');
@@ -615,7 +643,7 @@ CREATE TABLE `tiempos_muertos` (
   `Maquina` varchar(255) DEFAULT NULL,
   `Descripcion` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`IdTiempoMuerto`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tiempos_muertos
@@ -637,6 +665,15 @@ INSERT INTO `tiempos_muertos` VALUES ('26', '67', '1-7475', '7475', '10:16:00', 
 INSERT INTO `tiempos_muertos` VALUES ('28', '68', '1-7475', '7475', '00:30:00', '6:00pm-6:00am', '00:32:00', '2', 'p');
 INSERT INTO `tiempos_muertos` VALUES ('29', '68', '1-7475', '7475', '03:09:00', '6:00pm-6:00am', '03:11:00', '2', 'p');
 INSERT INTO `tiempos_muertos` VALUES ('30', '68', '1-7475', '7475', '19:55:00', '6:00pm-6:00am', '20:06:00', '2', 'p');
+INSERT INTO `tiempos_muertos` VALUES ('32', '67', '1-7475', '7475', '08:10:00', '6:00am-6:00pm', '08:20:00', '3', 'cambio');
+INSERT INTO `tiempos_muertos` VALUES ('33', '67', '1-7475', '7475', '10:00:00', '6:00am-6:00pm', '10:50:00', '3', 'cambio');
+INSERT INTO `tiempos_muertos` VALUES ('34', '67', '1-7475', '7475', '12:15:00', '6:00am-6:00pm', '12:20:00', '3', 'cambio');
+INSERT INTO `tiempos_muertos` VALUES ('35', '67', '1-7475', '7475', '14:45:00', '6:00am-6:00pm', '15:00:00', '3', 'cambio');
+INSERT INTO `tiempos_muertos` VALUES ('36', '67', '1-7475', '7475', '16:20:00', '6:00am-6:00pm', '16:30:00', '3', 'cambio');
+INSERT INTO `tiempos_muertos` VALUES ('37', '67', '1-7475', '7475', '16:55:00', '6:00am-6:00pm', '17:00:00', '3', 'cambio');
+INSERT INTO `tiempos_muertos` VALUES ('38', '68', '1-7475', '7475', '20:15:00', '6:00pm-6:00am', '20:20:00', '3', 'cambio');
+INSERT INTO `tiempos_muertos` VALUES ('39', '68', '1-7475', '7475', '23:30:00', '6:00pm-6:00am', '23:35:00', '3', 'cambio');
+INSERT INTO `tiempos_muertos` VALUES ('40', '67', '1-7475', '7475', '06:00:00', '6:00am-6:00pm', '07:20:00', '3', 'cambio');
 
 -- ----------------------------
 -- Table structure for turnos
@@ -684,7 +721,7 @@ INSERT INTO `usuarios` VALUES ('7', 'user2', 'user2', 'e10adc3949ba59abbe56e057f
 -- View structure for view_cargas_pulper_completo
 -- ----------------------------
 DROP VIEW IF EXISTS `view_cargas_pulper_completo`;
-CREATE ALGORITHM=UNDEFINED   VIEW `view_cargas_pulper_completo` AS SELECT
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost`  VIEW `view_cargas_pulper_completo` AS SELECT
 insumos.descripcion,
 cargas_pulper.IdCargaPulper,
 cargas_pulper.IdInsumo,
@@ -698,7 +735,7 @@ cargas_pulper ;
 -- View structure for view_detallesplanescat1
 -- ----------------------------
 DROP VIEW IF EXISTS `view_detallesplanescat1`;
-CREATE  VIEW `view_detallesplanescat1` AS SELECT
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost`  VIEW `view_detallesplanescat1` AS SELECT
 	dp.IdDetallePlan,
 	dp.IdPlan,
 	p.Comentario,
@@ -719,7 +756,7 @@ AND p.Estado = 1 ;
 -- View structure for view_detallesplanescat2
 -- ----------------------------
 DROP VIEW IF EXISTS `view_detallesplanescat2`;
-CREATE  VIEW `view_detallesplanescat2` AS SELECT
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost`  VIEW `view_detallesplanescat2` AS SELECT
 	dp.IdPlan,
 	dp.IdDetallePlan,
 	dp.IdInsumo,
@@ -740,7 +777,7 @@ AND p.Estado = 1 ;
 -- View structure for view_detallesplanescat3
 -- ----------------------------
 DROP VIEW IF EXISTS `view_detallesplanescat3`;
-CREATE  VIEW `view_detallesplanescat3` AS SELECT
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost`  VIEW `view_detallesplanescat3` AS SELECT
 	dp.IdPlan,
 	dp.IdDetallePlan,
 	p.Comentario,
@@ -761,7 +798,7 @@ AND p.Estado = 1 ;
 -- View structure for view_detallesplanescat4
 -- ----------------------------
 DROP VIEW IF EXISTS `view_detallesplanescat4`;
-CREATE  VIEW `view_detallesplanescat4` AS SELECT DISTINCT
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost`  VIEW `view_detallesplanescat4` AS SELECT DISTINCT
 	dp.IdPlan,
 	dp.IdDetallePlan,
 	dp.IdInsumo,
@@ -782,7 +819,7 @@ AND p.Estado = 1 ;
 -- View structure for view_mp_insumos
 -- ----------------------------
 DROP VIEW IF EXISTS `view_mp_insumos`;
-CREATE ALGORITHM=UNDEFINED   VIEW `view_mp_insumos` AS SELECT
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost`  VIEW `view_mp_insumos` AS SELECT
 	mp.IdMpInsumos,
 mp.IdReporteDiario,
 i.Descripcion,
@@ -799,7 +836,7 @@ insumos i on mp.Descripcion = i.IdInsumo ;
 -- View structure for view_orden_produccion
 -- ----------------------------
 DROP VIEW IF EXISTS `view_orden_produccion`;
-CREATE  VIEW `view_orden_produccion` AS SELECT
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost`  VIEW `view_orden_produccion` AS SELECT
 	ord.IdOrden AS IdOrden,
 	ord.NoOrden AS NoOrden,
 	us.Nombre AS Usuario,
@@ -815,7 +852,7 @@ ORDER BY ord.Estado=1 DESC ;
 -- View structure for view_ordproduccioncoordinador
 -- ----------------------------
 DROP VIEW IF EXISTS `view_ordproduccioncoordinador`;
-CREATE  VIEW `view_ordproduccioncoordinador` AS SELECT
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost`  VIEW `view_ordproduccioncoordinador` AS SELECT
                 ord.IdOrden AS IdOrden,
                 ord.NoOrden AS NoOrden,
                 us.Nombre AS Usuario,
@@ -832,7 +869,7 @@ ORDER BY ord.Estado=1 DESC ;
 -- View structure for view_pasta
 -- ----------------------------
 DROP VIEW IF EXISTS `view_pasta`;
-CREATE ALGORITHM=UNDEFINED   VIEW `view_pasta` AS SELECT
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost`  VIEW `view_pasta` AS SELECT
 	p.IdPasta,
 	p.IdReporteDiario,
 	t.Tanque,
@@ -847,7 +884,7 @@ INNER JOIN tanques t ON t.IdTanque = p.Tanque ;
 -- View structure for view_produccion
 -- ----------------------------
 DROP VIEW IF EXISTS `view_produccion`;
-CREATE  VIEW `view_produccion` AS SELECT
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost`  VIEW `view_produccion` AS SELECT
 	pro.IdProduccion,
 	pro.IdReporteDiario,
 	pro.NoOrden,
@@ -869,7 +906,7 @@ order by Maquina asc ;
 -- View structure for view_reporte
 -- ----------------------------
 DROP VIEW IF EXISTS `view_reporte`;
-CREATE  VIEW `view_reporte` AS SELECT
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost`  VIEW `view_reporte` AS SELECT
 	rpt.IdReporte AS IdReporte,
 	rpt.NoOrden AS NoOrden,
 	rpt.Tipo AS Tipo,
@@ -885,7 +922,7 @@ INNER JOIN usuarios us ON rpt.Usuario = us.IdUsuario ;
 -- View structure for view_reportediario
 -- ----------------------------
 DROP VIEW IF EXISTS `view_reportediario`;
-CREATE  VIEW `view_reportediario` AS SELECT
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost`  VIEW `view_reportediario` AS SELECT
 	rd.IdReporteDiario,
 	rd.Consecutivo,
 	rd.NoOrder,
@@ -907,7 +944,7 @@ WHERE op.Estado = 1 ;
 -- View structure for view_reportediariodetalle
 -- ----------------------------
 DROP VIEW IF EXISTS `view_reportediariodetalle`;
-CREATE  VIEW `view_reportediariodetalle` AS SELECT
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost`  VIEW `view_reportediariodetalle` AS SELECT
 	rd.IdReporteDiario,
 	rd.Consecutivo,
 	rd.NoOrder,
@@ -931,7 +968,7 @@ ORDER BY rd.Consecutivo ASC ;
 -- View structure for view_vistacoordinador
 -- ----------------------------
 DROP VIEW IF EXISTS `view_vistacoordinador`;
-CREATE  VIEW `view_vistacoordinador` AS SELECT
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost`  VIEW `view_vistacoordinador` AS SELECT
 	rd.IdReporteDiario,
 	rd.Consecutivo,
 	rd.NoOrder,
@@ -954,7 +991,7 @@ WHERE rd.Estado = 1 ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `cabeceraConsolidado`;
 DELIMITER ;;
-CREATE  PROCEDURE `cabeceraConsolidado`(IN consecutivo VARCHAR(50))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `cabeceraConsolidado`(IN consecutivoC VARCHAR(50))
 BEGIN
 SET @produccionReal = (SELECT SUM(ProduccionTotal) FROM reporte_diario WHERE Consecutivo=consecutivoC);
 SET @mermaMq1 = (SELECT SUM(DISTINCT Merma)	FROM produccion	WHERE	NoOrden = consecutivoC AND Maquina = 1);
@@ -989,7 +1026,11 @@ SELECT COUNT(DISTINCT cpp.IdCargaPulper)
 		((SELECT totalTiempoMMMQ1(consecutivoC)/60)-12) AS modMMaquina1,
 		((SELECT totalTiempoMMMQ2(consecutivoC)/60)-12) AS modMMaquina2,
 		((SELECT totalTiempoMVMQ1(consecutivoC)/60)-12) AS modVMaquina1,
-		((SELECT totalTiempoMVMQ2(consecutivoC)/60)-12) AS modVMaquina2
+		((SELECT totalTiempoMVMQ2(consecutivoC)/60)-12) AS modVMaquina2,
+		((SELECT totalTiempoMMMQ3(consecutivoC)/60)-12) AS modMMaquina3,
+		((SELECT totalTiempoMVMQ3(consecutivoC)/60)-12) AS modVMaquina3,
+		((@mermaMq1/60)-12) AS mermaMatMQ1,
+		((@mermaMq2/60)-12) AS mermaVespMQ2
 	FROM
 		reporte_diario rd
 	INNER JOIN turnos t ON rd.Turno = t.IdTurno
@@ -1009,7 +1050,7 @@ DELIMITER ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `cabeceraReporteDiario`;
 DELIMITER ;;
-CREATE  PROCEDURE `cabeceraReporteDiario`(IN idReporteD INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `cabeceraReporteDiario`(IN idReporteD INT)
 BEGIN
  SELECT
 	rd.NoOrder,
@@ -1036,7 +1077,7 @@ DELIMITER ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `consumoElectrico`;
 DELIMITER ;;
-CREATE  PROCEDURE `consumoElectrico`(IN fechaInicioC date, IN fechaFinaLC date, IN horaInicioC time, IN horaFinC time, IN consumoInicialC DECIMAL(10,2), IN consumoFinalC DECIMAL(10,2), IN consecutivoC VARCHAR(10) )
+CREATE DEFINER=`root`@`localhost` PROCEDURE `consumoElectrico`(IN fechaInicioC date, IN fechaFinaLC date, IN horaInicioC time, IN horaFinC time, IN consumoInicialC DECIMAL(10,2), IN consumoFinalC DECIMAL(10,2), IN consecutivoC VARCHAR(10) )
 BEGIN
 IF EXISTS ( SELECT consecutivo FROM consumoElectrico WHERE	consecutivo = consecutivoC)
 THEN
@@ -1085,7 +1126,7 @@ DELIMITER ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `controlPisoInfo`;
 DELIMITER ;;
-CREATE  PROCEDURE `controlPisoInfo`(IN consecutivo VARCHAR(50))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `controlPisoInfo`(IN consecutivo VARCHAR(50))
 BEGIN
 	SELECT
 		cp.idControlPiso,
@@ -1111,7 +1152,7 @@ DELIMITER ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `detalleControlPiso`;
 DELIMITER ;;
-CREATE  PROCEDURE `detalleControlPiso`(IN idInsumoC INT,IN tipoC VARCHAR (100),
+CREATE DEFINER=`root`@`localhost` PROCEDURE `detalleControlPiso`(IN idInsumoC INT,IN tipoC VARCHAR (100),
 	IN codigoC VARCHAR (30),
 	IN descripcionC VARCHAR (100),
 	IN unidadMedidadC VARCHAR (15),
@@ -1170,7 +1211,7 @@ DELIMITER ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `encabezadoControlPiso`;
 DELIMITER ;;
-CREATE  PROCEDURE `encabezadoControlPiso`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `encabezadoControlPiso`(
 	IN noOrdenC INT,
 	IN consecutivoC VARCHAR (10),
 	IN fechaInicioC date,
@@ -1238,7 +1279,7 @@ DELIMITER ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `infoPasta`;
 DELIMITER ;;
-CREATE  PROCEDURE `infoPasta`(IN turno INT,
+CREATE DEFINER=`root`@`localhost` PROCEDURE `infoPasta`(IN turno INT,
 	IN consecutivo VARCHAR (10))
 BEGIN
 	SELECT
@@ -1261,7 +1302,7 @@ DELIMITER ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `reporteControlPiso`;
 DELIMITER ;;
-CREATE  PROCEDURE `reporteControlPiso`(IN consecutivo VARCHAR(10))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `reporteControlPiso`(IN consecutivo VARCHAR(10))
 BEGIN
 	SELECT
 		cp.consecutivo,
@@ -1356,6 +1397,39 @@ END
 DELIMITER ;
 
 -- ----------------------------
+-- Function structure for totalTiempoMMMQ3
+-- ----------------------------
+DROP FUNCTION IF EXISTS `totalTiempoMMMQ3`;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` FUNCTION `totalTiempoMMMQ3`(consecutivoC VARCHAR (10)) RETURNS double
+    READS SQL DATA
+    DETERMINISTIC
+BEGIN
+DECLARE	difTotal INT;
+SELECT SUM( IF (
+	tm.HoraInicio > tm.HoraFin,
+	TIMESTAMPDIFF(
+		MINUTE,
+		tm.HoraInicio,
+		CONVERT ('24:00:00', time)
+	) + TIMESTAMPDIFF(
+		MINUTE,
+		CONVERT ('00:00:00', time),
+		tm.HoraFin
+	),
+	TIMESTAMPDIFF(MINUTE,tm.HoraInicio,tm.HoraFin)
+)) INTO difTotal
+FROM
+	tiempos_muertos tm
+WHERE
+	tm.Consecutivo = consecutivoC
+AND tm.Maquina = 3 and tm.Turno = '6:00am-6:00pm';
+RETURN difTotal;
+END
+;;
+DELIMITER ;
+
+-- ----------------------------
 -- Function structure for totalTiempoMVMQ1
 -- ----------------------------
 DROP FUNCTION IF EXISTS `totalTiempoMVMQ1`;
@@ -1416,6 +1490,39 @@ FROM
 WHERE
 	tm.Consecutivo = consecutivoC
 AND tm.Maquina = 2 and tm.Turno = '6:00pm-6:00am';
+RETURN difTotal;
+END
+;;
+DELIMITER ;
+
+-- ----------------------------
+-- Function structure for totalTiempoMVMQ3
+-- ----------------------------
+DROP FUNCTION IF EXISTS `totalTiempoMVMQ3`;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` FUNCTION `totalTiempoMVMQ3`(consecutivoC VARCHAR (10)) RETURNS double
+    READS SQL DATA
+    DETERMINISTIC
+BEGIN
+DECLARE	difTotal INT;
+SELECT SUM( IF (
+	tm.HoraInicio > tm.HoraFin,
+	TIMESTAMPDIFF(
+		MINUTE,
+		tm.HoraInicio,
+		CONVERT ('24:00:00', time)
+	) + TIMESTAMPDIFF(
+		MINUTE,
+		CONVERT ('00:00:00', time),
+		tm.HoraFin
+	),
+	TIMESTAMPDIFF(MINUTE,tm.HoraInicio,tm.HoraFin)
+)) INTO difTotal
+FROM
+	tiempos_muertos tm
+WHERE
+	tm.Consecutivo = consecutivoC
+AND tm.Maquina = 3 and tm.Turno = '6:00pm-6:00am';
 RETURN difTotal;
 END
 ;;

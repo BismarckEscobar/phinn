@@ -38,7 +38,7 @@
     			<div class="card-content">
                     <div class="row">
                         <div class="col s10 m10" style="text-align:left;">
-                            <div id="retornarP">
+                        <div id="retornarP">
                                 <a data-tooltip='REGRESAR' href="../menuOrdenTrabajo/<?php echo $key["IdReporteDiario"]?>" class="btn purple darken-1 waves-effect waves-light tooltipped">
                                     <i class="material-icons">keyboard_backspace</i>
                                 </a>
@@ -52,7 +52,17 @@
                         <div class="col s12 m12">
                             <center><h5 class="card-title titulos" >TIEMPOS MUERTOS</h5></center>
                         </div>
-                    </div>    
+                    </div>
+                    <div class="row"><br>
+                        <div class="col s12 m12" style="text-align:right;">
+                            <input type="checkbox" id="maquina1"/>
+                            <label id="label-maquina1" for="maquina1">Maquina 1</label>
+                            <input type="checkbox" id="maquina2" />
+                            <label id="label-maquina2" for="maquina2">Maquina 2</label>
+                            <input type="checkbox" id="maquina3" />
+                            <label id="label-maquina3" for="maquina3">Maquina 3</label>
+                        </div>
+                    </div>   
 					<table id="tlbTiemposMuertos" class="striped">
 						<thead>
 		                    <tr class="tblcabecera">
@@ -68,8 +78,15 @@
 								if(!($tiemposM)){									
 								} else {
 									foreach ($tiemposM as $key) {
+                                        if ($key['Maquina'] == 'Maquina 1') {
+                                            $class="mostrarMaquina1";
+                                        }elseif ($key['Maquina'] == 'Maquina 2') {
+                                            $class="mostrarMaquina2";
+                                        }elseif ($key['Maquina'] == 'Maquina 3') {
+                                            $class="mostrarMaquina3";
+                                        }
 										echo "
-											<tr>
+											<tr class='".$class."'>
 												<td>".$key['HoraInicio']."</td>
 												<td>".$key['HoraFin']."</td>
 												<td>".$key['Intervalos']."</td>
@@ -89,7 +106,7 @@
 						</tbody>
 					</table><br>
 					<div id="agregarTM" class="fixed-action-btn">
-						<a data-tooltip='AGREGAR TIEMPO MUERTO' href="#nuevoTiempoMuerto" class="modal-trigger tooltipped btn-floating btn-large waves-effect waves-light amber accent-4"><i class="material-icons">add</i></a>		
+						<a data-tooltip='AGREGAR TIEMPO MUERTO' data-position="top" href="#nuevoTiempoMuerto" class="modal-trigger tooltipped btn-floating btn-large waves-effect waves-light amber darken-4"><i class="material-icons">add</i></a>		
 					</div><br> 				
     			</div><br><br>
     		</div>
@@ -101,14 +118,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////-->
 <!-- AGREGAR NUEVO TIEMPO MUERTO -->
 <div id="nuevoTiempoMuerto" class="modal">
-    <div class="modal-content">
-        <div class="right row">
-            <div class="col s1 m1 l1">
-                <a href="#!" class="BtnClose modal-action modal-close noHover">
-                    <i class="material-icons">highlight_off</i>
-                </a>
-            </div>
-        </div>        
+    <div class="modal-content">     
         <div class="row noMargen center">
             <div class="noMargen col s12 m12 l12">
                 <h6 class="center titulos">AGREGAR TIEMPO MUERTO</h6>
@@ -199,14 +209,7 @@
 </div>
 <!-- VISUALIZAR TIEMPOS MUERTOS -->
 <div id="visTiempoM" class="modal">
-    <div class="modal-content">
-        <div class="right row">
-            <div class="col s1 m1 l1">
-                <a href="#!" class="BtnClose modal-action modal-close noHover">
-                    <i class="material-icons">highlight_off</i>
-                </a>
-            </div>
-        </div>        
+    <div class="modal-content">    
         <div class="row noMargen center">
             <div class="noMargen col s12 m12 l12">
                 <h6 class="center" style="font-family:'robotoblack'; color:#831F82;font-size:30px; margin-bottom:30px;">DETALLE TIEMPO MUERTO</h6>

@@ -11,19 +11,10 @@
             }else{
                 switch ($_SESSION['Privilegio']) {
                     case 1: //ADMINISTRADOR
-
-                        echo  '<br><br><br>
+                    echo  '<br><br><br>
                     <div class="container">
                         <div class="row">
-                            <div class="col s12 m4">
-                                <center>                          
-                                    <a data-tooltip="ORDENES PRODUCCIÓN" href='.base_url("index.php/ordProduccion").' class="modal-trigger tooltipped purple-text darken-4">
-                                        <i class="material-icons large">poll</i>
-                                        <center><span class="titulo-secundario">ORDENES PRODUCCIÓN</span></center>
-                                    </a>
-                                </center>
-                            </div>
-                            <div class="col s12 m4">
+                            <div class="col s6 m6">
                                 <center>                                    
                                     <a data-tooltip="ORDENES DE TRABAJO" href='.base_url("index.php/OrdenProduccion").' class="modal-trigger tooltipped purple-text darken-4">
                                         <i class="material-icons large">content_paste</i>
@@ -31,17 +22,16 @@
                                     </a>                                  
                                 </center>                                
                             </div>
-                            <div class="col s12 m4">
+                            <div class="col s6 m6">
                                 <center>                                   
-                                    <a data-tooltip="USUARIOS" href='.base_url("index.php/Usuarios").' class="modal-trigger tooltipped purple-text darken-4">
-                                        <i class="material-icons  large">supervisor_account</i>
-                                        <center><span class="titulo-secundario">USUARIOS</span></center>
+                                    <a data-tooltip="REPORTES" href='.base_url("index.php/reportes").' class="modal-trigger tooltipped purple-text darken-4">
+                                        <i class="material-icons large center-align">trending_up</i>
+                                        <center><span class="titulo-secundario">REPORTES</span></center>
                                     </a>                                    
                                 </center>                                
-                            </div>
+                            </div> 
                         </div>
                     </div>';
-
                     break;
                     case 2: 
                         echo '<div class="col offset-l4 s12 l2">
