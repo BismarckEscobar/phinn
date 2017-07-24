@@ -52,6 +52,12 @@
 												</div>
 											</div>										
 										</form>
+										<div class="row">
+											<div class="col s12">
+												<center><a class="right" href="<?php echo base_url("index.php/Descargar")?>">AYUDA</a></center>							
+											</div><br>
+										</div>
+										</section>
 									</div>
 								</div>
 							</div>

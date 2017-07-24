@@ -2482,7 +2482,6 @@ function DeleteTanq(elem) {
 
 /***************FIN FUNCIONES SOBRE TANQUES*******************/
 function GuardaDetPlan() {
-    alert('aca');
     var table = $('#chkInsumo').DataTable();
     var insumos1 = new Array();
     var insumos2 = new Array();
@@ -2591,7 +2590,7 @@ function EliminaDetPlan(elem) {
         showCloseButton: true,
         showCancelButton: true,
         confirmButtonText: 'ELIMINAR',
-        cancelButtonColor: "#d32f2f ",
+        confirmButtonColor: '#831F82',
         cancelButtonText: 'CANCELAR'
     }).then(function() {
         $.ajax({

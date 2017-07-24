@@ -253,7 +253,6 @@
 									   <a class="Btnadd btn waves-effect waves-light" id="actualizaHMolienda" onclick="actualizarHorasMolienda()" href="#">ACTUALIZAR
 		                    		   </a>
 									   	<a class="Btnadd btn waves-effect waves-light" id="cerrarHM1" href="#">CERRAR
-											<i class="material-icons right">clear</i>
 										</a>';
 								   }
 								   

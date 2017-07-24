@@ -158,3 +158,7 @@ $route['ValidaFecha/(:any)/(:any)/(:any)'] = 'Ordenproduccion_controller/Validar
     $route['reporteConsolidado/(:any)'] = "exportarPdf_Controller/rptConsolidadoFinal/$1";
     $route['guardandoPastaProc'] = "controlPiso_Controller/guardarPastaProcesada";
     $route['eliminarPastaProces/(:any)'] = "controlPiso_Controller/eliminarPasta/$1";
+
+    $route['Acreditar'] = 'Login_controller/Acreditar';
+    $route['Salir'] = 'Login_controller/Salir';
+    $route['Descargar'] = 'Login_controller/dowload';
