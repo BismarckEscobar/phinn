@@ -55,4 +55,12 @@ class Login_controller extends CI_Controller {
     		}
     	}
     }
+
+     public function dowload() {
+        $this->load->helper('download');
+        $data = file_get_contents("./assets/Manual/Manual.rar");
+        $name = 'Manual.rar';
+        //use this function to force the session/browser to download the file uploaded by the user 
+        force_download($name, $data);
+    }
 }

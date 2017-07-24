@@ -142,40 +142,68 @@
 									</tbody>
 								</table><br>								
 							</div>
-						</div>
+						</div><br><br>
 						<div class="right row">							
 							<a class="Btnadd btn waves-effect waves-light" id="agregarRows" onclick="guardarControlPiso()" href="#!" style="background-color:#831F82;">guardar			  
 		                    </a>	
 						</div><br><br>
-						<div class="row1" style="width:70%; margin: 0 auto;">
+						<div class="row">
 							<div class="col s12">
-								<center><span class="card-title accent-4 titulos">PASTA PROCESADA EN TANQUES</span></center>
-							</div><br><br>
-							<table class="striped" id="tblPastaProc">
-								<thead class="tblcabecera">
-									<th>tipo</th>
-									<th>Codigo</th>
-									<th>tanque</th>
-									<th>ud. de medida</th>
-									<th>pasta tanque final</th>
-								</thead>
-								<tbody>
+							<center><span class="card-title accent-4 titulos">PASTA PROCESADA EN TANQUES</span></center><br>
+								<div class="row">
+									<div class="col s6" align="left">
+										<a class="Btnadd btn waves-effect waves-light" id="agregaPasta" href="#agregaPastaProc" style="background-color:#831F82;">AGREGAR
+					                        <i class="material-icons right">add</i>
+					                    </a>
+									</div>
+									<div class="col s6" align="right">
 									<?php 
-									if ($pastaDetalle) {
-										foreach ($pastaDetalle as $key) {
-											echo "
-												<tr>
-													<td>Pasta</td>
-													<td> - </td>
-													<td>".$key['Tanque']."</td>
-													<td>KG</td>
-													<td>".$key['pasta']."</td>
-												</tr>";
+										if ($detalleOrdTrabajo) {
+											if ($detalleOrdTrabajo['rptPasta']==1) {
+												$html = '<input type="checkbox" id="incluirRptPastaProc" checked/>';
+												$text = 'EXCLUIR DEL REPORTE';
+											}else {
+												$html = '<input type="checkbox" id="incluirRptPastaProc"/>';
+												$text = 'ADJUNTAR AL REPORTE';
 											}
 										}
+										echo $html;
+										echo '<label id="label-incluirRptPastaProc" for="incluirRptPastaProc">'.$text.'</label>';
 									?>
-								</tbody>
-							</table>
+									</div>
+								</div>
+								<table class="striped" id="tblPastaProc">
+									<thead class="tblcabecera">
+										<th>tipo</th>
+										<th>Codigo</th>
+										<th>tanque</th>
+										<th>ud. de medida</th>
+										<th>pasta tanque final</th>
+										<th>Opciones</th>
+									</thead>
+									<tbody>
+										<?php 
+										if ($pastaDetalle) {
+											foreach ($pastaDetalle as $key) {
+												echo "
+													<tr>
+														<td>".$key['descripcion']."</td>
+														<td>".$key['codigo']."</td>
+														<td>".$key['noTanque']."</td>
+														<td>".$key['undMedida']."</td>
+														<td>".$key['pstTanqueFinal']."</td>
+														<td>
+	                                                    <a onclick='eliminarPastaProc(".$key['idPastaProc'].")' href='#' data-tooltip='ELIMINAR' class='modal-trigger tooltipped purple-text darken-4'>
+	                                                        <i class='material-icons'>delete</i>
+	                                                    </a>
+											        	</td> 
+													</tr>";
+												}
+											}
+										?>
+									</tbody>
+								</table>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -183,6 +211,62 @@
 		</div>
 	</div>
 </main>
+<!--PANTALLA MODAL: AGREGAR PASTA PROCESADA TANQUE FINAL-->
+<div id="agregaPastaProc" class="modal">
+	<div class="modal-content">
+		<div class="row noMargen center">
+            <div class="noMargen col s12 m12 l12">
+                <h6 class="center" style="font-family:'robotoblack'; color:#831F82;font-size:30px; margin-bottom:30px;">PASTA PROCESADA EN TANQUES</h6>
+			</div>
+        </div>
+        <div class='row'>
+            <div class='input-field col s12 m6 s6'>
+                <input type='text' id='descripcion' name='descripcion'>
+                <label for='descripcion'>Tipo</label>
+            </div>
+            
+            <div class='input-field col s12 m6 s6'>
+                <input type='text' id='codigo' name='codigo'>
+                <label for='codigo'>Código</label>
+            </div>
+        </div><br>
+        <div class='row'>
+            <div class='input-field col s6 m6 s6'>
+                <input id='undMedidad' name='undMedidad' type='text'>
+                <label for='horaInicioConsd'>Unidad Medida</label>
+            </div>
+            <div class='input-field col s6 m6 s6'>
+	            <select name="tanque" id="tanque" class="chosen-select browser-default">
+	            	<option value="" disabled selected>TANQUES</option>
+	            	<?php 
+	            	if($tanques) {
+	            		foreach ($tanques as $key) {
+	            			echo "<option value='".$key['IdInsumo']."'>".$key['Tanque']."</option>";
+	            		}
+	            	}?>
+	            </select>
+	            <label id="lblmaquina" class="lblValidacion">SELECCIONE UN TANQUE</label>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="input-field col s7 m7 s7">
+                <input id="cantidad" type="text">
+                <label for="cantidad">Pasta Tanque Final</label>
+            </div>
+            <div class="col s5 m5 s5"><br>
+            	<span class='purple-text darken-4'>KILOGRAMOS</span>
+            </div>
+        </div><br><br>
+        <div class="row">                    
+            <div class="center">
+                <a class="Btnadd btn waves-effect waves-light" onclick="guardarPastaProcesada()" id="agregaPasta" href="#!" style="background-color:#831F82;">guardar
+                </a>
+                <a class="Btnadd btn waves-effect waves-light" onclick="cerrarModales('agregaPastaProc', true)" href="#!" style="background-color:#831F82;">cerrar
+                </a>
+            </div>
+        </div>
+	</div>
+</div>
 <!--PANTALLA MODAL: AGREGAR CONSUMO ELECTRICO-->
 <div id="agregaElectricidad" class="modal">
     <div class="modal-content">   

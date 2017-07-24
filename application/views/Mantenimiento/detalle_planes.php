@@ -51,29 +51,19 @@
             </div>
         </div>
     </div>
-
-  <div class="container">
-            <div class="Buscar row column noMargen">
-                <div class="col s1 m1 l1 offset-l3 offset-m2">
-                    <i style='color:#039be5; font-size:40px;' class="material-icons">search</i>
-                </div>
-                <div class="input-field col s12 m6 l4">
-                    <input id="BuscarDetPlan" type="text" placeholder="Buscar" class="validate">
-                    <label for="search"></label>
-                </div>
-            </div>
-        </div>
-
     <div class="row">
         <div class="col s12">
             <div class="card">
                 <div class="card-content">
-                     <div class="col s10 m10" style="text-align:left;">
-                            <a href="<?php echo base_url('index.php/Planes')?>" class="btn purple darken-1 waves-effect waves-light tooltipped" data-position="right" data-tooltip="Regresar">
-                                <i class="material-icons">keyboard_backspace</i>
-                            </a>
-                        </div>
-                        <br><br>
+                    <div class="row">
+                        <div class="col s6 m6" style="text-align:left;">
+                            <div id="retornarP">
+                                <a data-tooltip='REGRESAR' href="<?php echo base_url('index.php/Planes')?>" data-position="right" class="modal-trigger tooltipped">
+                                    <i class="waves-effect waves-purple material-icons titulosGen">keyboard_backspace</i>
+                                </a>
+                            </div>  
+                        </div>    
+                    </div>
                     <center><span class="card-title purple-text accent-4" style="font-family: robotoblack;">LISTA PLAN DE TRABAJO</span></center>
                     <table id="tblDetPlan" class="striped">
                         <thead>
@@ -161,8 +151,6 @@
         </div>
     </div>
 </main>
-
-
 <div id="DetPlanModal" class="modal1" style="height:90%; width:90%;">
     <div class="modal-content">
         <div class="right row">
@@ -328,13 +316,13 @@
                     </div>
                     <br>
                     <?php
-                        foreach ($planes as $key) {
-                            if ($key["Estado"]==1) {
+                        foreach ($planes as $key) { $modalHTML="'DetPlanModal'";
+                            if ($key["Estado"]==1) { 
                                 echo '
                                     <div class="row-fluid">
                                         <div class="center col s12 m12 s12">
-                                            <a href="#" id="btnSave" onclick="GuardaDetPlan()" class="btn waves-effect waves-light purple darken-2">GUARDAR</a>
-                                            <a href="#" class="btn waves-effect waves-light purple darken-2 modal-action modal-close noHover">CERRAR <i class="material-icons">close</i></a>
+                                            <a href="#" id="btnSave" onclick="GuardaDetPlan()" class="btn waves-effect waves-light" style="background-color:#831F82;">GUARDAR</a>
+                                            <a href="#" class="btn waves-effect waves-light modal-action modal-close noHover" style="background-color:#831F82;" onclick="cerrarModales('.$modalHTML.', true)">CERRAR</a>
                                         </div>
                                     </div>
                                     ';
@@ -344,14 +332,12 @@
                                         <div class="center col s12 m12 s12">
                                             <a href="#" class="btn waves-effect disabled waves-light">GUARDAR</a>
                                             <span class="red-text right"><b>Plan de trabajo cerrado</b></span>
-                                            <a href="#" class="btn waves-effect waves-light purple darken-2 modal-action modal-close noHover">CERRAR <i class="material-icons">close</i></a>
+                                            <a href="#" class="btn waves-effect waves-light modal-action modal-close noHover" style="background-color:#831F82;" onclick="cerrarModales('.$modalHTML.', false)">CERRAR</a>
                                         </div>
-                                    </div>
-                                ';
+                                    </div>';
+                                }
                             }
-                            
-                        }
-                    ?>
+                        ?>
             </form>
         </div>
     </div>

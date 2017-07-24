@@ -37,11 +37,13 @@
             <div class="card">
                 <div class="card-content">
                     <div class="row">
-                        <div class="col s10 m10" style="text-align:left;">
-                            <a href="../menuOrdenTrabajo/<?php echo $key["IdReporteDiario"]?>" class="btn purple darken-1 waves-effect waves-light tooltipped" data-tooltip="Regresar">
-                                <i class="material-icons">keyboard_backspace</i>
-                            </a>
-                        </div>
+                        <div class="col s6 m6" style="text-align:left;">
+                            <div id="retornarP">
+                                <a data-tooltip='REGRESAR' href="../menuOrdenTrabajo/<?php echo $key["IdReporteDiario"]?>" class="modal-trigger tooltipped">
+                                    <i class="waves-effect waves-purple material-icons titulosGen">keyboard_backspace</i>
+                                </a>
+                            </div>  
+                        </div>    
                     </div>
                     <center>
                         <h5 class="card-title purple-text accent-4" style="font-family: robotoblack;">MATERIA PRIMA</h5>
@@ -245,13 +247,6 @@
 
 <div id="modalInsumo" class="modal1">
       <div class="modal-content">
-        <div class="right row">
-            <div class="col s1 m1 l1">
-                <a href="#!" class="BtnClose modal-action modal-close noHover">
-                    <i class="material-icons">highlight_off</i>
-                </a>
-            </div>
-        </div>
         <div class="row noMargen center">
             <div class="noMargen col s12 m12 l12">
                 <h6 class="center" style="font-family:'robotoblack'; color:#831F82;font-size:30px; margin-bottom:30px;">AGREGAR INSUMO</h6>
@@ -377,13 +372,6 @@
 
     <div id="nuevaMatPrim" class="modal1" style="height:420px;">
     <div class="modal-content">
-        <div class="right row">
-            <div class="col s1 m1 l1">
-                <a href="#!" class="BtnClose modal-action modal-close noHover">
-                    <i class="material-icons">highlight_off</i>
-                </a>
-            </div>
-        </div>
         <div class="row noMargen center">
             <div class="noMargen col s12 m12 l12">
                 <h6 class="center" style="font-family:'robotoblack'; color:#831F82;font-size:30px; margin-bottom:30px;">AGREGAR PASTA</h6>

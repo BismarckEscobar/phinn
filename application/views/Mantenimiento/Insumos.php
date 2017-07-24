@@ -88,17 +88,8 @@
         </div>
     </div>
 </main>
-
-
 <div id="Insumosmodal" class="modal1" style="height:500px;">
     <div class="modal-content">
-        <div class="right row">
-            <div class="col s1 m1 l1">
-                <a href="#!" class="BtnClose modal-action modal-close noHover">
-                    <i class="material-icons">highlight_off</i>
-                </a>
-            </div>
-        </div>
         <div class="row noMargen center">
             <div class="noMargen col s12 m12 l12">
                 <h6 class="center" style="font-family:'robotoblack'; color:#831F82;font-size:30px; margin-bottom:30px;">AGREGAR INSUMO</h6>
@@ -138,8 +129,8 @@
         <br><br>
         <div class="row">
             <div class="center">
-                <a href="#" onclick="Guardarinsumos()" class="btn waves-effect waves-light purple darken-2">GUARDAR</a>
-                <a href="#" onclick="cerrarModalIns()" class="btn waves-effect waves-light purple darken-2">CERRAR <i class="material-icons">close</i></a>
+                <a href="#" onclick="Guardarinsumos()" class="btn waves-effect waves-light" style="background-color:#831F82;">GUARDAR</a>
+                <a href="#" onclick="cerrarModales('Insumosmodal', true)" class="btn waves-effect waves-light" style="background-color:#831F82;">CERRAR</a>
             </div>
         </div>
         </form>

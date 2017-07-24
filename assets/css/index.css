@@ -529,7 +529,7 @@ select {
 #contenedor-tipo-fibras {
     width: 60%;
     height: auto;
-    padding: 20px 20px;
+    padding: 5px 5px;
     margin: 0 auto;
 }
 
@@ -547,7 +547,26 @@ select {
   margin-right: 20px;
 }
 
+.ocultar {
+    display: none;
+}
 
+.pasta-final {
+    width:100%;
+    margin: 0 auto;
+}
+
+@media only screen and (max-width: 768px) {
+    .ocultar {
+        display: block;
+    }
+    .mostrar {
+        display: none;
+    }
+    .content-select {
+        width: 90%;
+    }
+}
 
 
 /**

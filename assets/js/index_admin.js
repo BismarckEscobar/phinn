@@ -35,6 +35,7 @@ $(document).ready(function() {
     $("#AddTan").click(function() { $("#Tanquesmodal").openModal(); });
     $("#btnAddDetPlan").click(function() { $("#DetPlanModal").openModal(); });
     $("#abrirMdlNOrd").click(function() { $("#ModalNuevaOrdProduccion").openModal(); });
+    $("#agregaPasta").click(function() { $("#agregaPastaProc").openModal(); });
 
     ///Configurar chosen////
     var config = {
@@ -121,8 +122,6 @@ $('#tlbListaRep2').on('click', 'tbody .detalleNumOrd', function() {
         tr.addClass('shown');
     }
 });
-
-
 function format(callback, noOrden, div) {
     var ia = 0;
     $.ajax({
@@ -216,7 +215,7 @@ function agregarFilas() {
                         '<input class="inputControlPiso numeric" id="codigo' + item['IdInsumo'] + '" value=""/>',
                         item['Descripcion'],
                         item['UnidadMedida'],
-                        '<input class="inputControlPiso numeric" id="requisado' + item['IdInsumo'] + '" onchange="calcularConsumo(' + item['IdInsumo'] + ')" value=""/>',
+                        '<input class="inputControlPiso numeric" id="requisado' + item['IdInsumo'] + '"/>',
                         '<input class="inputControlPiso numeric" id="piso' + item['IdInsumo'] + '" onchange="calcularConsumo(' + item['IdInsumo'] + ')" value=""/>',
                         '<input class="inputControlPiso numeric" id="consumo' + item['IdInsumo'] + '" value=""/>'
                     ]).draw(false);
@@ -229,7 +228,6 @@ function agregarFilas() {
         }
     });
 }
-
 /****************CALCULANDO CONSUMO CONTROL DE PISO**************************/
 function calcularConsumo(item) {
     var cant1 = $("#requisado" + item).val();
@@ -243,7 +241,7 @@ function calcularConsumo(item) {
 }
 /**********GUARDA DETALLE CONTROL PISO*****************************/
 function guardarControlPiso() {
-    var maquinas;
+    var maquinas; var rptPasta;
     var fecha = new Date();
     var encabezadoCPiso = new Array();
     var pos1 = 0;
@@ -255,6 +253,12 @@ function guardarControlPiso() {
         maquinas = '0-2';
     } else if (!$('#maquina2').is(':checked') && (!$('#maquina1').is(':checked'))) {
         maquinas = '0-0';
+    };
+
+    if ($('#incluirRptPastaProc').is(':checked')) {
+        rptPasta = 1;
+    }else if(!$('#incluirRptPastaProc').is(':checked')) {
+        rptPasta = 0;
     };
     var fechaCreacion = moment(new Date()).format('YYYY/MM/DD');
 
@@ -273,7 +277,7 @@ function guardarControlPiso() {
     var horaInicio= $('#horaInicio').text();
     var horaFinal= $('#horaFin').text();
 
-    encabezadoCPiso[pos1] = noOrden+","+consecutivoHTML+","+fechaInicio+","+fechaFin+","+fechaCreacion+","+producto+","+grupo2+","+maquina+","+horaInicio+","+horaFinal;
+    encabezadoCPiso[pos1] = noOrden+","+consecutivoHTML+","+fechaInicio+","+fechaFin+","+fechaCreacion+","+producto+","+grupo2+","+maquina+","+horaInicio+","+horaFinal+","+rptPasta;
 
 
     var table = $('#tblControlPiso').DataTable();
@@ -317,6 +321,42 @@ function guardarControlPiso() {
         }
     });
 }
+/********FUNCIONES SOBRE PASTA FINAL-REPORTE CONTROL PISO******/
+$("#incluirRptPastaProc").on('click', function(event) {
+    var marcado = $("#incluirRptPastaProc").prop("checked") ? true : false;
+    var texto;
+    if ($('#incluirRptPastaProc').is(':checked')) {
+        texto="¿Esta seguro de querer adjuntar esta información al reporte?";
+    } else if(!$('#incluirRptPastaProc').is(':checked')) {
+        texto="¿Esta seguro de querer excluir esta información de este reporte?";
+    }
+    swal({
+      text: texto,
+      type: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'ACEPTAR',
+      confirmButtonColor: '#831F82',
+      cancelButtonText: 'CANCELAR'
+    }).then(function() {
+        if (marcado==true) {
+            $('#incluirRptPastaProc').prop("checked", true);
+            $('#label-incluirRptPastaProc').text('EXCLUIR DEL REPORTE');
+            guardarControlPiso();
+        }else {
+            $('#incluirRptPastaProc').prop("checked", false);            
+            $('#label-incluirRptPastaProc').text('ADJUNTAR AL REPORTE');
+            guardarControlPiso();
+        }
+    }, function(dismiss) {
+      if (dismiss === 'cancel') {
+        if (marcado==true) {
+            $('#incluirRptPastaProc').prop("checked", false);
+        }else {
+            $('#incluirRptPastaProc').prop("checked", true);
+        }
+      }
+    })
+});
 /******************AGREGA Y ACTUALIZA CONSUMO ELECTRICO************************/
 function agregaActualizaConsumoElec() {
     var registroElectrico = new Array();    
@@ -347,8 +387,68 @@ function agregaActualizaConsumoElec() {
             };
         }
     });
-
-
+}
+/****************GUARDANDO PASTA PROCESADA**********************/
+function guardarPastaProcesada() {
+    var codigo;
+    if ($('#codigo').val()=="") {
+        codigo = 0;
+    }else {
+        codigo = $('#codigo').val();
+    }
+    if ($('#descripcion').val()=="" || $('#tanque').val()==null || $('#undMedidad').val()=="" || $('#cantidad').val()=="") {
+        mensajeAlerta("RELLENE LOS CAMPOS REQUERIDOS");
+    } else {
+        var info = new Array();
+        info = {
+            descripcion: $('#descripcion').val(),
+            codigo: $('#codigo').val(),
+            noTanque: $('#tanque').val(),
+            undMedida: $('#undMedidad').val(),
+            pstTanqueFinal: $('#cantidad').val(),
+            consecutivo: $('#consecutivo').text()
+        };
+        form_data = {
+            infoPasta: info
+        }
+        $.ajax({
+            url: "../guardandoPastaProc",
+            type: "post",
+            async: true,
+            data: form_data,
+            success: function(data) {
+                if (data == 1) {
+                    Materialize.toast('SE GUARDO CON ÉXITO', 1000);
+                } else {
+                    Materialize.toast('ERROR AL GUARDAR', 1000);
+                };
+            }
+        });
+    };
+}
+/****************ELIMINANDO PASTA PROCESADA**********************************/
+function eliminarPastaProc(idPastaProc) {
+    swal({
+        title: 'ELIMINAR',
+        text: '¿Desea eliminar permanentemente este registro?',
+        type: 'question',
+        showCloseButton: true,
+        showCancelButton: true,
+        confirmButtonColor: '#831F82',
+        confirmButtonText: 'ACEPTAR',
+        cancelButtonText: 'CANCELAR'
+    }).then(function() {
+        $.ajax({
+            url: "../eliminarPastaProces/" + idPastaProc,
+            type: "POST",
+            async: true,
+            success: function(data) {
+                if (data == true) {
+                    location.reload();
+                }
+            }
+        });
+    });
 }
 /****************FILTRANDO TIPOS DE INSUMOS**********************************/
 $("#tipoFibra").on('change', function(event) {
@@ -1061,14 +1161,13 @@ function eliminarTM(idTiempoMuerto, IdReporteDiario) {
     swal({
         title: 'ELIMINAR',
         text: '¿Desea eliminar permanentemente este registro?',
-        type: 'warning',
+        type: 'question',
         showCloseButton: true,
         showCancelButton: true,
         confirmButtonColor: '#831F82',
         confirmButtonText: 'ACEPTAR',
         cancelButtonText: 'CANCELAR'
     }).then(function() {
-
         $.ajax({
             url: "../eliminarTM/" + idTiempoMuerto + "/" + IdReporteDiario,
             type: "POST",
@@ -1349,15 +1448,9 @@ function buscarTiempoM(identificador) {
 $('#cerrarMdl').click(function() {
     $("#visTiempoM").closeModal();
 });
-
-/*$('#cerrarConsumoElec').click(function() {
-    $("#agregaElectricidad").closeModal();
-});*/
-//Cargar pagina
 function gotopage(mypage) {
     $(location).attr('href', mypage);
 }
-
 function cerrarModales(modal, recargar) {
     if (recargar==true) {
         $("#"+modal).closeModal();
@@ -1398,13 +1491,6 @@ $('#Buscar').on('keyup', function() {
 
 });
 
-$('#filtrarTM').on('keyup', function() {
-    var table = $('#tlbTiemposMuertos').DataTable();
-    table.search(this.value).draw();
-
-    //$("#TblMaster_filter").hide();filtrarTM
-});
-
 $('#BuscarUsuarios').on('keyup', function() {
     var table = $('#TblMaster').DataTable();
     table.search(this.value).draw();
@@ -1427,17 +1513,7 @@ $('#BuscarPlan').on('keyup', function() {
     table.search(this.value).draw();
 });
 
-$('#BuscarDetPlan').on('keyup', function() {
-    var table = $('#tblDetPlan').DataTable();
-    table.search(this.value).draw();
-})
-
-
-
-
-
-$("#tablaProd, #tlbListaRep2, #tlbTiemposMuertos, #tlbListaRep, #tlbTiemposMuertos2, #TblMaster, #tblMaquinas, #tblIns, #tblTanques, #chkInsumo, #chkTanques, #tblDetPlan,#tblPlan").DataTable({
-
+$("#tablaProd, #tlbListaRep2, #tlbListaRep3, #tlbTiemposMuertos, #tlbListaRep, #tlbTiemposMuertos2, #TblMaster, #tblMaquinas, #tblIns, #tblTanques, #chkTanques, #tblDetPlan,#tblPlan").DataTable({
     "ordering": false,
     "info": false,
     "bPaginate": true,
@@ -1467,19 +1543,11 @@ $("#tablaProd, #tlbListaRep2, #tlbTiemposMuertos, #tlbListaRep, #tlbTiemposMuert
     }
 });
 
-$("#tblControlPiso").DataTable({
+$("#tblControlPiso, #tblPastaProc").DataTable({
     "ordering": false,
     "info": false,
     "bPaginate": false,
     "bfilter": false,
-    "pagingType": "full_numbers",
-    "aaSorting": [
-        [0, "asc"]
-    ],
-    "lengthMenu": [
-        [20, 10, -1],
-        [20, 30, "Todo"]
-    ],
     "language": {
         "emptyTable": "No hay datos disponible en la tabla",
         "lengthMenu": "_MENU_",
@@ -1499,12 +1567,6 @@ $("#tblControlPiso").DataTable({
 
 /*/////////////////////////////////////////////////////////////////////////////////////////
                                 FIN FUNCIONES SOBRE USUARIO
-//////////////////////////////////////////////////////////////////////////////////////////*/
-
-
-
-/*/////////////////////////////////////////////////////////////////////////////////////////
-                                    FUNCIONES SOBRE USUARIO
 //////////////////////////////////////////////////////////////////////////////////////////*/
 
 $("#rol").change(function() {
@@ -1599,8 +1661,7 @@ function BorrarUsuario(IdUsuario, Estado) {
         text: miMSS,
         type: 'question',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
+        confirmButtonColor: '#831F82',
         confirmButtonText: 'Cambiar',
         cancelButtonText: 'Cancelar'
     }).then(function() {
@@ -1764,8 +1825,7 @@ function EliminarProd(elem, IDretp) {
         text: 'esta operacion no podra revertirse',
         type: 'question',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
+        confirmButtonColor: '#831F82',
         confirmButtonText: 'Eliminar',
         cancelButtonText: 'Cancelar'
     }).then(function() {
@@ -1807,8 +1867,7 @@ function Actualizamerm() {
         text: '¿Estas seguro que deseas modificar la cantidad de merma para esta maquina?',
         type: 'question',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
+        confirmButtonColor: '#831F82',
         confirmButtonText: 'Actualizar',
         cancelButtonText: 'Cancelar'
     }).then(function() {
@@ -2018,8 +2077,7 @@ function EliminarInsumo(elem, idrpt) {
         text: 'esta operacion no podra revertirse',
         type: 'question',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
+        confirmButtonColor: '#831F82',
         confirmButtonText: 'Eliminar',
         cancelButtonText: 'Cancelar'
     }).then(function() {
@@ -2050,8 +2108,7 @@ function Eliminarpasta(elem, idrpt) {
         text: 'esta operacion no podra revertirse',
         type: 'question',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
+        confirmButtonColor: '#831F82',
         confirmButtonText: 'Eliminar',
         cancelButtonText: 'Cancelar'
     }).then(function() {
@@ -2115,8 +2172,7 @@ function EliminaMaquina(elem) {
         text: 'esta operacion no podra revertirse',
         type: 'question',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
+        confirmButtonColor: '#831F82',
         confirmButtonText: 'Eliminar',
         cancelButtonText: 'Cancelar'
     }).then(function() {
@@ -2187,12 +2243,6 @@ function Guardarinsumos() {
         }
     });
 }
-
-function cerrarModalIns() {
-    $("#Insumosmodal").closeModal();
-    location.reload();
-}
-
 function EliminaINS(elem) {
     var id = $(elem).attr('id');
     swal({
@@ -2200,8 +2250,7 @@ function EliminaINS(elem) {
         text: 'esta operacion no podra revertirse',
         type: 'question',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
+        confirmButtonColor: '#831F82',
         confirmButtonText: 'Eliminar',
         cancelButtonText: 'Cancelar'
     }).then(function() {
@@ -2410,8 +2459,7 @@ function DeleteTanq(elem) {
         text: 'esta operacion no podra revertirse',
         type: 'question',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
+        confirmButtonColor: '#831F82',
         confirmButtonText: 'Eliminar',
         cancelButtonText: 'Cancelar'
     }).then(function() {
@@ -2432,7 +2480,7 @@ function DeleteTanq(elem) {
     })
 }
 
-/***************FIN FUNCIONES SOBRE TANQUES****************** */
+/***************FIN FUNCIONES SOBRE TANQUES*******************/
 function GuardaDetPlan() {
     var table = $('#chkInsumo').DataTable();
     var insumos1 = new Array();
@@ -2542,7 +2590,7 @@ function EliminaDetPlan(elem) {
         showCloseButton: true,
         showCancelButton: true,
         confirmButtonText: 'ELIMINAR',
-        cancelButtonColor: "#d32f2f ",
+        confirmButtonColor: '#831F82',
         cancelButtonText: 'CANCELAR'
     }).then(function() {
         $.ajax({

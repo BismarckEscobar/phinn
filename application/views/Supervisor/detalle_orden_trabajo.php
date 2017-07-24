@@ -37,17 +37,13 @@
     		<div class="card">
     			<div class="card-content">
                     <div class="row">
-                        <div class="col s10 m10" style="text-align:left;">
-                        <div id="retornarP">
-                                <a data-tooltip='REGRESAR' href="../menuOrdenTrabajo/<?php echo $key["IdReporteDiario"]?>" class="btn purple darken-1 waves-effect waves-light tooltipped">
-                                    <i class="material-icons">keyboard_backspace</i>
+                        <div class="col s6 m6" style="text-align:left;">
+                            <div id="retornarP">
+                                <a data-tooltip='REGRESAR' href="../menuOrdenTrabajo/<?php echo $key["IdReporteDiario"]?>" class="modal-trigger tooltipped">
+                                    <i class="waves-effect waves-purple material-icons titulosGen">keyboard_backspace</i>
                                 </a>
                             </div>  
                         </div>
-                        <div class="col s2 m2" style="text-align:left;">
-                            <input  id="filtrarTM" type="text" placeholder="Buscar" class="validate">
-                        </div>
-                    </div>
                     <div class="row">
                         <div class="col s12 m12">
                             <center><h5 class="card-title titulos" >TIEMPOS MUERTOS</h5></center>
@@ -84,6 +80,8 @@
                                             $class="mostrarMaquina2";
                                         }elseif ($key['Maquina'] == 'Maquina 3') {
                                             $class="mostrarMaquina3";
+                                        }else {
+                                            $class="none";
                                         }
 										echo "
 											<tr class='".$class."'>

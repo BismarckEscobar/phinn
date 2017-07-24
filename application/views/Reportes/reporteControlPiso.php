@@ -2,7 +2,7 @@
 <?php $mermaTotalF1=0; ?>
 <html lang="en">
 <head>
-	<title>Reporte Control de piso</title>
+	<title>Reporte Control de piso-<?php echo $controPisoDetalle[0]['noOrden'];?> </title>
 	<style>
 		#footer {			
 			padding: 30px 30px;
@@ -184,36 +184,35 @@
 				?>
 			</tbody>
 		</table>
-		<div class="titulos">
-			<span>pasta procesada en tanques</span>
-		</div>
-		<table class="table-control">
-			<thead>
-				<tr>
-					<th style="text-align:center;">TIPO</th>
-					<th style="text-align:center;">CÓDIGO</th>
-					<th style="text-align:center;">TANQUE</th>
-					<th style="text-align:center;">UD. MEDIDA</th>
-					<th style="text-align:center;">PASTA TANQUE FINAL</th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php
-				if ($pastaDetalle) {
-					foreach ($pastaDetalle as $key) {
-					echo 
-						"<tr>
-							<td style='text-align:center;'>PASTA</td>
-							<td style='text-align:center;'>-</td>
-							<td style='text-align:center;'>".$key['Tanque']."</td>
-							<td style='text-align:center; width:20px;'>KG</td>
-							<td style='text-align:center;'>".$key['pasta']."</td>
-						</tr>";
-						}
-					}
-				?>
-			</tbody>
-		</table>
+		<?php
+		if ($pastaDetalle!=false) {
+		echo "<div class='titulos'>
+				<span>pasta procesada en tanques</span>
+			</div>
+				<table class='table-control'>
+					<thead>
+						<tr>
+							<th style='text-align:center;'>TIPO</th>
+							<th style='text-align:center;'>CÓDIGO</th>
+							<th style='text-align:center;'>TANQUE</th>
+							<th style='text-align:center;'>UD. MEDIDA</th>
+							<th style='text-align:center;'>PASTA TANQUE FINAL</th>
+						</tr>
+					</thead>
+					<tbody>";
+				foreach ($pastaDetalle as $key) {
+				echo "<tr>
+					<td style='text-align:center;'>".$key['descripcion']."</td>
+					<td style='text-align:center;'>".$key['codigo']."</td>
+					<td style='text-align:center;'>".$key['noTanque']."</td>
+					<td style='text-align:center; width:20px;'>".$key['undMedida']."</td>
+					<td style='text-align:center;'>".$key['pstTanqueFinal']."</td>
+				</tr>";	
+				}					
+				echo "</tbody>
+				</table>";				
+			}
+		?>
 		<div id="footer">
 			<table class="footer">
 				<tr>
