@@ -156,3 +156,5 @@ $route['ValidaFecha/(:any)/(:any)/(:any)'] = 'Ordenproduccion_controller/Validar
     $route['filtrandoReportesTrabajo/(:any)'] = "reportes_controller/filtrandoOrdTrabajoByIdOrdProd/$1";
 
     $route['reporteConsolidado/(:any)'] = "exportarPdf_Controller/rptConsolidadoFinal/$1";
+    $route['guardandoPastaProc'] = "controlPiso_Controller/guardarPastaProcesada";
+    $route['eliminarPastaProces/(:any)'] = "controlPiso_Controller/eliminarPasta/$1";

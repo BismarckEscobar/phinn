@@ -2,7 +2,7 @@
 <?php $mermaTotalF1=0; ?>
 <html lang="en">
 <head>
-	<title>Reporte Diario</title>
+	<title>Reporte Diario-<?php echo $cabeceraRpt[0]['Consecutivo'];?></title>
 	<style>
 		table {
 		    color: black;

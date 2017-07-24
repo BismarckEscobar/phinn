@@ -150,8 +150,11 @@ class exportarPdf_Controller extends CI_Controller {
     }
 
     public function reporteControlPiso($consecutivo) {
-        $data['controPisoDetalle'] = $this->reporteDiario_Model->reporteControlPiso($consecutivo);        
-        $data['pastaDetalle'] = $this->controlPiso_Model->mostrarDetallePasta($consecutivo);
+        $data['controPisoDetalle'] = $this->reporteDiario_Model->reporteControlPiso($consecutivo);
+        $result = $this->controlPiso_Model->validandoInfoPasta($consecutivo);
+        if ($result==1) {
+            $data['pastaDetalle'] = $this->controlPiso_Model->mostrarDetallePasta($consecutivo);
+        }
         $PdfCliente = new mPDF('utf-8','A4');        
         $PdfCliente->SetFooter("Página {PAGENO} de {nb}");
         $PdfCliente -> writeHTML($this->load->view('Reportes/reporteControlPiso', $data, true));
@@ -162,9 +165,6 @@ class exportarPdf_Controller extends CI_Controller {
         $data['consolidadoFinal'] = $this->reporteDiario_Model->reporteConsoliadoFinal((string)$consecutivo);
         $data['materiaPrima'] = $this->controlPiso_Model->detalleControlPiso($consecutivo);
         $data['consumoElectrico'] = $this->controlPiso_Model->consumoElectrico($consecutivo);
-
-        //print_r($data['consumoElectrico']);
-        //$this->load->view('Reportes/reporteConsolidado', $data);
         $PdfCliente = new mPDF('utf-8','A4');        
         $PdfCliente->SetFooter("Página {PAGENO} de {nb}");
         $PdfCliente -> writeHTML($this->load->view('Reportes/reporteConsolidado', $data, true));

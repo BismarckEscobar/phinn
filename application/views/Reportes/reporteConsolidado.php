@@ -2,7 +2,7 @@
 <?php $mermaTotalF1=0; ?>
 <html lang="en">
 <head>
-	<title>Consolidado final</title>
+	<title>Consolidado final-<?php echo $consolidadoFinal[0]['NoOrder'] ?></title>
 	<style>
 		#footer {			
 			padding: 30px 30px;
@@ -160,6 +160,8 @@
 				if ($consolidadoFinal) {
 					$horaInicio = date('g:i A', strtotime($consolidadoFinal[0]['horaInicio']));
 					$horaFinal = date('g:i A', strtotime($consolidadoFinal[0]['horaFin']));
+					$fechaInicio = date('d-m-Y', strtotime($consolidadoFinal[0]['FechaInicio']));
+					$fechaFinal = date('d-m-Y', strtotime($consolidadoFinal[0]['FechaFinal']));
 					if ($horaInicio==$horaFinal) {
 						$horasProd = "24";
 					}else {
@@ -171,13 +173,13 @@
 							<td colspan='3' class='titulos-tablas'><span>orden de producción no.</span></td>
 							<td class='titulos-tablas'><span class='span'>".$consolidadoFinal[0]['NoOrder']."</span></td>
 							<td class='titulos-tablas'><span>fecha inicio</span></td>
-							<td class='titulos-tablas'><span class='span'>".$consolidadoFinal[0]['FechaInicio']."</span></td>
+							<td class='titulos-tablas'><span class='span'>".$fechaInicio."</span></td>
 						</tr>
 						<tr>
 							<td colspan='3' class='titulos-tablas'><span>producto</span></td>
 							<td class='titulos-tablas'><span class='span'>".$consolidadoFinal[0]['Producto']."</span></td>
 							<td class='titulos-tablas'><span>fecha final</span></td>
-							<td class='titulos-tablas'><span class='span'>".$consolidadoFinal[0]['FechaFinal']."</span></td>
+							<td class='titulos-tablas'><span class='span'>".$fechaFinal."</span></td>
 						</tr>
 						<tr>
 							<td class='titulos-tablas'><span>lote</span></td>

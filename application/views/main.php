@@ -10,7 +10,7 @@
             if (!isset($_SESSION['Privilegio'])) {
             }else{
                 switch ($_SESSION['Privilegio']) {
-                    case 1: //ADMINISTRADOR
+                    case 1: //VISTA ADMINISTRADOR
                     echo  '<br><br><br>
                     <div class="container">
                         <div class="row">
@@ -33,21 +33,30 @@
                         </div>
                     </div>';
                     break;
-                    case 2: 
-                        echo '<div class="col offset-l4 s12 l2">
-                                    <div class="card small" >
-                                        <a href='.base_url("index.php/Trabajadores").'>
-                                            <div class="card-image">
-                                                <img style="margin-top:20px;" src='.base_url("assets/img/work/Work.png").' >
-                                            </div>
-                                            <div class="card-content center">
-                                                <p style="color:black;">CREAR TRABAJADOR</p>
-                                            </div>
-                                        </a>
-                                    </div>
-                              </div>';
+                    case 2://VISTA GERENTE
+                    echo  '<br><br><br>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col s6 m6">
+                                <center>                                    
+                                    <a data-tooltip="ORDENES DE TRABAJO" href='.base_url("index.php/OrdenProduccion").' class="modal-trigger tooltipped purple-text darken-4">
+                                        <i class="material-icons large">content_paste</i>
+                                        <center><span class="titulo-secundario">ORDENES DE TRABAJO</span></center>
+                                    </a>                                  
+                                </center>                                
+                            </div>
+                            <div class="col s6 m6">
+                                <center>                                   
+                                    <a data-tooltip="REPORTES" href='.base_url("index.php/reportes").' class="modal-trigger tooltipped purple-text darken-4">
+                                        <i class="material-icons large center-align">trending_up</i>
+                                        <center><span class="titulo-secundario">REPORTES</span></center>
+                                    </a>                                    
+                                </center>                                
+                            </div> 
+                        </div>
+                    </div>';
                     break;
-                    case 3: /*redirect('OrdenProduccion');*/
+                    case 3: //VISTA SUPERVISOR
                     echo '<br><br><br>
                     <div class="container">
                         <div class="row">
@@ -86,8 +95,8 @@
                         </div>
                     </div>';
                     break;  
-                    case 4: redirect('OrdenProduccion');
-
+                    case 4://VISTA COORDINADOR
+                    redirect('OrdenProduccion');
                     break;                    
                 }
             }

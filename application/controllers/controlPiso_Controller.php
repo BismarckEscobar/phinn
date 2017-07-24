@@ -18,8 +18,8 @@ class controlPiso_Controller extends CI_Controller
 		$data['tiposFibras'] = $this->controlPiso_Model->listaInsumos();
 		$data['detalle'] = $this->controlPiso_Model->detalleControlPiso($consecutivo);
 		$data['pastaDetalle'] = $this->controlPiso_Model->mostrarDetallePasta($consecutivo);
-		
-		
+		$data['tanques'] =  $this->MateriaPrima_model->ListarTanque();
+		$data['pastaTanques'] = $this->controlPiso_Model->mostrarPastaProc($consecutivo);
 		$this->load->view('header');
         $this->load->view('dashboardclean');
         $this->load->view('Supervisor/controlPiso', $data);
@@ -72,6 +72,14 @@ class controlPiso_Controller extends CI_Controller
 
 	public function guardandoConsumoElectrico() {
 		$this->controlPiso_Model->guardandoRegistroElectrico($this->input->post('consumoElectrico'));
+	}
+
+	public function guardarPastaProcesada() {
+		$this->controlPiso_Model->guardandoPastaProcesada($this->input->post('infoPasta'));
+	}
+
+	public function eliminarPasta($idPastaProc) {
+		$this->controlPiso_Model->eliminandoPastaProcesada($idPastaProc);
 	}
 }
 

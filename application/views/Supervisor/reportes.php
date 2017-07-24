@@ -14,24 +14,26 @@
                     </div>
 					<center><span class="card-title accent-4 titulos">REPORTES</span></center>
 					<div id="contenedor-tipo-fibras">
-	                    <div class="input-field col s6 m6 s6">                  
-		                    <select name="ordProduccion" id="ordProduccion" class="chosen-select browser-default">
-		                    	<option value="" disabled selected>ORDEN DE PRODUCCION</option>
-		                    	<?php 
-		                    	if($ordProduccion) {
-		                    		foreach ($ordProduccion as $key) {
-		                    			echo "<option value='".$key['IdOrden']."'>".$key['NoOrden']."</option>";
-		                    		}
-		                    	}?>
-		                    </select>
-		                    <label id="ordProduccion" class="lblValidacion">SELECCIONE UNA ORDEN DE PRODUCCION</label>
-	                    </div>
-		                <div class="input-field col s6 m6 s6">                  
-		                    <select name="ordTrabajo" id="ordTrabajo" class="chosen-select">
-		                    	<option disabled selected class="append">ORDEN DE TRABAJO</option>
-		                    </select>
-		                    <label id="ordTrabajo" class="lblValidacion">SELECCIONE UNA ORDEN DE TRABAJO</label>
-	                    </div>
+						<div class="row">
+							<div class="col s6 m6">                  
+			                    <select name="ordProduccion" id="ordProduccion" class="chosen-select browser-default">
+			                    	<option value="" disabled selected>ORDEN DE PRODUCCION</option>
+			                    	<?php 
+			                    	if($ordProduccion) {
+			                    		foreach ($ordProduccion as $key) {
+			                    			echo "<option value='".$key['IdOrden']."'>".$key['NoOrden']."</option>";
+			                    		}
+			                    	}?>
+			                    </select>
+			                    <label id="ordProduccion" class="lblValidacion">SELECCIONE UNA ORDEN DE PRODUCCION</label>
+		                    </div>
+			                <div class="col s6 m6">                  
+			                    <select name="ordTrabajo" id="ordTrabajo" class="chosen-select">
+			                    	<option disabled selected class="append">ORDEN DE TRABAJO</option>
+			                    </select>
+			                    <label id="ordTrabajo" class="lblValidacion">SELECCIONE UNA ORDEN DE TRABAJO</label>
+		                    </div>
+						</div>
 					</div>
 					<div class="content-select">
 						<div class="row">

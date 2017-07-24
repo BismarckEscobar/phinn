@@ -3,15 +3,6 @@
         <div class="col s12">
             <div class="card">
                 <div class="card-content">
-                    <div class="row">
-                        <div class="col s6 m6" style="text-align:left;">
-                            <div id="retornarP">
-                                <a data-tooltip='REGRESAR' href="<?php echo base_url('index.php/dashboard')?>" class="modal-trigger tooltipped">
-                                    <i class="waves-effect waves-purple material-icons titulosGen">keyboard_backspace</i>
-                                </a>
-                            </div>  
-                        </div>    
-                    </div>
                     <center><span class="card-title purple-text accent-4" style="font-family: robotoblack;">DETALLE DE ORDEN DE TRABAJO</span></center>
                     <div class="row">
                         <center>
@@ -47,11 +38,13 @@
             <div class="card">
                 <div class="card-content">
                     <div class="row">
-                        <div class="col s10 m10" style="text-align:left;">
-                            <a href="../menuOrdenTrabajo/<?php echo $key["IdReporteDiario"]?>" class="btn purple darken-1 waves-effect waves-light tooltipped" data-position="left" data-tooltip="Regresar">
-                                <i class="material-icons">keyboard_backspace</i>
-                            </a>
-                        </div>
+                        <div class="col s6 m6" style="text-align:left;">
+                            <div id="retornarP">
+                                <a data-tooltip='REGRESAR' href="../menuOrdenTrabajo/<?php echo $key["IdReporteDiario"]?>" class="modal-trigger tooltipped">
+                                    <i class="waves-effect waves-purple material-icons titulosGen">keyboard_backspace</i>
+                                </a>
+                            </div>  
+                        </div>    
                     </div>
                     <center>
                         <h5 class="card-title purple-text accent-4" style="font-family: robotoblack;">PRODUCCION</h5>
@@ -94,6 +87,8 @@
                                                     {
                                                             $total +=$key['Peso'];
                                                             $class="mostrarMaquina2";
+                                                    }else {
+                                                        $class="none";
                                                     }
                                                     echo "
                                                         <tr class='".$class."'>

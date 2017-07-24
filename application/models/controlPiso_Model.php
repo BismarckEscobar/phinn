@@ -20,6 +20,16 @@ class controlPiso_Model extends CI_Model {
 		}		
 	}
 
+	public function mostrarPastaProc($consecutivo) {
+		$this->db->where('consecutivo', $consecutivo);
+		$query=$this->db->get('pasta_procesada');
+		if ($query->num_rows()>0) {
+			return $query->result_array();
+		} else {
+			return false;
+		}
+	}
+
 	public function visualizarConsumoElec($consecutivo) {
 		$this->db->where('consecutivo', $consecutivo);
 		$query=$this->db->get('consumoElectrico');
@@ -32,58 +42,36 @@ class controlPiso_Model extends CI_Model {
 
     public function mostrarDetallePasta($consecutivo) {
 		$data=array();
-		$query = $this->db->query("call infoPasta(2, '".$consecutivo."')");
+		$this->db->where('consecutivo', $consecutivo);
+		$query=$this->db->get('pasta_procesada');
 		if ($query->num_rows()>0) {
 			foreach ($query->result_array() as $key) {
-				if ($key['Tanque']==1) {
+				if ($key['noTanque']==1) {
 					$tanque = 'Tanque 1';
-				}elseif ($key['Tanque']==2) {
+				}elseif ($key['noTanque']==2) {
 					$tanque = 'Tanque 2';
-				}elseif ($key['Tanque']==3) {
+				}elseif ($key['noTanque']==3) {
 					$tanque = 'Tanque 3';
-				}elseif ($key['Tanque']==4) {
+				}elseif ($key['noTanque']==4) {
 					$tanque = 'Tanque 4';
-				}elseif ($key['Tanque']==5) {
-					$tanque = 'Tanque 5';
-				}elseif ($key['Tanque']==6) {
+				}elseif ($key['noTanque']==6) {
 					$tanque = 'Tanque 6';
+				}elseif ($key['noTanque']==7) {
+					$tanque = 'Tanque 5';
 				}
 				$array = array(
-					'Tanque' => $tanque,
-					'pasta' => $key['Noche']
+					'idPastaProc' => $key['idPastaProc'],
+					'descripcion' => $key['descripcion'],
+					'codigo' => $key['codigo'],
+					'noTanque' => $tanque,
+					'undMedida' => $key['undMedida'],
+					'pstTanqueFinal' => $key['pstTanqueFinal'],
 				);
 				$data[] = $array;
 			}
-			$query->free_result();
-			$query->next_result();
 			return $data;
 		}else {
-			$query->free_result();	
-			$query->next_result();
-			$query = $this->db->query("call infoPasta(1, '".$consecutivo."')");
-			foreach ($query->result_array() as $key) {
-				if ($key['Tanque']==1) {
-					$tanque = 'Tanque 1';
-				}elseif ($key['Tanque']==2) {
-					$tanque = 'Tanque 2';
-				}elseif ($key['Tanque']==3) {
-					$tanque = 'Tanque 3';
-				}elseif ($key['Tanque']==4) {
-					$tanque = 'Tanque 4';
-				}elseif ($key['Tanque']==5) {
-					$tanque = 'Tanque 5';
-				}elseif ($key['Tanque']==6) {
-					$tanque = 'Tanque 6';
-				}
-				$array = array(
-					'Tanque' => $tanque,
-					'pasta' => $key['Dia']
-				);
-				$data[] = $array;
-			}
-			$query->free_result();
-			$query->next_result();
-			return $data;
+			return false;
 		}
 	}
 
@@ -121,7 +109,8 @@ class controlPiso_Model extends CI_Model {
 					'maquina1' => $maquina1Status,
 					'maquina2' => $maquina2Status,
 					'horaInicio' => $horaInicio,
-					'horaFinal' => $horaFinal
+					'horaFinal' => $horaFinal,
+					'rptPasta' => $key['rptPasta']
 				);
 			}			
 			$query->free_result();
@@ -167,7 +156,8 @@ class controlPiso_Model extends CI_Model {
 					'maquina1' => 0,
 					'maquina2' => 0,
 					'horaInicio' => $horaInicio,
-					'horaFinal' => $horaFin
+					'horaFinal' => $horaFin,
+					'rptPasta' => 0
 				);
         	}
 			$query->free_result();
@@ -233,7 +223,7 @@ class controlPiso_Model extends CI_Model {
 
 		for ($i=0; $i < count($encabezado) ; $i++) {
 			$index1 = explode(",",$encabezado[$i]);
-			$result = $this->db->query("call encabezadoControlPiso(".$index1[0].",'".$index1[1]."','".date("Y/m/d", strtotime($index1[2]))."','".date("Y/m/d", strtotime($index1[3]))."','".date("Y/m/d", strtotime($index1[4]))."','".$index1[5]."','".$index1[6]."','".$index1[7]."','".date("H:i:s", strtotime($index1[8]))."','".date("H:i:s", strtotime($index1[9]))."')");
+			$result = $this->db->query("call encabezadoControlPiso(".$index1[0].",'".$index1[1]."','".date("Y/m/d", strtotime($index1[2]))."','".date("Y/m/d", strtotime($index1[3]))."','".date("Y/m/d", strtotime($index1[4]))."','".$index1[5]."','".$index1[6]."','".$index1[7]."','".date("H:i:s", strtotime($index1[8]))."','".date("H:i:s", strtotime($index1[9]))."', ".$index1[10].")");
 		}
 		if ($result) {
 
@@ -272,6 +262,29 @@ class controlPiso_Model extends CI_Model {
 			return $query->result_array();
 		}else {
 			return false;
+		}
+	}
+
+	public function guardandoPastaProcesada($infoPasta) {
+		$result = $this->db->insert('pasta_procesada', $infoPasta);
+		echo $result;
+	}
+
+	public function eliminandoPastaProcesada($idPastaProc) {
+		$this->db->where('idPastaProc', $idPastaProc);
+		$query=$this->db->delete('pasta_procesada');
+		if ($query==1) {
+			echo true;
+		}else {echo false;}
+	}
+	public function validandoInfoPasta($consecutivo) {
+		$this->db->where('rptPasta', true);
+		$this->db->where('consecutivo', $consecutivo);
+		$query = $this->db->get('control_piso');
+		if ($query->num_rows()>0) {
+			return 1;
+		}else {
+			return 0;
 		}
 	}
 }

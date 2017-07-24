@@ -36,13 +36,15 @@
 			<div class="card">
 				<div class="card-content">
 					<div class="row">
-					    <div class="col s6 m6" style="text-align:left;">
-							<a class="btn purple darken-1 waves-effect waves-light tooltipped" data-tooltip="Regresar" href="../OrdenProduccion">
-								<i class="material-icons">keyboard_backspace</i>
-							</a>
-	                    </div>
-					</div><br><br>
-					<div class="row oculto" style="text-align: center;">
+                        <div class="col s6 m6" style="text-align:left;">
+                            <div id="retornarP">
+                                <a data-tooltip='REGRESAR' href="<?php echo base_url('index.php/OrdenProduccion')?>" class="modal-trigger tooltipped">
+                                    <i class="waves-effect waves-purple material-icons titulosGen">keyboard_backspace</i>
+                                </a>
+                            </div>  
+                        </div>
+                    </div><br><br>
+                    <div class="row oculto" style="text-align: center;">
 						<div class="collection1">
 							<div class="col s12 m12">  
 								<?php
@@ -52,16 +54,16 @@
 											 <div class="col s3 m3"><a href="<?php echo base_url()."index.php/MateriaPrima/"'.$key['IdReporteDiario'].'" class="collection-item activo">MATERIA PRIMA</a></div>';*/
 								if ($consecutivo) {								
 									foreach ($consecutivo as $key) {
-
 										echo "<div class='col s3 m3'><a href='".base_url()."index.php/Produccion/".$key['IdReporteDiario']."' class='collection-item1'>PRODUCCIÓN</a></div>
-											 <div class='col s3 m3'><a href='".base_url()."index.php/tiempoMuerto/".$key['IdReporteDiario']."' class='collection-item1'>TIEMPOS MUERTOS</a></div>
+											 <div class='col s3 m3 mostrar'><a href='".base_url()."index.php/tiempoMuerto/".$key['IdReporteDiario']."' class='collection-item1'>TIEMPOS MUERTOS</a></div>
+											 <div class='col s3 m3 ocultar'><a href='".base_url()."index.php/tiempoMuerto/".$key['IdReporteDiario']."' class='collection-item1'>T. MUERTOS</a></div>
 											 <div class='col s3 m3'><a href='".base_url()."index.php/cargaspulper/".$key['IdReporteDiario']."' class='collection-item1'>CARGAS PULPER</a></div>
 											 <div class='col s3 m3'><a href='".base_url()."index.php/MateriaPrima/".$key['IdReporteDiario']."' class='collection-item1'>MATERIA PRIMA</a></div>";
 								}	
 							}?>
 							</div>
 						</div>
-					</div>
+					</div><br><br>
 				</div>
 			</div>
 		</div>
