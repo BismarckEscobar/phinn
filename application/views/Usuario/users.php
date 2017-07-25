@@ -37,7 +37,7 @@
                             </div>       
                         </div><br>
                         <div class="div-cont">
-                            <table id="TblMaster" class="striped responsive-table">
+                            <table id="TblMaster" class="striped">
                                 <thead>
                                     <tr class="tblcabecera">
                                         <th>Nº</th>

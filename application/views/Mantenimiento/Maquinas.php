@@ -19,7 +19,7 @@
                         </div>       
                     </div><br>
                     <div class="div-cont">
-                        <table class="responsive-table striped" id="tblMaquinas">
+                        <table class="striped" id="tblMaquinas">
                             <thead>
                                 <tr class="tblcabecera">
                                     <th>ID MAQUINA</th>

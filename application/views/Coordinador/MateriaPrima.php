@@ -56,7 +56,7 @@
                             </a>
                         </div>
                     </div>
-                    <table id="tblpasta" class="striped responsive-table">
+                    <table id="tblpasta" class="striped">
                         <thead>
                             <tr class="tblcabecera">
                                 <th>TANQUES</th>
@@ -108,7 +108,7 @@
                             </a>
                         </div>
                     </div>
-                    <table id="" class="striped responsive-table">
+                    <table id="" class="striped">
                         <thead>
                           <tr class="tblcabecera">
                             <th>Descripcion</th>

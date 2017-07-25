@@ -22,7 +22,7 @@
                             </div>       
                         </div><br>
                         <div class="div-cont">
-                               <table id="tblTanques" class="responsive-table striped" id="tblTanq">
+                               <table id="tblTanques" class="striped" id="tblTanq">
                                 <thead>
                                     <tr class="tblcabecera">
                                         <th>ID TANQUE</th>

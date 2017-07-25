@@ -40,8 +40,7 @@ class Login_controller extends CI_Controller {
     		if ($data['user'] == 0) {
     			redirect('?error=2');
     		} else {
-                $this->Users_model->InsertLog($data['user'][0]['IdUser']);
-
+                $this->Users_model->InsertLog($data['user'][0]['IdUsuario']);
                 $sessiondata = array(
                                 'IdUser' => $data['user'][0]['IdUsuario'],
                                 'Usuario' => $data['user'][0]['Usuario'],
@@ -50,8 +49,7 @@ class Login_controller extends CI_Controller {
                                 'logged' => 1
                                 );
                 $this->session->set_userdata($sessiondata);
-
-    			redirect('dashboard');
+                redirect('dashboard');
     		}
     	}
     }

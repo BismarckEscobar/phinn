@@ -34,7 +34,7 @@
                         </div>       
                     </div><br>
                     <div class="div-cont">
-                        <table class="responsive-table striped" id="tblIns">
+                        <table class="striped" id="tblIns">
                             <thead>
                                 <tr class="tblcabecera">
                                     <th>ID INSUMO</th>
