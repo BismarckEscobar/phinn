@@ -42,7 +42,7 @@
 										<td class='celda-tr'><b>orden producción no.</b></td>
 										<td><span id='ordTrabajo'>".$detalleOrdTrabajo['NoOrder']."</span></td>
 										<td class='celda-tr'><b>fecha</b></td>
-										<td style='width:100px;'><span id='fechaInicio'>".$detalleOrdTrabajo['FechaInicio']."</span> - <span id='fechaFin'>".$detalleOrdTrabajo['FechaFinal']."</span></td>
+										<td style='width:100px;'><span>".date('d/m/Y', strtotime($detalleOrdTrabajo['FechaInicio']))."</span> - <span>".date('d/m/Y', strtotime($detalleOrdTrabajo['FechaFinal']))."</span></td>
 										<td class='celda-tr'><b>maquina</b></td>
 										<td>yankee</td>
 									</tr>
@@ -61,6 +61,10 @@
 										<td><span id='horaFin'>".$detalleOrdTrabajo['horaFinal']."</span></td>
 										<td class='celda-tr'><b>mp. 2</b></td>
 										<td>".$chkMaq2."<label for='maquina2' type='hidden'></label></td>
+									</tr>
+									<tr style='display:none;'>
+										<td><input id='fechaInicio' type='hidden' value='".$detalleOrdTrabajo['FechaInicio']."'></td>
+										<td><input id='fechaFin' type='hidden' value='".$detalleOrdTrabajo['FechaFinal']."'></td>
 									</tr>
 								</table>";
 							} 

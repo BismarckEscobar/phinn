@@ -154,8 +154,8 @@ function format(callback, noOrden, div) {
 
                         '<td><a href="../index.php/reportesDiarios/' + item["IdReporteDiario"] + '" target="_blank" class="noHover"</a>' + item["Consecutivo"] + '</td>' +
                         '<td>' + item["Turno"] + '</td>' +
-                        '<td>' + item["FechaInicio"] + '</td>' +
-                        '<td>' + item["FechaFinal"] + '</td>' +
+                        '<td>' + moment(item["FechaInicio"]).format('DD-MM-YYYY') + '</td>' +
+                        '<td>' + moment(item["FechaFinal"]).format('DD-MM-YYYY') + '</td>' +
                         '<td>' + item["Nombre"] + '</td>' +
                         '<td>' + item["TipoPapel"] + '</td>' +
                         '<td>' + html + '</td>' +
@@ -264,8 +264,8 @@ function guardarControlPiso() {
 
     var noOrden= $('#ordTrabajo').text();
     var consecutivoHTML= $("#consecutivo").text();
-    var fechaInicio= $('#fechaInicio').text();
-    var fechaFin= $('#fechaFin').text();
+    var fechaInicio= $('#fechaInicio').val();
+    var fechaFin= $('#fechaFin').val();
     var fechaCreacion= fechaCreacion;
     var producto= $('#tipoPapel').text();
     var grupo= $('#grupo').val();
@@ -276,7 +276,6 @@ function guardarControlPiso() {
     var maquina= maquinas;
     var horaInicio= $('#horaInicio').text();
     var horaFinal= $('#horaFin').text();
-
     encabezadoCPiso[pos1] = noOrden+","+consecutivoHTML+","+fechaInicio+","+fechaFin+","+fechaCreacion+","+producto+","+grupo2+","+maquina+","+horaInicio+","+horaFinal+","+rptPasta;
 
 
@@ -809,8 +808,8 @@ function actualizandoCargasPulper(idInsumo, IdReporteDiario, cantidad) {
 $("#OrdeProd").click(function() {
     var numOrden = $('#lblnoOrden').text();
 
-    var fechaInicio = new Date($('#lblFechaInicio').text());
-    var fechaFinal = new Date($('#lblFechaFin').text());
+    var fechaInicio = new Date($('#txtFechaInicio').val());
+    var fechaFinal = new Date($('#txtFechaFinal').val());
 
     var fechaFormat1 = moment(fechaInicio, 'MM/DD/YYYY');
     var fechaFormat2 = moment(fechaFinal, 'MM/DD/YYYY');
@@ -1543,7 +1542,7 @@ $("#tablaProd, #tlbListaRep2, #tlbListaRep3, #tlbTiemposMuertos, #tlbListaRep, #
     }
 });
 
-$("#tblControlPiso, #tblPastaProc").DataTable({
+$("#tblControlPiso, #tblPastaProc, #chkInsumo, #chkInsumo3, #chktanques, #chkInsumo2").DataTable({
     "ordering": false,
     "info": false,
     "bPaginate": false,

@@ -192,7 +192,7 @@
                     </div><br><br>
                     <div class="row">
                         <div class="col s12 m12 s12">
-                            <table id="chkInsumo" class="striped responsive-table compact">
+                            <table id="chkInsumo" class="striped compact">
                                 <thead>
                                     <tr class="tblcabecera">
                                         <th style="display:none;"></th>
@@ -226,7 +226,7 @@
                     <br>
                     <div class="row">
                         <div class="col s12 m12 s12">
-                            <table id="chkInsumo2" class="striped responsive-table compact">
+                            <table id="chkInsumo2" class="striped compact">
                                 <thead>
                                     <tr class="tblcabecera">
                                         <th style="display:none;"></th>
@@ -256,7 +256,7 @@
                     <br>
                     <div class="row">
                         <div class="col s12 m12 s12">
-                            <table id="chkInsumo3" class="striped responsive-table compact">
+                            <table id="chkInsumo3" class="striped compact">
                                 <thead>
                                     <tr class="tblcabecera">
                                         <th style="display:none;"></th>
@@ -286,7 +286,7 @@
                     <br>
                     <div class="row">
                         <div class="col s12 m12 s12">
-                            <table id="chktanques" class="striped responsive-table compact">
+                            <table id="chktanques" class="striped compact">
                                 <thead>
                                     <tr class="tblcabecera">
                                         <th style="display:none;"></th>

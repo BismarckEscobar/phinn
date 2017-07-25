@@ -8,25 +8,28 @@ if ($this->session->userdata("Privilegio") == 3) {?>
                     <center><span class="card-title purple-text accent-4" style="font-family: robotoblack;">ORDEN DE PRODUCCIÓN</span></center>
                     <?php 
                     if ($listaReport) {
-                        foreach($listaReport as $key) {?>
-                            <div class="row">
+                        foreach($listaReport as $key) {
+                            echo "
+                            <div class='row'>
                                 <center>
-                                    <div class="col s4">
-                                        <span class="card-title purple-text accent-4" id="lblnoOrden"><?php echo $key["NoOrden"]?></span><br/>
-                                        <label class="labelValidacion">N° ORDEN ACTIVA</label>
+                                    <div class='col s4'>
+                                        <span class='card-title purple-text accent-4' id='lblnoOrden'>".$key["NoOrden"]."</span><br/>
+                                        <label class='labelValidacion'>N° ORDEN ACTIVA</label>
                                     </div>
-                                    <div class="col s4">
-                                        <span id="lblFechaInicio" class="card-title purple-text accent-4"><?php echo $key["FechaInicio"]?></span><br/>
-                                        <label  class="labelValidacion">FECHA DE INICIO</label>
+                                    <div class='col s4'>
+                                        <span id='lblFechaInicio' class='card-title purple-text accent-4'>".date('d-m-Y', strtotime($key["FechaInicio"]))."</span><br/>
+                                        <label  class='labelValidacion'>FECHA DE INICIO</label>
+                                        <input type='hidden' id='txtFechaInicio' value='".$key["FechaInicio"]."'>
                                     </div>
-                                    <div class="col s4">
-                                        <span id="lblFechaFin" class="card-title purple-text accent-4" id="lblnoOrden"><?php echo $key["FechaFin"]?></span><br/>
-                                        <label class="labelValidacion">FECHA FINAL</label>
+                                    <div class='col s4'>
+                                        <span id='lblFechaFin' class='card-title purple-text accent-4' id='lblnoOrden'>".date('d-m-Y', strtotime($key["FechaFin"]))."</span><br/>
+                                        <label class='labelValidacion'>FECHA FINAL</label>
+                                        <input type='hidden' id='txtFechaFinal' value='".$key["FechaFin"]."'>
                                     </div>
                                 </center>
-                            </div>
-                        <?php } ?>  
-                    <?php } ?>
+                            </div> ";
+                        }
+                    } ?>
                 </div>
             </div>
         </div>
@@ -42,64 +45,6 @@ if ($this->session->userdata("Privilegio") == 3) {?>
                 </div>
             </div>        
         </div>
-<!--<div class="row">
-        <div class="col s12">
-            <div class="card">
-                <div class="card-content">
-                    <div class="right row">
-                    <div id="OrdeProd" class="col s12 m12">
-                            <a data-tooltip='AGREGAR NUEVA ORDEN' href="#ordenprod" class="modal-trigger tooltipped">
-                                <i class="mdi-image-add-to-photos titulosGen"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <center><h4 class="card-title purple-text accent-4" style="font-family: robotoblack;">ORDENES DE TRABAJOS</h4></center>
-                    <table id="TblMaster" class="striped">
-                        <thead>
-                            <tr class="tblcabecera">
-                                <th>N° ORDEN</th>
-                                <th>TURNO</th>
-                                <th>FECHA INICIO</th>
-                                <th>FECHA FIN</th>
-                                <th>COORDINADOR</th>
-                                <th>GRUPO</th>
-                                <th>TIPO PAPEL</th>
-                            </tr>   
-                        </thead>
-                        <tbody>
-                            <?php
-                            if (($ordenTrabajos)) {
-                            foreach ($ordenTrabajos as $key) {
-                            switch($key["Turno"])
-                                {
-                                    case 1:
-                                    $key["Turno"] = "MATUTINO";
-                                    break;
-                                    case 2:
-                                    $key["Turno"] = "VESPERTINO";
-                                    break;
-                                }?>
-                            
-                            <tr>
-                                <td>
-                                    <a href="../index.php/menuSupervisor/<?php echo $key["IdReporteDiario"]?>"><?php echo $key["Consecutivo"]?></a>
-                                </td>
-                                <td><?php echo $key["Turno"]?></td>
-                                <td><?php echo $key["FechaInicio"]?></td>
-                                <td><?php echo $key["FechaFinal"]?></td>
-                                <td><?php echo $key["Nombre"]?></td>
-                                <td><?php echo $key["Grupo"]?></td>
-                                <td><?php echo $key["TipoPapel"]?></td>
-                            </tr> 
-                    
-                            <?php } ?>   
-                            <?php } ?>              
-                        </tbody>
-                    </table>  
-                </div>
-            </div>
-        </div>
-    </div> -->
         <div class="row">
             <div class="col s12">
                 <div class="card">
@@ -185,8 +130,8 @@ if ($this->session->userdata("Privilegio") == 3) {?>
                                                         </div>
                                                     </td>                                                                        
                                                     <td>".$list['NoOrden']."</td>
-                                                    <td>".$list['FechaInicio']."</td>
-                                                    <td>".$list['FechaFin']."</td>
+                                                    <td>".date('d-m-Y', strtotime($list['FechaInicio']))."</td>
+                                                    <td>".date('d-m-Y', strtotime($list['FechaFin']))."</td>
                                                     ".$activo."
                                                     <td>
                                                         <a class='dropdown-button btn-floating' id='ddlts' data-activates='dropdown".$list['IdOrden']."' href='#!'><i class='material-icons left'>mode_edit</i></a>
@@ -213,26 +158,29 @@ if ($this->session->userdata("Privilegio") == 3) {?>
                 <div class="card-content">
                     <center><span class="card-title purple-text accent-4" style="font-family: robotoblack;">ORDEN DE PRODUCCIÓN</span></center>
                     <?php 
-                    if ($listaReport) {                  
-                        foreach($listaReport as $key) {?>
-                        <div class="row">
-                            <center>
-                                <div class="col s4">
-                                    <span class="card-title purple-text accent-4" id="lblnoOrden"><?php echo $key["NoOrden"]?></span><br/>
-                                    <label class="labelValidacion">N° ORDEN ACTIVA</label>
-                                </div>
-                                <div class="col s4">
-                                    <span id="lblFechaInicio" class="card-title purple-text accent-4"><?php echo $key["FechaInicio"]?></span><br/>
-                                    <label  class="labelValidacion">FECHA DE INICIO</label>
-                                </div>
-                                <div class="col s4">
-                                    <span id="lblFechaFin" class="card-title purple-text accent-4" id="lblnoOrden"><?php echo $key["FechaFin"]?></span><br/>
-                                    <label class="labelValidacion">FECHA FINAL</label>
-                                </div>
-                            </center>
-                        </div>
-                        <?php } ?>
-                    <?php } ?>
+                    if ($listaReport) {
+                        foreach($listaReport as $key) {
+                            echo "
+                            <div class='row'>
+                                <center>
+                                    <div class='col s4'>
+                                        <span class='card-title purple-text accent-4' id='lblnoOrden'>".$key["NoOrden"]."</span><br/>
+                                        <label class='labelValidacion'>N° ORDEN ACTIVA</label>
+                                    </div>
+                                    <div class='col s4'>
+                                        <span id='lblFechaInicio' class='card-title purple-text accent-4'>".date('d-m-Y', strtotime($key["FechaInicio"]))."</span><br/>
+                                        <label  class='labelValidacion'>FECHA DE INICIO</label>
+                                        <input type='hidden' id='txtFechaInicio' value='".$key["FechaInicio"]."'>
+                                    </div>
+                                    <div class='col s4'>
+                                        <span id='lblFechaFin' class='card-title purple-text accent-4' id='lblnoOrden'>".date('d-m-Y', strtotime($key["FechaFin"]))."</span><br/>
+                                        <label class='labelValidacion'>FECHA FINAL</label>
+                                        <input type='hidden' id='txtFechaFinal' value='".$key["FechaFin"]."'>
+                                    </div>
+                                </center>
+                            </div> ";
+                        }
+                    } ?>
                 </div>
             </div>
         </div>
@@ -274,8 +222,8 @@ if ($this->session->userdata("Privilegio") == 3) {?>
                                     <a href="../index.php/menuOrdenTrabajo/<?php echo $key["IdReporteDiario"]?>"><?php echo $key["Consecutivo"]?></a>
                                 </td>
                                 <td><?php echo $key["Turno"]?></td>
-                                <td><?php echo $key["FechaInicio"]?></td>
-                                <td><?php echo $key["FechaFinal"]?></td>
+                                <td><?php echo date('d-m-Y', strtotime($key["FechaInicio"]))?></td>
+                                <td><?php echo date('d-m-Y', strtotime($key["FechaFinal"]))?></td>
                                 <td><?php echo $key["Nombre"]?></td>
                                 <td><?php echo $key["Grupo"]?></td>
                                 <td><?php echo $key["TipoPapel"]?></td>
@@ -299,25 +247,28 @@ if ($this->session->userdata("Privilegio") == 3) {?>
                     <center><span class="card-title purple-text accent-4" style="font-family: robotoblack;">ORDEN DE PRODUCCIÓN</span></center>
                     <?php 
                     if ($listaReport) {
-                        foreach($listaReport as $key) {?>
-                            <div class="row">
+                        foreach($listaReport as $key) {
+                            echo "
+                            <div class='row'>
                                 <center>
-                                    <div class="col s4">
-                                        <span class="card-title purple-text accent-4" id="lblnoOrden"><?php echo $key["NoOrden"]?></span><br/>
-                                        <label class="labelValidacion">N° ORDEN ACTIVA</label>
+                                    <div class='col s4'>
+                                        <span class='card-title purple-text accent-4' id='lblnoOrden'>".$key["NoOrden"]."</span><br/>
+                                        <label class='labelValidacion'>N° ORDEN ACTIVA</label>
                                     </div>
-                                    <div class="col s4">
-                                        <span id="lblFechaInicio" class="card-title purple-text accent-4"><?php echo $key["FechaInicio"]?></span><br/>
-                                        <label  class="labelValidacion">FECHA DE INICIO</label>
+                                    <div class='col s4'>
+                                        <span id='lblFechaInicio' class='card-title purple-text accent-4'>".date('d-m-Y', strtotime($key["FechaInicio"]))."</span><br/>
+                                        <label  class='labelValidacion'>FECHA DE INICIO</label>
+                                        <input type='hidden' id='txtFechaInicio' value='".$key["FechaInicio"]."'>
                                     </div>
-                                    <div class="col s4">
-                                        <span id="lblFechaFin" class="card-title purple-text accent-4" id="lblnoOrden"><?php echo $key["FechaFin"]?></span><br/>
-                                        <label class="labelValidacion">FECHA FINAL</label>
+                                    <div class='col s4'>
+                                        <span id='lblFechaFin' class='card-title purple-text accent-4' id='lblnoOrden'>".date('d-m-Y', strtotime($key["FechaFin"]))."</span><br/>
+                                        <label class='labelValidacion'>FECHA FINAL</label>
+                                        <input type='hidden' id='txtFechaFinal' value='".$key["FechaFin"]."'>
                                     </div>
                                 </center>
-                            </div>
-                        <?php } ?>  
-                    <?php } ?>
+                            </div> ";
+                        }
+                    } ?>
                 </div>
             </div>
         </div>
@@ -412,8 +363,153 @@ if ($this->session->userdata("Privilegio") == 3) {?>
                                                         </div>
                                                     </td>                                                                        
                                                     <td>".$list['NoOrden']."</td>
-                                                    <td>".$list['FechaInicio']."</td>
-                                                    <td>".$list['FechaFin']."</td>
+                                                    <td>".date('d-m-Y', strtotime($list['FechaInicio']))."</td>
+                                                    <td>".date('d-m-Y', strtotime($list['FechaFin']))."</td>
+                                                    ".$activo."
+                                                    <td>
+                                                        <a class='dropdown-button btn-floating' id='ddlts' data-activates='dropdown".$list['IdOrden']."' href='#!'><i class='material-icons left'>mode_edit</i></a>
+                                                        <ul id='dropdown".$list['IdOrden']."' class='dropdown-content'>
+                                                    ".$status."
+                                                        </ul>
+                                                    </td>                                                                 
+                                                </tr>";
+                                        }
+                                    }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+</main>
+<?php }else if ($this->session->userdata("Privilegio") == 2) {?>
+<main class="mdl-layout__content mdl-color--grey-100">
+    <div class="row">
+        <div class="col s12">
+            <div class="card">
+                <div class="card-content">
+                    <center><span class="card-title purple-text accent-4" style="font-family: robotoblack;">ORDEN DE PRODUCCIÓN</span></center>
+                    <?php 
+                    if ($listaReport) {
+                        foreach($listaReport as $key) {
+                            echo "
+                            <div class='row'>
+                                <center>
+                                    <div class='col s4'>
+                                        <span class='card-title purple-text accent-4' id='lblnoOrden'>".$key["NoOrden"]."</span><br/>
+                                        <label class='labelValidacion'>N° ORDEN ACTIVA</label>
+                                    </div>
+                                    <div class='col s4'>
+                                        <span id='lblFechaInicio' class='card-title purple-text accent-4'>".date('d-m-Y', strtotime($key["FechaInicio"]))."</span><br/>
+                                        <label  class='labelValidacion'>FECHA DE INICIO</label>
+                                        <input type='hidden' id='txtFechaInicio' value='".$key["FechaInicio"]."'>
+                                    </div>
+                                    <div class='col s4'>
+                                        <span id='lblFechaFin' class='card-title purple-text accent-4' id='lblnoOrden'>".date('d-m-Y', strtotime($key["FechaFin"]))."</span><br/>
+                                        <label class='labelValidacion'>FECHA FINAL</label>
+                                        <input type='hidden' id='txtFechaFinal' value='".$key["FechaFin"]."'>
+                                    </div>
+                                </center>
+                            </div> ";
+                        }
+                    } ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="Buscar row column">               
+            <div class="col s1 m1 l1 offset-l3 offset-m2">
+                <i style='color:#039be5; font-size:40px;' class="material-icons purple-text accent-4">search</i>
+            </div>
+            <div class="input-field col s12 m6 l4">
+                <input  id="filtrarRpt" type="text" placeholder="Buscar" class="validate">
+                <label for="filtrarRpt"></label>
+            </div>
+        </div>        
+    </div>
+        <div class="row">
+            <div class="col s12">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="row">
+                            <div class="col s6 m6" style="text-align:left;">
+                                <div id="retornarP">
+                                    <a data-tooltip='REGRESAR' href="<?php echo base_url('index.php/dashboard')?>" class="modal-trigger tooltipped">
+                                        <i class="waves-effect waves-purple material-icons titulosGen">keyboard_backspace</i>
+                                    </a>
+                                </div>  
+                            </div>
+                        </div>
+                        <div class="row"><br>
+                            <div class="col s12 m12" style="text-align:right;">
+                                <input type="checkbox" id="ordActiva" checked/>
+                                <label id="label-ordActiva" for="ordActiva">Activa</label>
+                                <input type="checkbox" id="ordInactiva" />
+                                <label id="label-ordInactiva" for="ordInactiva">Inactiva</label>
+                                <input type="checkbox" id="ordCerrada" />
+                                <label id="label-ordCerrada" for="ordCerrada">Cerrada</label>
+                                <input type="checkbox" id="ordAnulada" />
+                                <label id="label-ordAnulada" for="ordAnulada">Anulada</label>
+                            </div>
+                        </div>
+                        <table id="tlbListaRep2" class="striped">
+                            <thead>
+                                <tr class="tblcabecera">
+                                    <th>Ordenes</th>
+                                    <th>Nº orden</th>                                 
+                                    <th>Inicio</th>
+                                    <th>culminación</th>
+                                    <th>Estado</th>
+                                    <th>OPCIONES</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                    if ($ordenesTrabajosCom) {
+                                        $clase="mostrar";
+                                        foreach ($ordenesTrabajosCom as $list) {
+                                            if($list['Estado'] == 0){
+                                                $activo="<td><a data-tooltip='ORDEN ANULADA' class='btn-flat tooltipped noHover'><i style='color:red; font-size:30px;' class='material-icons'>close</i></a></td>";
+                                                $status="<li><a href='#!' onclick='buscarOrdProd(".$list['IdOrden'].")'>Ver</a></li>";
+                                                $ocultarOrden="OrdenAnulada";
+                                            }elseif($list['Estado'] == 1){
+                                                $activo="<td><a data-tooltip='ORDEN ACTIVA' class='btn-flat tooltipped noHover'><i style='color:green; font-size:30px;' class='material-icons'>done</i></a></td>";
+                                                $status="<li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 0)'>Anular</a></li>
+                                                         <li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 2)'>Cerrar</a></li>
+                                                         <li><a href='#!' onclick='buscarOrdProd(".$list['IdOrden'].")'>Ver</a></li>";
+                                                $ocultarOrden="OrdenActiva";
+                                            }elseif($list['Estado'] == 2){
+                                                $activo="<td><a data-tooltip='ORDEN CERRADA' class='btn-flat tooltipped noHover'><i style='color:#696969; font-size:30px;' class='material-icons'>lock</i></a></td>";
+                                                $status="<li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 0)'>Anular</a></li>
+                                                            <li><a href='#!' onclick='buscarOrdProd(".$list['IdOrden'].")'>Ver</a></li>";
+                                                $ocultarOrden="OrdenCerrada";
+                                            }elseif($list['Estado'] == 3){
+                                                $activo="<td><a data-tooltip='ORDEN INACTIVA' class='btn-flat tooltipped noHover'><i style='color:red; font-size:30px;' class='material-icons'>info_outline</i></a></td>";
+                                                $status="<li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 0)'>Anular</a></li>
+                                                        <li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 1)'>Activar</a></li>
+                                                        <li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 2)'>Cerrar</a></li>
+                                                        <li><a href='#!' onclick='buscarOrdProd(".$list['IdOrden'].")'>Ver</a></li>";
+                                                $ocultarOrden="OrdenInactiva";
+                                            }
+                                            echo "<tr class='".$ocultarOrden."'>
+                                                    <td class='center green-text detalleNumOrd'><i id='detail2".$list['NoOrden']."' class='material-icons expand-more'>expand_more</i><i id='detail1".$list['NoOrden']."' style='display:none;' class='material-icons expand-more'>expand_less</i>
+                                                        <div id='loader".$list['NoOrden']."' style='display:none;' class='preloader-wrapper small active' >
+                                                            <div class='spinner-layer spinner-yellow-only'>
+                                                            <div style='overflow: visible!important;' class='circle-clipper left'>
+                                                                <div class='circle'></div>
+                                                            </div><div class='gap-patch'>
+                                                                <div class='circle'></div>
+                                                            </div><div style='overflow: visible!important;' class='circle-clipper right'>
+                                                                <div class='circle'></div>
+                                                            </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>                                                                        
+                                                    <td>".$list['NoOrden']."</td>
+                                                    <td>".date('d-m-Y', strtotime($list['FechaInicio']))."</td>
+                                                    <td>".date('d-m-Y', strtotime($list['FechaFin']))."</td>
                                                     ".$activo."
                                                     <td>
                                                         <a class='dropdown-button btn-floating' id='ddlts' data-activates='dropdown".$list['IdOrden']."' href='#!'><i class='material-icons left'>mode_edit</i></a>

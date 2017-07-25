@@ -32,7 +32,7 @@
                         <center>
                             <h5 class="card-title purple-text accent-4" style="font-family: robotoblack;">PLAN</h5>
                         </center>
-                        <table id="tblPlan" class="striped responsive-table">
+                        <table id="tblPlan" class="striped">
                             <thead>
                                 <tr class="tblcabecera">
                                     <th>PLAN</th>

@@ -57,7 +57,7 @@
                             <label id="label-maquina2" for="maquina2">Maquina 2</label>
                         </div>
                     </div> 
-                    <table id="tablaProd" class="striped responsive-table">
+                    <table id="tablaProd" class="striped">
                         <thead>
                             <tr class="tblcabecera">
                                 <th>Operador</th>
