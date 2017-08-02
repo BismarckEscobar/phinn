@@ -90,6 +90,7 @@ class detalleplanes_model extends CI_Model
             }
             else{
                  $this->db->insert('detalle_planes', $InsertInsumo1);
+                 $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'INSERTO INFORMACION DE CATEGORIA '.$InsertInsumo1['Categoria'].' EN PLAN '.$InsertInsumo1['IdPlan']);
                 echo "NO EXISTE";
             }
         }
@@ -106,6 +107,7 @@ class detalleplanes_model extends CI_Model
             }
             else{
                  $this->db->insert('detalle_planes', $InsertInsumo2);
+                 $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'INSERTO INFORMACION DE CATEGORIA '.$InsertInsumo2['Categoria'].' EN PLAN '.$InsertInsumo2['IdPlan']);
                 echo "NO EXISTE";
             } 
         }
@@ -122,6 +124,7 @@ class detalleplanes_model extends CI_Model
             }
             else{
                   $this->db->insert('detalle_planes', $InsertInsumo3);
+                  $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'INSERTO INFORMACION DE CATEGORIA '.$InsertInsumo3['Categoria'].' EN PLAN '.$InsertInsumo3['IdPlan']);
                 echo "NO EXISTE";
             }    
         }
@@ -138,6 +141,7 @@ class detalleplanes_model extends CI_Model
             }
             else{
                   $this->db->insert('detalle_planes', $InsertTanque);
+                  $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'INSERTO INFORMACION DE CATEGORIA '.$InsertTanque['Categoria'].' EN PLAN '.$InsertTanque['IdPlan']);
                 echo "NO EXISTE";
             } 
         }
@@ -191,10 +195,13 @@ class detalleplanes_model extends CI_Model
         
     }   
 
-    public function EliminarDet($ID)
+    public function EliminarDet($array)
     {
-        $this->db->where("IdDetallePlan",$ID);
-        $this->db->delete('detalle_planes');
+        $this->db->where("IdDetallePlan",$array['idDetalle']);
+        $query=$this->db->delete('detalle_planes');
+        if ($query==1) {
+            $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'ELIMINO EL REGISTRO '.strtoupper($array['descripcion']).' DEL PLAN '.$array['idPlan']);
+        }
     }
 
 }

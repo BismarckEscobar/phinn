@@ -61,9 +61,9 @@ class detalleplanes_controller extends CI_Controller
         $this->detalleplanes_model->ValidaDetPlan($id,$cat,$idinsumo);
     }
 
-    public function EliminarDetalle($ID)
+    public function EliminarDetalle()
     {
-        $this->detalleplanes_model->EliminarDet($ID);
+        $this->detalleplanes_model->EliminarDet($this->input->post('deleteDetalle'));
     }
 
 }

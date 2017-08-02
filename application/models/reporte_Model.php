@@ -9,6 +9,7 @@ class reporte_Model extends CI_Model{
 
 	public function guardarRep($data) {
 		$result = $this->db->insert('orden_produccion', $data);
+		$this->Users_model->InsertLog($this->session->userdata['IdUser'], 'INSERTO ORDEN DE PRODUCCION NUMERO '.$data['NoOrden']);
 		return $result;
 	}
 
@@ -23,7 +24,8 @@ class reporte_Model extends CI_Model{
     public function cambiaStatusRpt1($idRpt, $status){
 	    $data = array('Estado' => $status);
 	    $this->db->where('IdOrden', $idRpt);
-	    $this->db->update('orden_produccion', $data);
+	    $query=$this->db->update('orden_produccion', $data);
+	    $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'CAMBIO ESTADO DE LA ORDEN DE PRODUCCION ID'.$idRpt);
 	}
 
 	public function validaNumeroRpt($numeroRt) {
@@ -90,8 +92,8 @@ class reporte_Model extends CI_Model{
 				'NoOrder' => $key['NoOrder'],
 				'Turno' => $key['Turno']
 			);
-			$result = $this->db->insert('reporte_diario', $data);
-		}
+			$result = $this->db->insert('reporte_diario', $data);			
+		}		
 		echo $result;
 	}
 

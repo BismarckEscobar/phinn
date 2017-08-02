@@ -42,14 +42,18 @@ class Insumos_model extends CI_Model
         if($duplicado->num_rows()>0){
             echo "Ya existe un registro";
         }else{
-        $this->db->insert("insumos",$datos);
+            $this->db->insert("insumos",$datos);
+            $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'AGREGO INSUMO '.strtoupper($Desc));
         }
     }
 
-    public function EliminarIns($Id)
+    public function EliminarIns($Id, $desc)
     {
         $this->db->where("IdInsumo",$Id);
-        $this->db->delete("insumos");
+        $query=$this->db->delete("insumos");
+        if ($query==1) {
+            $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'ELIMINO INSUMO '.strtoupper($desc));
+        }        
     }
 }
 ?>

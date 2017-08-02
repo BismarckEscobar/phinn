@@ -9,6 +9,9 @@ class tiemposMuertos_Model extends CI_Model{
 
 	public function guardarTiempoMuerto($data) {
 	$result = $this->db->insert('tiempos_muertos', $data);
+	if($result==1) {
+		$this->Users_model->InsertLog($this->session->userdata['IdUser'], 'AGREGO NUEVO TIEMPO MUERTO AL CONSECUTIVO '.$data['Consecutivo'].' DEL TURNO '.$data['Turno']);
+	}
 	echo $result;
 	}
 
@@ -37,6 +40,7 @@ class tiemposMuertos_Model extends CI_Model{
 		$this->db->where('IdReporteDiario', $IdReporteDiario);
 		$query=$this->db->delete('tiempos_muertos');
 		if ($query==1) {
+			$this->Users_model->InsertLog($this->session->userdata['IdUser'], 'ELIMINO UN TIEMPO MUERTO DEL REPORTE CON ID NO. '.$IdReporteDiario);
 			echo true;
 		}else {echo false;}
 	}

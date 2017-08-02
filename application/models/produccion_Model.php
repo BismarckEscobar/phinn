@@ -47,6 +47,7 @@ class Produccion_Model extends CI_Model
             "Merma" => $Merma
         );
         $consulta = $this->db->insert("produccion",$data);
+        $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'AGREGO INFORMACION DE PRODUCCION DEL RPT DIARIO CON ID '.$IdRepD);
         if($consulta){
             $this->actualizarProduccionTotal($IdRepD);
         }
@@ -59,6 +60,7 @@ class Produccion_Model extends CI_Model
         $datos = array('ProduccionTotal' => $total);
         $this->db->where('IdReporteDiario',$IdRepD);
         $this->db->update('reporte_diario',$datos);
+        $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'ACTUALIZO INFORMACION DE PRODUCCION DEL RPT DIARIO CON ID '.$IdRepD);
     }
 
     public function ListarProd($IdReporteDiario)
@@ -76,7 +78,7 @@ class Produccion_Model extends CI_Model
     {
         $this->db->distinct();
         $this->db->select('Merma,Maquina');
-        $this->db->where("Maquina",1);
+        $this->db->where("Maquina", 1);
         $this->db->where('IdReporteDiario',$IdReporteDiario);
         $query = $this->db->get('produccion');
        if ($query->num_rows()>0) {
@@ -90,7 +92,7 @@ class Produccion_Model extends CI_Model
     {
         $this->db->distinct();
         $this->db->select('Merma,Maquina');
-        $this->db->where("Maquina",2);
+        $this->db->where("Maquina", 2);
         $this->db->where('IdReporteDiario',$IdReporteDiario);
         $query = $this->db->get('produccion');
        if ($query->num_rows()>0) {
@@ -104,7 +106,10 @@ class Produccion_Model extends CI_Model
     {
         $this->db->where('IdProduccion',$idProd);
         $this->db->where('IdReporteDiario',$IdRptD);
-        $this->db->delete("produccion");
+        $query=$this->db->delete("produccion");
+        if ($query==1) {
+            $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'ELIMINO UN REGISTRO DE PRODUCCION DEL RPT CON ID '.$IdRptD);
+        }
     }
 
     public function ActualizarMerma($IdReporteDiario , $Merma , $Maq)
@@ -112,7 +117,11 @@ class Produccion_Model extends CI_Model
         $data = array('Merma' => $Merma );
         $this->db->where('IdReporteDiario=',$IdReporteDiario);
         $this->db->where('Maquina=',$Maq);
-        $this->db->update('produccion',$data);
+        $query=$this->db->update('produccion',$data);
+        if ($query==1) {
+            $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'ACTUALIZO EL REGISTRO DE LA MERMA DEL RPT CON ID '.$IdReporteDiario.' DE LA MAQUINA '.$Maq);
+        }
+        
     }
 }
 ?>

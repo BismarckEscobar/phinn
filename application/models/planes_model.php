@@ -16,10 +16,11 @@ class planes_model extends CI_Model
         if($qu){
         $data = array(
             "Fecha" => $Fecha,
-        "Comentario" => $Com,
-        "Estado" => $Estado
+            "Comentario" => $Com,
+            "Estado" => $Estado
         );
         $this->db->insert("planes",$data);
+        $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'AGREGO EL NUEVO PLAN '.strtoupper($Com));
         }
     }
 
@@ -43,7 +44,7 @@ class planes_model extends CI_Model
         
     }
 
-     public function ActualizarRegistroPlan($idPlan,$fecha,$comentario)
+    public function ActualizarRegistroPlan($idPlan,$fecha,$comentario)
      {
         $duplicado = $this->db->get_where('detalle_planes',array("IdPlan" => $idPlan));
             $datos = array(
@@ -55,7 +56,8 @@ class planes_model extends CI_Model
              echo "FALSE";
          }else{
             $this->db->where('IdPlan=', $idPlan);
-			$query=$this->db->update('planes',$datos); 
+			$query=$this->db->update('planes',$datos);
+            $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'ACTUALIZO INFORMACION DEL PLAN '.strtoupper($idPlan));
 			if ($query == 1) {
 				echo "TRUE";
 			}else{

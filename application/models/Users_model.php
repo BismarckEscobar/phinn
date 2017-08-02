@@ -1,5 +1,4 @@
 <?php
-
     class Users_model extends CI_Model{
         function __construct(){
             parent::__construct();
@@ -18,6 +17,14 @@
                 }
                 return 0;
             }
+        }
+
+        public function actulizandoPassword($data) {
+            for ($i=0; $i < count($data) ; $i++) {
+                $index1 = explode(",",$data[$i]);
+                $result = $this->db->query("call updatePasswordUser(".$index1[0].",'".MD5($index1[1])."','".MD5($index1[2])."')");
+            }
+            echo json_encode((int)$result->result_array()[0]['resultado']);
         }
 
         public function Guardar($user,$name,$pass,$rol,$estado){
@@ -40,12 +47,14 @@
                 );
             }
             $this->db->insert('usuarios', $data);
+            $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'GUARDO USUARIO '.strtoupper($user).' CON ROL '.strtoupper($rol));
         }
 
         public function del($id, $estado){
             $this->db->where('IdUsuario', $id);
             $data = array('Estado' => $estado);
             $this->db->update('usuarios', $data);
+            $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'CAMBIO ESTADO DE USUARIO '.strtoupper($id));
         }
 
    
@@ -59,11 +68,12 @@
             return 0;
         }
 
-        public function InsertLog($usuario){
+        public function InsertLog($usuario, $accion){
             $datos = array('IdUser' => $usuario, 
-                    'Accion' => "INGRESO AL SISTEMA EXITOSO",
+                    'Accion' => $accion,
                     'Fecha' => date('Y-m-d H:i:s')
                     );
             $this->db->insert('log',$datos);
         }
+
     }

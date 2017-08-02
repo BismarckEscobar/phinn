@@ -30,9 +30,9 @@ class Maquinas_controller extends CI_Controller
        // echo $maquina ." - ". $comentario;
     }
 
-    public function Eliminarmaquina($ID)
+    public function Eliminarmaquina($ID, $desc)
     {
-        $this->Maquinas_model->EliminarMaq($ID);
+        $this->Maquinas_model->EliminarMaq($ID, $desc);
     }
 }
 ?>

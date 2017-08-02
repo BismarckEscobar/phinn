@@ -13,6 +13,7 @@ class exportarPdf_Controller extends CI_Controller {
         }
 	}
 	public function index($idReporteDiario) {
+        $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'GENERO UN REPORTE DEL REPORTE DIARIO CON ID '.$idReporteDiario);
         $data['tiemposM'] = $this->listandoTiempoMuerto($idReporteDiario);
         $data['cargaTotal'] = $this->listandoCargaTotalPulper($idReporteDiario);        
         $data['horasMolienda'] = $this->listandoHorasMolienda($idReporteDiario);        
@@ -24,11 +25,12 @@ class exportarPdf_Controller extends CI_Controller {
 		$data['pasta'] = $this->MateriaPrima_model->ListarPM($idReporteDiario);
         $data['insumos'] = $this->MateriaPrima_model->ListarPMInsumos($idReporteDiario);
         $data['totalHrsM'] = date('H:i', strtotime($this->calcularCantHoras($idReporteDiario)));
-        $data['cabeceraRpt'] = $this->reporteDiario_Model->caberaReporte($idReporteDiario);
+        $data['cabeceraRpt'] = $this->reporteDiario_Model->caberaReporte($idReporteDiario);        
         $PdfCliente = new mPDF('utf-8','A4');
         $PdfCliente->SetFooter("Página {PAGENO} de {nb}");
         $PdfCliente -> writeHTML($this->load->view('Reportes/reporteOrdTrabDiario',$data,true));
         $PdfCliente->Output();
+        $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'GENERO UN REPORTE DEL RPT CON ID '.$idReporteDiario);
 	}
     /*LISTANDO REPORTES*/
     public function calculandoMermaTotal($array) {
@@ -137,7 +139,7 @@ class exportarPdf_Controller extends CI_Controller {
     }
 
 	public function cambiaEstadoRptD($idRptDiario, $estado) {
-        $this->reporteDiario_Model->cambiarEstadoReporteD($idRptDiario, $estado);
+        $query=$this->reporteDiario_Model->cambiarEstadoReporteD($idRptDiario, $estado);
     }
 
     public function eliminarRegRptDiario($idReporteDiario) {
@@ -150,6 +152,7 @@ class exportarPdf_Controller extends CI_Controller {
     }
 
     public function reporteControlPiso($consecutivo) {
+        $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'GENERO UN REPORTE DE CONTROL PISO DEL CONSECUTIVO '.$consecutivo);
         $data['controPisoDetalle'] = $this->reporteDiario_Model->reporteControlPiso($consecutivo);
         $result = $this->controlPiso_Model->validandoInfoPasta($consecutivo);
         if ($result==1) {
@@ -162,6 +165,7 @@ class exportarPdf_Controller extends CI_Controller {
     }
 
     public function rptConsolidadoFinal($consecutivo) {
+        $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'GENERO UN REPORTE DE CONSOLIDADO DEL CONSECUTIVO '.$consecutivo);
         $data['consolidadoFinal'] = $this->reporteDiario_Model->reporteConsoliadoFinal((string)$consecutivo);
         $data['materiaPrima'] = $this->controlPiso_Model->detalleControlPiso($consecutivo);
         $data['consumoElectrico'] = $this->controlPiso_Model->consumoElectrico($consecutivo);

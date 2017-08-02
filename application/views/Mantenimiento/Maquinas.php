@@ -39,7 +39,7 @@
                                                 <td>'.$key['maquina'].'</td>
                                                 <td>'.$key['comentario'].'</td>
                                                 <td>
-                                                <a href="javascript:void(0)" onclick="EliminaMaquina(this)" id="'.$key['idMaquina'].'" class="tooltipped" data-tooltip="Eliminar" data-position="left">
+                                                <a href="javascript:void(0)" onclick="EliminaMaquina('.$key['idMaquina'].','."'".$key['maquina']."'".')" id="'.$key['idMaquina'].'" class="tooltipped" data-tooltip="Eliminar" data-position="left">
                                                 <i class="purple-text darken-1 material-icons">delete</i></a>
                                                 </td>
                                                 </tr>

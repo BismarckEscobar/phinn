@@ -16,7 +16,10 @@ class MateriaPrima_model extends CI_Model
             "Noche" => $noche,
             "Consumo" => $consumo
         );
-        $this->db->insert('pasta',$datos);
+        $query=$this->db->insert('pasta',$datos);
+        if ($query==1) {
+            $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'AGREGO UN REGISTRO DE PASTA DEL TANQUE CON ID '.$tanque.' AL RPT CON ID '.$Id);
+        }
     }
 
     public function ListarPM($IdRept)
@@ -66,7 +69,10 @@ class MateriaPrima_model extends CI_Model
             "Cantidad_PTA_Agua_Dia" => $ptadia,
             "Cantidad_PTA_Agua_Noche" => $ptanoche
         );
-        $this->db->insert('mp_insumos',$datos);
+        $query=$this->db->insert('mp_insumos',$datos);
+        if ($query==1) {
+            $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'AGREGO UN REGISTRO DE INSUMO AL RPT CON ID '.$idrptd);
+        }
     }
 
     public function ListarPMInsumos($IdRept)
@@ -98,14 +104,20 @@ class MateriaPrima_model extends CI_Model
     {
         $this->db->where("IdPasta",$id);
         $this->db->where("IdReporteDiario",$IdRept);
-        $this->db->delete('pasta');
+        $query=$this->db->delete('pasta');
+        if ($query==1) {
+            $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'ELIMINO UN REGISTRO DE PASTA DEL RPT CON ID '.$IdRept);
+        }
     }
 
     public function EliminaPMInsumo($id,$IdRept)
     {
         $this->db->where("IdMpInsumos",$id);
         $this->db->where("IdReporteDiario",$IdRept);
-        $this->db->delete('mp_insumos');
+        $query=$this->db->delete('mp_insumos');
+        if ($query==1) {
+            $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'ELIMINO UN REGISTRO DE INSUMO DEL RPT CON ID '.$IdRept);
+        }
     }
 
             public function ListarTanque()

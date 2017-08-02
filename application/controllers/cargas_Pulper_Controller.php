@@ -33,7 +33,7 @@ class cargas_Pulper_Controller extends CI_Controller {
 		$query=$this->cargasPulper_Model->listaConsumos();
 		foreach ($query as $key) {
 			$dta = array(
-				'descripcion' => $key['descripcion']			
+				'descripcion' => $key['descripcion']		
 			);
 			$json[] =$dta;
 		}
@@ -53,7 +53,7 @@ class cargas_Pulper_Controller extends CI_Controller {
          if ($duplicado->num_rows()>0) {
              echo "Consecutivo ya se ha cerrado";
          } else {
-		$this->cargasPulper_Model->guardarCargaPulper($array);
+			$this->cargasPulper_Model->guardarCargaPulper($array);
 		 }
 	}
 
@@ -61,16 +61,7 @@ class cargas_Pulper_Controller extends CI_Controller {
 		$json=array();
 		$query=$this->cargasPulper_Model->listarCargasP($idReporteDiario);
 		if ($query!=FALSE) {
-		foreach ($query as $key) {
-			$dta = array(
-				'IdCargaPulper' => $key['IdCargaPulper'],
-				'IdInsumo' => $key['IdInsumo'],
-				'Cantidad' => $key['Cantidad'],
-				'IdReporteDiario' => $key['IdReporteDiario']
-			);
-			$json[] =$dta;
-		}
-		echo json_encode($json);
+		echo json_encode($query);
 		}else {
 			echo 'FALSE';
 		}
@@ -191,7 +182,6 @@ class cargas_Pulper_Controller extends CI_Controller {
              echo "Consecutivo ya se ha cerrado";
          }else{
 		$this->cargasPulper_Model->actualizarHoraMolienda($idHora, $IdReporteDiario, $horaInicio, $horaFinal);
-		//echo "Se puede actualizar";
 	   }
 	}
 
