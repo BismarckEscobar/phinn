@@ -31,14 +31,19 @@ class Maquinas_model extends CI_Model
             echo "Ya existe un registro";
         }else{
             $this->db->insert('maquinas',$data);
+            $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'AGREGO MAQUINA '.strtoupper($maq));
         }
         
     }
 
-    public function EliminarMaq($ID)
+    public function EliminarMaq($ID, $desc)
     {
         $this->db->where('idMaquina',$ID);
-        $this->db->delete('maquinas');
+        $query=$this->db->delete('maquinas');
+        if ($query==1) {
+            $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'ELIMINO MAQUINA '.strtoupper($desc));
+        }
+
     }
 }
 ?>

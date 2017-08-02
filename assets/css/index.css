@@ -90,7 +90,7 @@ textarea.materialize-textarea:focus:not([readonly]) {
 .titulo-secundario {
     font-family: 'robotoblack';
     color: #831F82;
-    font-size: 20px;
+    font-size: 17px;
     margin-bottom: 30px;
 }
 
@@ -554,6 +554,9 @@ select {
 .pasta-final {
     width:100%;
     margin: 0 auto;
+}
+.menu-usuarios {
+    font-size: 80px;
 }
 
 @media only screen and (max-width: 768px) {

@@ -1,11 +1,14 @@
 <?php 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class reporteDiario_Controller extends CI_Controller
-{
-	
+class reporteDiario_Controller extends CI_Controller {
 	public function __construct() {
 		parent:: __construct();
+		$this->load->library('session');
+        $user = $this->session->userdata('logged');
+        if (!isset($user)) {
+            redirect(base_url().'index.php','refresh');
+        }
 	}
 	public function index($idReporteDiario) {
 		$data['consecutivo'] = $this->Ordenproduccion_model->buscarRtpDiario($idReporteDiario);
@@ -18,9 +21,9 @@ class reporteDiario_Controller extends CI_Controller
         $this->reporteDiario_Model->cambiarEstadoReporteD($idRptDiario, $estado);
     }
 
-	public function eliminarRegRptDiario($id)
+	public function eliminarRegRptDiario()
 	{
-		$this->reporteDiario_Model->eliminarRptDiario($id);
+		$this->reporteDiario_Model->eliminarRptDiario($this->input->post('deleteInfoRptDiario'));
 	}
 
 }

@@ -117,24 +117,24 @@ $route['ValidaFecha/(:any)/(:any)/(:any)'] = 'Ordenproduccion_controller/Validar
 
     $route['cambiarEstadoRptDiario/(:any)/(:any)'] = "reportediario_controller/cambiaEstadoRptD/$1/$2";
 
-    $route['validaRptDiario/(:any)'] = "reportediario_controller/eliminarRegRptDiario/$1";
+    $route['validaRptDiario'] = "reportediario_controller/eliminarRegRptDiario";
 
-     $route['MenuMantenimiento'] = "Mantenimiento_controller";
+    $route['MenuMantenimiento'] = "Mantenimiento_controller";
 
     /************RUTAS MAQUINAS******************************/
-     $route['Maquinas'] = "Maquinas_controller";
-     $route['Guardarmaquina'] = "Maquinas_controller/GuardarMaquina";
-     $route['Eliminarmaquina/(:any)'] = "Maquinas_controller/Eliminarmaquina/$1";
+    $route['Maquinas'] = "Maquinas_controller";
+    $route['Guardarmaquina'] = "Maquinas_controller/GuardarMaquina";
+    $route['Eliminarmaquina/(:any)/(:any)'] = "Maquinas_controller/Eliminarmaquina/$1/$2";
       
         /************RUTAS INSUMOS******************************/
-     $route['Insumos'] = "Insumos_controller";   
-     $route['GuardaInsumos'] = "Insumos_controller/GuardarInsumos";  
-     $route['EliminaInsumo/(:any)'] = "Insumos_controller/Eliminar/$1";   
+    $route['Insumos'] = "Insumos_controller";   
+    $route['GuardaInsumos'] = "Insumos_controller/GuardarInsumos";  
+    $route['EliminaInsumo/(:any)/(:any)'] = "Insumos_controller/Eliminar/$1/$2";
 
  /************RUTAS TANQUES******************************/
     $route['Tanques'] = "tanques_controller";   
     $route['GuardaTanques'] = "tanques_controller/Guardar"; 
-    $route['EliminarTanques/(:any)'] = "tanques_controller/EliminarTanque/$1";
+    $route['EliminarTanques/(:any)/(:any)'] = "tanques_controller/EliminarTanque/$1/$2";
     /************RUTAS PLANES******************************/
    $route['Planes'] = "planes_controller";   
    $route['Guardaplan'] = "planes_controller/GuardaPlan"; 
@@ -143,7 +143,7 @@ $route['ValidaFecha/(:any)/(:any)/(:any)'] = 'Ordenproduccion_controller/Validar
    $route['ValidarDetallePlan/(:any)/(:any)/(:any)'] = "detalleplanes_controller/ValidaDetalle/$1/$2/$3"; 
 
    $route['GuardarDetalles'] = "detalleplanes_controller/GuardaDetalles"; 
-   $route['EliminaDetalles/(:any)'] = "detalleplanes_controller/EliminarDetalle/$1"; 
+   $route['EliminaDetalles'] = "detalleplanes_controller/EliminarDetalle";
    /*****************RUTAS CONTROL PISO***************************************/
    $route['controlPiso/(:any)'] = "controlPiso_Controller/index/$1";
    $route['filtroInsumos/(:any)'] = "controlPiso_Controller/filtroTiposInsumos/$1";
@@ -158,6 +158,8 @@ $route['ValidaFecha/(:any)/(:any)/(:any)'] = 'Ordenproduccion_controller/Validar
     $route['reporteConsolidado/(:any)'] = "exportarPdf_Controller/rptConsolidadoFinal/$1";
     $route['guardandoPastaProc'] = "controlPiso_Controller/guardarPastaProcesada";
     $route['eliminarPastaProces/(:any)'] = "controlPiso_Controller/eliminarPasta/$1";
+    /*********ACTULIZANDO CONTRASEÑA*******************************/
+    $route['actulizandoPassword'] = "Login_controller/actualizarPassword";
 
     $route['Acreditar'] = 'Login_controller/Acreditar';
     $route['Salir'] = 'Login_controller/Salir';

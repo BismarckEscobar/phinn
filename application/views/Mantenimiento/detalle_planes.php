@@ -51,6 +51,17 @@
             </div>
         </div>
     </div>
+    <div class="container">
+        <div class="Buscar row column">               
+            <div class="col s1 m1 l1 offset-l3 offset-m2">
+                <i style='color:#039be5; font-size:40px;' class="material-icons purple-text accent-4">search</i>
+            </div>
+            <div class="input-field col s12 m6 l4">
+                <input  id="filTablePlanDetalle" type="text" placeholder="Buscar" class="validate">
+                <label for="filTablePlanDetalle"></label>
+            </div>
+        </div>        
+    </div>
     <div class="row">
         <div class="col s12">
             <div class="card">
@@ -87,7 +98,7 @@
                                                     <td>'.$key['Comentario'].'</td>
                                                     <td>'.$key['categoria'].'</td>
                                                     <td>'.$key['Descripcion'].'</td>
-                                                    <td><a onclick="EliminaDetPlan(this)" href="javascript:void(0)" id="'.$key['IdDetallePlan'].'"><i class="material-icons purple-text">delete</i></a></td>
+                                                    <td><a onclick="EliminaDetPlan(this, '."'".$key['Descripcion']."'".', '.$key['IdPlan'].')" href="javascript:void(0)" id="'.$key['IdDetallePlan'].'"><i class="material-icons purple-text">delete</i></a></td>
                                                     </tr>
                                             ';
                                        } 
@@ -102,7 +113,7 @@
                                                     <td>'.$key['Comentario'].'</td>
                                                     <td>'.$key['categoria'].'</td>
                                                     <td>'.$key['Descripcion'].'</td>
-                                                    <td><a onclick="EliminaDetPlan(this)" href="javascript:void(0)" id="'.$key['IdDetallePlan'].'"><i class="material-icons purple-text">delete</i></a></td>
+                                                    <td><a onclick="EliminaDetPlan(this, '."'".$key['Descripcion']."'".', '.$key['IdPlan'].')" href="javascript:void(0)" id="'.$key['IdDetallePlan'].'"><i class="material-icons purple-text">delete</i></a></td>
                                             </tr>
                                             ';
                                        } 
@@ -117,7 +128,7 @@
                                                     <td>'.$key['Comentario'].'</td>
                                                     <td>'.$key['categoria'].'</td>
                                                     <td>'.$key['Descripcion'].'</td>
-                                                    <td><a onclick="EliminaDetPlan(this)" href="javascript:void(0)" id="'.$key['IdDetallePlan'].'"><i class="material-icons purple-text">delete</i></a></td>
+                                                    <td><a onclick="EliminaDetPlan(this, '."'".$key['Descripcion']."'".', '.$key['IdPlan'].')" href="javascript:void(0)" id="'.$key['IdDetallePlan'].'"><i class="material-icons purple-text">delete</i></a></td>
                                             </tr>
                                             ';
                                        } 
@@ -132,7 +143,7 @@
                                                     <td>'.$key['Comentario'].'</td>
                                                     <td>'.$key['categoria'].'</td>
                                                     <td>'.$key['Tanque'].'</td>
-                                                    <td><a onclick="EliminaDetPlan(this)" href="javascript:void(0)" id="'.$key['IdDetallePlan'].'"><i class="material-icons purple-text">delete</i></a></td>
+                                                    <td><a onclick="EliminaDetPlan(this, '."'".$key['Tanque']."'".', '.$key['IdPlan'].')" href="javascript:void(0)" id="'.$key['IdDetallePlan'].'"><i class="material-icons purple-text">delete</i></a></td>
                                             </tr>
                                             ';
                                        } 

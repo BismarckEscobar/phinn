@@ -3,7 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class reporteDiario_Model extends CI_Model
 {	
-	function __construct() {
+	public function __construct() {
 		parent::__construct();
 		$this->load->database();
 	}
@@ -21,38 +21,40 @@ class reporteDiario_Model extends CI_Model
        	$data = array('Estado' => (int)$estado);
 	    $this->db->where('IdReporteDiario =', $idRtpD);
 	    $query=$this->db->update('reporte_diario', $data);
+	    $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'CAMBIO EL ESTADO AL REPORTE CON ID '.$idRtpD);
 	    echo $query;
     }
 
-    public function eliminarRptDiario($idReporteDiario){
-    	$this->db->where('IdReporteDiario=', $idReporteDiario);
+    public function eliminarRptDiario($array){
+    	$this->db->where('IdReporteDiario=', $array['idReporteDiario']);
 		$query=$this->db->get('cargas_pulper');
 		if ($query->num_rows()>0) {
 			echo "TRUE";
 		} else {
-			$this->db->where('IdReporteDiario=', $idReporteDiario);
+			$this->db->where('IdReporteDiario=', $array['idReporteDiario']);
 			$query=$this->db->get('horas_molienda');
 			if ($query->num_rows()>0) {
 				echo "TRUE";
 			}else {
-				$this->db->where('IdReporteDiario=', $idReporteDiario);
+				$this->db->where('IdReporteDiario=', $array['idReporteDiario']);
 				$query=$this->db->get('pasta');
 				if ($query->num_rows()>0) {
 					echo "TRUE";
 				}else {
-					$this->db->where('IdReporteDiario=', $idReporteDiario);
+					$this->db->where('IdReporteDiario=', $array['idReporteDiario']);
 					$query=$this->db->get('produccion');
 					if ($query->num_rows()>0) {
 						echo "TRUE";
 					}else {
-						$this->db->where('IdReporteDiario=', $idReporteDiario);
+						$this->db->where('IdReporteDiario=', $array['idReporteDiario']);
 						$query=$this->db->get('tiempos_muertos');
 						if ($query->num_rows()>0) {
 							echo "TRUE";
 						}else {
-							$this->db->where('IdReporteDiario=', $idReporteDiario);
+							$this->db->where('IdReporteDiario=', $array['idReporteDiario']);
 							$query=$this->db->delete('reporte_diario'); 
 							if ($query==1) {
+								$this->Users_model->InsertLog($this->session->userdata['IdUser'], 'ELIMINO EL REPORTE DIARIO NO. '.$array['consecutivo'].' DEL TURNO '.$array['turno']);
 								echo "FALSE";
 							}else{
 								echo "ERROR";

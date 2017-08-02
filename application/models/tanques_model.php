@@ -28,13 +28,18 @@ class tanques_model extends CI_Model
             echo "Ya existe un registro";
         }else{
            $this->db->insert('tanques',$data);
+           $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'GUARDO '.strtoupper($tanque));
         }
     }
 
-    public function Eliminar($id)
+    public function Eliminar($id, $desc)
     {
         $this->db->where('IdTanque',$id);
-        $this->db->delete('tanques');
+        $query=$this->db->delete('tanques');
+        if ($query==1) {
+            $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'ELIMINO '.strtoupper($desc));
+        }
+
     }
 }
 ?>

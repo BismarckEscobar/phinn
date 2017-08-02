@@ -36,6 +36,7 @@ $(document).ready(function() {
     $("#btnAddDetPlan").click(function() { $("#DetPlanModal").openModal(); });
     $("#abrirMdlNOrd").click(function() { $("#ModalNuevaOrdProduccion").openModal(); });
     $("#agregaPasta").click(function() { $("#agregaPastaProc").openModal(); });
+    $("#openModalPass").click(function() { $("#personalizarPassword").openModal(); });
 
     ///Configurar chosen////
     var config = {
@@ -149,7 +150,7 @@ function format(callback, noOrden, div) {
                     } else if (item["Estado"] == 0) {
                         var html = "<a onclick='cambiaEstadoRptD(" + item["IdReporteDiario"] + ", 1)' class='btn-flat tooltipped noHover'><i style='color:#696969; font-size:30px;' class='material-icons'>lock</i></a>";
                     };
-                    var link = "<a onclick='elimarRptDiario(" + item["IdReporteDiario"] + ")' class='btn-flat tooltipped noHover'><i style='color:#696969; font-size:30px;' class='material-icons'>delete</i></a>";
+                    var link = "<a onclick='elimarRptDiario(" + item["IdReporteDiario"] + ", "+'"'+ item["Consecutivo"] + '"'+", "+'"'+ item["Turno"] + '"'+")' class='btn-flat tooltipped noHover'><i style='color:#696969; font-size:30px;' class='material-icons'>delete</i></a>";
                     tbody += '<tr >' +
 
                         '<td><a href="../index.php/reportesDiarios/' + item["IdReporteDiario"] + '" target="_blank" class="noHover"</a>' + item["Consecutivo"] + '</td>' +
@@ -319,6 +320,40 @@ function guardarControlPiso() {
             };
         }
     });
+}
+/*********ACTUALIZAR CONTRASEÑA************************/
+function actualizarContrasenia() {
+    if ($('#oldPassword').val()=="" || $('#newPassword').val()=="") {
+        mensajeAlerta('¡Rellene todos los campos!');
+    }else {
+        var dataPass = new Array();
+        dataPass[0] = $('#idUsuarioConectado').val() + "," + $('#oldPassword').val() + "," + $('#newPassword').val();
+
+        var form_data = {
+            updatePass : dataPass
+        }
+        $.ajax({
+            url: "actulizandoPassword",
+            type: "POST",
+            async: true,
+            data: form_data,
+            success: function(data) {
+                if (data == 1) {
+                    swal({
+                        text: 'Actualizado con éxito',
+                        type: 'success',
+                        showCloseButton: true,
+                        confirmButtonColor: '#831F82',
+                        confirmButtonText: 'ACEPTAR',
+                    }).then(function() {
+                        location.reload();
+                    });
+                } else {
+                    mensajeAlerta('Contraseñas invalidas');
+                };
+            }
+        });
+    }
 }
 /********FUNCIONES SOBRE PASTA FINAL-REPORTE CONTROL PISO******/
 $("#incluirRptPastaProc").on('click', function(event) {
@@ -539,7 +574,7 @@ function cambiaEstadoRptD(idRptDiario, estado) {
     });
 }
 /*******************ELIMINA UN REPORTE DIARIO SIN REGISTROS********************/
-function elimarRptDiario(idRptDiario) {
+function elimarRptDiario(idRptDiario, consecutivoH, turnoH) {
     swal({
         title: '',
         text: '¿ELIMINAR ESTE REGISTRO?',
@@ -550,10 +585,20 @@ function elimarRptDiario(idRptDiario) {
         confirmButtonText: 'ACEPTAR',
         cancelButtonText: 'CANCELAR'
     }).then(function() {
+        var array = new Array();
+        array = {
+            idReporteDiario: idRptDiario,
+            consecutivo: consecutivoH,
+            turno: turnoH
+        }
+        form_data = {
+            deleteInfoRptDiario: array
+        }
         $.ajax({
-            url: "validaRptDiario/" + idRptDiario,
+            url: "validaRptDiario",
             type: 'post',
             async: true,
+            data: form_data,
             success: function(data) {
                 if (data == 'TRUE') {
                     mensajeAlerta('Este registro no se puede eliminar ya que hay uno o mas datos enlazados a el');
@@ -573,67 +618,44 @@ function crearTabla() {
     var cont2 = 0;
     var cont3 = 0;
     var IdReporteDiario = $('#idRptD').val();
+
     $.ajax({
         url: "../listandoCargasPulper/" + IdReporteDiario,
         async: true,
         success: function(json) {
-            if (json != 'FALSE') {
-                var obj = $.parseJSON(json);
+            var cantColumns=0;
+            if (json != 'FALSE') { 
+                var obj = $.parseJSON(json); var insumos = new Array(); var array = new Array();
+                for (var i=0; i< obj.datos.length; i++) {
+                    insumos = obj.datos[i]['insumos'];              
+                }
                 var html = '<table class="striped" id="tblCargasPulper"><thead>';
                 html += '<tr class="tblcabecera"><th>TIPO DE FIBRA (KG)</th>';
-                for (var i = 0; i < obj.length; i++) {
-                    if (obj[i]['IdInsumo'] == 1) {
-                        cont1 = cont1 + 1;
-                    } else if (obj[i]['IdInsumo'] == 2) {
-                        cont2 = cont2 + 1;
-                    } else if (obj[i]['IdInsumo'] == 12) {
-                        cont3 = cont3 + 1;
-                    };
-                };
-                if (cont1 >= cont2 && cont1 >= cont3) {
-                    for (var i = 0; i < cont1; i++) {
-                        html += '<th>' + (cantColumns = cantColumns + 1) + '</th>';
-                    };
-                } else if (cont2 >= cont3 && cont2 >= cont1) {
-                    for (var i = 0; i < cont2; i++) {
-                        html += '<th>' + (cantColumns = cantColumns + 1) + '</th>';
-                    };
-                } else if (cont3 >= cont2 && cont3 >= cont1) {
-                    for (var i = 0; i < cont3; i++) {
-                        html += '<th>' + (cantColumns = cantColumns + 1) + '</th>';
-                    };
-                };
+
+                var cont = obj.datos[0]['totalFilas'];
+                for (var i = 0; i < cont; i++) {
+                    html += '<th>' + (cantColumns = cantColumns + 1) + '</th>';
+                }
                 html += '</tr></thead>';
                 html += '<tbody>';
-                html += '<tr><td>BLANCO IMPRESO</td>';
-                for (var i = 0; i < obj.length; i++) {
-                    if (obj[i]['IdInsumo'] == 1) {
-                        html += '<td><input class="inputCP numeric" id="cargaN' + obj[i]['IdCargaPulper'] + '" onchange="actualizandoCargasPulper(' + obj[i]['IdCargaPulper'] + ', ' + obj[i]['IdReporteDiario'] + ' ,this.value)" value="' + obj[i]['Cantidad'] + '"/></td>';
+                for (var i = 0; i < insumos.length; i++) {
+                    var nombreTemp=insumos[i]['Descripcion'];  
+                    html += '<tr><td>' + insumos[i]['Descripcion'] + '</td>';
+                    for (var e = 0; e < obj.datos.length; e++) {
+                        if (nombreTemp == obj.datos[e]['Descripcion']) {     
+                            html += '<td><input class="inputCP numeric" id="cargaN' + obj.datos[e]['IdCargaPulper'] + '" onchange="actualizandoCargasPulper(' + obj.datos[e]['IdCargaPulper'] + ', ' + obj.datos[e]['IdReporteDiario'] + ' ,this.value)" value="' + obj.datos[e]['Cantidad'] + '"/></td>';
+                        };
                     }
                 };
-                html += '</tr>';
-                html += '<tr><td>MEZCLADO (COLOR)</td>';
-                for (var i = 0; i < obj.length; i++) {
-                    if (obj[i]['IdInsumo'] == 2) {
-                        html += '<td><input class="inputCP numeric" id="cargaN' + obj[i]['IdCargaPulper'] + '" onchange="actualizandoCargasPulper(' + obj[i]['IdCargaPulper'] + ', ' + obj[i]['IdReporteDiario'] + ' , this.value)" value="' + obj[i]['Cantidad'] + '"/></td>';
-                    }
-                };
-                html += '<tr><td>MERMA</td>';
-                for (var i = 0; i < obj.length; i++) {
-                    if (obj[i]['IdInsumo'] == 12) {
-                        html += '<td><input class="inputCP numeric" id="cargaN' + obj[i]['IdCargaPulper'] + '" onchange="actualizandoCargasPulper(' + obj[i]['IdCargaPulper'] + ', ' + obj[i]['IdReporteDiario'] + ' ,this.value)" value="' + obj[i]['Cantidad'] + '"/></td>';
-                    }
-                };
-                html += '</tr>';
                 html += '</tr>';
                 html += '</tbody></table>';
                 $("#btnAgregarf").after(html);
                 $('#ocultar').hide();
-            } else {
-                $('#cantTotalCarga').hide();
-            };
+    
+            }
         }
     });
+
 }
 /**************AGREGAR HORAS MOLIENDAS******************************/
 function listarHorasMolienda() {
@@ -855,25 +877,15 @@ $('#guardaRpt').click(function() {
 /*******NUEVA ORDEN DE PRODUCCION SUPERVISOR************************/
 $('#nuevaOrdProduccion').click(function() {
     var numOrden = $('#numOrden').val();
-    var fechaInicio = $('#fechaInicio').val();
-    var fechaFinal = $('#fechaFinal').val();
-
     if (numOrden == '' || fechaInicio == '' || fechaFinal == '') {
         mensajeAlerta('Todavia no ha rellenado los campos necesarios');
     } else {
-        var f1 = new Date(fechaInicio);
-        var f2 = new Date(fechaFinal);
-        if (f1 > f2) {
-            mensajeAlerta('La fecha inicial no puede ser mayor a la final');
+        if (numOrden.length > 4 || numOrden.length < 4) {
+            mensajeAlerta('El número de reporte no tiene el formato correcto');
         } else {
-            if (numOrden.length > 4 || numOrden.length < 4) {
-                mensajeAlerta('El número de reporte no tiene el formato correcto');
-            } else {
-                $('#formNuevaOrden').submit();
-            };
-        }
+            $('#formNuevaOrden').submit();
+        };        
     };
-
 });
 /****************GUARDA CONSECUTIVOS ORDEN DE PRODUCCION*******************************/
 function guardarConsecutivo(noOrden) {
@@ -1474,6 +1486,11 @@ $('#BuscarUsuarios').on('keyup', function() {
 
 $('#filtrarRpt').on('keyup', function() {
     var table = $('#tlbListaRep2').DataTable();
+    table.search(this.value).draw();
+});
+
+$('#filTablePlanDetalle').on('keyup', function() {
+    var table = $('#tblDetPlan').DataTable();
     table.search(this.value).draw();
 });
 
@@ -2164,8 +2181,7 @@ function GuardarMaquina() {
     });
 }
 
-function EliminaMaquina(elem) {
-    var id = $(elem).attr('id');
+function EliminaMaquina(elem, descripcion) {
     swal({
         title: '¿Estas seguro que deseas eliminar este registro?',
         text: 'esta operacion no podra revertirse',
@@ -2177,7 +2193,7 @@ function EliminaMaquina(elem) {
     }).then(function() {
 
         $.ajax({
-            url: "Eliminarmaquina/" + id,
+            url: "Eliminarmaquina/" + elem + "/" + descripcion,
             async: true,
             success: (function() {
                 swal({
@@ -2242,8 +2258,7 @@ function Guardarinsumos() {
         }
     });
 }
-function EliminaINS(elem) {
-    var id = $(elem).attr('id');
+function EliminaINS(elem, descripcion) {
     swal({
         title: '¿Estas seguro que deseas eliminar este registro?',
         text: 'esta operacion no podra revertirse',
@@ -2255,7 +2270,7 @@ function EliminaINS(elem) {
     }).then(function() {
 
         $.ajax({
-            url: "EliminaInsumo/" + id,
+            url: "EliminaInsumo/" + elem + "/" + descripcion,
             async: true,
             success: (function() {
                 swal({
@@ -2451,8 +2466,7 @@ function guardatanque() {
     });
 }
 
-function DeleteTanq(elem) {
-    var id = $(elem).attr('id');
+function DeleteTanq(elem, descripcion) {
     swal({
         title: '¿Estas seguro que deseas eliminar este registro?',
         text: 'esta operacion no podra revertirse',
@@ -2463,7 +2477,7 @@ function DeleteTanq(elem) {
         cancelButtonText: 'Cancelar'
     }).then(function() {
         $.ajax({
-            url: "EliminarTanques/" + id,
+            url: "EliminarTanques/" + elem + "/" + descripcion,
             type: "POST",
             async: true,
             success: function() {
@@ -2581,8 +2595,17 @@ function GuardaDetPlan() {
     });
 }
 
-function EliminaDetPlan(elem) {
+function EliminaDetPlan(elem, descripcion, idPlanHTML) {
     var id = $(elem).attr('id');
+    var array = new Array();
+    array = {
+        idDetalle: id,
+        descripcion: descripcion,
+        idPlan: idPlanHTML
+    };
+    form_data = {
+        deleteDetalle: array
+    }
     swal({
         text: '¿ELIMINAR ESTE REGISTRO?',
         type: 'warning',
@@ -2593,9 +2616,10 @@ function EliminaDetPlan(elem) {
         cancelButtonText: 'CANCELAR'
     }).then(function() {
         $.ajax({
-            url: "../EliminaDetalles/" + id,
+            url: "../EliminaDetalles",
             type: "POST",
             async: true,
+            data: form_data,
             success: function() {
                 swal({
                     text: "El registro se ha eliminado",

@@ -37,8 +37,21 @@
 		   };
 			echo '<ul class="right hide-on-med-and-down">
 					<li>'.$usuario.'</li>
-					<li ><a href="'.base_url("index.php/dashboard").'"><i style="font-size:40px;" class="mdi-action-home tooltipped" data-tooltip="INICIO"></i></a></li>      	
-					<li ><a href="'.base_url("index.php/Salir").'"><i style="font-size:40px;" class="material-icons">power_settings_new</i></a></li>
+					<li><a href="'.base_url("index.php/dashboard").'"><i style="font-size:32px;" class="mdi-action-home tooltipped" data-tooltip="INICIO"></i></a></li>
+					<li ><a href="'.base_url("index.php/Salir").'"><i style="font-size:32px;" class="material-icons">power_settings_new</i></a></li>
+					<li>
+						<ul id="dropdown1" class="dropdown-content">
+						  <li><a href="#!">Ayuda</a></li>
+						  <li><a id="openModalPass" class="modal-trigger" href="#personalizarPassword">Contraseña</a></li>
+						</ul>
+						<nav>
+						  <div class="nav-wrapper">
+						    <ul class="right hide-on-med-and-down">
+						      <li><a class="dropdown-button" href="#!" style="background-color:#831f82;" data-activates="dropdown1"><i class="material-icons">apps</i></a></li>
+						    </ul>
+						  </div>
+						</nav>
+					</li>					
 				</ul>'; 
 			?>
 	</div>

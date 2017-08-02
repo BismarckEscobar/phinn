@@ -17,6 +17,7 @@ class Login_controller extends CI_Controller {
     }
     
     public function Salir(){
+        $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'CERRO SESION ');
         $this->session->sess_destroy();
         $sessiondata = array(
                 'logged' => 0
@@ -40,7 +41,7 @@ class Login_controller extends CI_Controller {
     		if ($data['user'] == 0) {
     			redirect('?error=2');
     		} else {
-                $this->Users_model->InsertLog($data['user'][0]['IdUsuario']);
+                $this->Users_model->InsertLog($data['user'][0]['IdUsuario'], 'INGRESO AL SISTEMA');
                 $sessiondata = array(
                                 'IdUser' => $data['user'][0]['IdUsuario'],
                                 'Usuario' => $data['user'][0]['Usuario'],
@@ -60,5 +61,9 @@ class Login_controller extends CI_Controller {
         $name = 'Manual.rar';
         //use this function to force the session/browser to download the file uploaded by the user 
         force_download($name, $data);
+    }
+
+    public function actualizarPassword() {
+        $this->Users_model->actulizandoPassword($this->input->post('updatePass'));
     }
 }

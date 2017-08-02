@@ -39,7 +39,7 @@
                                             <tr>
                                                 <td>'.$key['IdTanque'].'</td>
                                                 <td>'.$key['Tanque'].'</td>
-                                                <td><a class="tooltipped" data-tooltip="Eliminar" data-position="right" href="javascript:void(0)" id="'.$key['IdTanque'].'" onclick="DeleteTanq(this)"><i class="material-icons purple-text">delete</i></a></td>
+                                                <td><a class="tooltipped" data-tooltip="Eliminar" data-position="right" href="javascript:void(0)" id="'.$key['IdTanque'].'" onclick="DeleteTanq('.$key['IdTanque'].', '."'".$key['Tanque']."'".')"><i class="material-icons purple-text">delete</i></a></td>
                                             </tr>
                                            ';
                                        }

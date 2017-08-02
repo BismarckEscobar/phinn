@@ -43,3 +43,46 @@
         </style>
     </head>
 <body>
+<div id="personalizarPassword" class="modal">
+    <div class="modal-content">
+        <div class="right row">
+            <div class="col s1 m1 l1">
+                <a href="#!" class="BtnClose modal-action modal-close noHover">
+                    <i class="material-icons">highlight_off</i>
+                </a>
+            </div>
+        </div>        
+        <div class="row noMargen center">
+            <div class="noMargen col s12 m12 l12">
+                <h6 class="center titulos">PERSONALIZAR CONTRASEÑA</h6>
+            </div>
+        </div>
+            <div class="row">
+                <?php
+                   if ($this->session->userdata['IdUser']) {
+                        $usuario = $this->session->userdata['IdUser'];
+                   };
+                   echo "
+                <div class='input-field col s12 m6 s6'>
+                    <input type='hidden' id='idUsuarioConectado' value='".$usuario."' name='idUserConectado'>
+                </div> ";
+                ?>
+            </div>    
+            <div class="row">
+                <div class="input-field col s12 m6 s6">
+                    <input type="text" id="oldPassword" name="oldPassword">
+                    <label for="oldPassword">CONTRASEÑA ACTUAL</label>
+                </div>                
+                <div class="input-field col s12 m6 s6">
+                    <input type="text" id="newPassword" name="newPassword">
+                    <label for="newPassword">NUEVA CONTRASEÑA</label>
+                </div>
+            </div><br><br>
+            <div class="row">                    
+                <div class="center">
+                    <a class="Btnadd btn waves-effect waves-light" onclick="actualizarContrasenia()" id="updatePass" href="#!" style="background-color:#831F82;">ACTUALIZAR
+                    </a>
+                </div>
+            </div>    
+    </div>
+</div>

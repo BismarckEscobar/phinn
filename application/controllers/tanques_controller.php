@@ -28,9 +28,9 @@ class tanques_controller extends CI_Controller
         $this->tanques_model->Guardartanque($tanque);
     }
 
-    public function EliminarTanque($id)
+    public function EliminarTanque($id, $desc)
     {
-        $this->tanques_model->Eliminar($id);
+        $this->tanques_model->Eliminar($id, $desc);
     }
 }
 ?>

@@ -54,7 +54,11 @@ class Ordenproduccion_model extends CI_Model
             "TipoPapel" => $Tipo,
             "Estado" => 1
         );
-        $this->db->insert("reporte_diario",$data);
+        $result = $this->db->insert("reporte_diario",$data);
+        if ($result==1) {
+            $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'AGREGO EL CONSECUTIVO NO. '.$Cons.' DEL TURNO '.$Turno);
+        }
+
         }
     }
 
