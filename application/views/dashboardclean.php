@@ -41,7 +41,7 @@
 					<li ><a href="'.base_url("index.php/Salir").'"><i style="font-size:32px;" class="material-icons">power_settings_new</i></a></li>
 					<li>
 						<ul id="dropdown1" class="dropdown-content">
-						  <li><a href="#!">Ayuda</a></li>
+						  <li><a href="'.base_url("index.php/Descargar").'">Ayuda</a></li>
 						  <li><a id="openModalPass" class="modal-trigger" href="#personalizarPassword">Contraseña</a></li>
 						</ul>
 						<nav>
