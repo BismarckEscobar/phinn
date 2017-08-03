@@ -79,11 +79,11 @@
                                             }else{
                                                 foreach ($produccion as $key) {                         
 
-                                                    if($key['Maquina']=='1'){
+                                                    if($key['Maquina']=='Maquina 1'){
                                                         $total1 +=$key['Peso'];
                                                         $class="mostrarMaquina1";
                                                     }
-                                                    else if($key['Maquina']=='2')
+                                                    else if($key['Maquina']=='Maquina 2')
                                                     {
                                                             $total +=$key['Peso'];
                                                             $class="mostrarMaquina2";
@@ -291,7 +291,7 @@
                 <br>
                 <div class="row">
                     <div class="input-field col s6 m6 s6">
-                        <input type="text" name="merma" id="merma">
+                        <input type="text" name="merma" id="merma" class="center" value="0">
                         <label for="merma">MERMA</label>
                     </div>
                 </div>
