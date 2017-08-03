@@ -322,11 +322,11 @@
 		<div class='row'>
             <div class='input-field col s6 m6 s6'>
                 <input  id='consumoInicial' type='text' value='".$consumoInicial."' class='validate'>
-                <label for='consumoInicial'>Consumo Inicial</label>
+                <label for='consumoInicial'>Lectura Inicial</label>
             </div>
             <div class='input-field col s6 m6 s6'>
                 <input  id='consumoFinal' type='text' value='".$consumoFinal."' class='validate'>
-                <label for='consumoFinal'>Consumo Final</label>
+                <label for='consumoFinal'>Lectura Final</label>
             </div>
 		</div><br><br>";        
         ?>
