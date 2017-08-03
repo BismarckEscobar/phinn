@@ -17,7 +17,7 @@ class MateriaPrima_model extends CI_Model
             "Consumo" => $consumo
         );
         $query=$this->db->insert('pasta',$datos);
-        if ($query==1) {
+        if ($query) {
             $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'AGREGO UN REGISTRO DE PASTA DEL TANQUE CON ID '.$tanque.' AL RPT CON ID '.$Id);
         }
     }
@@ -28,10 +28,8 @@ class MateriaPrima_model extends CI_Model
         $query = $this->db->get('view_pasta');
         if ($query->num_rows() > 0) {
             return $query->result_array();
-        } else {
-            return false;
         }
-        
+            return false;        
     }
         public function ValidaPasta($tanque,$ID)
     {
@@ -42,9 +40,7 @@ class MateriaPrima_model extends CI_Model
         if ($query->num_rows()>0) {
             $valor = true;
         }
-        else{
-            $valor = false;
-        }
+        
         echo $valor;
     }
 
@@ -53,10 +49,8 @@ class MateriaPrima_model extends CI_Model
         $query = $this->db->get('view_detallesplanescat2');
         if ($query->num_rows()>0) {
             return $query->result_array();
-        } else {
-            return false;
-        }
-        
+        } 
+            return false;        
     }
 
     public function GuardarMPInsumos($idrptd,$desc,$Dia,$Noche,$ptadia,$ptanoche)
@@ -70,7 +64,7 @@ class MateriaPrima_model extends CI_Model
             "Cantidad_PTA_Agua_Noche" => $ptanoche
         );
         $query=$this->db->insert('mp_insumos',$datos);
-        if ($query==1) {
+        if ($query) {
             $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'AGREGO UN REGISTRO DE INSUMO AL RPT CON ID '.$idrptd);
         }
     }
@@ -81,9 +75,8 @@ class MateriaPrima_model extends CI_Model
         $query = $this->db->get('view_mp_insumos');
         if ($query->num_rows() > 0) {
             return $query->result_array();
-        } else {
-            return false;
         }
+            return false;
     }
 
     public function ValidaMPInsumo($ID,$des)
@@ -95,9 +88,6 @@ class MateriaPrima_model extends CI_Model
         if ($query->num_rows()>0) {
             $valor = true;
         }
-        else{
-            $valor = false;
-        }
         echo $valor;
     }
      public function EliminaPasta($id,$IdRept)
@@ -105,7 +95,7 @@ class MateriaPrima_model extends CI_Model
         $this->db->where("IdPasta",$id);
         $this->db->where("IdReporteDiario",$IdRept);
         $query=$this->db->delete('pasta');
-        if ($query==1) {
+        if ($query) {
             $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'ELIMINO UN REGISTRO DE PASTA DEL RPT CON ID '.$IdRept);
         }
     }
@@ -115,7 +105,7 @@ class MateriaPrima_model extends CI_Model
         $this->db->where("IdMpInsumos",$id);
         $this->db->where("IdReporteDiario",$IdRept);
         $query=$this->db->delete('mp_insumos');
-        if ($query==1) {
+        if ($query) {
             $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'ELIMINO UN REGISTRO DE INSUMO DEL RPT CON ID '.$IdRept);
         }
     }
@@ -125,9 +115,8 @@ class MateriaPrima_model extends CI_Model
             $query = $this->db->get('view_detallesplanescat4');
             if ($query->num_rows()>0) {
                 return $query->result_array();
-            } else {
-                return false;
             }
+                return false;
             
         }
 }

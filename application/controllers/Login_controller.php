@@ -24,7 +24,7 @@ class Login_controller extends CI_Controller {
         );
 
         $this->session->unset_userdata($sessiondata);
-        $this->index();
+        redirect('login');
 	}
     public function Acreditar(){
     	$this->form_validation->set_rules('txtUsuario', 'Usuario', 'required');

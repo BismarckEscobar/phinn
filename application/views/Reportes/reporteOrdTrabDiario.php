@@ -303,75 +303,32 @@
 			<thead>
 				<tr>
 					<th style="text-align:center;">TIPO DE FIBRA(kg)</th>
-					<?php
-					$cont1=0;$cont2=0;$cont3=0;$cant=0;
+					<?php					
 						if($cargasPulper) {
-							for ($i=0; $i <= count($cargasPulper); $i++) { 
-								if ( $cargasPulper[$i]['IdInsumo']== 1) {
-			                        $cont1 = $cont1 + 1;
-			                    }elseif ($cargasPulper[$i]['IdInsumo']== 2) {
-			                        $cont2 = $cont2 + 1;
-			                    }elseif ($cargasPulper[$i]['IdInsumo']== 12) {
-			                        $cont3 = $cont3 + 1;
-			                    }
+							$cont = 0;
+							$cantidad = $cargasPulper['datos'][0]['totalFilas'];
+							for ($i=0; $i < $cantidad; $i++) { 
+								echo '<th style="text-align:center;">'.($cont=$cont+1).'</th>';
 							}
-							if($cont1 >= $cont2 && $cont1 >= $cont3) {
-			                    for ($i=0; $i<$cont1; $i++) {
-			                      echo '<th style="text-align:center;">'.($cant=$cant+1).'</th>';
-			                    }
-			                }elseif ($cont2 >= $cont3 && $cont2 >= $cont1) {
-			                    for ($i=1; $i<$cont2; $i++) {
-			                        echo '<th style="text-align:center;">'.($cant=$cant+1).'</th>';
-			                    }
-			                }elseif ($cont3 >= $cont2 && $cont3 >= $cont1) {
-			                    for ($i=1; $i<$cont3; $i++) {
-			                        echo '<th style="text-align:center;">'.($cant=$cant+1).'</th>';
-			                    }
-			                };
 						};
 					?>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td style="text-align:center;">BLANCO IMPRESO</td>					
-					<?php
-						if ($cargasPulper) {
-							foreach ($cargasPulper as $key) {
-								if ($key['IdInsumo']==1) {
-									echo "<td  style='text-align:center;'>".$key['Cantidad']."</td>";	
-								}
-								
+				<?php
+				if ($cargasPulper) {					
+					for ($i=0; $i < count($cargasPulper['datos'][0]['insumos']); $i++) { 
+						$nombreTemp= $cargasPulper['datos'][$i]['insumos'][$i]['Descripcion'];
+						echo '<tr><td>'.$nombreTemp.'</td>';
+						for ($e=0; $e <= count($cargasPulper['datos']); $e++) { 
+							if ($nombreTemp == $cargasPulper['datos'][$e]['Descripcion']) {
+								echo '<td>'.$cargasPulper['datos'][$e]['Cantidad'].'</td>';
 							}
 						}
-					?>
-				</tr>
-				<tr>
-					<td style="text-align:center;">MEZCLADO(color)</td>					
-					<?php
-						if ($cargasPulper) {
-							foreach ($cargasPulper as $key) {
-								if ($key['IdInsumo']==2) {
-									echo "<td style='text-align:center;'>".$key['Cantidad']."</td>";	
-								}
-								
-							}
-						}
-					?>
-				</tr>
-				<tr>
-					<td style="text-align:center;">MERMA</td>					
-					<?php
-						if ($cargasPulper) {
-							foreach ($cargasPulper as $key) {
-								if ($key['IdInsumo']==12) {
-									echo "<td style='text-align:center;'>".$key['Cantidad']."</td>";	
-								}
-								
-							}
-						}
-					?>
-				</tr>			
+					echo '</tr>';					
+					}				
+				}
+				?>
 			</tbody>
 		</table>		
 		<div class="titulos"> <span>HORAS MOLIENDA</span><span class="totales"> (<b>total:</b><?php echo $totalHrsM?>)</span></div>
