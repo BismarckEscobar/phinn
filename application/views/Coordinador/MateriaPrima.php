@@ -422,8 +422,19 @@
                             if(!($listaTanques))
                             {}else{
                                 foreach ($listaTanques as $key) {
+                                    switch ($key['Tanque']) {
+                                        case 'Tanque #1':
+                                                $desc = "Yankee 1-Jumbo Roll";
+                                            break;
+                                        case 'Tanque #2':
+                                                $desc = "Yankee 2-Jumbo Roll";
+                                            break;
+                                        case 'Tanque #3':
+                                                $desc = "Caldera-Planta Tratamiento";
+                                            break;
+                                    }
                                     echo'
-                                    <option value="'.$key['IdInsumo'].'">'.$key['Tanque'].'</option>
+                                    <option value="'.$key['IdInsumo'].'">'.$key['Tanque'].'  <span>('.$desc.')</span></option>
                                     ';
                                   }
                                 }                            
