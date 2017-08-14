@@ -2,6 +2,7 @@
     if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
     $route['default_controller'] = 'Login_controller';
+    $route['login'] = 'Login_controller';
     $route['404_override'] = '';
     $route['translate_uri_dashes'] = FALSE;
 
@@ -129,7 +130,7 @@ $route['ValidaFecha/(:any)/(:any)/(:any)'] = 'Ordenproduccion_controller/Validar
         /************RUTAS INSUMOS******************************/
     $route['Insumos'] = "Insumos_controller";   
     $route['GuardaInsumos'] = "Insumos_controller/GuardarInsumos";  
-    $route['EliminaInsumo/(:any)/(:any)'] = "Insumos_controller/Eliminar/$1/$2";
+    $route['EliminaInsumo/(:any)'] = "Insumos_controller/Eliminar/$1";
 
  /************RUTAS TANQUES******************************/
     $route['Tanques'] = "tanques_controller";   

@@ -2,7 +2,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class exportarPdf_Controller extends CI_Controller {
-	
+
 	public function __construct() {
 		parent:: __construct();
 		$this->load->library('MPDF/mpdf');
@@ -15,9 +15,9 @@ class exportarPdf_Controller extends CI_Controller {
 	public function index($idReporteDiario) {
         $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'GENERO UN REPORTE DEL REPORTE DIARIO CON ID '.$idReporteDiario);
         $data['tiemposM'] = $this->listandoTiempoMuerto($idReporteDiario);
-        $data['cargaTotal'] = $this->listandoCargaTotalPulper($idReporteDiario);        
-        $data['horasMolienda'] = $this->listandoHorasMolienda($idReporteDiario);        
-        $data['cargasPulper'] = $query=$this->cargasPulper_Model->listarCargasP($idReporteDiario);		
+        $data['cargaTotal'] = $this->listandoCargaTotalPulper($idReporteDiario);
+        $data['horasMolienda'] = $this->listandoHorasMolienda($idReporteDiario);
+        $data['cargasPulper'] = $this->cargasPulper_Model->listarCargasP($idReporteDiario);
         $query = $this->produccion_Model->ListarProd($idReporteDiario);
         $data['mermaTotal'] = $this->calculandoMermaTotal($query);
         $data['produccion'] = $query;
@@ -25,7 +25,8 @@ class exportarPdf_Controller extends CI_Controller {
 		$data['pasta'] = $this->MateriaPrima_model->ListarPM($idReporteDiario);
         $data['insumos'] = $this->MateriaPrima_model->ListarPMInsumos($idReporteDiario);
         $data['totalHrsM'] = date('H:i', strtotime($this->calcularCantHoras($idReporteDiario)));
-        $data['cabeceraRpt'] = $this->reporteDiario_Model->caberaReporte($idReporteDiario);        
+        $data['cabeceraRpt'] = $this->reporteDiario_Model->caberaReporte($idReporteDiario);
+        
         $PdfCliente = new mPDF('utf-8','A4');
         $PdfCliente->SetFooter("Página {PAGENO} de {nb}");
         $PdfCliente -> writeHTML($this->load->view('Reportes/reporteOrdTrabDiario',$data,true));
@@ -36,9 +37,9 @@ class exportarPdf_Controller extends CI_Controller {
     public function calculandoMermaTotal($array) {
         $mermaMq1=0;$mermaMq2=0;
         foreach ($array as $key) {
-            if ($key['Maquina'] == 1) {
+            if ($key['Maquina'] == 'Maquina 1') {
                 $mermaMq1=$key['Merma'];
-            }else if ($key['Maquina'] == 2) {
+            }else if ($key['Maquina'] == 'Maquina 2') {
                 $mermaMq2=$key['Merma'];
             }       
         }

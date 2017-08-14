@@ -13,10 +13,10 @@ $(document).ready(function() {
         crearTabla();
     };
     if (pathname.match(/OrdenProduccion.*/)) {
-        if ($('#ordActiva').is(':checked')) {
-            $(".OrdenAnulada").removeClass("OrdenAnulada").addClass("nomostrarOrdenAnul");
-            $(".OrdenCerrada").removeClass("OrdenCerrada").addClass("nomostrarOrdenCerr");
-            $(".OrdenInactiva").removeClass("OrdenInactiva").addClass("nomostrarOrdenInac");
+        if($('#ordActiva').is(':checked') ) {
+            $( ".OrdenAnulada" ).removeClass( "OrdenAnulada" ).addClass( "nomostrarOrdenAnul" );
+            $( ".OrdenCerrada" ).removeClass( "OrdenCerrada" ).addClass( "nomostrarOrdenCerr" );
+            $( ".OrdenInactiva" ).removeClass( "OrdenInactiva" ).addClass( "nomostrarOrdenInac" );
         }
     };
 
@@ -123,7 +123,6 @@ $('#tlbListaRep2').on('click', 'tbody .detalleNumOrd', function() {
         tr.addClass('shown');
     }
 });
-
 function format(callback, noOrden, div) {
     var ia = 0;
     $.ajax({
@@ -151,7 +150,7 @@ function format(callback, noOrden, div) {
                     } else if (item["Estado"] == 0) {
                         var html = "<a onclick='cambiaEstadoRptD(" + item["IdReporteDiario"] + ", 1)' class='btn-flat tooltipped noHover'><i style='color:#696969; font-size:30px;' class='material-icons'>lock</i></a>";
                     };
-                    var link = "<a onclick='elimarRptDiario(" + item["IdReporteDiario"] + ", " + '"' + item["Consecutivo"] + '"' + ", " + '"' + item["Turno"] + '"' + ")' class='btn-flat tooltipped noHover'><i style='color:#696969; font-size:30px;' class='material-icons'>delete</i></a>";
+                    var link = "<a onclick='elimarRptDiario(" + item["IdReporteDiario"] + ", "+'"'+ item["Consecutivo"] + '"'+", "+'"'+ item["Turno"] + '"'+")' class='btn-flat tooltipped noHover'><i style='color:#696969; font-size:30px;' class='material-icons'>delete</i></a>";
                     tbody += '<tr >' +
 
                         '<td><a href="../index.php/reportesDiarios/' + item["IdReporteDiario"] + '" target="_blank" class="noHover"</a>' + item["Consecutivo"] + '</td>' +
@@ -201,17 +200,17 @@ function format(callback, noOrden, div) {
 function agregarFilas() {
     var t = $('#tblControlPiso').DataTable();
     var idInsumo = $('#descripcionInsumo').val();
-    var consecutivoHTML = $("#consecutivo").text();
+    var consecutivoHTML= $("#consecutivo").text();
     $.ajax({
 
-        url: "../insumoDetalle/" + idInsumo + "/" + consecutivoHTML,
+        url: "../insumoDetalle/"+idInsumo+"/"+consecutivoHTML,
         type: "POST",
         async: true,
         success: function(data) {
             console.log(data);
-            if (data != 1) {
-                $.each(JSON.parse(data), function(i, item) {
-                    t.row.add([
+            if (data!=1) {
+                $.each(JSON.parse(data), function(i, item){
+                    t.row.add( [
                         item['IdInsumo'],
                         item['Tipo'],
                         '<input class="inputControlPiso numeric" id="codigo' + item['IdInsumo'] + '" value=""/>',
@@ -243,8 +242,7 @@ function calcularConsumo(item) {
 }
 /**********GUARDA DETALLE CONTROL PISO*****************************/
 function guardarControlPiso() {
-    var maquinas;
-    var rptPasta;
+    var maquinas; var rptPasta;
     var fecha = new Date();
     var encabezadoCPiso = new Array();
     var pos1 = 0;
@@ -260,26 +258,26 @@ function guardarControlPiso() {
 
     if ($('#incluirRptPastaProc').is(':checked')) {
         rptPasta = 1;
-    } else if (!$('#incluirRptPastaProc').is(':checked')) {
+    }else if(!$('#incluirRptPastaProc').is(':checked')) {
         rptPasta = 0;
     };
     var fechaCreacion = moment(new Date()).format('YYYY/MM/DD');
 
-    var noOrden = $('#ordTrabajo').text();
-    var consecutivoHTML = $("#consecutivo").text();
-    var fechaInicio = $('#fechaInicio').val();
-    var fechaFin = $('#fechaFin').val();
-    var fechaCreacion = fechaCreacion;
-    var producto = $('#tipoPapel').text();
-    var grupo = $('#grupo').val();
-    if (grupo == "") {
-        grupo = "indefinido,indefinido";
+    var noOrden= $('#ordTrabajo').text();
+    var consecutivoHTML= $("#consecutivo").text();
+    var fechaInicio= $('#fechaInicio').val();
+    var fechaFin= $('#fechaFin').val();
+    var fechaCreacion= fechaCreacion;
+    var producto= $('#tipoPapel').text();
+    var grupo= $('#grupo').val();
+    if (grupo=="") {
+        grupo="indefinido,indefinido";
     }
     var grupo2 = grupo.replace(",", "-");
-    var maquina = maquinas;
-    var horaInicio = $('#horaInicio').text();
-    var horaFinal = $('#horaFin').text();
-    encabezadoCPiso[pos1] = noOrden + "," + consecutivoHTML + "," + fechaInicio + "," + fechaFin + "," + fechaCreacion + "," + producto + "," + grupo2 + "," + maquina + "," + horaInicio + "," + horaFinal + "," + rptPasta;
+    var maquina= maquinas;
+    var horaInicio= $('#horaInicio').text();
+    var horaFinal= $('#horaFin').text();
+    encabezadoCPiso[pos1] = noOrden+","+consecutivoHTML+","+fechaInicio+","+fechaFin+","+fechaCreacion+","+producto+","+grupo2+","+maquina+","+horaInicio+","+horaFinal+","+rptPasta;
 
 
     var table = $('#tblControlPiso').DataTable();
@@ -290,14 +288,14 @@ function guardarControlPiso() {
         var row = table.row(index);
         var data = row.data();
 
-        var idItem = data[0];
-        var codigo = $("#codigo" + idItem).val();
-        if (codigo == "") {
-            codigo = "0";
+        var idItem=data[0];
+        var codigo = $("#codigo"+idItem).val();
+        if (codigo=="") {
+            codigo="0";
         }
-        var requisado = $("#requisado" + idItem).val();
-        var piso = $("#piso" + idItem).val();
-        var consumo = $("#consumo" + idItem).val();
+        var requisado = $("#requisado"+idItem).val();
+        var piso = $("#piso"+idItem).val();
+        var consumo = $("#consumo"+idItem).val();
         detalleCPiso[pos] = data[0] + "," + data[1] + "," + codigo + "," + data[3] + "," + data[4] + "," + requisado + "," + piso + "," + consumo + "," + consecutivoHTML;
 
         pos++;
@@ -325,14 +323,14 @@ function guardarControlPiso() {
 }
 /*********ACTUALIZAR CONTRASEÑA************************/
 function actualizarContrasenia() {
-    if ($('#oldPassword').val() == "" || $('#newPassword').val() == "") {
+    if ($('#oldPassword').val()=="" || $('#newPassword').val()=="") {
         mensajeAlerta('¡Rellene todos los campos!');
-    } else {
+    }else {
         var dataPass = new Array();
         dataPass[0] = $('#idUsuarioConectado').val() + "," + $('#oldPassword').val() + "," + $('#newPassword').val();
 
         var form_data = {
-            updatePass: dataPass
+            updatePass : dataPass
         }
         $.ajax({
             url: "actulizandoPassword",
@@ -362,49 +360,49 @@ $("#incluirRptPastaProc").on('click', function(event) {
     var marcado = $("#incluirRptPastaProc").prop("checked") ? true : false;
     var texto;
     if ($('#incluirRptPastaProc').is(':checked')) {
-        texto = "¿Esta seguro de querer adjuntar esta información al reporte?";
-    } else if (!$('#incluirRptPastaProc').is(':checked')) {
-        texto = "¿Esta seguro de querer excluir esta información de este reporte?";
+        texto="¿Esta seguro de querer adjuntar esta información al reporte?";
+    } else if(!$('#incluirRptPastaProc').is(':checked')) {
+        texto="¿Esta seguro de querer excluir esta información de este reporte?";
     }
     swal({
-        text: texto,
-        type: 'question',
-        showCancelButton: true,
-        confirmButtonText: 'ACEPTAR',
-        confirmButtonColor: '#831F82',
-        cancelButtonText: 'CANCELAR'
+      text: texto,
+      type: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'ACEPTAR',
+      confirmButtonColor: '#831F82',
+      cancelButtonText: 'CANCELAR'
     }).then(function() {
-        if (marcado == true) {
+        if (marcado==true) {
             $('#incluirRptPastaProc').prop("checked", true);
             $('#label-incluirRptPastaProc').text('EXCLUIR DEL REPORTE');
             guardarControlPiso();
-        } else {
-            $('#incluirRptPastaProc').prop("checked", false);
+        }else {
+            $('#incluirRptPastaProc').prop("checked", false);            
             $('#label-incluirRptPastaProc').text('ADJUNTAR AL REPORTE');
             guardarControlPiso();
         }
     }, function(dismiss) {
-        if (dismiss === 'cancel') {
-            if (marcado == true) {
-                $('#incluirRptPastaProc').prop("checked", false);
-            } else {
-                $('#incluirRptPastaProc').prop("checked", true);
-            }
+      if (dismiss === 'cancel') {
+        if (marcado==true) {
+            $('#incluirRptPastaProc').prop("checked", false);
+        }else {
+            $('#incluirRptPastaProc').prop("checked", true);
         }
+      }
     })
 });
 /******************AGREGA Y ACTUALIZA CONSUMO ELECTRICO************************/
 function agregaActualizaConsumoElec() {
-    var registroElectrico = new Array();
-    var fechaInicioCons = $('#fechaInicCons').val();
+    var registroElectrico = new Array();    
+    var fechaInicioCons = $('#fechaInicCons').val();    
     var fechaFinCons = $('#fechaFinCons').val();
-    var consecutivoHTML = $("#consecutivo").text();
+    var consecutivoHTML= $("#consecutivo").text();
     var horaInicioCons = $('#horaInicioCons').val();
     var horaFinalCons = $('#horaFinalCons').val();
     var consumoInicial = $('#consumoInicial').val();
     var consumoFinal = $('#consumoFinal').val();
 
-    registroElectrico[0] = fechaInicioCons + "," + fechaFinCons + "," + horaInicioCons + "," + horaFinalCons + "," + consumoInicial + "," + consumoFinal + "," + consecutivoHTML;
+    registroElectrico[0] = fechaInicioCons + "," + fechaFinCons  + "," + horaInicioCons + "," + horaFinalCons + "," + consumoInicial + "," + consumoFinal + "," + consecutivoHTML;
 
     var form_data = {
         consumoElectrico: registroElectrico
@@ -427,12 +425,12 @@ function agregaActualizaConsumoElec() {
 /****************GUARDANDO PASTA PROCESADA**********************/
 function guardarPastaProcesada() {
     var codigo;
-    if ($('#codigo').val() == "") {
+    if ($('#codigo').val()=="") {
         codigo = 0;
-    } else {
+    }else {
         codigo = $('#codigo').val();
     }
-    if ($('#descripcion').val() == "" || $('#tanque').val() == null || $('#undMedidad').val() == "" || $('#cantidad').val() == "") {
+    if ($('#descripcion').val()=="" || $('#tanque').val()==null || $('#undMedidad').val()=="" || $('#cantidad').val()=="") {
         mensajeAlerta("RELLENE LOS CAMPOS REQUERIDOS");
     } else {
         var info = new Array();
@@ -526,15 +524,15 @@ function generarReportes() {
     var html = $("#ordTrabajo option:selected").text();
     var html2 = html.split("/");
     var consecutivo = html2[0];
-    if (ordenProd == null) {
+    if (ordenProd==null) {
         mensajeAlerta('ESCOJA UNA ORDEN DE PRODUCCIÓN');
-    } else if (!$('#rptDiario').is(':checked') && (!$('#rptControlPiso').is(':checked')) && (!$('#rptConsolidado').is(':checked'))) {
+    }else if (!$('#rptDiario').is(':checked') && (!$('#rptControlPiso').is(':checked')) && (!$('#rptConsolidado').is(':checked'))) {
         mensajeAlerta('DEBE SELECCIONAR EL TIPO DE REPORTE QUE DESEA GENERAR');
-    } else {
-        if ($('#rptDiario').is(':checked')) {
+    }else {
+        if ($('#rptDiario').is(':checked') ) {
             window.open('reportesDiarios/' + IdRptDiario + '', '_blank');
         }
-        if ($('#rptControlPiso').is(':checked')) {
+        if ($('#rptControlPiso').is(':checked') ) {
             window.open('reporteControlPiso/' + consecutivo + '', '_blank');
         }
         if ($('#rptConsolidado').is(':checked')) {
@@ -625,13 +623,11 @@ function crearTabla() {
         url: "../listandoCargasPulper/" + IdReporteDiario,
         async: true,
         success: function(json) {
-            var cantColumns = 0;
-            if (json != 'FALSE') {
-                var obj = $.parseJSON(json);
-                var insumos = new Array();
-                var array = new Array();
-                for (var i = 0; i < obj.datos.length; i++) {
-                    insumos = obj.datos[i]['insumos'];
+            var cantColumns=0;
+            if (json != 'FALSE') { 
+                var obj = $.parseJSON(json); var insumos = new Array(); var array = new Array();
+                for (var i=0; i< obj.datos.length; i++) {
+                    insumos = obj.datos[i]['insumos'];              
                 }
                 var html = '<table class="striped" id="tblCargasPulper"><thead>';
                 html += '<tr class="tblcabecera"><th>TIPO DE FIBRA (KG)</th>';
@@ -643,10 +639,10 @@ function crearTabla() {
                 html += '</tr></thead>';
                 html += '<tbody>';
                 for (var i = 0; i < insumos.length; i++) {
-                    var nombreTemp = insumos[i]['Descripcion'];
+                    var nombreTemp=insumos[i]['Descripcion'];  
                     html += '<tr><td>' + insumos[i]['Descripcion'] + '</td>';
                     for (var e = 0; e < obj.datos.length; e++) {
-                        if (nombreTemp == obj.datos[e]['Descripcion']) {
+                        if (nombreTemp == obj.datos[e]['Descripcion']) {     
                             html += '<td><input class="inputCP numeric" id="cargaN' + obj.datos[e]['IdCargaPulper'] + '" onchange="actualizandoCargasPulper(' + obj.datos[e]['IdCargaPulper'] + ', ' + obj.datos[e]['IdReporteDiario'] + ' ,this.value)" value="' + obj.datos[e]['Cantidad'] + '"/></td>';
                         };
                     }
@@ -655,7 +651,7 @@ function crearTabla() {
                 html += '</tbody></table>';
                 $("#btnAgregarf").after(html);
                 $('#ocultar').hide();
-
+    
             }
         }
     });
@@ -888,7 +884,7 @@ $('#nuevaOrdProduccion').click(function() {
             mensajeAlerta('El número de reporte no tiene el formato correcto');
         } else {
             $('#formNuevaOrden').submit();
-        };
+        };        
     };
 });
 /****************GUARDA CONSECUTIVOS ORDEN DE PRODUCCION*******************************/
@@ -1463,17 +1459,15 @@ function buscarTiempoM(identificador) {
 $('#cerrarMdl').click(function() {
     $("#visTiempoM").closeModal();
 });
-
 function gotopage(mypage) {
     $(location).attr('href', mypage);
 }
-
 function cerrarModales(modal, recargar) {
-    if (recargar == true) {
-        $("#" + modal).closeModal();
+    if (recargar==true) {
+        $("#"+modal).closeModal();
         location.reload();
-    } else {
-        $("#" + modal).closeModal();
+    }else {
+        $("#"+modal).closeModal();
     }
 }
 /*/////////////////////////////////////////////////////////////////////////////////////////
@@ -1804,8 +1798,9 @@ function Guardar() {
                 vel = $("#Velocidad").val(),
                 peso = $("#peso").val(),
                 diam = $("#Diametro").val(),
-                pesobase = $("#pesobase").val();
-            if (horain == "" | horafin == "" | oper == "" | maq == "" | peso == "" | pesobase == "" | diam == "") {
+                pesobase = $("#pesobase").val(),
+                merma = $("#merma").val();
+            if (horain == "" | horafin == "" | oper == "" | maq == "" | peso == "" | pesobase == "" | diam == "" | merma == "") {
                 swal({
                     type: "info",
                     text: "TODOS LOS CAMPOS SON REQUERIDOS" + ", " + "DEBE COMPLETAR EL CAMPO FALTANTE",
@@ -2224,9 +2219,10 @@ function cerrarModalMaq() {
 /////////////////FUNCIONES SOBRE INSUMOS////////////////////////////
 
 function Guardarinsumos() {
+
     var form_data = {
         Descripcion: $("#Descripcion").val(),
-        categoria: $("#categoria option:selected").val(),
+        categoria: $("#categoria").val(),
         unidadmedida: $("#unidadmedida").val(),
         tipo: $("#tipo").val()
     };
@@ -2238,7 +2234,7 @@ function Guardarinsumos() {
         data: form_data,
         beforeSend: function(data) {
             var desc = $("#Descripcion").val();
-            var cat = $("#categoria option:selected").val();
+            var cat = $("#categoria").val();
             var unidad = $("#unidadmedida").val();
             var tipo = $("#tipo").val();
             if (desc == "" | cat == "") {
@@ -2251,6 +2247,7 @@ function Guardarinsumos() {
             }
         },
         success: function(data) {
+
             if (data = 1) {
                 Materialize.toast('SE GUARDO CON ÉXITO', 1000);
                 $("#Descripcion").val("");
@@ -2261,8 +2258,7 @@ function Guardarinsumos() {
         }
     });
 }
-
-function EliminaINS(elem, descripcion) {
+function EliminaINS(elem) {
     swal({
         title: '¿Estas seguro que deseas eliminar este registro?',
         text: 'esta operacion no podra revertirse',
@@ -2274,7 +2270,7 @@ function EliminaINS(elem, descripcion) {
     }).then(function() {
 
         $.ajax({
-            url: "EliminaInsumo/" + elem + "/" + descripcion,
+            url: "EliminaInsumo/" + elem,
             async: true,
             success: (function() {
                 swal({
@@ -2292,63 +2288,63 @@ function EliminaINS(elem, descripcion) {
 
 }
 /*******************FILTRA POR ESTADOS DE ORDENES DE PRODUCCION*******************************/
-$("#ordActiva").on('change', function() {
-    if (!$(this).is(':checked')) {
-        $(".OrdenActiva").removeClass("OrdenActiva").addClass("nomostrarOrdenAct");
-    } else {
-        $(".nomostrarOrdenAct").removeClass("nomostrarOrdenAct").addClass("OrdenActiva");
-    }
-});
-$("#ordCerrada").on('change', function() {
-    if ($(this).is(':checked')) {
-        $(".nomostrarOrdenCerr").removeClass("nomostrarOrdenCerr").addClass("OrdenCerrada");
-    } else {
-        $(".OrdenCerrada").removeClass("OrdenCerrada").addClass("nomostrarOrdenCerr");
-    }
-});
-$("#ordAnulada").on('change', function() {
-    if ($(this).is(':checked')) {
-        $(".nomostrarOrdenAnul").removeClass("nomostrarOrdenAnul").addClass("OrdenAnulada");
-    } else {
-        $(".OrdenAnulada").removeClass("OrdenAnulada").addClass("nomostrarOrdenAnul");
-    }
-});
-$("#ordInactiva").on('change', function() {
-    if ($(this).is(':checked')) {
-        $(".nomostrarOrdenInac").removeClass("nomostrarOrdenInac").addClass("OrdenInactiva");
-    } else {
-        $(".OrdenInactiva").removeClass("OrdenInactiva").addClass("nomostrarOrdenInac");
-    }
-});
+    $("#ordActiva").on( 'change', function() {
+        if(!$(this).is(':checked') ) {
+            $( ".OrdenActiva" ).removeClass( "OrdenActiva" ).addClass( "nomostrarOrdenAct" );
+        }else {
+            $( ".nomostrarOrdenAct" ).removeClass( "nomostrarOrdenAct" ).addClass( "OrdenActiva" );
+        }
+    });
+    $("#ordCerrada").on( 'change', function() {
+        if($(this).is(':checked') ) {
+            $( ".nomostrarOrdenCerr" ).removeClass( "nomostrarOrdenCerr" ).addClass( "OrdenCerrada" );
+        }else {
+            $( ".OrdenCerrada" ).removeClass( "OrdenCerrada" ).addClass( "nomostrarOrdenCerr" );
+        }
+    });
+    $("#ordAnulada").on( 'change', function() {
+        if($(this).is(':checked') ) {
+            $( ".nomostrarOrdenAnul" ).removeClass( "nomostrarOrdenAnul" ).addClass( "OrdenAnulada" );
+        }else {
+            $( ".OrdenAnulada" ).removeClass( "OrdenAnulada" ).addClass( "nomostrarOrdenAnul" );
+        }
+    });
+    $("#ordInactiva").on( 'change', function() {
+        if($(this).is(':checked') ) {
+            $( ".nomostrarOrdenInac" ).removeClass( "nomostrarOrdenInac" ).addClass( "OrdenInactiva" );
+        }else {
+            $( ".OrdenInactiva" ).removeClass( "OrdenInactiva" ).addClass( "nomostrarOrdenInac" );
+        }
+    });
 
-/*******************FILTRA POR MAQUINAS/TIEMPOS MUERTOS*******************************/
-$("#maquina1").on('change', function() {
-    if ($(this).is(':checked')) {
-        $(".mostrarMaquina2").removeClass("mostrarMaquina2").addClass("noMostrarMaquina2");
-        $(".mostrarMaquina3").removeClass("mostrarMaquina3").addClass("noMostrarMaquina3");
-    } else {
-        $(".noMostrarMaquina2").removeClass("noMostrarMaquina2").addClass("mostrarMaquina2");
-        $(".noMostrarMaquina3").removeClass("noMostrarMaquina3").addClass("mostrarMaquina3");
-    }
-});
-$("#maquina2").on('change', function() {
-    if ($(this).is(':checked')) {
-        $(".mostrarMaquina1").removeClass("mostrarMaquina1").addClass("noMostrarMaquina1");
-        $(".mostrarMaquina3").removeClass("mostrarMaquina3").addClass("noMostrarMaquina3");
-    } else {
-        $(".noMostrarMaquina1").removeClass("noMostrarMaquina1").addClass("mostrarMaquina1");
-        $(".noMostrarMaquina3").removeClass("noMostrarMaquina3").addClass("mostrarMaquina3");
-    }
-});
-$("#maquina3").on('change', function() {
-    if ($(this).is(':checked')) {
-        $(".mostrarMaquina1").removeClass("mostrarMaquina1").addClass("noMostrarMaquina1");
-        $(".mostrarMaquina2").removeClass("mostrarMaquina2").addClass("noMostrarMaquina2");
-    } else {
-        $(".noMostrarMaquina1").removeClass("noMostrarMaquina1").addClass("mostrarMaquina1");
-        $(".noMostrarMaquina2").removeClass("noMostrarMaquina2").addClass("mostrarMaquina2");
-    }
-});
+    /*******************FILTRA POR MAQUINAS/TIEMPOS MUERTOS*******************************/
+    $("#maquina1").on( 'change', function() {
+        if($(this).is(':checked') ) {
+            $( ".mostrarMaquina2" ).removeClass( "mostrarMaquina2" ).addClass( "noMostrarMaquina2" );
+            $( ".mostrarMaquina3" ).removeClass( "mostrarMaquina3" ).addClass( "noMostrarMaquina3" );
+        }else {
+            $( ".noMostrarMaquina2" ).removeClass( "noMostrarMaquina2" ).addClass( "mostrarMaquina2" );
+            $( ".noMostrarMaquina3" ).removeClass( "noMostrarMaquina3" ).addClass( "mostrarMaquina3" );
+        }
+    });
+    $("#maquina2").on( 'change', function() {
+        if($(this).is(':checked') ) {
+            $( ".mostrarMaquina1" ).removeClass( "mostrarMaquina1" ).addClass( "noMostrarMaquina1" );
+            $( ".mostrarMaquina3" ).removeClass( "mostrarMaquina3" ).addClass( "noMostrarMaquina3" );
+        }else {
+            $( ".noMostrarMaquina1" ).removeClass( "noMostrarMaquina1" ).addClass( "mostrarMaquina1" );
+            $( ".noMostrarMaquina3" ).removeClass( "noMostrarMaquina3" ).addClass( "mostrarMaquina3" );
+        }
+    });
+    $("#maquina3").on( 'change', function() {
+        if($(this).is(':checked') ) {
+            $( ".mostrarMaquina1" ).removeClass( "mostrarMaquina1" ).addClass( "noMostrarMaquina1" );
+            $( ".mostrarMaquina2" ).removeClass( "mostrarMaquina2" ).addClass( "noMostrarMaquina2" );
+        }else {
+            $( ".noMostrarMaquina1" ).removeClass( "noMostrarMaquina1" ).addClass( "mostrarMaquina1" );
+            $( ".noMostrarMaquina2" ).removeClass( "noMostrarMaquina2" ).addClass( "mostrarMaquina2" );
+        }
+    });
 
 /****************************************FUNCIONES SOIBRE PLANES********************************************************/
 function guardaplan() {

@@ -72,7 +72,7 @@
                                                 <td>'.$key['UnidadMedida'].'</td>
                                                 <td>'.$key['Tipo'].'</td>
                                                 <td>
-                                                <a href="javascript:void(0)" onclick="EliminaINS('.$key['IdInsumo'].', '."'".$key['Descripcion']."'".')" id="'.$key['IdInsumo'].'" class="tooltipped" data-tooltip="Eliminar" data-position="left">
+                                                <a href="javascript:void(0)" onclick="EliminaINS('."'".$key['IdInsumo']."'".')" id="'.$key['IdInsumo'].'" class="tooltipped" data-tooltip="Eliminar" data-position="left">
                                                 <i class="purple-text darken-1 material-icons">delete</i></a>
                                                 </td>
                                                 </tr>

@@ -47,12 +47,12 @@ class Insumos_model extends CI_Model
         }
     }
 
-    public function EliminarIns($Id, $desc)
+    public function EliminarIns($Id)
     {
         $this->db->where("IdInsumo",$Id);
         $query=$this->db->delete("insumos");
         if ($query==1) {
-            $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'ELIMINO INSUMO '.strtoupper($desc));
+            $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'ELIMINO INSUMO CON ID: '.strtoupper($Id));
         }        
     }
 }

@@ -291,7 +291,7 @@
                 <br>
                 <div class="row">
                     <div class="input-field col s6 m6 s6">
-                        <input type="text" name="merma" id="merma" class="center" value="0">
+                        <input type="text" name="merma" id="merma">
                         <label for="merma">MERMA</label>
                     </div>
                 </div>

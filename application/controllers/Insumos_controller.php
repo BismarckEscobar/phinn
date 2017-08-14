@@ -33,9 +33,9 @@ class Insumos_controller extends CI_Controller
         // echo $Desc . " " . $Id;
     }
 
-    public function Eliminar($Id, $desc)
+    public function Eliminar($Id)
     {
-        $this->Insumos_model->EliminarIns($Id, $desc);
+        $this->Insumos_model->EliminarIns($Id);
     }
 }
 ?>
