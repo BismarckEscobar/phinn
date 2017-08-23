@@ -17,11 +17,7 @@ class exportarPdf_Controller extends CI_Controller {
         $data['tiemposM'] = $this->listandoTiempoMuerto($idReporteDiario);
         $data['cargaTotal'] = $this->listandoCargaTotalPulper($idReporteDiario);
         $data['horasMolienda'] = $this->listandoHorasMolienda($idReporteDiario);
-<<<<<<< HEAD
         $data['cargasPulper'] = $this->cargasPulper_Model->listarCargasP($idReporteDiario);
-=======
-        $data['cargasPulper'] = $query=$this->cargasPulper_Model->listarCargasP($idReporteDiario);
->>>>>>> b0694c435ffce6ec1184a7b92177b57944ae74ea
         $query = $this->produccion_Model->ListarProd($idReporteDiario);
         $data['mermaTotal'] = $this->calculandoMermaTotal($query);
         $data['produccion'] = $query;

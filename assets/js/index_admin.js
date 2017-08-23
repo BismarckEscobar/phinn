@@ -37,6 +37,7 @@ $(document).ready(function() {
     $("#abrirMdlNOrd").click(function() { $("#ModalNuevaOrdProduccion").openModal(); });
     $("#agregaPasta").click(function() { $("#agregaPastaProc").openModal(); });
     $("#openModalPass").click(function() { $("#personalizarPassword").openModal(); });
+    $("#agregaTurno").click(function() { $("#nuevoTurno").openModal(); });
 
     ///Configurar chosen////
     var config = {
@@ -46,7 +47,7 @@ $(document).ready(function() {
         $(selector).chosen(config[selector]);
     }
 
-    $('#timepicker , #timepicker1, #timepickerII, #timepickerFF, #horaFinalCons, #horaInicioCons, #timeHM1, #timeHM2, #timeHM12, #timeHM22').pickatime({
+    $('#timepicker , #timepicker1, #timepickerII, #horaInicioTurno, #horaInicioTurno2, #horaFinalTurno2, #horaFinalTurno, #timepickerFF, #horaFinalCons, #horaInicioCons, #timeHM1, #timeHM2, #timeHM12, #timeHM22').pickatime({
         default: '', // default time, 'now' or '13:14' e.g.
         donetext: 'aceptar',
         format: 'HH:i uur',
@@ -1256,7 +1257,8 @@ function cambiaStatusRpt(idOrden, numOrden, estado) {
                             confirmButtonText: 'ACEPTAR',
                             cancelButtonText: 'CANCELAR'
                         }).then(function() {
-                            $.ajax({
+                            cambiaOrdenActiva(idOrd, 3);
+                            /*$.ajax({
                                 url: "FechaInicio/" + numOrd,
                                 type: "post",
                                 async: true,
@@ -1276,7 +1278,7 @@ function cambiaStatusRpt(idOrden, numOrden, estado) {
                                         }).then()
                                     };
                                 }
-                            });
+                            });*/
 
                         });
                     } else { cambiaOrdenActiva(idOrd, 3); }
@@ -1455,6 +1457,116 @@ function buscarTiempoM(identificador) {
             $("#visTiempoM").openModal();
         }
     });
+}
+
+/*****************BUSCAR TURNO POR ID****************************/
+function buscandoTurnoById(idTurno) {
+    $.ajax({
+        url: "actulizarTurnos/" + idTurno,
+        async: true,
+        success: function(json) {
+            $.each(JSON.parse(json), function(i, item) {
+                $('#idTurno').val(item['IdTurno']),
+                $('#horaInicioTurno2').val(moment(item['horaInicio'], ["HH:mm"]).format("h:mm A")),
+                $('#horaFinalTurno2').val(moment(item['horaFinal'], ["HH:mm"]).format("h:mm A")),
+                $('#comentario2').val(item['Comentario'])
+            })
+            $("#actualizarRegistro").openModal();
+        }
+    });
+}
+/*******************ACTUALIZANDO REGISTRO TURNO***********************************/
+function actualizandoTurno() {
+    var array = new Array();
+    var concat = String($('#horaInicioTurno2').val()) + '-' + String($('#horaFinalTurno2').val());
+    array = {
+        Turno: concat,
+        horaInicio: $('#horaInicioTurno2').val(),
+        horaFinal: $('#horaFinalTurno2').val(),
+        Comentario: $('#comentario2').val()
+    }
+    form_data = {
+        dataTurno: array
+    }
+    $.ajax({
+        url: "actualizandoTurno/" + $('#idTurno').val(),
+        type: 'post',
+        async: true,
+        data: form_data,
+        success: function(data) {
+            if (data == '1') {
+                mensajeAlerta('Se actualizo con éxito');
+            } else {
+                Materialize.toast("ERROR AL ACTUALIZAR", 7000);
+            };
+        }
+    });
+    location.reload();
+}
+
+/***************GUARDAR TURNO******************************************/
+function agregandoNuevoTurno() {
+    var array = new Array();
+
+    if ($('#horaInicioTurno').val()=="" || $('#horaFinalTurno').val()=="" || $('#comentario').val()=="") {
+        mensajeAlerta('¡TIENE QUE RELLENAR TODOS LOS CAMPOS!');
+    } else {
+        var concat = String($('#horaInicioTurno').val()) + '-' + String($('#horaFinalTurno').val());
+        array = {
+            Turno: concat,
+            horaInicio: moment($('#horaInicioTurno').val(), ["h:mm A"]).format("HH:mm"),
+            horaFinal: moment($('#horaFinalTurno').val(), ["h:mm A"]).format("HH:mm"),
+            Comentario: $('#comentario').val()
+        }
+
+        form_data = {
+            data_turno: array
+        }
+        $.ajax({
+            url: "guardandoNuevoTurno",
+            type: 'post',
+            async: true,
+            data: form_data,
+            success: function(data) {
+                if (data == 'true') {
+                    mensajeAlerta('Se guardo con éxito');
+                } else {
+                    Materialize.toast("ERROR AL GUARDAR", 7000);
+                };
+            }
+        });
+        location.reload();
+        };
+}
+
+/************************ELIMINADO TURNO***********************************/
+function eliminarTurnoById(idTurno) {
+    swal({
+        text: "¿Esta seguro de querer borrar el registro?",
+        type: 'warning',
+        showCloseButton: true,
+        confirmButtonColor: '#831F82',
+        confirmButtonText: 'ACEPTAR',
+        showCancelButton: true,
+        cancelButtonText: 'Cancelar',
+    }).then(function() {
+        $.ajax({
+            url: "elimarTurno/" + idTurno,
+            type: "post",
+            async: true,
+            success: function(data) {
+                if(data=="true") {
+                    swal({
+                        title: "SE ELIMINO CON ÉXITO EL REGISTRO!",
+                        type: "success",
+                        confirmButtonText: "CERRAR",
+                    }).then(
+                        function() { location.reload(); }
+                    )
+                }                
+            }
+        });
+    })
 }
 $('#cerrarMdl').click(function() {
     $("#visTiempoM").closeModal();

@@ -204,5 +204,51 @@ class detalleplanes_model extends CI_Model
         }
     }
 
+    public function listarTurnos() {
+        $query = $this->db->get("turnos");
+        if ($query->num_rows()>0) {
+            return $query->result_array();
+        } else {
+            return false;
+        }
+    }
+
+    public function buscarTurnoById($idTurno) {
+        $this->db->where('IdTurno', $idTurno);
+        $query = $this->db->get('turnos');
+        if ($query->num_rows()>0) {
+            echo json_encode($query->result_array());
+        }else {
+            echo '0';
+        }
+    }
+
+    public function actualizandoRegistroTurno($data,$idTurno) {
+        $this->db->where('IdTurno', $idTurno);
+        $query = $this->db->update('turnos', $data);
+        if ($query) {
+            $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'ACTUALIZO EL TURNO CON ID '.$idTurno);
+            echo json_encode($query);
+        }
+    }
+
+    public function guardandoNuevoTurno($data) {
+        $result = $this->db->insert('turnos', $data);
+        if ($result==1) {
+            $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'AGREGO EL NUEVO TURNO '.$data['Comentario']);
+            echo json_encode($result);
+        }else {
+            echo json_encode("0");
+        }        
+    }
+
+    public function elimandoRegistroTurno($idTurno) {
+        $this->db->where('IdTurno', $idTurno);
+        $query = $this->db->delete('turnos');
+        if ($query==1) {
+            $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'ELIMINO EL REGISTRO DE TURNO ID '.$idTurno);
+            echo json_encode($query);
+        }
+    }
 }
 ?>
