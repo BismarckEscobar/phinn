@@ -21,5 +21,29 @@ class Mantenimiento_controller extends CI_Controller
 		$this->load->view('Mantenimiento/menu_mantenimiento');
 		$this->load->view('footer');
     }
+
+    public function turnos() {
+      $data['listandoTurnos'] = $this->detalleplanes_model->listarTurnos();
+      $this->load->view('header');
+      $this->load->view('dashboardclean');
+      $this->load->view('Mantenimiento/turnos', $data);
+      $this->load->view('footer');
+    }
+
+    public function buscarTurno($idTurno) {
+      $this->detalleplanes_model->buscarTurnoById($idTurno);
+    }
+
+    public function actualizarTurno($idTurno) {
+      $this->detalleplanes_model->actualizandoRegistroTurno($this->input->post('dataTurno'), $idTurno);
+    }
+
+    public function guardarNuevoTurno() {
+      $this->detalleplanes_model->guardandoNuevoTurno($this->input->post('data_turno')); 
+    }
+
+    public function elimarRegistroTurno($idTurno) {
+     $this->detalleplanes_model->elimandoRegistroTurno($idTurno);  
+    }
 }
 ?>

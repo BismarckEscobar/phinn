@@ -165,3 +165,10 @@ $route['ValidaFecha/(:any)/(:any)/(:any)'] = 'Ordenproduccion_controller/Validar
     $route['Acreditar'] = 'Login_controller/Acreditar';
     $route['Salir'] = 'Login_controller/Salir';
     $route['Descargar'] = 'Login_controller/dowload';
+
+    /******************GESTIONAR TURNOS*********************************/
+    $route['turnos'] = 'Mantenimiento_controller/turnos';
+    $route['actulizarTurnos/(:any)'] = "Mantenimiento_controller/buscarTurno/$1";
+    $route['actualizandoTurno/(:any)'] = "Mantenimiento_controller/actualizarTurno/$1";
+    $route['guardandoNuevoTurno'] = "Mantenimiento_controller/guardarNuevoTurno";
+    $route['elimarTurno/(:any)'] = "Mantenimiento_controller/elimarRegistroTurno/$1";

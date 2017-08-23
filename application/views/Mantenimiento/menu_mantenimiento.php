@@ -43,7 +43,17 @@
                                 <center><span class="titulo-secundario">TANQUES</span></center>
                             </a>                                    
                         </center>                                
-                    </div> 
+                    </div>
+                </div><br><br>
+                <div class="row">
+                    <div class="col s3 m3">
+                        <center>                                   
+                            <a data-tooltip="TURNOS" href='<?php echo base_url('index.php/turnos')?>' class="modal-trigger tooltipped purple-text darken-4">
+                                <i class="material-icons" style="font-size:70px;">alarm</i>
+                                <center><span class="titulo-secundario">TURNOS</span></center>
+                            </a>                                    
+                        </center>                                
+                    </div>
                 </div>
             </div><br><br><br>
         </div>
