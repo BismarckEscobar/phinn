@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost-new
+Source Server         : MySQL
 Source Server Version : 50505
 Source Host           : localhost:3306
 Source Database       : phinn
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-08-25 09:50:23
+Date: 2017-08-25 16:21:36
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -636,6 +636,36 @@ INSERT INTO `log` VALUES ('8', 'CERRO SESION ', '2017-08-25 17:32:27');
 INSERT INTO `log` VALUES ('13', 'INGRESO AL SISTEMA', '2017-08-25 17:32:33');
 INSERT INTO `log` VALUES ('13', 'CERRO SESION ', '2017-08-25 17:33:16');
 INSERT INTO `log` VALUES ('8', 'INGRESO AL SISTEMA', '2017-08-25 17:33:19');
+INSERT INTO `log` VALUES ('8', 'INGRESO AL SISTEMA', '2017-08-25 18:41:16');
+INSERT INTO `log` VALUES ('8', 'CERRO SESION ', '2017-08-25 18:43:11');
+INSERT INTO `log` VALUES ('13', 'INGRESO AL SISTEMA', '2017-08-25 18:43:54');
+INSERT INTO `log` VALUES ('13', 'CERRO SESION ', '2017-08-25 18:53:46');
+INSERT INTO `log` VALUES ('8', 'INGRESO AL SISTEMA', '2017-08-25 18:53:53');
+INSERT INTO `log` VALUES ('8', 'ELIMINO EL REPORTE DIARIO NO. 1-2222 DEL TURNO Mixto', '2017-08-25 18:54:27');
+INSERT INTO `log` VALUES ('8', 'ELIMINO EL REPORTE DIARIO NO. 2-2222 DEL TURNO Nocturno', '2017-08-25 18:54:34');
+INSERT INTO `log` VALUES ('8', 'ELIMINO EL REPORTE DIARIO NO. 2-2222 DEL TURNO Matutino', '2017-08-25 18:54:38');
+INSERT INTO `log` VALUES ('8', 'AGREGO EL CONSECUTIVO NO. 1-2222 DEL TURNO 20', '2017-08-25 18:55:04');
+INSERT INTO `log` VALUES ('8', 'ELIMINO EL REPORTE DIARIO NO. 1-2222 DEL TURNO Matutino', '2017-08-25 18:55:14');
+INSERT INTO `log` VALUES ('8', 'AGREGO EL CONSECUTIVO NO. 1-2222 DEL TURNO 9', '2017-08-25 18:55:32');
+INSERT INTO `log` VALUES ('8', 'CERRO SESION ', '2017-08-25 18:55:48');
+INSERT INTO `log` VALUES ('13', 'INGRESO AL SISTEMA', '2017-08-25 18:55:57');
+INSERT INTO `log` VALUES ('13', 'AGREGO UN REGISTRO DE INSUMO AL RPT CON ID 48', '2017-08-25 19:11:52');
+INSERT INTO `log` VALUES ('13', 'ELIMINO UN REGISTRO DE INSUMO DEL RPT CON ID 48', '2017-08-25 19:11:58');
+INSERT INTO `log` VALUES ('13', 'AGREGO UN REGISTRO DE INSUMO AL RPT CON ID 48', '2017-08-25 19:13:21');
+INSERT INTO `log` VALUES ('13', 'ELIMINO UN REGISTRO DE INSUMO DEL RPT CON ID 48', '2017-08-25 19:13:30');
+INSERT INTO `log` VALUES ('13', 'AGREGO UN REGISTRO DE INSUMO AL RPT CON ID 48', '2017-08-25 19:35:47');
+INSERT INTO `log` VALUES ('13', 'AGREGO UN REGISTRO DE INSUMO AL RPT CON ID 49', '2017-08-25 19:38:06');
+INSERT INTO `log` VALUES ('13', 'AGREGO UN REGISTRO DE PASTA DEL TANQUE CON ID 2 AL RPT CON ID 49', '2017-08-25 19:54:32');
+INSERT INTO `log` VALUES ('13', 'AGREGO UN REGISTRO DE PASTA DEL TANQUE CON ID 1 AL RPT CON ID 49', '2017-08-25 19:57:50');
+INSERT INTO `log` VALUES ('13', 'ELIMINO UN REGISTRO DE PASTA DEL RPT CON ID 49', '2017-08-25 19:58:13');
+INSERT INTO `log` VALUES ('13', 'CERRO SESION ', '2017-08-25 20:21:11');
+INSERT INTO `log` VALUES ('8', 'INGRESO AL SISTEMA', '2017-08-25 20:21:25');
+INSERT INTO `log` VALUES ('8', 'ELIMINO EL REGISTRO DE TURNO ID 18', '2017-08-26 00:17:28');
+INSERT INTO `log` VALUES ('8', 'ELIMINO EL REGISTRO DE TURNO ID 18', '2017-08-26 00:18:09');
+INSERT INTO `log` VALUES ('8', 'RESTAURO EL REGISTRO DE TURNO ID 18', '2017-08-26 00:19:44');
+INSERT INTO `log` VALUES ('8', 'ELIMINO EL REGISTRO DE TURNO ID 18', '2017-08-26 00:19:58');
+INSERT INTO `log` VALUES ('8', 'RESTAURO EL REGISTRO DE TURNO ID 18', '2017-08-26 00:20:14');
+INSERT INTO `log` VALUES ('8', 'ELIMINO EL REGISTRO DE TURNO ID 18', '2017-08-26 00:20:22');
 
 -- ----------------------------
 -- Table structure for maquinas
@@ -667,12 +697,14 @@ CREATE TABLE `mp_insumos` (
   `Cantidad_PTA_Agua_Dia` varchar(255) DEFAULT NULL,
   `Cantidad_PTA_Agua_Noche` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`IdMpInsumos`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of mp_insumos
 -- ----------------------------
 INSERT INTO `mp_insumos` VALUES ('1', '2', '17', '50', '0', '10', '0');
+INSERT INTO `mp_insumos` VALUES ('4', '48', '14', '12', '13', '14', '15');
+INSERT INTO `mp_insumos` VALUES ('5', '49', '14', '12', '0', '23', '0');
 
 -- ----------------------------
 -- Table structure for orden_produccion
@@ -719,13 +751,14 @@ CREATE TABLE `pasta` (
   `Noche` varchar(255) DEFAULT NULL,
   `Consumo` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`IdPasta`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pasta
 -- ----------------------------
 INSERT INTO `pasta` VALUES ('1', '2', '1', '6000', '0', '700');
 INSERT INTO `pasta` VALUES ('2', '2', '2', '9600', '0', '0');
+INSERT INTO `pasta` VALUES ('3', '49', '2', '12', '0', '32');
 
 -- ----------------------------
 -- Table structure for pasta_procesada
@@ -831,7 +864,7 @@ CREATE TABLE `reporte_diario` (
   `MermaTotal` varchar(255) NOT NULL,
   `Estado` bit(1) DEFAULT NULL,
   PRIMARY KEY (`IdReporteDiario`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of reporte_diario
@@ -858,11 +891,9 @@ INSERT INTO `reporte_diario` VALUES ('39', '2-6666', '6666', '9', '2017-08-22', 
 INSERT INTO `reporte_diario` VALUES ('40', '2-6666', '6666', '11', '2017-08-22', '2017-08-23', '10', null, 'Higienico', null, '', '');
 INSERT INTO `reporte_diario` VALUES ('41', '3-6666', '6666', '9', '2017-08-23', '2017-08-23', '10', null, 'Higienico', null, '', '');
 INSERT INTO `reporte_diario` VALUES ('42', '1-6666', '6666', '19', '2017-08-23', '2017-08-24', '10', null, 'Higienico', null, '', '');
-INSERT INTO `reporte_diario` VALUES ('43', '1-2222', '2222', '9', '2017-08-21', '2017-08-21', '10', null, 'Higienico', null, '', '');
-INSERT INTO `reporte_diario` VALUES ('44', '1-2222', '2222', '19', '2017-08-21', '2017-08-21', '10', null, 'Higienico', null, '', '');
 INSERT INTO `reporte_diario` VALUES ('45', '1-2222', '2222', '11', '2017-08-21', '2017-08-22', '13', null, 'Higienico', null, '', '');
-INSERT INTO `reporte_diario` VALUES ('46', '2-2222', '2222', '9', '2017-08-22', '2017-08-22', '10', null, 'Higienico', null, '', '');
-INSERT INTO `reporte_diario` VALUES ('47', '2-2222', '2222', '11', '2017-08-22', '2017-08-23', '10', null, 'Higienico', null, '', '');
+INSERT INTO `reporte_diario` VALUES ('48', '1-2222', '2222', '20', '2017-08-22', '2017-08-23', '13', null, 'higienico', null, '', '');
+INSERT INTO `reporte_diario` VALUES ('49', '1-2222', '2222', '9', '2017-08-21', '2017-08-22', '13', null, 'higienico', null, '', '');
 
 -- ----------------------------
 -- Table structure for tanques
@@ -1171,11 +1202,13 @@ INNER JOIN usuarios us ON rpt.Usuario = us.IdUsuario ;
 -- View structure for view_reportediario
 -- ----------------------------
 DROP VIEW IF EXISTS `view_reportediario`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost`  VIEW `view_reportediario` AS SELECT
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW `view_reportediario` AS SELECT
 	rd.IdReporteDiario,
 	rd.Consecutivo,
 	rd.NoOrder,
 	rd.Turno,
+	t.Comentario,
+	t.tipo,
 	rd.FechaInicio,
 	rd.FechaFinal,
 	rd.Coordinador,
@@ -1187,6 +1220,7 @@ FROM
 	reporte_diario rd
 JOIN usuarios us ON us.IdUsuario = rd.Coordinador
 JOIN orden_produccion op ON rd.NoOrder = op.NoOrden
+JOIN turnos t ON rd.Turno = t.IdTurno
 WHERE op.Estado = 1 ;
 
 -- ----------------------------

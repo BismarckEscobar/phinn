@@ -172,3 +172,4 @@ $route['ValidaFecha/(:any)/(:any)/(:any)'] = 'Ordenproduccion_controller/Validar
     $route['actualizandoTurno/(:any)'] = "Mantenimiento_controller/actualizarTurno/$1";
     $route['guardandoNuevoTurno'] = "Mantenimiento_controller/guardarNuevoTurno";
     $route['elimarTurno/(:any)'] = "Mantenimiento_controller/elimarRegistroTurno/$1";
+    $route['restTurno/(:any)'] = "Mantenimiento_controller/restaurarRegistroTurno/$1";
