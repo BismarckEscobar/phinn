@@ -544,16 +544,7 @@ if ($this->session->userdata("Privilegio") == 3) {?>
                             } else {
                                 foreach($turnos as $key){
                                     echo '<option value="'.$key['IdTurno'].'">'.$key['Turno'].'';
-                                    switch ($key['IdTurno']) {
-                                        case 1:
-                                            $key['Turno'] = "Matutino";
-                                            break;
-                                        
-                                       case 2:
-                                       $key['Turno'] = "Vespertino";                                           
-                                            break;
-                                    }
-                                    echo' <span class="badge">('.$key['Turno'].')</span>';
+                                    echo' <span class="badge">('.$key['Comentario'].')</span>';
                                     echo'</option>';
                                 }
                             }
@@ -561,7 +552,6 @@ if ($this->session->userdata("Privilegio") == 3) {?>
                         </select>
                         <label id="lblturno" class="lblValidacion">ELIGE UN TURNO</label>
                     </div>
-                   <br><br>
                 </div><br><br>
                 <div class="center">
                     <button name="usersubmit" type="submit" class="Btnadd btn waves-effect waves-light" id="AddOrden" style="background-color:#831F82;">GUARDAR

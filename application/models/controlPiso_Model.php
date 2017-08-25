@@ -119,28 +119,60 @@ class controlPiso_Model extends CI_Model {
 		} else {
 			$query->free_result();
 			$query->next_result();
+			
 			$this->db->where('Consecutivo', $consecutivo);
-	        $query=$this->db->get('reporte_diario');
-	        if (count($query->result_array())==2) {
+	        $query=$this->db->get('reporte_diario');	        
+	        
+	        $this->db->where('estado', 1);
+	        $cant=$this->db->count_all_results('turnos');
+	      
+	        if (count($query->result_array())==$cant) {
+
 	        	foreach ($query->result_array() as $key) {
-	        		if ($key['Turno']==1) {
+
+		        	$idTurno=$key['Turno'];
+	        	    $this->db->where('IdTurno', $idTurno);
+					$this->db->select('tipo');
+					$tipo=$this->db->get('turnos');
+
+	        		if ($tipo->result_array()[0]['tipo']=="M") {
 						$fechaInicio= date("Y/m/d", strtotime($key['FechaInicio']));									
 						$horaInicio="06:00am";
-					}elseif($key['Turno']==2) {
+					}elseif($tipo->result_array()[0]['tipo']=="N") {
+
 						$fechaFinal= date("Y/m/d", strtotime($key['FechaFinal']));
 						$horaFin="06:00am";
 					}
 	        	}
-        	}elseif (count($query->result_array())<2) {
+        	}elseif (count($query->result_array())<$cant) {
+
         		foreach ($query->result_array() as $key) {
-        			if ($key['Turno']==1) {
+
+	        		$idTurno=$key['Turno'];
+	        	    $this->db->where('IdTurno', $idTurno);
+					$this->db->select('tipo');
+					$this->db->select('horaInicio');
+					$this->db->select('horaFinal');
+					$tipo=$this->db->get('turnos');
+
+					$horaInicio1=$tipo->result_array()[0]['horaInicio'];
+					$horaFinal1=$tipo->result_array()[0]['horaFinal'];
+
+        			if ($tipo->result_array()[0]['tipo']=="M") {
 						$fechaInicio= date("Y/m/d", strtotime($key['FechaInicio']));
 						$fechaFinal= date("Y/m/d", strtotime($key['FechaFinal']));
-						$horaInicio="06:00am";$horaFin="06:00pm";
-					}elseif($key['Turno']==2) {
+						$horaInicio=date('g:i A', strtotime($horaInicio1));
+						$horaFin=date('g:i A', strtotime($horaFinal1));
+					}elseif($tipo->result_array()[0]['tipo']=="MX") {
 						$fechaInicio= date("Y/m/d", strtotime($key['FechaInicio']));
 						$fechaFinal= date("Y/m/d", strtotime($key['FechaFinal']));
-						$horaInicio="06:00pm";$horaFin="06:00am";
+						$horaInicio=date('g:i A', strtotime($horaInicio1));
+						$horaFin=date('g:i A', strtotime($horaFinal1));
+					}elseif($tipo->result_array()[0]['tipo']=="N") {
+						$fechaInicio= date("Y/m/d", strtotime($key['FechaInicio']));
+						$fechaFinal= date("Y/m/d", strtotime($key['FechaFinal']));
+						$horaInicio=date('g:i A', strtotime($horaInicio1));
+						$horaFin=date('g:i A', strtotime($horaFinal1));
 					}
         		}
         	}

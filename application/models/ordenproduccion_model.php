@@ -105,12 +105,14 @@ class Ordenproduccion_model extends CI_Model
         }
     }
     public function buscarUltC($dias, $numOrden) {
+        $this->db->where('estado', 1);
+        $cant=$this->db->count_all_results('turnos');
         for ($i=1; $i <= $dias; $i++) { 
             $cons = $i.'-'.$numOrden;
 
             $this->db->where('Consecutivo =', $cons);
             $query=$this->db->get('reporte_diario');
-            if ($query->num_rows()<=1) {
+            if ($query->num_rows()<$cant) {
                 echo $cons;
                 break;
             } else {
@@ -157,6 +159,7 @@ class Ordenproduccion_model extends CI_Model
 
     public function ListarTurno()
     {
+        $this->db->where('estado', 1);
         $query = $this->db->get("turnos");
         if ($query->num_rows()>0) {
             return $query->result_array();

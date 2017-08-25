@@ -63,6 +63,20 @@
 			</div>
         </div>
         <div class="row">
+            <div class="input-field col s4 m4 s4">
+                <input name="turno" class="with-gap" type="radio" value="M" checked id="tMatutino" />
+                <label for="tMatutino">Matutino</label>             
+            </div>
+            <div class="input-field col s4 m4 s4">
+                <input name="turno" class="with-gap" type="radio" value="MX" id="tMixto" />
+                <label for="tMixto">Mixto</label>  
+            </div>
+            <div class="input-field col s4 m4 s4">
+                <input name="turno" class="with-gap" type="radio" value="N" id="tNocturno" />
+                <label for="tNocturno">Nocturno</label>
+            </div>              
+        </div><br>
+        <div class="row">
             <div class="input-field col s6 m6 s6">
                 <input id="horaInicioTurno" class="timepicker" name="horaInicioTurno" type="time">
                 <label for="horaInicioTurno">Hora inicio</label>
@@ -71,7 +85,7 @@
                 <input id="horaFinalTurno" class="timepicker" name="horaFinalTurno" type="time">
                 <label for="horaFinalTurno">Hora final</label>
             </div>
-        </div><br><br>
+        </div><br>
         <div class="row">
             <div class="input-field col s12 m12 s12">
                 <input id="comentario" type="text">
@@ -97,6 +111,20 @@
 			</div>
         </div>
         <input id="idTurno" name="idTurno" type="hidden">
+        <div class="row" >
+            <div class="input-field col s4 m4 s4" >
+                <input name="turno" class="with-gap" type="radio" value="M" id="tMatutinoA" />
+                <label for="tMatutinoA">Matutino</label>
+            </div>
+            <div class="input-field col s4 m4 s4">
+                <input name="turno" class="with-gap" type="radio" value="MX" id="tMixtoA" />
+                <label for="tMixtoA">Mixto</label>  
+            </div>
+            <div class="input-field col s4 m4 s4">
+                <input name="turno" class="with-gap" type="radio" value="N" id="tNocturnoA" />
+                <label for="tNocturnoA">Nocturno</label>
+            </div>              
+        </div><br>
         <div class="row">
             <div class="input-field col s6 m6 s6">
                 <input id="horaInicioTurno2" class="timepicker" name="horaInicioTurno2" type="time">
