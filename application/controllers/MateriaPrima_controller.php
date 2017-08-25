@@ -1,4 +1,10 @@
 <?php
+/**
+ * @author [Cesar Mejia]
+ * @email [analista4.guma@gmail.com]
+ * @modify date 2017-08-25 12:00:43
+ * @desc []
+*/
 class MateriaPrima_controller extends CI_Controller
 {
     function __construct()
@@ -27,6 +33,11 @@ class MateriaPrima_controller extends CI_Controller
         $dia = $this->input->get_post("dia");   
         $noche = $this->input->get_post("noche");    
         $consumo = $this->input->get_post("consumo");   
+        /*Variables para guardar datos del turno mixto*/
+        $dia1 = $this->input->get_post("dia1");   
+        $noche1 = $this->input->get_post("noche1"); 
+        /**********************************************/
+
         if($dia == "")
         {
             $dia = 0;
@@ -39,8 +50,13 @@ class MateriaPrima_controller extends CI_Controller
          if ($duplicado->num_rows()>0) {
              echo "Consecutivo ya se ha cerrado";
          } else {
-       $this->MateriaPrima_model->GuardaMP($IdRptD,$Tanque,$dia,$noche,$consumo);
-       //echo $IdRptD .", Tanque ".$Tanque .", Dia ".$dia ."Noche:->".$noche ."Counsumo ".$consumo;
+             //buscar datos con turno mixto
+            $mixto = $this->db->get_where('view_reportediario',array('IdReporteDiario' => $IdRptD, "tipo" => "MX")); 
+            if($mixto->num_rows()>0){
+                $this->MateriaPrima_model->GuardaMP($IdRptD,$Tanque,$dia1,$noche1,$consumo);
+            }else{
+                $this->MateriaPrima_model->GuardaMP($IdRptD,$Tanque,$dia,$noche,$consumo);
+            }
          }
     }
 
@@ -74,6 +90,13 @@ class MateriaPrima_controller extends CI_Controller
             $Noche = $this->input->get_post("Noche");
             $ptadia = $this->input->get_post("ptadia");
             $ptanoche = $this->input->get_post("ptanoche");
+            /* Variables para guardar datos del turno mixto */
+
+            $Dia1 = $this->input->get_post("Dia1");
+            $Noche1 = $this->input->get_post("Noche1");
+            $ptadia1 = $this->input->get_post("ptadia1");
+            $ptanoche1 = $this->input->get_post("ptanoche1");
+            /**********************************************/
             if ($Dia == "") {
                 $Dia = 0;
             } 
@@ -90,8 +113,13 @@ class MateriaPrima_controller extends CI_Controller
          if ($duplicado->num_rows()>0) {
              echo "Consecutivo ya se ha cerrado";
          } else {
-           $this->MateriaPrima_model->GuardarMPInsumos($IdRptd,$desc,$Dia,$Noche,$ptadia,$ptanoche);
-           //echo $IdRptd,$desc,$Dia,$Noche,$ptadia,$ptanoche;
+             //buscar datos con turno mixto
+             $mixto = $this->db->get_where('view_reportediario',array('IdReporteDiario' => $IdRptd, "tipo" => "MX")); 
+             if($mixto->num_rows()>0){
+                $this->MateriaPrima_model->GuardarMPInsumos( $IdRptd,$desc,$Dia1,$Noche1,$ptadia1,$ptanoche1);
+             }else{
+                 $this->MateriaPrima_model->GuardarMPInsumos($IdRptd,$desc,$Dia,$Noche,$ptadia,$ptanoche);
+             }
          }
         }
 

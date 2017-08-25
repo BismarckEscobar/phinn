@@ -43,8 +43,14 @@ class Mantenimiento_controller extends CI_Controller
     }
 
     public function elimarRegistroTurno($idTurno) {
-    $estado = 0;
+     $estado = 0;
      $this->detalleplanes_model->elimandoRegistroTurno($idTurno, $estado);
+    }
+
+    public function restaurarRegistroTurno($idTurno)
+    {
+      $estado = 1;
+      $this->detalleplanes_model->restaurandoRegistroTurno($idTurno, $estado);
     }
 }
 ?>

@@ -64,8 +64,7 @@ textarea.materialize-textarea:focus:not([readonly]) {
 #modal12 {
     min-height: 75%!important;
     height: 75%;
-}
-
+} 
 
 /*ESTILOS GENERALES*/
 
@@ -539,10 +538,10 @@ select {
     margin-top: 70px;
     padding: 20px 20px;
 }
-.nomostrarOrdenAct, .nomostrarOrdenAnul, .nomostrarOrdenCerr, .nomostrarOrdenInac, .noMostrarMaquina1, .noMostrarMaquina2, .noMostrarMaquina3 {
+.nomostrarOrdenAct, .turnInactivo, .nomostrarOrdenAnul, .nomostrarOrdenCerr, .nomostrarOrdenInac, .noMostrarMaquina1, .noMostrarMaquina2, .noMostrarMaquina3 {
     display: none;
 }
-#label-ordActiva, #label-ordActiva, #label-ordInactiva, #label-ordCerrada, #label-ordAnulada, #label-maquina1, #label-maquina2, #label-maquina3 {
+#label-ordActiva, #label-turnInactivo , #label-ordActiva, #label-ordInactiva, #label-ordCerrada, #label-ordAnulada, #label-maquina1, #label-maquina2, #label-maquina3 {
   font-size: 15px;
   margin-right: 20px;
 }
