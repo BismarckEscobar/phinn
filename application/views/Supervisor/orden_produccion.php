@@ -206,22 +206,13 @@ if ($this->session->userdata("Privilegio") == 3) {?>
                         <tbody>
                             <?php
                             if (($lista)) {
-                            foreach ($lista as $key) {
-                            switch($key["Turno"])
-                                {
-                                    case 1:
-                                    $key["Turno"] = "MATUTINO";
-                                    break;
-                                    case 2:
-                                    $key["Turno"] = "VESPERTINO";
-                                    break;
-                                }?>
+                            foreach ($lista as $key) {?>
                             <?php if ($this->session->userdata("IdUser") == $key["Coordinador"]) {?>
                             <tr>
                                 <td>
                                     <a href="../index.php/menuOrdenTrabajo/<?php echo $key["IdReporteDiario"]?>"><?php echo $key["Consecutivo"]?></a>
                                 </td>
-                                <td><?php echo $key["Turno"]?></td>
+                                <td><?php echo $key["Comentario"]?></td>
                                 <td><?php echo date('d-m-Y', strtotime($key["FechaInicio"]))?></td>
                                 <td><?php echo date('d-m-Y', strtotime($key["FechaFinal"]))?></td>
                                 <td><?php echo $key["Nombre"]?></td>

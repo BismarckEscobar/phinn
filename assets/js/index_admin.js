@@ -1600,6 +1600,37 @@ function eliminarTurnoById(idTurno) {
         });
     })
 }
+/*************************************RESTAURAR TURNO********************************************/
+function restaurarTurnoById(idTurno) {
+    swal({
+        text: "¿Esta seguro de querer restaurar el registro?",
+        type: 'warning',
+        showCloseButton: true,
+        confirmButtonColor: '#831F82',
+        confirmButtonText: 'ACEPTAR',
+        showCancelButton: true,
+        cancelButtonText: 'Cancelar',
+    }).then(function() {
+        $.ajax({
+            url: "restTurno/" + idTurno,
+            type: "post",
+            async: true,
+            success: function(data) {
+                if(data=="true") {
+                    swal({
+                        title: "SE RESTAURO CON ÉXITO EL REGISTRO!",
+                        type: "success",
+                        confirmButtonText: "CERRAR",
+                    }).then(
+                        function() { location.reload(); }
+                    )
+                }                
+            }
+        });
+    })
+}
+
+/********************************************************************************************** */
 $('#cerrarMdl').click(function() {
     $("#visTiempoM").closeModal();
 });
@@ -2087,6 +2118,8 @@ function Guardarmp() {
         Tanque: $("#Tanque").val(),
         dia: $("#dia").val(),
         noche: $("#noche").val(),
+        dia1: $("#dia1").val(),
+        noche1: $("#noche1").val(),
         consumo: $("#consumo").val()
     };
     var AJAX = $.ajax({
@@ -2151,6 +2184,10 @@ function guardaInsumos() {
         Noche: $("#Noche").val(),
         ptadia: $("#ptadia").val(),
         ptanoche: $("#ptanoche").val(),
+        Dia1: $("#Dia1").val(),
+        Noche1: $("#Noche1").val(),
+        ptadia1: $("#ptadia1").val(),
+        ptanoche1: $("#ptanoche1").val(),
         descripcion: $("#descripcion option:selected").val()
     };
     var AJAX = $.ajax({
@@ -2430,6 +2467,26 @@ function EliminaINS(elem) {
     })
 
 }
+/*******************FILTRA POR ESTADOS DE TURNOS*******************************/
+$("#turnActivo").on("change",function(){
+    if($("#turnActivo").is(":checked")){
+        $(".1").show();
+    }
+    else{
+        $(".1").css("display","none");
+    }
+});
+$("#turnInactivo").on("change",function(){
+    if($("#turnInactivo").is(":checked")){
+        $(".2").show();
+    }
+    else{
+        $(".2").css("display","none");
+    }
+});
+/******************************************************************************/
+
+
 /*******************FILTRA POR ESTADOS DE ORDENES DE PRODUCCION*******************************/
     $("#ordActiva").on( 'change', function() {
         if(!$(this).is(':checked') ) {

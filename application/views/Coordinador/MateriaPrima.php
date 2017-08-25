@@ -268,7 +268,7 @@
                          ?>
                          <?php foreach ($consecutivo as $key) { ?>
                          <div class="row">
-                         <?php if ($key['Turno'] == "6:00am-6:00pm") {?>
+                         <?php if ($key['tipo'] == "M") {?>
                              <div class="input-field col s6 m6 s6">
                                 <input id="Dia" class="" name="Dia" type="text">
                                 <label for="Dia">DIA</label>
@@ -277,7 +277,7 @@
                                 <input disabled type="text" placeholder="Inhabilitado">
                                 <label for="">NOCHE</label>
                             </div>
-                         <?php } elseif ($key['Turno'] == "6:00pm-6:00am") {?>
+                         <?php } elseif ($key['tipo'] == "N") {?>
                             <div class="input-field col s6 m6 s6">
                                 <input disabled type="text" placeholder="Inhabilitado">
                                 <label for="">DIA</label>
@@ -286,7 +286,16 @@
                                 <input id="Noche" class="" name="Noche" type="text">
                                 <label for="Noche">NOCHE</label>
                             </div>
-                         <?php } ?>
+                         <?php } elseif($key["tipo"] == "MX") {?>
+                            <div class="input-field col s6 m6 s6">
+                                <input id="Dia1" class="" name="Dia1" type="text">
+                                <label for="Dia1">DIA</label>
+                            </div>
+                            <div class="input-field col s6 m6 s6">
+                                <input id="Noche1" class="" name="Noche1" type="text">
+                                <label for="Noche1">NOCHE</label>
+                            </div>
+                         <?php }?>
                         </div>
                          <?php } ?>
                 <br>
@@ -295,7 +304,7 @@
                 <center><h6 class="purple-text darken-1">CANTIDAD</h6></center>
                          <?php foreach ($consecutivo as $key) { ?>
                          <div class="row">
-                         <?php if ($key['Turno'] == "6:00am-6:00pm") {?>
+                         <?php if ($key['tipo'] == "M") {?>
                              <div class="input-field col s6 m6 s6">
                                 <input id="ptadia" class="" name="ptadia" type="text">
                                 <label for="ptadia">PTA AGUA DIA</label>
@@ -304,7 +313,7 @@
                                 <input disabled type="text" placeholder="Inhabilitado">
                                 <label for="">PTA AGUA NOCHE</label>
                             </div>
-                         <?php } elseif ($key['Turno'] == "6:00pm-6:00am") {?>
+                         <?php } elseif ($key['tipo'] == "N") {?>
                             <div class="input-field col s6 m6 s6">
                                 <input disabled type="text" placeholder="Inhabilitado">
                                 <label for="">PTA AGUA DIA</label>
@@ -313,7 +322,16 @@
                                 <input id="ptanoche" class="" name="ptanoche" type="text">
                                 <label for="ptanoche">PTA AGUA NOCHE</label>
                             </div>
-                         <?php } ?>
+                         <?php } elseif ($key["tipo"] == "MX") {?>
+                            <div class="input-field col s6 m6 s6">
+                                <input type="text" id="ptadia1" name="ptadia1">
+                                <label for="ptadia1">PTA AGUA DIA</label>
+                            </div>
+                            <div class="input-field col s6 m6 s6">
+                                <input id="ptanoche1" class="" name="ptanoche1" type="text">
+                                <label for="ptanoche1">PTA AGUA NOCHE</label>
+                            </div>
+                         <?php }?>
                         </div>
                          <?php } ?>
                 </div>
@@ -392,7 +410,7 @@
                          ?>
                          <?php foreach ($consecutivo as $key) { ?>
                          <div class="row">
-                         <?php if ($key['Turno'] == "6:00am-6:00pm") {?>
+                         <?php if ($key['tipo'] == "M") {?>  <!-- fragmento para el turno matutino -->
                              <div class="input-field col s6 m6 s6">
                                 <input id="dia" class="" name="dia" type="text">
                                 <label for="dia">DIA</label>
@@ -401,7 +419,7 @@
                                 <input disabled type="text" placeholder="Inhabilitado">
                                 <label for="">NOCHE</label>
                             </div>
-                         <?php } elseif ($key['Turno'] == "6:00pm-6:00am") {?>
+                         <?php } elseif ($key['tipo'] == "N") {?>  <!-- fragmento para el turno nocturno -->
                             <div class="input-field col s6 m6 s6">
                                 <input disabled type="text" placeholder="Inhabilitado">
                                 <label for="">DIA</label>
@@ -410,7 +428,16 @@
                                 <input id="noche" class="" name="noche" type="text">
                                 <label for="noche">NOCHE</label>
                             </div>
-                         <?php } ?>
+                         <?php } elseif($key["tipo"] == "MX"){ ?>  <!-- fragmento para el turno mixto -->
+                            <div class="input-field col s6 m6 s6">
+                                <input type="text" id="dia1" class="" name="dia1">
+                                <label for="dia1">DIA</label>
+                            </div>
+                            <div class="input-field col s6 m6 s6">
+                                <input id="noche1" class="" name="noche1" type="text">
+                                <label for="noche1">NOCHE</label>
+                            </div>
+                         <?php }?>
                         </div>
                          <?php } ?>
                 <br>

@@ -13,10 +13,17 @@
                         </div>      
                     </div>
 					<center><span class="card-title accent-4 titulos">TURNOS</span></center><br>
+                    <div class="row"><br>
+                            <div class="col s12 m12" style="text-align:right;">
+                                <input type="checkbox" id="turnActivo" checked/>
+                                <label id="label-turnActivo" for="turnActivo">Activa</label>
+                                <input type="checkbox" id="turnInactivo" />
+                                <label id="label-turnInactivo" for="turnInactivo">Inactiva</label>
+                            </div>
+                        </div><br><br>
 					<table id="turnos" class="striped">
 						<thead>
 							<tr class="tblcabecera">
-								<th>Id Turno</th>
 								<th>Turno</th>
 								<th>Descripción</th>
 								<th>Opciones</th>
@@ -25,22 +32,40 @@
 						<tbody>
 							<?php
 							if ($listandoTurnos) {
+                                $clase = "mostrar";
 								foreach ($listandoTurnos as $key) {
-								echo '
-								<tr>
-									<td>'.$key['IdTurno'].'</td>
-									<td>'.$key['Turno'].'</td>
-									<td>'.$key['Comentario'].'</td>
-									<td>
-                                        <a onclick="buscandoTurnoById('.$key['IdTurno'].')" href="#!" data-tooltip="VER" class="modal-trigger tooltipped purple-text darken-4">
-                                            <i class="material-icons">visibility</i>
-                                        </a>&nbsp;&nbsp;&nbsp;
-                                        <a onclick="eliminarTurnoById('.$key['IdTurno'].')" href="#!" data-tooltip="ELIMINAR" class="modal-trigger tooltipped purple-text darken-4">
-                                            <i class="material-icons">delete</i>
-                                        </a>
-							        </td> 
-								</tr>
-							 	';
+                                if($key["estado"] ==1)
+                                {
+                                    echo '
+                                    <tr class="1">
+                                        <td>'.$key['Turno'].'</td>
+                                        <td>'.$key['Comentario'].'</td>
+                                        <td>
+                                            <a onclick="buscandoTurnoById('.$key['IdTurno'].')" href="#!" data-tooltip="VER" class="modal-trigger tooltipped purple-text darken-4">
+                                                <i class="material-icons">visibility</i>
+                                            </a>&nbsp;&nbsp;&nbsp;
+                                            <a onclick="eliminarTurnoById('.$key['IdTurno'].')" href="#!" data-tooltip="ELIMINAR" class="modal-trigger tooltipped purple-text darken-4">
+                                                <i class="material-icons">delete</i>
+                                            </a>
+                                        </td> 
+                                    </tr>
+                                     ';
+                                }elseif($key["estado"] == 0){
+                                        echo '
+                                        <tr class="2" style="display:none;">
+                                            <td>'.$key['Turno'].'</td>
+                                            <td>'.$key['Comentario'].'</td>
+                                            <td>
+                                                <a onclick="buscandoTurnoById('.$key['IdTurno'].')" href="#!" data-tooltip="VER" class="modal-trigger tooltipped purple-text darken-4">
+                                                    <i class="material-icons">visibility</i>
+                                                </a>&nbsp;&nbsp;&nbsp;
+                                                <a onclick="restaurarTurnoById('.$key['IdTurno'].')" href="javascript:void(0)" data-tooltip="RESTAURAR" class="modal-trigger tooltipped purple-text darken-4">
+                                                <i class="material-icons">settings_backup_restore</i>
+                                                </a>
+                                            </td> 
+                                        </tr>
+                                        ';
+                                    }
 								}
 							 } 
 							?>
