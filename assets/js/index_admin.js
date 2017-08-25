@@ -132,9 +132,11 @@ function format(callback, noOrden, div) {
         success: function(response) {
             var thead = '',
                 tbody = '';
+            
             var cont = 0;
             if (response != 'false') {
                 var obj = $.parseJSON(response);
+                var temp = obj.length; var cantRows = 0;
                 thead += '<tr class="tblcabecera"><th class="negra center">N° ORDEN</th>';
                 thead += '<th class="negra center">TURNO</th>';
                 thead += '<th class="negra center">FECHA INICIO</th>';
@@ -145,7 +147,7 @@ function format(callback, noOrden, div) {
                 thead += '<th class="negra center">OPCIONES</th>';
                 thead += '<th class="negra center">CONTROL</th></tr>';
 
-                $.each(JSON.parse(response), function(i, item) {
+                $.each(JSON.parse(response), function(i, item) {                                   
                     if (item["Estado"] == 1) {
                         var html = "<a onclick='cambiaEstadoRptD(" + item["IdReporteDiario"] + ", 0)' class='btn-flat tooltipped noHover'><i style='color:#228b22; font-size:30px;' class='material-icons'>lock_open</i></a>";
                     } else if (item["Estado"] == 0) {
@@ -162,15 +164,18 @@ function format(callback, noOrden, div) {
                         '<td>' + item["TipoPapel"] + '</td>' +
                         '<td>' + html + '</td>' +
                         '<td>' + link + '</td>';
-                    if (cont < 1) {
-                        tbody += '<td rowspan="2" style="background-color:#ffe9fe; border: 1px solid #cfd8dc;"><a href="../index.php/controlPiso/' + item["Consecutivo"] + '">CONTROL DE PISO</a></td></tr>';
-                        cont++;
-                    } else {
-                        cont = 0;
-                    };
-
-                });
-
+                    if (i==cont && item['Cant'] == item['cont']) {
+                        tbody += '<td rowspan="'+item['cont']+'" style="background-color:#ffe9fe; border: 1px solid #cfd8dc;"><a href="../index.php/controlPiso/' + item["Consecutivo"] + '">CONTROL DE PISO</a></td></tr>';
+                        if (obj.length>cont) {
+                            cont = parseInt(cont) + (parseInt(item['Cant']));
+                        }
+                    }else if (i==cont && item['Cant'] != item['cont']) {
+                        tbody += '<td rowspan="'+item['cont']+'" style="background-color:#ffe9fe; border: 1px solid #cfd8dc;"><a href="../index.php/controlPiso/' + item["Consecutivo"] + '">CONTROL DE PISO</a></td></tr>';
+                        if (obj.length>cont) {
+                            cont = parseInt(cont) + (parseInt(item['cont']));
+                        }
+                    }             
+                });            
                 callback($('<table id="tlbListaRep3" class="striped">' + thead + tbody + '</table>')).show();
                 $('#loader' + div).hide();
                 $('#detail1' + div).show();
@@ -1461,6 +1466,7 @@ function buscarTiempoM(identificador) {
 
 /*****************BUSCAR TURNO POR ID****************************/
 function buscandoTurnoById(idTurno) {
+    var tipo="";
     $.ajax({
         url: "actulizarTurnos/" + idTurno,
         async: true,
@@ -1469,8 +1475,16 @@ function buscandoTurnoById(idTurno) {
                 $('#idTurno').val(item['IdTurno']),
                 $('#horaInicioTurno2').val(moment(item['horaInicio'], ["HH:mm"]).format("h:mm A")),
                 $('#horaFinalTurno2').val(moment(item['horaFinal'], ["HH:mm"]).format("h:mm A")),
-                $('#comentario2').val(item['Comentario'])
+                $('#comentario2').val(item['Comentario']),
+                tipo = item['tipo']
             })
+            if (tipo == 'M') {                
+                $("#tMatutinoA").prop('checked', true);
+            }else if (tipo == "MX") {
+                $("#tMixtoA").prop('checked', true);
+            }else if (tipo == "N") {
+                $("#tNocturnoA").prop('checked', true);
+            }
             $("#actualizarRegistro").openModal();
         }
     });
@@ -1478,12 +1492,21 @@ function buscandoTurnoById(idTurno) {
 /*******************ACTUALIZANDO REGISTRO TURNO***********************************/
 function actualizandoTurno() {
     var array = new Array();
+    var tipoC = "";
+    if ($('#tMatutinoA').prop('checked')) {
+        tipoC = $('#tMatutinoA').val();
+    }else if ($('#tMixtoA').prop('checked')) {
+        tipoC = $('#tMixtoA').val();
+    }else if ($('#tNocturnoA').prop('checked')) {
+        tipoC = $('#tNocturnoA').val();
+    }
     var concat = String($('#horaInicioTurno2').val()) + '-' + String($('#horaFinalTurno2').val());
     array = {
         Turno: concat,
         horaInicio: $('#horaInicioTurno2').val(),
         horaFinal: $('#horaFinalTurno2').val(),
-        Comentario: $('#comentario2').val()
+        Comentario: $('#comentario2').val(),
+        tipo: tipoC
     }
     form_data = {
         dataTurno: array
@@ -1507,6 +1530,14 @@ function actualizandoTurno() {
 /***************GUARDAR TURNO******************************************/
 function agregandoNuevoTurno() {
     var array = new Array();
+    var tipoC = "";
+    if ($('#tMatutino').prop('checked')) {
+        tipoC = $('#tMatutino').val();
+    }else if ($('#tMixto').prop('checked')) {
+        tipoC = $('#tMixto').val();
+    }else if ($('#tNocturno').prop('checked')) {
+        tipoC = $('#tNocturno').val();
+    }
 
     if ($('#horaInicioTurno').val()=="" || $('#horaFinalTurno').val()=="" || $('#comentario').val()=="") {
         mensajeAlerta('¡TIENE QUE RELLENAR TODOS LOS CAMPOS!');
@@ -1516,9 +1547,10 @@ function agregandoNuevoTurno() {
             Turno: concat,
             horaInicio: moment($('#horaInicioTurno').val(), ["h:mm A"]).format("HH:mm"),
             horaFinal: moment($('#horaFinalTurno').val(), ["h:mm A"]).format("HH:mm"),
-            Comentario: $('#comentario').val()
+            Comentario: $('#comentario').val(),
+            tipo: tipoC,
+            estado: 1
         }
-
         form_data = {
             data_turno: array
         }
@@ -1845,7 +1877,6 @@ $("#AddOrden").click(function() {
 });
 
 $('#turno').change(function() {
-
         var Fecha = $("#Fechainicio").val();
         var turno = $('#turno option:selected').val();
         var consecutivo = $("#cons").val();

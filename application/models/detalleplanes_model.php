@@ -205,6 +205,7 @@ class detalleplanes_model extends CI_Model
     }
 
     public function listarTurnos() {
+        $this->db->where('estado', 1);
         $query = $this->db->get("turnos");
         if ($query->num_rows()>0) {
             return $query->result_array();
@@ -242,9 +243,12 @@ class detalleplanes_model extends CI_Model
         }        
     }
 
-    public function elimandoRegistroTurno($idTurno) {
+    public function elimandoRegistroTurno($idTurno, $estado) {
+        $array = array(
+            'estado' => $estado
+        );
         $this->db->where('IdTurno', $idTurno);
-        $query = $this->db->delete('turnos');
+        $query = $this->db->update('turnos', $array);
         if ($query==1) {
             $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'ELIMINO EL REGISTRO DE TURNO ID '.$idTurno);
             echo json_encode($query);

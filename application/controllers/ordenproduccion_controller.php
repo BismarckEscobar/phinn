@@ -135,13 +135,16 @@ class Ordenproduccion_controller extends CI_Controller
     public function mostrarOrdenesTrabajos($idOrden) {
         $json=array();
         $query=$this->Ordenproduccion_model->mostrarOrdTrab($idOrden);
+        
         if ($query!=false) {
+            $this->db->where('Consecutivo', '1-'.$idOrden);
+            $cont=$this->db->count_all_results('reporte_diario');
             foreach ($query as $key) {
                 $dta=array(
                     'IdReporteDiario' => $key['IdReporteDiario'],
                     'Consecutivo' => $key['Consecutivo'],
                     'NoOrder' => $key['NoOrder'],
-                    'Turno' => $key['Turno'],
+                    'Turno' => $key['Comentario'],                    
                     'FechaInicio' => $key['FechaInicio'],
                     'FechaFinal' => $key['FechaFinal'],
                     'Coordinador' =>$key['Coordinador'],
@@ -150,11 +153,14 @@ class Ordenproduccion_controller extends CI_Controller
                     'TipoPapel' => $key['TipoPapel'],
                     'ProduccionTotal' => $key['ProduccionTotal'],
                     'MermaTotal' => $key['MermaTotal'],
-                    'Estado' => $key['Estado']
+                    'Estado' => $key['Estado'],
+                    'Cant' => $key['Cant'],
+                    'cont' => $cont
                     );
                 $json[] =$dta;
             }
-            echo json_encode($json);            
+            
+            echo json_encode($json);           
         }else {
             echo "false";
         }
