@@ -35,7 +35,11 @@ class Ordenproduccion_controller extends CI_Controller
         $coor = $this->input->get_post("coordinador");
         $grupo = $this->input->get_post("grupo");
         $tipopapel = $this->input->get_post("papel");
-        $this->Ordenproduccion_model->Guardar($cons, $NoOrd, $turno, $FechaInic, $FechaFin ,$coor ,$grupo ,$tipopapel);
+
+        $this->db->where('estado', 1);
+        $cantTurnos=$this->db->count_all_results('turnos');
+
+        $this->Ordenproduccion_model->Guardar($cons, $NoOrd, $turno, $FechaInic, $FechaFin ,$coor ,$grupo ,$tipopapel, $cantTurnos);
         redirect("OrdenProduccion");
     }
 
@@ -135,11 +139,16 @@ class Ordenproduccion_controller extends CI_Controller
     public function mostrarOrdenesTrabajos($idOrden) {
         $json=array();
         $query=$this->Ordenproduccion_model->mostrarOrdTrab($idOrden);
-        
+        $i=1;
         if ($query!=false) {
-            $this->db->where('Consecutivo', '1-'.$idOrden);
-            $cont=$this->db->count_all_results('reporte_diario');
             foreach ($query as $key) {
+                $conse=$i.'-'.$idOrden;
+                if ($key['Consecutivo']==$conse) {
+                    $this->db->select('cantTurnos');
+                    $this->db->where('Consecutivo', $conse);
+                    $cantTurnos=$this->db->get('reporte_diario');
+                    $i++;
+                }
                 $dta=array(
                     'IdReporteDiario' => $key['IdReporteDiario'],
                     'Consecutivo' => $key['Consecutivo'],
@@ -155,11 +164,10 @@ class Ordenproduccion_controller extends CI_Controller
                     'MermaTotal' => $key['MermaTotal'],
                     'Estado' => $key['Estado'],
                     'Cant' => $key['Cant'],
-                    'cont' => $cont
+                    'turnos' => $cantTurnos->result_array()[0]['cantTurnos']
                     );
                 $json[] =$dta;
-            }
-            
+            }            
             echo json_encode($json);           
         }else {
             echo "false";
