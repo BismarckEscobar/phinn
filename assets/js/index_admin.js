@@ -164,15 +164,15 @@ function format(callback, noOrden, div) {
                         '<td>' + item["TipoPapel"] + '</td>' +
                         '<td>' + html + '</td>' +
                         '<td>' + link + '</td>';
-                    if (i==cont && item['Cant'] == item['cont']) {
-                        tbody += '<td rowspan="'+item['cont']+'" style="background-color:#ffe9fe; border: 1px solid #cfd8dc;"><a href="../index.php/controlPiso/' + item["Consecutivo"] + '">CONTROL DE PISO</a></td></tr>';
+                    if (i==cont && item['Cant'] == item['turnos']) {
+                        tbody += '<td rowspan="'+item['turnos']+'" style="background-color:#ffe9fe; border: 1px solid #cfd8dc;"><a href="../index.php/controlPiso/' + item["Consecutivo"] + '">CONTROL DE PISO</a></td></tr>';
                         if (obj.length>cont) {
                             cont = parseInt(cont) + (parseInt(item['Cant']));
                         }
-                    }else if (i==cont && item['Cant'] != item['cont']) {
-                        tbody += '<td rowspan="'+item['cont']+'" style="background-color:#ffe9fe; border: 1px solid #cfd8dc;"><a href="../index.php/controlPiso/' + item["Consecutivo"] + '">CONTROL DE PISO</a></td></tr>';
+                    }else if (i==cont && item['Cant'] != item['turnos']) {
+                        tbody += '<td rowspan="'+item['turnos']+'" style="background-color:#ffe9fe; border: 1px solid #cfd8dc;"><a href="../index.php/controlPiso/' + item["Consecutivo"] + '">CONTROL DE PISO</a></td></tr>';
                         if (obj.length>cont) {
-                            cont = parseInt(cont) + (parseInt(item['cont']));
+                            cont = parseInt(cont) + (parseInt(item['turnos']));
                         }
                     }             
                 });            

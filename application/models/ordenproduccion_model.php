@@ -37,7 +37,7 @@ class Ordenproduccion_model extends CI_Model
         }
     }
 
-    public function Guardar($Cons,$NoOrd,$Turno,$FechaIn, $FechaFin, $Coord, $Grup, $Tipo) {
+    public function Guardar($Cons,$NoOrd,$Turno,$FechaIn, $FechaFin, $Coord, $Grup, $Tipo, $cantTurnos) {
         $duplicado = $this->db->get_where('reporte_diario',array('Consecutivo' => $Cons, 'Turno' => $Turno));
         if ($duplicado->num_rows() > 0) {
             echo "El registro ya existe";
@@ -52,6 +52,7 @@ class Ordenproduccion_model extends CI_Model
             "Coordinador" => $Coord,
             "Grupo" => $Grup,
             "TipoPapel" => $Tipo,
+            "cantTurnos" => $cantTurnos,
             "Estado" => 1
         );
         $result = $this->db->insert("reporte_diario",$data);
@@ -111,14 +112,21 @@ class Ordenproduccion_model extends CI_Model
             $cons = $i.'-'.$numOrden;
 
             $this->db->where('Consecutivo =', $cons);
-            $query=$this->db->get('reporte_diario');
-            if ($query->num_rows()<$cant) {
-                echo $cons;
-                break;
-            } else {
-                if ($query->num_rows()==1) {
+            $this->db->select('cantTurnos');
+            $cont=$this->db->get('reporte_diario');
+            
+            if ($cont->num_rows()>0) {
+
+                $this->db->where('Consecutivo', $cons);
+                $rpt=$this->db->count_all_results('reporte_diario');
+
+                if ($cont->result_array()[0]['cantTurnos']==$cant && $rpt!=$cant) {
+                    echo $cons;
                     break;
                 }
+            } else {
+                echo $cons;
+                break;
             }
         }
     }

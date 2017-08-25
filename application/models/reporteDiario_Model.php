@@ -100,14 +100,15 @@ class reporteDiario_Model extends CI_Model
     	$query=$this->db->get('reporte_diario');
     	if ($query->num_rows()>0) {
     		foreach ($query->result_array() as $key) {
-    			if ($key['Turno']==1) {
-    				$turno = 'Matutino';
-    			}elseif ($key['Turno']==2) {
-    				$turno = 'Vespertino';
-    			}
+    			$idTurno = $key['Turno'];
+    			
+    			$this->db->where('IdTurno', $idTurno);
+    			$this->db->select('Comentario');
+    			$turno=$this->db->get('turnos');
+    			
     			$data = array(
     			'IdReporteDiario' => $key['IdReporteDiario'],
-    			'consecutivo' => $key['consecutivo'].' / '.$turno
+    			'consecutivo' => $key['consecutivo'].' / '.$turno->result_array()[0]['Comentario']
     		);
     			$json[] = $data;
     		}	
