@@ -2,7 +2,7 @@
 <?php $mermaTotalF1=0; ?>
 <html lang="en">
 <head>
-	<title>Consolidado final-<?php echo $consolidadoFinal[0]['NoOrder'] ?></title>
+	<title>Consolidado final-<?php echo $consolidadoFinal[0]['Consecutivo']; ?></title>
 	<style>
 		#footer {			
 			padding: 30px 30px;
@@ -244,11 +244,12 @@
 			<table class="table-produccion">
 				<thead>
 					<tr>
-						<th style='text-align:center;' colspan='7'><span>mano de obra directa</span></th>
+						<th style='text-align:center;' colspan='8'><span>mano de obra directa</span></th>
 					</tr>
 					<tr>
 						<th style="text-align:center;"><span>descripción de la act.</span></th>
 						<th style="text-align:center;"><span>día</span></th>
+						<th style="text-align:center;"><span>Mixto</span></th>
 						<th style="text-align:center;"><span>noche</span></th>
 						<th style="text-align:center;"><span>total</span></th>
 						<th colspan="3" style="text-align:center;"><span>no. personas</span></th>
@@ -257,15 +258,27 @@
 				<tbody>
 				<?php
 				if ($consolidadoFinal) {
-					$totalCarga = abs($consolidadoFinal[0]['cargaDia']) + abs($consolidadoFinal[0]['cargaNoche']);
-					$totalYankee1 = abs($consolidadoFinal[0]['modMMaquina1']) + abs($consolidadoFinal[0]['modVMaquina1']);
-					$totalYankee2 = abs($consolidadoFinal[0]['modMMaquina2']) + abs($consolidadoFinal[0]['modVMaquina2']);
-					$totalCaldera = abs($consolidadoFinal[0]['modMMaquina3']) + abs($consolidadoFinal[0]['modVMaquina3']);
-					$totalMerma = abs($consolidadoFinal[0]['mermaMatMQ1']) + abs($consolidadoFinal[0]['mermaVespMQ2']);
+					$totalCarga = abs($consolidadoFinal[0]['cargaDia']) + abs($consolidadoFinal[0]['cargaNoche']) + abs($consolidadoFinal[0]['cargaMixta']);
+					$totalYankee1 = abs($consolidadoFinal[0]['MMaquina1']) + abs($consolidadoFinal[0]['MMXMaquina1']) + abs($consolidadoFinal[0]['MNMaquina1']);
+					$totalYankee2 = abs($consolidadoFinal[0]['MMaquina2']) + abs($consolidadoFinal[0]['MMXMaquina2']) + abs($consolidadoFinal[0]['MNMaquina2']);
+					$totalCaldera = abs($consolidadoFinal[0]['MMaquina3']) + abs($consolidadoFinal[0]['MMXVMaquina3']) + abs($consolidadoFinal[0]['MNMaquina3']);
+					$totalMerma = abs($consolidadoFinal[0]['mermaMQ1']) + abs($consolidadoFinal[0]['mermaMQ2']);
+					/*<tr>
+						<td style='text-align:center;'>PULPER 3-PASTA DE MERMA</td>
+						<td style='text-align:center;'>".abs(number_format($consolidadoFinal[0]['MermaMX1'], 2))."</td>
+						<td style='text-align:center;'>".abs(number_format($consolidadoFinal[0]['MermaMX2'], 2))."</td>
+						<td style='text-align:center;'>".abs(number_format($consolidadoFinal[0]['MNMaquina1'], 2))."</td>
+						<td style='text-align:center;'>".abs(number_format($totalYankee1, 2))."</td>						
+						<td style='text-align:center;'>2</td>
+						<td style='text-align:center;'>2</td>
+						<td style='text-align:center;'>4</td>
+					</tr>*/
+
 				 	echo "
 					<tr>
 						<td style='text-align:center;'>PULPER 1-PASTA RECICLADA</td>
 						<td style='text-align:center;'>".abs(number_format($consolidadoFinal[0]['cargaDia'], 2))."</td>
+						<td style='text-align:center;'>".abs(number_format($consolidadoFinal[0]['cargaMixta'], 2))."</td>
 						<td style='text-align:center;'>".abs(number_format($consolidadoFinal[0]['cargaNoche'], 2))."</td>
 						<td style='text-align:center;'>".abs(number_format($totalCarga, 2))."</td>						
 						<td style='text-align:center;'>2</td>
@@ -273,18 +286,10 @@
 						<td style='text-align:center;'>4</td>
 					</tr>
 					<tr>
-						<td style='text-align:center;'>PULPER 3-PASTA DE MERMA</td>
-						<td style='text-align:center;'>".abs(number_format($consolidadoFinal[0]['mermaMatMQ1'], 2))."</td>
-						<td style='text-align:center;'>".abs(number_format($consolidadoFinal[0]['mermaVespMQ2'], 2))."</td>
-						<td style='text-align:center;'>".abs(number_format($totalMerma, 2))."</td>						
-						<td style='text-align:center;'>2</td>
-						<td style='text-align:center;'>2</td>
-						<td style='text-align:center;'>4</td>
-					</tr>
-					<tr>
 						<td style='text-align:center;'>YANKEE 1 - JUMBO ROLL</td>
-						<td style='text-align:center;'>".abs(number_format($consolidadoFinal[0]['modMMaquina1'], 2))."</td>
-						<td style='text-align:center;'>".abs(number_format($consolidadoFinal[0]['modVMaquina1'], 2))."</td>
+						<td style='text-align:center;'>".abs(number_format($consolidadoFinal[0]['MMaquina1'], 2))."</td>
+						<td style='text-align:center;'>".abs(number_format($consolidadoFinal[0]['MMXMaquina1'], 2))."</td>
+						<td style='text-align:center;'>".abs(number_format($consolidadoFinal[0]['MNMaquina1'], 2))."</td>
 						<td style='text-align:center;'>".abs(number_format($totalYankee1, 2))."</td>						
 						<td style='text-align:center;'>2</td>
 						<td style='text-align:center;'>2</td>
@@ -292,8 +297,9 @@
 					</tr>
 					<tr>
 						<td style='text-align:center;'>YANKEE 2 - JUMBO ROLL</td>
-						<td style='text-align:center;'>".abs(number_format($consolidadoFinal[0]['modMMaquina2'], 2))."</td>
-						<td style='text-align:center;'>".abs(number_format($consolidadoFinal[0]['modVMaquina2'], 2))."</td>
+						<td style='text-align:center;'>".abs(number_format($consolidadoFinal[0]['MMaquina2'], 2))."</td>
+						<td style='text-align:center;'>".abs(number_format($consolidadoFinal[0]['MMXMaquina2'], 2))."</td>
+						<td style='text-align:center;'>".abs(number_format($consolidadoFinal[0]['MNMaquina2'], 2))."</td>
 						<td style='text-align:center;'>".abs(number_format($totalYankee2, 2))."</td>						
 						<td style='text-align:center;'>2</td>
 						<td style='text-align:center;'>2</td>
@@ -301,8 +307,9 @@
 					</tr>
 					<tr>
 						<td style='text-align:center;'>CALDERA</td>
-						<td style='text-align:center;'>".abs(number_format($consolidadoFinal[0]['modMMaquina3'], 2))."</td>
-						<td style='text-align:center;'>".abs(number_format($consolidadoFinal[0]['modVMaquina3'], 2))."</td>
+						<td style='text-align:center;'>".abs(number_format($consolidadoFinal[0]['MMaquina3'], 2))."</td>
+						<td style='text-align:center;'>".abs(number_format($consolidadoFinal[0]['MMXVMaquina3'], 2))."</td>
+						<td style='text-align:center;'>".abs(number_format($consolidadoFinal[0]['MNMaquina3'], 2))."</td>
 						<td style='text-align:center;'>".abs(number_format($totalCaldera, 2))."</td>						
 						<td style='text-align:center;'>2</td>
 						<td style='text-align:center;'>2</td>
@@ -310,8 +317,9 @@
 					</tr>
 					<tr>
 					<td style='text-align:center;'>PLANTA TRATAMIENTO</td>
-						<td style='text-align:center;'>".abs(number_format($consolidadoFinal[0]['modMMaquina3'], 2))."</td>
-						<td style='text-align:center;'>".abs(number_format($consolidadoFinal[0]['modVMaquina3'], 2))."</td>
+						<td style='text-align:center;'>".abs(number_format($consolidadoFinal[0]['MMaquina3'], 2))."</td>
+						<td style='text-align:center;'>".abs(number_format($consolidadoFinal[0]['MMXVMaquina3'], 2))."</td>
+						<td style='text-align:center;'>".abs(number_format($consolidadoFinal[0]['MNMaquina3'], 2))."</td>
 						<td style='text-align:center;'>".abs(number_format($totalCaldera, 2))."</td>						
 						<td style='text-align:center;'>2</td>
 						<td style='text-align:center;'>2</td>
