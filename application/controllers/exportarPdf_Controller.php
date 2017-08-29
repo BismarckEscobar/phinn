@@ -166,10 +166,14 @@ class exportarPdf_Controller extends CI_Controller {
     }
 
     public function rptConsolidadoFinal($consecutivo) {
-        $this->Users_model->InsertLog($this->session->userdata['IdUser'], 'GENERO UN REPORTE DE CONSOLIDADO DEL CONSECUTIVO '.$consecutivo);
-        $data['consolidadoFinal'] = $this->reporteDiario_Model->reporteConsoliadoFinal((string)$consecutivo);
+        echo $consecutivo;
+        //$this->Users_model->InsertLog($this->session->userdata['IdUser'], 'GENERO UN REPORTE DE CONSOLIDADO DEL CONSECUTIVO '.$consecutivo);
+        $data['consolidadoFinal'] = $this->reporteDiario_Model->reporteConsoliadoFinal($consecutivo);
         $data['materiaPrima'] = $this->controlPiso_Model->detalleControlPiso($consecutivo);
         $data['consumoElectrico'] = $this->controlPiso_Model->consumoElectrico($consecutivo);
+        //$this->load->view('Reportes/reporteConsolidado', $data);
+        //print_r($data['consolidadoFinal']);
+        
         $PdfCliente = new mPDF('utf-8','A4');        
         $PdfCliente->SetFooter("Página {PAGENO} de {nb}");
         $PdfCliente -> writeHTML($this->load->view('Reportes/reporteConsolidado', $data, true));
