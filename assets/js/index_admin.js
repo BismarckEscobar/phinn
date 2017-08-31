@@ -224,7 +224,8 @@ function agregarFilas() {
                         item['UnidadMedida'],
                         '<input class="inputControlPiso numeric" id="requisado' + item['IdInsumo'] + '"/>',
                         '<input class="inputControlPiso numeric" id="piso' + item['IdInsumo'] + '" onchange="calcularConsumo(' + item['IdInsumo'] + ')" value=""/>',
-                        '<input class="inputControlPiso numeric" id="consumo' + item['IdInsumo'] + '" value=""/>'
+                        '<input class="inputControlPiso numeric" id="consumo' + item['IdInsumo'] + '" value=""/>',
+                        '<a class="btn-floating red" href="#" onclick=""><i class="tiny material-icons quitar">close</i></a>'
                     ]).draw(false);
                 });
             } else {
@@ -235,6 +236,15 @@ function agregarFilas() {
         }
     });
 }
+//***************QUITAR ROW******************************/
+
+$('#tblControlPiso tbody').on( 'click', 'i.quitar', function () {
+    var tablaCP = $('#tblControlPiso').DataTable();
+    tablaCP
+        .row( $(this).parents('tr'))
+        .remove()
+        .draw();
+} );
 /****************CALCULANDO CONSUMO CONTROL DE PISO**************************/
 function calcularConsumo(item) {
     var cant1 = $("#requisado" + item).val();
@@ -279,7 +289,7 @@ function guardarControlPiso() {
     if (grupo=="") {
         grupo="indefinido,indefinido";
     }
-    var grupo2 = grupo.replace(",", "-");
+    var grupo2 = grupo.replace(/,/g, "-");
     var maquina= maquinas;
     var horaInicio= $('#horaInicio').text();
     var horaFinal= $('#horaFin').text();
@@ -824,7 +834,9 @@ function actualizandoCargasPulper(idInsumo, IdReporteDiario, cantidad) {
         type: "POST",
         async: true,
         success: function(data) {
-            if (data = true) {
+            if (data=="del") {
+                Materialize.toast('SE ELIMINO UN REGISTRO', 1000);
+            }else if (data = true) {
                 Materialize.toast('SE ACTUALIZO UN REGISTRO', 1000);
             } else {
                 Materialize.toast('ERROR AL MOMENTO DE ACTUALIZAR', 1000);

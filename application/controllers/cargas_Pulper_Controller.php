@@ -72,8 +72,7 @@ class cargas_Pulper_Controller extends CI_Controller {
          if ($duplicado->num_rows()>0) {
              echo "Consecutivo ya se ha cerrado";
          }else{
-		   $this->cargasPulper_Model->actualizarRegistroCarga($idCargaPulper, $IdReporteDiario ,$cantidad);
-		   echo $idCargaPulper, $IdReporteDiario ,$cantidad;
+		   $this->cargasPulper_Model->actualizarRegistroCarga($idCargaPulper, $IdReporteDiario ,$cantidad);		   
 		 }
 	}
 
