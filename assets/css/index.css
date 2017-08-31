@@ -570,6 +570,14 @@ select {
     }
 }
 
+#modalInsumo{
+    height: 430px;
+}
+
+#nuevaMatPrim{
+    height: 400px;
+}
+
 
 /**
 * instead of linking from https://fonts.googleapis.com/icon?family=Material+Icons
