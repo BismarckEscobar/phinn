@@ -63,14 +63,20 @@ class cargaspulper_Model extends CI_Model {
 	}
 
 	public function actualizarRegistroCarga($idCargaPulper, $idReporteDiario, $cantidad) {
-		$data = array('Cantidad' => $cantidad);
-	    $this->db->where('IdCargaPulper=', $idCargaPulper);
-		$this->db->where('IdReporteDiario=', $idReporteDiario);	
-	    $result = $this->db->update('cargas_pulper', $data);
-	    if ($result==1) {
-	    	$this->Users_model->InsertLog($this->session->userdata['IdUser'], 'ACTUALIZO REGISTRO DE UNA CARGA DEL REPORTE CON ID '.$idReporteDiario);
-	    }
-	    echo $result;
+		if ($cantidad==0) {
+			$this->db->delete('cargas_pulper', array('IdCargaPulper' => $idCargaPulper));
+			$this->Users_model->InsertLog($this->session->userdata['IdUser'], 'ELIMINO UN REGISTRO DE UNA CARGA DEL REPORTE CON ID '.$idReporteDiario);
+			echo "del";
+		}else {
+			$data = array('Cantidad' => $cantidad);
+		    $this->db->where('IdCargaPulper=', $idCargaPulper);
+			$this->db->where('IdReporteDiario=', $idReporteDiario);	
+		    $result = $this->db->update('cargas_pulper', $data);
+		    if ($result==1) {
+		    	$this->Users_model->InsertLog($this->session->userdata['IdUser'], 'ACTUALIZO REGISTRO DE UNA CARGA DEL REPORTE CON ID '.$idReporteDiario);
+		    }
+		    echo $result;
+		}
 	}
 
 	public function guardarHoraMolienda($array) {

@@ -17,7 +17,7 @@
 											<center>
 												<h5 class="card-heading">PLATAFORMA PHINN</h5>
 			    								<p style="margin-bottom:0px !important;">Sistema de Gestion de procesos</p>
-			    								<p style="margin-top:0px !important;">v1.0</p>			  
+			    								<p style="margin-top:0px !important;">v1.2.7</p>			  
 			    							</center>
 										</div>
 									</div>

@@ -123,6 +123,7 @@
 										<th>requisado</th>
 										<th>piso</th>
 										<th>consumo</th>
+										<th>opciones</th>
 									</thead>
 									<tbody>
 										<?php 
@@ -138,6 +139,7 @@
 														<td><input class='inputControlPiso numeric' id='requisado".$key['IdInsumo']."' onchange='calcularConsumo(".$key['IdInsumo'].")' value=".$key['requisado']." /></td>
 														<td><input class='inputControlPiso numeric' id='piso".$key['IdInsumo']."' onchange='calcularConsumo(".$key['IdInsumo'].")' value=".$key['piso']." /></td>
 														<td><input class='inputControlPiso numeric' id='consumo".$key['IdInsumo']."' value=".$key['consumo']." /></td>
+														<td></td>
 													</tr>
 													";	
 												}
@@ -292,11 +294,12 @@
         }else {
     	    $fechaInicio = "";
     		$fechaFin = "";
-    		$horaInicio = "";
-    		$horaFinal = "";
+    		$horaInicio = date('H:i:s', strtotime('06:00:00'));
+    		$horaFinal = date('H:i:s', strtotime('06:00:00'));
     		$consumoInicial = "";
     		$consumoFinal = "";
         }
+        
 		echo "
         <div class='row'>
             <div class='input-field col s12 m6 s6'>
@@ -328,7 +331,7 @@
                 <input  id='consumoFinal' type='text' value='".$consumoFinal."' class='validate'>
                 <label for='consumoFinal'>Lectura Final</label>
             </div>
-		</div><br><br>";        
+		</div><br><br>";
         ?>
         <div class="row">                    
             <div class="center">
