@@ -1,3 +1,4 @@
+<!-- modify date 2017-08-31 10:26:26-->
 <main class="mdl-layout__content mdl-color--grey-100">
     <div class="row">
         <div class="col s12">
@@ -273,15 +274,7 @@
                                 <input id="Dia" class="" name="Dia" type="text">
                                 <label for="Dia">DIA</label>
                             </div>
-                            <div class="input-field col s6 m6 s6">
-                                <input disabled type="text" placeholder="Inhabilitado">
-                                <label for="">NOCHE</label>
-                            </div>
                          <?php } elseif ($key['tipo'] == "N") {?>
-                            <div class="input-field col s6 m6 s6">
-                                <input disabled type="text" placeholder="Inhabilitado">
-                                <label for="">DIA</label>
-                            </div>
                             <div class="input-field col s6 m6 s6">
                                 <input id="Noche" class="" name="Noche" type="text">
                                 <label for="Noche">NOCHE</label>
@@ -296,28 +289,14 @@
                                 <label for="Noche1">NOCHE</label>
                             </div>
                          <?php }?>
-                        </div>
                          <?php } ?>
-                <br>
-                </div>
-                                <div class="row">
-                <center><h6 class="purple-text darken-1">CANTIDAD</h6></center>
                          <?php foreach ($consecutivo as $key) { ?>
-                         <div class="row">
                          <?php if ($key['tipo'] == "M") {?>
                              <div class="input-field col s6 m6 s6">
                                 <input id="ptadia" class="" name="ptadia" type="text">
                                 <label for="ptadia">PTA AGUA DIA</label>
                             </div>
-                            <div class="input-field col s6 m6 s6">
-                                <input disabled type="text" placeholder="Inhabilitado">
-                                <label for="">PTA AGUA NOCHE</label>
-                            </div>
                          <?php } elseif ($key['tipo'] == "N") {?>
-                            <div class="input-field col s6 m6 s6">
-                                <input disabled type="text" placeholder="Inhabilitado">
-                                <label for="">PTA AGUA DIA</label>
-                            </div>
                             <div class="input-field col s6 m6 s6">
                                 <input id="ptanoche" class="" name="ptanoche" type="text">
                                 <label for="ptanoche">PTA AGUA NOCHE</label>
@@ -388,7 +367,7 @@
     </div>
 </div>
 
-    <div id="nuevaMatPrim" class="modal1" style="height:420px;">
+    <div id="nuevaMatPrim" class="modal1">
     <div class="modal-content">
         <div class="row noMargen center">
             <div class="noMargen col s12 m12 l12">
@@ -415,15 +394,7 @@
                                 <input id="dia" class="" name="dia" type="text">
                                 <label for="dia">DIA</label>
                             </div>
-                            <div class="input-field col s6 m6 s6">
-                                <input disabled type="text" placeholder="Inhabilitado">
-                                <label for="">NOCHE</label>
-                            </div>
                          <?php } elseif ($key['tipo'] == "N") {?>  <!-- fragmento para el turno nocturno -->
-                            <div class="input-field col s6 m6 s6">
-                                <input disabled type="text" placeholder="Inhabilitado">
-                                <label for="">DIA</label>
-                            </div>
                             <div class="input-field col s6 m6 s6">
                                 <input id="noche" class="" name="noche" type="text">
                                 <label for="noche">NOCHE</label>
@@ -438,10 +409,7 @@
                                 <label for="noche1">NOCHE</label>
                             </div>
                          <?php }?>
-                        </div>
                          <?php } ?>
-                <br>
-                <div class="row">
                     <div class="input-field col s6 m6 s6">
                         <select name="Tanque" id="Tanque" class="chosen-select browser-default">
                             <option disabled selected>TANQUES</option>
@@ -449,20 +417,8 @@
                             if(!($listaTanques))
                             {}else{
                                 foreach ($listaTanques as $key) {
-                                      switch ($key['Tanque']) {
-                                          case 'Tanque #1':
-                                                 $desc = "Yankee 1-Jumbo Roll";
-                                              break;
-                                          
-                                            case 'Tanque #2':
-                                                 $desc = "Yankee 2-Jumbo Roll";
-                                              break;
-                                                case 'Tanque #3':
-                                                 $desc = "Caldera";
-                                              break;
-                                      }
                                     echo'
-                                    <option value="'.$key['IdInsumo'].'">'.$key['Tanque'].' <span>('.$desc.')</span></option>
+                                    <option value="'.$key['IdInsumo'].'">'.$key['Tanque'].'</option>
                                     ';
                                   }
                                 }                            
@@ -471,8 +427,7 @@
                          <label id="lbltanque" class="lblValidacion">ELIGE UN TANQUE</label>
                     </div>
                     <div class="input-field col s6 m6 s6">
-                        <input type="text" name="consumo" id="consumo">
-                        <label for="consumo">CONSUMO</label>
+                        <input type="hidden" value="0" name="consumo" id="consumo">
                     </div>
                 </div>
                <br>

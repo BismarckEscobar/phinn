@@ -199,7 +199,7 @@ if ($this->session->userdata("Privilegio") == 3) {?>
                                 <th>FECHA INICIO</th>
                                 <th>FECHA FIN</th>
                                 <th>COORDINADOR</th>
-                                <th>GRUPO</th>
+                                <!--<th>GRUPO</th>-->
                                 <th>TIPO PAPEL</th>
                             </tr>   
                         </thead>
@@ -216,7 +216,7 @@ if ($this->session->userdata("Privilegio") == 3) {?>
                                 <td><?php echo date('d-m-Y', strtotime($key["FechaInicio"]))?></td>
                                 <td><?php echo date('d-m-Y', strtotime($key["FechaFinal"]))?></td>
                                 <td><?php echo $key["Nombre"]?></td>
-                                <td><?php echo $key["Grupo"]?></td>
+                                <!--<td><?php //echo $key["Grupo"]?></td>-->
                                 <td><?php echo $key["TipoPapel"]?></td>
                             </tr> 
                             <?php }?>
