@@ -2,7 +2,7 @@
 /**
  * @author [Cesar Mejia]
  * @email [analista4.guma@gmail.com]
- * @modify date 2017-08-25 12:00:43
+ * @modify date 2017-08-31 10:27:06
  * @desc []
 */
 class MateriaPrima_controller extends CI_Controller
@@ -32,7 +32,7 @@ class MateriaPrima_controller extends CI_Controller
         $Tanque = $this->input->get_post("Tanque");  
         $dia = $this->input->get_post("dia");   
         $noche = $this->input->get_post("noche");    
-        $consumo = $this->input->get_post("consumo");   
+        $consumo = 0;   
         /*Variables para guardar datos del turno mixto*/
         $dia1 = $this->input->get_post("dia1");   
         $noche1 = $this->input->get_post("noche1"); 
