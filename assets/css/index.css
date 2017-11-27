@@ -440,7 +440,17 @@ select {
     border: none;
     text-align: center;
     background: none;
-    width: 50px;
+    width: 70px;
+}
+
+.inputPD {
+    border: none;
+    text-align: center;
+    background-color:#ffe9fe;
+    border-radius: 5px;
+    width: 100px;
+    height: 30px;
+    padding: 10px 10px;
 }
 
 .inputControlPiso {
@@ -578,6 +588,10 @@ select {
     height: 400px;
 }
 
+#modalNuevaPrd, #modalEditarPrd {
+  width: 90%;
+  min-height: 70%;
+}
 
 /**
 * instead of linking from https://fonts.googleapis.com/icon?family=Material+Icons

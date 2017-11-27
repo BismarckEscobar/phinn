@@ -173,3 +173,9 @@ $route['ValidaFecha/(:any)/(:any)/(:any)'] = 'Ordenproduccion_controller/Validar
     $route['guardandoNuevoTurno'] = "Mantenimiento_controller/guardarNuevoTurno";
     $route['elimarTurno/(:any)'] = "Mantenimiento_controller/elimarRegistroTurno/$1";
     $route['restTurno/(:any)'] = "Mantenimiento_controller/restaurarRegistroTurno/$1";
+
+    /*****************PRODUCCION DIARIA********************************/
+    $route['produccionDiaria'] = 'produccionDiaria_Controller';
+    $route['listandoProduccionDiaria/(:any)'] = 'produccionDiaria_Controller/listarProduccionDiaria/$1';
+    $route['guardarPD'] = 'produccionDiaria_Controller/guardarProduccionDiaria';
+    $route['gestionarProdDiaria/(:any)/(:any)'] = 'produccionDiaria_Controller/gestionandoProduccionDiaria/$1/$2';
