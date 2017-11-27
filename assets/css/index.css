@@ -579,6 +579,10 @@ select {
 }
 
 
+#disabled{
+    cursor: not-allowed;
+}
+
 /**
 * instead of linking from https://fonts.googleapis.com/icon?family=Material+Icons
 */
