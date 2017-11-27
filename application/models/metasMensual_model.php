@@ -6,12 +6,12 @@ class metasMensual_model extends CI_Model{
         $this->load->database();
     }
 
-    public function getBolsones()
+    public function getArticulos()
     {
         $json= array();
         $i=0;
         $this->db->where("Estado",1);
-        $query = $this->db->get("bolsones");
+        $query = $this->db->get("articulos");
         if ($query->num_rows()>0) {     
             foreach ($query->result_array() as $key) {
                 $json["data"][$i]["Descripcion"] = $key["Descripcion"];

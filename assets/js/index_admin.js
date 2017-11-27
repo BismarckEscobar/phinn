@@ -2915,7 +2915,7 @@ function editar(id, consecutivo, fecha, eco1, eco2, cholin1, cholin2, generico1,
 
 function creaTabla() {
     $.ajax({
-        url: "BolsonesAjax",
+        url: "ArticuloAjax",
         async: true,
         success: function (json) {
             var obj = $.parseJSON(json);

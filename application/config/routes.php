@@ -176,7 +176,7 @@ $route['ValidaFecha/(:any)/(:any)/(:any)'] = 'Ordenproduccion_controller/Validar
 
     /******************* RUTAS METAS MENSUALES *******************/
     $route["MetasMensual"] = "metasMensual_controller";
-    $route["BolsonesAjax"] = "metasMensual_controller/getBolsonesAjax";
+    $route["ArticuloAjax"] = "metasMensual_controller/getArticuloAjax";
     $route["GuardarMetas"] = "metasMensual_controller/guardaMetasAjax";
     $route["ActualizarMetas"] = "metasMensual_controller/actualizaMetasAjax";
     $route["EliminaMeta/(:any)"] = "metasMensual_controller/eliminaMeta/$1";
