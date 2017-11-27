@@ -173,3 +173,13 @@ $route['ValidaFecha/(:any)/(:any)/(:any)'] = 'Ordenproduccion_controller/Validar
     $route['guardandoNuevoTurno'] = "Mantenimiento_controller/guardarNuevoTurno";
     $route['elimarTurno/(:any)'] = "Mantenimiento_controller/elimarRegistroTurno/$1";
     $route['restTurno/(:any)'] = "Mantenimiento_controller/restaurarRegistroTurno/$1";
+
+    /******************* RUTAS METAS MENSUALES *******************/
+    $route["MetasMensual"] = "metasMensual_controller";
+    $route["BolsonesAjax"] = "metasMensual_controller/getBolsonesAjax";
+    $route["GuardarMetas"] = "metasMensual_controller/guardaMetasAjax";
+    $route["ActualizarMetas"] = "metasMensual_controller/actualizaMetasAjax";
+    $route["EliminaMeta/(:any)"] = "metasMensual_controller/eliminaMeta/$1";
+    $route["Validar"] = "metasMensual_controller/validar";
+
+

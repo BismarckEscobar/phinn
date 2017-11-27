@@ -1,5 +1,5 @@
 <?php 
-if ($this->session->userdata("Privilegio") == 3) {?>
+if ($this->session->userdata("Privilegio") == 3 || $this->session->userdata('Privilegio') == 0) {?>
 <main class="mdl-layout__content mdl-color--grey-100">
     <div class="row">
         <div class="col s12">
