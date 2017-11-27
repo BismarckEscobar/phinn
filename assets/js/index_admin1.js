@@ -3,38 +3,6 @@
 //////////////////////////////////////////////////////////////////////////////////////////*/
 //Abrir los diferentes modales del sistema
 $(document).ready(function() {
-/************************************  funciones sobre metas **************************************** */
-    creaTabla();
-    $("#tblMetas").DataTable();
-    $("#tblmetasprod").DataTable({
-        "ordering": false,
-        "info": false,
-        "bPaginate": true,
-        "bfilter": false,
-        "language": {
-            "emptyTable": "No hay datos disponible en la tabla",
-            "lengthMenu": "_MENU_",
-            "loadingRecords": "",
-            "info": "Mostrando _START_ a _END_ de _TOTAL_ registro",
-            "infoEmpty": "Mostrando 0 a 0 de 0 registro",
-            "infoFiltered": "(filtrado de _MAX_ registros totales)",
-            "zeroRecords": "No se han encontrado resultados para tu búsqueda",
-            "paginate": {
-                "first": "Primera",
-                "last": "Última ",
-                "next": "Anterior",
-                "previous": "Siguiente"
-            }
-        }
-    });
-
-    $("#searchMetas").on("keyup", function () {
-        var table = $("#tblmetasprod").DataTable();
-        table.search(this.value).draw();
-    });
-/************************************************************************* */
-
-
     /***********LISTO LAS FIBRAS EN CARGAS PULPER*********************/
     var pathname = window.location.pathname;
     if (pathname.match(/cargaspulper.*/)) {
@@ -44,12 +12,13 @@ $(document).ready(function() {
     if (pathname.match(/reportesDiarios.*/)) {
         crearTabla();
     };
-    if (pathname.match(/produccionDiaria.*/)) {        
-        var meta = $('#selectMetas').val();     
-
-        produccionDiariaTabla(meta);        
-    }
-
+    if (pathname.match(/OrdenProduccion.*/)) {
+        if($('#ordActiva').is(':checked') ) {
+            $( ".OrdenAnulada" ).removeClass( "OrdenAnulada" ).addClass( "nomostrarOrdenAnul" );
+            $( ".OrdenCerrada" ).removeClass( "OrdenCerrada" ).addClass( "nomostrarOrdenCerr" );
+            $( ".OrdenInactiva" ).removeClass( "OrdenInactiva" ).addClass( "nomostrarOrdenInac" );
+        }
+    };
 
     $("#crearU").click(function() { $("#AUsuario").openModal(); });
     $("#crearT").click(function() { $("#ATrabajador").openModal(); });
@@ -702,182 +671,8 @@ function crearTabla() {
             }
         }
     });
+
 }
-
-/******************GUARDAR PRODUCCION AJAX*****************************************/
-function guardarProduccionDiaria() {    
-    if ($('#diaProduccion').val()=="") {
-        mensajeAlerta("Tiene que seleccionar una fecha");
-    }else {
-        var form_data = {
-            fecha: $('#diaProduccion').val(),
-            val1: $('#val1').val(),
-            val2: $('#val2').val(),
-            val3: $('#val3').val(),
-            val4: $('#val4').val(),
-            val5: $('#val5').val(),
-            val6: $('#val6').val(),
-            val7: $('#val7').val(),
-            val8: $('#val8').val(),
-            val9: $('#val9').val()
-        };
-        $.ajax({
-            url: "guardarPD",
-            type: "post",
-            async: true,
-            data: form_data,
-            success: function(data) {
-                if (data = 1) {
-                    swal({
-                        title: " ",
-                        text: 'Guardado con éxito!',
-                        type: "success",
-                        confirmButtonColor: '#831F82',
-                        confirmButtonText: 'ACEPTAR'
-                    }).then(function() {
-                        $("#modalNuevaPrd").closeModal();
-                        location.reload();
-                        }
-                    );
-                } else {
-                    Materialize.toast('ERROR AL GUARDAR', 1000);
-                };
-            }
-        });
-    }
-}
-
-/****************FILTRANDO METAS**********************************/
-$("#selectMetas").on('change', function(event) {
-    var meta = $('#selectMetas').val();
-    produccionDiariaTabla(meta);
-});
-
-/******************CREAR Y LLENAR TABLA PRODUCCION DIARIA**************************/
-function produccionDiariaTabla(meta) {
-    $('#tblPD').DataTable({
-        ajax: "listandoProduccionDiaria/" + meta,
-        "destroy": true,
-        "info":    false,
-        "bPaginate": false,
-        "paging": false,
-        "ordering": false,
-        "pagingType": "full_numbers",
-        "emptyTable": "No hay datos disponibles en la tabla",
-        "language": {
-            "zeroRecords": "No hay datos disponibles"
-        },
-        columns: [                        
-            { "data": 'fecha' },
-            { "data": '1' },
-            { "data": '2' },
-            { "data": '3' },
-            { "data": '4' },
-            { "data": '5' },
-            { "data": '6' },
-            { "data": '7' },
-            { "data": '8' },
-            { "data": '9' },
-            { "data": 'TBD' },
-            { "data": 'TNS' },
-            { "data": 'OPC' }
-        ],
-        "fnInitComplete": function () {
-          $('.dropdown-button').dropdown();
-        }
-    });
-}
-
-function deleteProduccion(fechaBorrar, tipo) {
-    swal({
-        title: '',
-        text: '¿Desea eliminar permanentemente este registro?',
-        type: 'question',
-        showCloseButton: true,
-        showCancelButton: true,
-        confirmButtonColor: '#831F82',
-        confirmButtonText: 'ACEPTAR',
-        cancelButtonText: 'CANCELAR'
-    }).then(function() {
-        $.ajax({
-            url: "gestionarProdDiaria/" + fechaBorrar + "/" + tipo,
-            type: "POST",
-            async: true,
-            success: function(data) {
-                if (data == true) {
-                    location.reload();
-                }
-            }
-        });
-    });
-}
-
-function editandoProduccion(fechaEditar, tipo) {
-    $.ajax({
-        url: "gestionarProdDiaria/" + fechaEditar + "/" + tipo,
-        type: "POST",
-        async: true,
-        success: function(data) {
-            $.each(JSON.parse(data), function(i, item) {
-                $('#editarDia').val(item['fecha']),
-                $('#val1-1').val(item['1']),
-                $('#val2-2').val(item['2']),
-                $('#val3-3').val(item['3']),
-                $('#val4-4').val(item['4']),
-                $('#val5-5').val(item['5']),
-                $('#val6-6').val(item['6']),
-                $('#val7-7').val(item['7']),
-                $('#val8-8').val(item['8']),
-                $('#val9-9').val(item['9'])                
-            });
-        }
-    });
-    $('#modalEditarPrd').openModal();
-}
-
-function guardarEdicion() {
-    var form_data = {
-        fecha: $('#editarDia').val(),
-        val1: $('#val1-1').val(),
-        val2: $('#val2-2').val(),
-        val3: $('#val3-3').val(),
-        val4: $('#val4-4').val(),
-        val5: $('#val5-5').val(),
-        val6: $('#val6-6').val(),
-        val7: $('#val7-7').val(),
-        val8: $('#val8-8').val(),
-        val9: $('#val9-9').val()
-    };
-    $.ajax({
-        url: "guardarPD",
-        type: "post",
-        async: true,
-        data: form_data,
-        success: function(data) {
-            if (data = 1) {
-                swal({
-                    title: " ",
-                    text: 'Guardado con éxito!',
-                    type: "success",
-                    confirmButtonColor: '#831F82',
-                    confirmButtonText: 'ACEPTAR'
-                }).then(function() {
-                    $("#modalEditarPrd").closeModal();
-                    location.reload();
-                    }
-                );
-            } else {
-                Materialize.toast('ERROR AL GUARDAR', 1000);
-            };
-        }
-    });
-}
-
-/****************ABRE EL MODEL PARA AGREGAR NUEVA PRODUCCION DIARIA*************************/
-$("#nuevaProd").click(function() {
-    $("#modalNuevaPrd").openModal();
-});
-
 /**************AGREGAR HORAS MOLIENDAS******************************/
 function listarHorasMolienda() {
     var cantColumns = 0;
@@ -1791,7 +1586,7 @@ function agregandoNuevoTurno() {
 /************************ELIMINADO TURNO***********************************/
 function eliminarTurnoById(idTurno) {
     swal({
-        text: "¿Esta seguro de eliminar al usuario?",
+        text: "¿Esta seguro de querer borrar el registro?",
         type: 'warning',
         showCloseButton: true,
         confirmButtonColor: '#831F82',
@@ -1921,34 +1716,7 @@ $('#BuscarPlan').on('keyup', function() {
     table.search(this.value).draw();
 });
 
-$("#tlbListaRep2").DataTable({
-    "ordering": false,
-    "info": false,
-    "bPaginate": false,
-    "bfilter": true,
-    "pagingType": "full_numbers",
-    "aaSorting": [
-        [0, "asc"]
-    ],
-    "language": {
-        "emptyTable": "No hay datos disponible en la tabla",
-        "lengthMenu": "_MENU_",
-        "loadingRecords": "",
-        "info": "Mostrando _START_ a _END_ de _TOTAL_ registro",
-        "infoEmpty": "Mostrando 0 a 0 de 0 registro",
-        "infoFiltered": "(filtrado de _MAX_ registros totales)",
-        "zeroRecords": "No se han encontrado resultados para tu búsqueda",
-        "paginate": {
-            "first": "Primera",
-            "last": "Última ",
-            "next": "Anterior",
-            "previous": "Siguiente"
-        }
-    }
-});
-
-
-$("#tablaProd, #tlbListaRep3, #tlbTiemposMuertos, #tlbListaRep, #tlbTiemposMuertos2, #TblMaster, #tblMaquinas, #tblIns, #tblTanques, #chkTanques, #tblDetPlan,#tblPlan").DataTable({
+$("#tablaProd, #tlbListaRep2, #tlbListaRep3, #tlbTiemposMuertos, #tlbListaRep, #tlbTiemposMuertos2, #TblMaster, #tblMaquinas, #tblIns, #tblTanques, #chkTanques, #tblDetPlan,#tblPlan").DataTable({
     "ordering": false,
     "info": false,
     "bPaginate": true,
@@ -2754,8 +2522,8 @@ $("#turnInactivo").on("change",function(){
         }
     });
     $("#ordInactiva").on( 'change', function() {
-        if($(this).is(':checked') ) {            
-            $( ".nomostrarOrdenInac" ).removeClass("nomostrarOrdenInac").addClass( "OrdenInactiva" );
+        if($(this).is(':checked') ) {
+            $( ".nomostrarOrdenInac" ).removeClass( "nomostrarOrdenInac" ).addClass( "OrdenInactiva" );
         }else {
             $( ".OrdenInactiva" ).removeClass( "OrdenInactiva" ).addClass( "nomostrarOrdenInac" );
         }
@@ -3076,189 +2844,3 @@ function EliminaDetPlan(elem, descripcion, idPlanHTML) {
         });
     })
 }
-
-/******************************FUNCIONES PARA METAS PRODUCCION***************************************/
-$("#btnnuevameta").on("click", function () {
-    $("#nuevaMeta").openModal();
-});
-
-function editar(id, consecutivo, fecha, eco1, eco2, cholin1, cholin2, generico1, generico2, cholinhd1, bolson, cholinhd2, estmeta) {
-    $("#idMeta").val(id);
-    $("#consecutivometaedit").val(consecutivo);
-    $("#FechaMetaedit").val(fecha);
-    $("#eco1edit").val(eco1);
-    $("#eco2edit").val(eco2);
-    $("#cholin1edit").val(cholin1);
-    $("#cholin2edit").val(cholin2);
-    $("#generico1edit").val(generico1);
-    $("#generico2edit").val(generico2);
-    $("#cholinhd1edit").val(cholinhd1);
-    $("#bolsonedit").val(bolson);
-    $("#cholinhd2edit").val(cholinhd2);
-    $("#estadoMeta").val(estmeta);
-    if ($("#estadoMeta").val() == 1) {
-        $("#BtnActualizarMeta").show();
-    } else {
-        $("#BtnActualizarMeta").hide();
-        $("#eco1edit").attr("readonly", "readonly");
-        $("#eco2edit").attr("readonly", "readonly");
-        $("#cholin1edit").attr("readonly", "readonly");
-        $("#cholin2edit").attr("readonly", "readonly");
-        $("#generico1edit").attr("readonly", "readonly");
-        $("#generico2edit").attr("readonly", "readonly");
-        $("#cholinhd1edit").attr("readonly", "readonly");
-        $("#bolsonedit").attr("readonly", "readonly");
-        $("#cholinhd2edit").attr("readonly", "readonly");
-    }
-    $("#actualizaMeta").openModal();
-}
-
-function creaTabla() {
-    $.ajax({
-        url: "ArticuloAjax",
-        async: true,
-        success: function (json) {
-            var obj = $.parseJSON(json);
-            var html = '<table class="stripped" id="tblMetas"><thead style="font-size:12px;"><tr>';
-            html += '<th class=""></th>';
-            var array = new Array();
-            for (var i = 0; i < obj.data.length; i++) {
-                array = obj.data[i]["Descripcion"]
-                html += '<th class="tblcabecera">' + obj.data[i]["Descripcion"] + '</th>';
-            }
-            html += "</tr>";
-            html += "</thead>";
-            html += '<tbody><tr>';
-            html += '<td style="background:#dabce2;">Pesos</td>';
-            for (var i = 0; i < obj.data.length; i++) {
-                array = obj.data[i]["Peso"]
-                html += '<td style="background:#dabce2;">' + obj.data[i]['Peso'] + '</td>';
-            }
-
-            html += "</tr>";
-            html += "</tbody></table>";
-            $("#contenedor").html(html);
-        }
-    });
-}
-
-function validarMeta()
-{
-    $.ajax({
-        url: "Validar",
-        async: true
-    });
-}
-
-$("#BtnGuardarMeta").on("click", function () {
-    var form_data = {
-        consecutivometa: $("#consecutivometa").val(),
-        eco1: $("#eco1").val(),
-        eco2: $("#eco2").val(),
-        cholin1: $("#cholin1").val(),
-        cholin2: $("#cholin2").val(),
-        generico1: $("#generico1").val(),
-        generico2: $("#generico2").val(),
-        cholinhd1: $("#cholinhd1").val(),
-        bolson: $("#bolson").val(),
-        cholinhd2: $("#cholinhd2").val()
-    };
-
-    validarMeta();
-    $.ajax({
-        url: "GuardarMetas",
-        async: true,
-        data: form_data,
-        success: function (data) {
-            if (data == "No existe") {
-                swal({
-                    text: "Meta producción guardada con éxito!",
-                    type: "success",
-                    confirmButtonText: "ACEPTAR"
-                }).then(function () {
-                    location.reload();
-                });
-            } else if (data == "Ya existe") {
-                swal({
-                    type: "info",
-                    text: "Ya existe una meta de produccion para el mes " + $("#FechaMeta").val()
-                });
-            } else {
-                swal({
-                    text: "Algo salió mal, contáctese con el administrador!",
-                    type: "error",
-                    confirmButtonText: "CERRAR"
-                });
-            }
-        }
-    });
-});
-
-
-$("#BtnActualizarMeta").on("click", function () {
-    var form_data = {
-        idMeta: $("#idMeta").val(),
-        eco1edit: $("#eco1edit").val(),
-        eco2edit: $("#eco2edit").val(),
-        cholin1edit: $("#cholin1edit").val(),
-        cholin2edit: $("#cholin2edit").val(),
-        generico1edit: $("#generico1edit").val(),
-        generico2edit: $("#generico2edit").val(),
-        cholinhd1edit: $("#cholinhd1edit").val(),
-        bolsonedit: $("#bolsonedit").val(),
-        cholinhd2edit: $("#cholinhd2edit").val()
-    };
-
-    $.ajax({
-        url: "ActualizarMetas",
-        async: true,
-        data: form_data,
-        success: function (data) {
-            if (true) {
-                swal({
-                    text: "Meta producción actualizada con éxito!",
-                    type: "success",
-                    confirmButtonText: "ACEPTAR"
-                }).then(function () {
-                    location.reload();
-                });
-            } else {
-                swal({
-                    text: "Algo salió mal, contáctese con el administrador!",
-                    type: "error",
-                    confirmButtonText: "CERRAR"
-                });
-            }
-        }
-    });
-});
-
-
-function EliminarMeta(elem) {
-    var id = $(elem).attr("id");
-    swal({
-        text: '¿ELIMINAR ESTE REGISTRO?',
-        type: 'warning',
-        showCloseButton: true,
-        showCancelButton: true,
-        confirmButtonText: 'ELIMINAR',
-        confirmButtonColor: '#831F82',
-        cancelButtonText: 'CANCELAR'
-    }).then(function () {
-        $.ajax({
-            url: "EliminaMeta/" + elem,
-            type: "POST",
-            async: true,
-            success: function () {
-                swal({
-                    text: "El registro se ha eliminado",
-                    type: "success",
-                    confirmButtonText: "cerrar"
-                }).then(function () {
-                    location.reload();
-                });
-            }
-        });
-    })
-}
-/******************************FIN FUNCIONES PARA METAS PRODUCCION***************************************/
