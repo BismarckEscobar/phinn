@@ -86,7 +86,7 @@ date_default_timezone_set("America/Managua");
                                                     <td>
                                                         <i style='color:red; font-size:30px;' class='material-icons tooltipped' data-tooltip='Meta inactiva' data-position='right'>close</i>
                                                     </td>
-                                                    <td><i id='disabled' class='material-icons grey-text'>delete</i></td>";
+                                                    <td><i id='disabled' class='material-icons purple-text'>delete</i></td>";
                                                 }
                                         echo "</tr>"; 
                                     }
@@ -101,7 +101,7 @@ date_default_timezone_set("America/Managua");
     </div>
 </main>
 
-<div id="nuevaMeta" class="modal" style="width:1100px;">
+<div id="nuevaMeta" class="modal" style="width:1300px;">
     <div class="modal-content">
         <div class="right row">
             <div class="col s1 m1 l1">
@@ -146,15 +146,15 @@ date_default_timezone_set("America/Managua");
                         <tbody>
                             <tr>
                                 <td>META PROD</td>
-                                <td><input class="inputCP numeric" value="" name="eco1" id="eco1"/></td>
-                                <td><input class="inputCP numeric" value="" name="eco2" id="eco2"/></td>
-                                <td><input class="inputCP numeric" value="" name="cholin1" id="cholin1"/></td>
-                                <td><input class="inputCP numeric" value="" name="cholin2" id="cholin2"/></td>
-                                <td><input class="inputCP numeric" value="" name="generico1" id="generico1"/></td>
-                                <td><input class="inputCP numeric" value="" name="generico2" id="generico2"/></td>
-                                <td><input class="inputCP numeric" value="" name="cholinhd1" id="cholinhd1"/></td>
-                                <td><input class="inputCP numeric" value="" name="bolson" id="bolson"/></td>
-                                <td><input class="inputCP numeric" value="" name="cholinhd2" id="cholinhd2"/></td>
+                                <td><input class="inputAdd numeric" value="" name="eco1" id="eco1"/></td>
+                                <td><input class="inputAdd numeric" value="" name="eco2" id="eco2"/></td>
+                                <td><input class="inputAdd numeric" value="" name="cholin1" id="cholin1"/></td>
+                                <td><input class="inputAdd numeric" value="" name="cholin2" id="cholin2"/></td>
+                                <td><input class="inputAdd numeric" value="" name="generico1" id="generico1"/></td>
+                                <td><input class="inputAdd numeric" value="" name="generico2" id="generico2"/></td>
+                                <td><input class="inputAdd numeric" value="" name="cholinhd1" id="cholinhd1"/></td>
+                                <td><input class="inputAdd numeric" value="" name="bolson" id="bolson"/></td>
+                                <td><input class="inputAdd numeric" value="" name="cholinhd2" id="cholinhd2"/></td>
                             </tr>
                         </tbody>
                     </table> 
@@ -168,7 +168,7 @@ date_default_timezone_set("America/Managua");
     </div>
 </div>
 
-<div id="actualizaMeta" class="modal" style="width:1100px;">
+<div id="actualizaMeta" class="modal" style="width:1300px;">
     <div class="modal-content">
         <div class="right row">
             <div class="col s1 m1 l1">
@@ -215,15 +215,15 @@ date_default_timezone_set("America/Managua");
                         <tbody>
                             <tr>
                                 <td>META PROD</td>
-                                <td><input class="inputCP numeric" value="" name="eco1edit" id="eco1edit"/></td>
-                                <td><input class="inputCP numeric" value="" name="eco2edit" id="eco2edit"/></td>
-                                <td><input class="inputCP numeric" value="" name="cholin1edit" id="cholin1edit"/></td>
-                                <td><input class="inputCP numeric" value="" name="cholin2edit" id="cholin2edit"/></td>
-                                <td><input class="inputCP numeric" value="" name="generico1edit" id="generico1edit"/></td>
-                                <td><input class="inputCP numeric" value="" name="generico2edit" id="generico2edit"/></td>
-                                <td><input class="inputCP numeric" value="" name="cholinhd1edit" id="cholinhd1edit"/></td>
-                                <td><input class="inputCP numeric" value="" name="bolsonedit" id="bolsonedit"/></td>
-                                <td><input class="inputCP numeric" value="" name="cholinhd2edit" id="cholinhd2edit"/></td>
+                                <td><input class="inputAdd numeric" value="" name="eco1edit" id="eco1edit"/></td>
+                                <td><input class="inputAdd numeric" value="" name="eco2edit" id="eco2edit"/></td>
+                                <td><input class="inputAdd numeric" value="" name="cholin1edit" id="cholin1edit"/></td>
+                                <td><input class="inputAdd numeric" value="" name="cholin2edit" id="cholin2edit"/></td>
+                                <td><input class="inputAdd numeric" value="" name="generico1edit" id="generico1edit"/></td>
+                                <td><input class="inputAdd numeric" value="" name="generico2edit" id="generico2edit"/></td>
+                                <td><input class="inputAdd numeric" value="" name="cholinhd1edit" id="cholinhd1edit"/></td>
+                                <td><input class="inputAdd numeric" value="" name="bolsonedit" id="bolsonedit"/></td>
+                                <td><input class="inputAdd numeric" value="" name="cholinhd2edit" id="cholinhd2edit"/></td>
                             </tr>
                         </tbody>
                     </table> 

@@ -18,9 +18,9 @@ class metasMensual_controller extends CI_Controller{
         $this->load->view('footer');
     }
 
-    public function getBolsonesAjax()
+    public function getArticuloAjax()
     {
-        $this->metasMensual_model->getBolsones();
+        $this->metasMensual_model->getArticulos();
     }
 
     public function guardaMetasAjax()

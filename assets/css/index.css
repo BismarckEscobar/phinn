@@ -583,6 +583,14 @@ select {
     cursor: not-allowed;
 }
 
+.inputAdd{
+    background: white !important;
+    width: 100px;
+    height: 4vh;
+    border:1px solid rgba(128, 128, 128, 0.282);
+    border-radius: 4px;
+}
+
 /**
 * instead of linking from https://fonts.googleapis.com/icon?family=Material+Icons
 */
