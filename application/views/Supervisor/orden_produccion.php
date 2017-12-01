@@ -75,7 +75,7 @@ if ($this->session->userdata("Privilegio") == 3 || $this->session->userdata('Pri
                                 <input type="checkbox" id="ordAnulada" />
                                 <label id="label-ordAnulada" for="ordAnulada">Anulada</label>
                             </div>
-                        </div>
+                        </div><br>
                         <table id="tlbListaRep2" class="striped">
                             <thead>
                                 <tr class="tblcabecera">
@@ -95,7 +95,7 @@ if ($this->session->userdata("Privilegio") == 3 || $this->session->userdata('Pri
                                             if($list['Estado'] == 0){
                                                 $activo="<td><a data-tooltip='ORDEN ANULADA' class='btn-flat tooltipped noHover'><i style='color:red; font-size:30px;' class='material-icons'>close</i></a></td>";
                                                 $status="<li><a href='#!' onclick='buscarOrdProd(".$list['IdOrden'].")'>Ver</a></li>";
-                                                $ocultarOrden="OrdenAnulada";
+                                                $ocultarOrden="nomostrarOrdenAnul";
                                             }elseif($list['Estado'] == 1){
                                                 $activo="<td><a data-tooltip='ORDEN ACTIVA' class='btn-flat tooltipped noHover'><i style='color:green; font-size:30px;' class='material-icons'>done</i></a></td>";
                                                 $status="<li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 0)'>Anular</a></li>
@@ -106,14 +106,14 @@ if ($this->session->userdata("Privilegio") == 3 || $this->session->userdata('Pri
                                                 $activo="<td><a data-tooltip='ORDEN CERRADA' class='btn-flat tooltipped noHover'><i style='color:#696969; font-size:30px;' class='material-icons'>lock</i></a></td>";
                                                 $status="<li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 0)'>Anular</a></li>
                                                             <li><a href='#!' onclick='buscarOrdProd(".$list['IdOrden'].")'>Ver</a></li>";
-                                                $ocultarOrden="OrdenCerrada";
+                                                $ocultarOrden="nomostrarOrdenCerr";
                                             }elseif($list['Estado'] == 3){
                                                 $activo="<td><a data-tooltip='ORDEN INACTIVA' class='btn-flat tooltipped noHover'><i style='color:red; font-size:30px;' class='material-icons'>info_outline</i></a></td>";
                                                 $status="<li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 0)'>Anular</a></li>
                                                         <li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 1)'>Activar</a></li>
                                                         <li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 2)'>Cerrar</a></li>
                                                         <li><a href='#!' onclick='buscarOrdProd(".$list['IdOrden'].")'>Ver</a></li>";
-                                                $ocultarOrden="OrdenInactiva";
+                                                $ocultarOrden="nomostrarOrdenInac";
                                             }
                                             echo "<tr class='".$ocultarOrden."'>
                                                     <td class='center green-text detalleNumOrd'><i id='detail2".$list['NoOrden']."' class='material-icons expand-more'>expand_more</i><i id='detail1".$list['NoOrden']."' style='display:none;' class='material-icons expand-more'>expand_less</i>
@@ -144,7 +144,7 @@ if ($this->session->userdata("Privilegio") == 3 || $this->session->userdata('Pri
                                     }
                                 ?>
                             </tbody>
-                        </table>
+                        </table><br><br>
                     </div>
                 </div>
             </div>
@@ -405,7 +405,7 @@ if ($this->session->userdata("Privilegio") == 3 || $this->session->userdata('Pri
                                             if($list['Estado'] == 0){
                                                 $activo="<td><a data-tooltip='ORDEN ANULADA' class='btn-flat tooltipped noHover'><i style='color:red; font-size:30px;' class='material-icons'>close</i></a></td>";
                                                 $status="<li><a href='#!' onclick='buscarOrdProd(".$list['IdOrden'].")'>Ver</a></li>";
-                                                $ocultarOrden="OrdenAnulada";
+                                                $ocultarOrden="nomostrarOrdenAnul";
                                             }elseif($list['Estado'] == 1){
                                                 $activo="<td><a data-tooltip='ORDEN ACTIVA' class='btn-flat tooltipped noHover'><i style='color:green; font-size:30px;' class='material-icons'>done</i></a></td>";
                                                 $status="<li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 0)'>Anular</a></li>
@@ -416,14 +416,14 @@ if ($this->session->userdata("Privilegio") == 3 || $this->session->userdata('Pri
                                                 $activo="<td><a data-tooltip='ORDEN CERRADA' class='btn-flat tooltipped noHover'><i style='color:#696969; font-size:30px;' class='material-icons'>lock</i></a></td>";
                                                 $status="<li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 0)'>Anular</a></li>
                                                             <li><a href='#!' onclick='buscarOrdProd(".$list['IdOrden'].")'>Ver</a></li>";
-                                                $ocultarOrden="OrdenCerrada";
+                                                $ocultarOrden="nomostrarOrdenCerr";
                                             }elseif($list['Estado'] == 3){
                                                 $activo="<td><a data-tooltip='ORDEN INACTIVA' class='btn-flat tooltipped noHover'><i style='color:red; font-size:30px;' class='material-icons'>info_outline</i></a></td>";
                                                 $status="<li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 0)'>Anular</a></li>
                                                         <li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 1)'>Activar</a></li>
                                                         <li><a href='#!' onclick='cambiaStatusRpt(".$list['IdOrden'].",".$list['NoOrden'].", 2)'>Cerrar</a></li>
                                                         <li><a href='#!' onclick='buscarOrdProd(".$list['IdOrden'].")'>Ver</a></li>";
-                                                $ocultarOrden="OrdenInactiva";
+                                                $ocultarOrden="nomostrarOrdenInac";
                                             }
                                             echo "<tr class='".$ocultarOrden."'>
                                                     <td class='center green-text detalleNumOrd'><i id='detail2".$list['NoOrden']."' class='material-icons expand-more'>expand_more</i><i id='detail1".$list['NoOrden']."' style='display:none;' class='material-icons expand-more'>expand_less</i>

@@ -174,6 +174,13 @@ $route['ValidaFecha/(:any)/(:any)/(:any)'] = 'Ordenproduccion_controller/Validar
     $route['elimarTurno/(:any)'] = "Mantenimiento_controller/elimarRegistroTurno/$1";
     $route['restTurno/(:any)'] = "Mantenimiento_controller/restaurarRegistroTurno/$1";
 
+
+    /*****************PRODUCCION DIARIA********************************/
+    $route['produccionDiaria'] = 'produccionDiaria_Controller';
+    $route['listandoProduccionDiaria/(:any)'] = 'produccionDiaria_Controller/listarProduccionDiaria/$1';
+    $route['guardarPD'] = 'produccionDiaria_Controller/guardarProduccionDiaria';
+    $route['gestionarProdDiaria/(:any)/(:any)'] = 'produccionDiaria_Controller/gestionandoProduccionDiaria/$1/$2';
+
     /******************* RUTAS METAS MENSUALES *******************/
     $route["MetasMensual"] = "metasMensual_controller";
     $route["ArticuloAjax"] = "metasMensual_controller/getArticuloAjax";
@@ -181,5 +188,9 @@ $route['ValidaFecha/(:any)/(:any)/(:any)'] = 'Ordenproduccion_controller/Validar
     $route["ActualizarMetas"] = "metasMensual_controller/actualizaMetasAjax";
     $route["EliminaMeta/(:any)"] = "metasMensual_controller/eliminaMeta/$1";
     $route["Validar"] = "metasMensual_controller/validar";
+
+    $route["reporte-menu"] = "reportes_controller/menuReporte";
+    $route["rptProdMensual/(:any)"] = "exportarPdf_Controller/reporteProdMensual/$1";
+
 
 
