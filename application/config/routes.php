@@ -189,5 +189,8 @@ $route['ValidaFecha/(:any)/(:any)/(:any)'] = 'Ordenproduccion_controller/Validar
     $route["EliminaMeta/(:any)"] = "metasMensual_controller/eliminaMeta/$1";
     $route["Validar"] = "metasMensual_controller/validar";
 
+    $route["reporte-menu"] = "reportes_controller/menuReporte";
+    $route["rptProdMensual/(:any)"] = "exportarPdf_Controller/reporteProdMensual/$1";
+
 
 

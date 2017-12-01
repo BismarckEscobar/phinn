@@ -2,7 +2,16 @@
 	<div class="row">
 		<div class="col s12">
 			<div class="card">
-				<div class="card-content">
+				<div class="card-content">					
+					<div class="row">
+                        <div class="col s6 m6" style="text-align:left;">
+                            <div id="retornarP">
+                                <a data-tooltip='REGRESAR' href="<?php echo base_url('index.php/dashboard')?>" class="modal-trigger tooltipped">
+                                    <i class="waves-effect waves-purple material-icons titulosGen">keyboard_backspace</i>
+                                </a>
+                            </div>  
+                        </div>      
+                    </div>
 					<center><h5 class="card-title titulos">PRODUCCIÓN DIARIA</h5></center>
 	                <div class="row center">
 	                    <div class="col s12 m12">
@@ -15,7 +24,7 @@
 	                                    }
 	                                }
 	                                ?>
-	                            </select><br><br>
+	                            </select>
 	                        </div>
 	                    </div>
 	                </div>
@@ -23,7 +32,7 @@
                         <div class="col s12 m12" style="text-align:right;">
                             <a id="nuevaProd" href="#modalNuevaPrd" class="Btnadd btn waves-effect waves-light" style="background-color:#831F82; font-size: 12px;">AGREGAR
                             </a>  
-                        </div><br><br>
+                        </div>
 						<table id="tblPD" class="striped">
 							<thead style="font-size: 11px; font-weight: normal;">
 		                		<tr class="tblcabecera">

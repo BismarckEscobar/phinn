@@ -31,25 +31,17 @@
                                         <center><span class="titulo-secundario">PRODUCCIÓN DIARIA</span></center>
                                     </a>                                    
                                </center>
-                           </div>                            
-                            <div class="col s3 m3">
-                                <center>                                   
-                                    <a data-tooltip="PLAN DE TRABAJO" href=' . base_url("index.php/Planes") . ' class="modal-trigger tooltipped purple-text darken-4">
-                                        <i class="material-icons center-align menu-usuarios">assignment_turned_in</i>
-                                        <center><span class="titulo-secundario">PLAN DE TRABAJO</span></center>
-                                    </a>                                    
-                                </center>                                
-                            </div>
+                           </div>
                             <div class="col s3 m3">
                                 <center>   
-                                    <a data-tooltip="REPORTES" href=' . base_url("index.php/reportes") . ' class="modal-trigger tooltipped purple-text darken-4">
+                                    <a data-tooltip="REPORTES" href=' . base_url("index.php/reporte-menu") . ' class="modal-trigger tooltipped purple-text darken-4">
                                         <i class="material-icons center-align menu-usuarios">trending_up</i>
                                         <center><span class="titulo-secundario">REPORTES</span></center>
                                     </a>    
                                </center>                                
                            </div>
                             <div class="col s3 m3">
-                                <center>                                  
+                                <center>            
 
                                     <a data-tooltip="MANTENIMIENTO" href=' . base_url("index.php/MenuMantenimiento") . ' class="modal-trigger tooltipped purple-text darken-4">
                                         <i class="material-icons center-align menu-usuarios">settings</i>

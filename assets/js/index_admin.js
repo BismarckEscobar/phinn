@@ -4,7 +4,7 @@
 //Abrir los diferentes modales del sistema
 $(document).ready(function() {
 /************************************  funciones sobre metas **************************************** */
-    creaTabla();
+    
     $("#tblMetas").DataTable();
     $("#tblmetasprod").DataTable({
         "ordering": false,
@@ -48,8 +48,10 @@ $(document).ready(function() {
         var meta = $('#selectMetas').val();     
 
         produccionDiariaTabla(meta);        
+    };
+    if (pathname.match(/MetasMensual.*/)) {
+        creaTabla();
     }
-
 
     $("#crearU").click(function() { $("#AUsuario").openModal(); });
     $("#crearT").click(function() { $("#ATrabajador").openModal(); });
@@ -588,6 +590,15 @@ function generarReportes() {
     }
 }
 
+function generarRpt() {
+    var meta = $('#selectMeta1').val();
+    window.open('rptProdMensual/' + meta + '', '_blank');
+}
+
+$('#openModalPrd').click(function() {
+    $('#modalSelectProd').openModal();
+})
+
 /****************CAMBIA EL ESTADO DEL REPORTE DIARIO*****************************/
 function cambiaEstadoRptD(idRptDiario, estado) {
     var miTexto = "";
@@ -719,7 +730,8 @@ function guardarProduccionDiaria() {
             val6: $('#val6').val(),
             val7: $('#val7').val(),
             val8: $('#val8').val(),
-            val9: $('#val9').val()
+            val9: $('#val9').val(),
+            tipo: 'i'
         };
         $.ajax({
             url: "guardarPD",
@@ -727,7 +739,7 @@ function guardarProduccionDiaria() {
             async: true,
             data: form_data,
             success: function(data) {
-                if (data = 1) {
+                if (data == 1) {
                     swal({
                         title: " ",
                         text: 'Guardado con éxito!',
@@ -739,7 +751,9 @@ function guardarProduccionDiaria() {
                         location.reload();
                         }
                     );
-                } else {
+                } else if (data==2) {
+                    Materialize.toast('¡Ya existe un registro con esta fecha!', 2500, 'red');
+                }else {
                     Materialize.toast('ERROR AL GUARDAR', 1000);
                 };
             }
@@ -759,16 +773,28 @@ function produccionDiariaTabla(meta) {
         ajax: "listandoProduccionDiaria/" + meta,
         "destroy": true,
         "info":    false,
-        "bPaginate": false,
-        "paging": false,
+        "bPaginate": true,
+        "paging": true,
         "ordering": false,
         "pagingType": "full_numbers",
         "emptyTable": "No hay datos disponibles en la tabla",
+        "lengthMenu": [[10,20,30,-1], [10,20,30,"Todo"]],
         "language": {
-            "zeroRecords": "No hay datos disponibles"
+            "zeroRecords": "NO HAY RESULTADOS",
+            "paginate": {
+                "first":      "Primera",
+                "last":       "Última ",
+                "next":       "Siguiente",
+                "previous":   "Anterior"                    
+            },
+            "lengthMenu": " _MENU_",
+            "emptyTable": "NO HAY DATOS DISPONIBLES",
+            "search":     "BUSCAR"
         },
         columns: [                        
-            { "data": 'fecha' },
+            { "data": 'fecha', render: function (data) {
+                data ='<span style="font-weight:bold">'+ moment(data).format('DD/MM/YYYY')+'</span>';
+                return data; } },
             { "data": '1' },
             { "data": '2' },
             { "data": '3' },
@@ -787,6 +813,11 @@ function produccionDiariaTabla(meta) {
         }
     });
 }
+
+//Evento de la paginacion del datatable para los drown
+$('#tblPD').on('draw.dt', function () {
+      $('.dropdown-button').dropdown();
+} );
 
 function deleteProduccion(fechaBorrar, tipo) {
     swal({
@@ -846,7 +877,8 @@ function guardarEdicion() {
         val6: $('#val6-6').val(),
         val7: $('#val7-7').val(),
         val8: $('#val8-8').val(),
-        val9: $('#val9-9').val()
+        val9: $('#val9-9').val(),
+        tipo: 'u'
     };
     $.ajax({
         url: "guardarPD",

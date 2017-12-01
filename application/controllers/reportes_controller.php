@@ -23,4 +23,12 @@ class reportes_controller extends CI_Controller {
     public function filtrandoOrdTrabajoByIdOrdProd($noOrden) {
     	$this->reporteDiario_Model->filtrandoOrdenesTrabajo($noOrden);
     }
+
+    public function menuReporte() {
+    	$data['metas'] = $this->produccionDiaria_Model->listarMetas();
+	    $this->load->view('header');
+		$this->load->view('dashboardclean');
+		$this->load->view('superAdmin/menuReporte', $data);
+		$this->load->view('footer');	
+    }
 }
