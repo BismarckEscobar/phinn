@@ -13,7 +13,7 @@ class produccionDiaria_Controller extends CI_Controller {
 	}
 
 	public function index() {
-		$data['metas'] = $this->produccionDiaria_Model->listarMetas();	
+		$data['metas'] = $this->produccionDiaria_Model->listarMetas();
 		$this->load->view('header');
 		$this->load->view('dashboardclean');
 		$this->load->view('superAdmin/produccionDiaria', $data);
@@ -35,7 +35,8 @@ class produccionDiaria_Controller extends CI_Controller {
 			$this->input->post('val6'),
 			$this->input->post('val7'),
 			$this->input->post('val8'),
-			$this->input->post('val9')
+			$this->input->post('val9'),
+			$this->input->post('tipo')
 		);
 	}
 
