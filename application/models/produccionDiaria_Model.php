@@ -51,14 +51,18 @@ class produccionDiaria_Model extends CI_Model {
         $this->db->order_by("Estado", "desc");
         $query_meta = $this->db->get('metas');
         
-        foreach ($query_meta->result_array() as $key) {
-        	$inicio = strftime("%B - %Y", strtotime($key['FechaMeta']));
-            $temp[] = array(
-                'value' => $key['Consecutivo'],
-                'desc' =>  $inicio
-            );                
-        }
-        return $temp;
+        if ($query_meta->num_rows()>0) {
+	        foreach ($query_meta->result_array() as $key) {
+	        	$inicio = strftime("%B - %Y", strtotime($key['FechaMeta']));
+	            $temp[] = array(
+	                'value' => $key['Consecutivo'],
+	                'desc' =>  $inicio
+	            );                
+	        }
+	        return $temp;
+        }else {
+        	return false;
+        }        
 	}
 
 	public function soloMetas($meta) {

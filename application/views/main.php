@@ -166,7 +166,10 @@
                     break;  
                     case 4://VISTA COORDINADOR
                     redirect('OrdenProduccion');
-                    break;                    
+                    break;
+                    case 7:
+                    redirect('reporte-menu');
+                    break;
                 }
             }
         ?> 
