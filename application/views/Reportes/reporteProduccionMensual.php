@@ -263,15 +263,15 @@
 							echo "
 							<tr class='a3'>
 								<td>Meta Prod.</td>
-								<td>".$mt1."</td>
-								<td>".$mt2."</td>
-								<td>".$mt3."</td>
-								<td>".$mt4."</td>
-								<td>".$mt5."</td>
-								<td>".$mt6."</td>
-								<td>".$mt7."</td>
-								<td>".$mt8."</td>
-								<td>".$mt9."</td>
+								<td>".number_format($mt1,2)."</td>
+								<td>".number_format($mt2,2)."</td>
+								<td>".number_format($mt3,2)."</td>
+								<td>".number_format($mt4,2)."</td>
+								<td>".number_format($mt5,2)."</td>
+								<td>".number_format($mt6,2)."</td>
+								<td>".number_format($mt7,2)."</td>
+								<td>".number_format($mt8,2)."</td>
+								<td>".number_format($mt9,2)."</td>
 								<td></td>
 								<td></td>
 								<td>".number_format($mtTotal,2)."</td>							

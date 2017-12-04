@@ -55,20 +55,18 @@
                 } else {
                     $c=1;
                     foreach ($TBUS as $key) {
-                        if ($key['Privilegio'] == 1)
+                        if ($key['Privilegio'] == 1) {
                             $per = "Administrador";
-
-                        elseif ($key['Privilegio'] == 2){
+                        }elseif ($key['Privilegio'] == 2){
                             $per = "Gerente";
-
                         }elseif ($key['Privilegio'] == 3) {
                             $per = "Supervisor";
-
                         }elseif($key['Privilegio'] == 4){
                             $per = "Coordinador";
-                        }
-                        else{
-                            $per = "Operario";
+                        }elseif ($key['Privilegio'] == 7){
+                            $per = "Gerencia";
+                        }elseif ($key['Privilegio'] == 0) {
+                            $per = "Gerencia";
                         }
 
                         if($key['Estado'] == 1){

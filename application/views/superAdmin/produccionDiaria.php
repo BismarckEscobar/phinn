@@ -70,7 +70,7 @@
 	        <div class="col s12 m12">
 
 	        	<table id="tblProduccionDiaria" class="striped">
-	        		<thead style="font-size: 12px; font-weight: normal;"">
+	        		<thead style="font-size: 12px; font-weight: normal;">
 	        			<tr class="tblcabecera">
 	        				<th>ECO PLUS 24/1 (bols)</th>
 	        				<th>ECO PLUS 6/4 (bol)</th>
@@ -85,15 +85,15 @@
 	        		</thead>
 	        		<tbody>
 	        			<tr height="50px">
-	        				<td ><input class="inputPD" id="val1"></td>
-	        				<td ><input class="inputPD" id="val2"></td>
-	        				<td ><input class="inputPD" id="val3"></td>
-	        				<td ><input class="inputPD" id="val4"></td>
-	        				<td ><input class="inputPD" id="val5"></td>
-	        				<td ><input class="inputPD" id="val6"></td>
-	        				<td ><input class="inputPD" id="val7"></td>
-	        				<td ><input class="inputPD" id="val8"></td>
-	        				<td ><input class="inputPD" id="val9"></td>
+	        				<td ><input class="inputPD numeric" id="val1"></td>
+	        				<td ><input class="inputPD numeric" id="val2"></td>
+	        				<td ><input class="inputPD numeric" id="val3"></td>
+	        				<td ><input class="inputPD numeric" id="val4"></td>
+	        				<td ><input class="inputPD numeric" id="val5"></td>
+	        				<td ><input class="inputPD numeric" id="val6"></td>
+	        				<td ><input class="inputPD numeric" id="val7"></td>
+	        				<td ><input class="inputPD numeric" id="val8"></td>
+	        				<td ><input class="inputPD numeric" id="val9"></td>
 	        			</tr>
 	        		</tbody>
 	        	</table>
@@ -119,7 +119,7 @@
 	        </div>
 	        <div class="col s12 m12"><br><br>
 	        	<table id="tblEdicioProd" class="striped">
-	        		<thead style="font-size: 12px; font-weight: normal;"">
+	        		<thead style="font-size: 12px; font-weight: normal;">
 	        			<tr class="tblcabecera">
 	        				<th>ECO PLUS 24/1 (bols)</th>
 	        				<th>ECO PLUS 6/4 (bol)</th>
@@ -134,15 +134,15 @@
 	        		</thead>
 	        		<tbody>
 	        			<tr height="50px">
-	        				<td ><input class="inputPD" id="val1-1"></td>
-	        				<td ><input class="inputPD" id="val2-2"></td>
-	        				<td ><input class="inputPD" id="val3-3"></td>
-	        				<td ><input class="inputPD" id="val4-4"></td>
-	        				<td ><input class="inputPD" id="val5-5"></td>
-	        				<td ><input class="inputPD" id="val6-6"></td>
-	        				<td ><input class="inputPD" id="val7-7"></td>
-	        				<td ><input class="inputPD" id="val8-8"></td>
-	        				<td ><input class="inputPD" id="val9-9"></td>
+	        				<td ><input class="inputPD numeric" id="val1-1"></td>
+	        				<td ><input class="inputPD numeric" id="val2-2"></td>
+	        				<td ><input class="inputPD numeric" id="val3-3"></td>
+	        				<td ><input class="inputPD numeric" id="val4-4"></td>
+	        				<td ><input class="inputPD numeric" id="val5-5"></td>
+	        				<td ><input class="inputPD numeric" id="val6-6"></td>
+	        				<td ><input class="inputPD numeric" id="val7-7"></td>
+	        				<td ><input class="inputPD numeric" id="val8-8"></td>
+	        				<td ><input class="inputPD numeric" id="val9-9"></td>
 	        			</tr>
 	        		</tbody>
 	        	</table>

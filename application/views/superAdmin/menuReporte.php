@@ -1,18 +1,29 @@
 <main class="mdl-layout__content mdl-color--grey-100">
 	<div class="row"><br>
-		<div class="col s12">			
-			<div class="row">
-                <div class="col s6 m6" style="text-align:left;">
+		<div class="col s12">
+            <?php
+                if ($_SESSION['Privilegio']==7) {
+                    $regresar='<br>';
+                    $title='SELECCIONAR TIPO DE REPORTE';
+                }else {
+                    $regresar='
                     <div id="retornarP">
-                        <a data-tooltip='REGRESAR' href="<?php echo base_url('index.php/dashboard')?>" class="modal-trigger tooltipped">
+                        <a data-tooltip="REGRESAR" href="dashboard" class="modal-trigger tooltipped">
                             <i class="waves-effect waves-purple material-icons titulosGen">keyboard_backspace</i>
                         </a>
-                    </div>  
+                    </div>';
+                    $title='TIPO DE REPORTE';
+                }
+            echo'
+            <div class="row">
+                <div class="col s6 m6" style="text-align:left;">
+                    '.$regresar.'
                 </div>      
             </div>
-			<center><span class="card-title accent-4 titulos" style="font-size: 24px;">TIPO DE REPORTE</span></center>
-			<br><br><br>
-			<div class="container">
+            <center><span class="card-title accent-4 titulos" style="font-size: 24px;">'.$title.'</span></center>
+            <br><br><br>';
+            ?>
+            <div class="container">
 				<div class="row">
 					<div class="col s6 m6">
                         <center>                                   
