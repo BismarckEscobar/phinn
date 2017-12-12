@@ -26,6 +26,8 @@ class metasMensual_controller extends CI_Controller{
     public function guardaMetasAjax()
     {
         $cons = $this->input->get_post("consecutivometa");
+        $fecha = $this->input->get_post("FechaMeta");
+        $dias = $this->input->get_post("cantDias");
         $eco1 = $this->input->get_post("eco1");
         $eco2 = $this->input->get_post("eco2");
         $cholin1 = $this->input->get_post("cholin1");
@@ -35,12 +37,15 @@ class metasMensual_controller extends CI_Controller{
         $cholinhd1 = $this->input->get_post("cholinhd1");
         $bolson = $this->input->get_post("bolson");
         $cholinhd2 = $this->input->get_post("cholinhd2");
-        $this->metasMensual_model->guardaMetas($cons, $eco1, $eco2, $cholin1, $cholin2, $generico1, $generico2, $cholinhd1, $bolson, $cholinhd2);
+        $papiel = $this->input->get_post("papielFac");
+        $this->metasMensual_model->guardaMetas($cons, $fecha, $dias, $eco1, $eco2, $cholin1, $cholin2, $generico1, $generico2, $cholinhd1, $bolson, $cholinhd2, $papiel);
     }
 
     public function actualizaMetasAjax()
     {
         $id = $this->input->get_post("idMeta");
+        $fecha = $this->input->get_post("FechaMetaedit");
+        $dias = $this->input->get_post("cantDiasedit");
         $eco1 = $this->input->get_post("eco1edit");
         $eco2 = $this->input->get_post("eco2edit");
         $cholin1 = $this->input->get_post("cholin1edit");
@@ -50,7 +55,8 @@ class metasMensual_controller extends CI_Controller{
         $cholinhd1 = $this->input->get_post("cholinhd1edit");
         $bolson = $this->input->get_post("bolsonedit");
         $cholinhd2 = $this->input->get_post("cholinhd2edit");
-        $this->metasMensual_model->actualizaMetas($id, $eco1, $eco2, $cholin1, $cholin2, $generico1, $generico2, $cholinhd1, $bolson, $cholinhd2);
+        $papiel = $this->input->get_post("papielFacedit");
+        $this->metasMensual_model->actualizaMetas($id, $fecha, $dias, $eco1, $eco2, $cholin1, $cholin2, $generico1, $generico2, $cholinhd1, $bolson, $cholinhd2, $papiel);
     }
 
     public function eliminaMeta($id)
@@ -63,4 +69,19 @@ class metasMensual_controller extends CI_Controller{
         $this->metasMensual_model->validar();
     }
     
+    public function mostrarFecha()
+    {
+        $this->metasMensual_model->mostrarFecha();
+    }
+
+    public function modifEstado ($id, $estado)
+    {
+        if($estado == 1)
+        {
+            $estado = 0;
+        }else if($estado == 0){
+            $estado = 1;
+        }
+        $this->metasMensual_model->modifEstado($id,$estado);
+    }
 }
