@@ -105,6 +105,7 @@
 					<td class='til'><center><span>CHOLIN HD 32/1 (bol)</span></center></td>
 					<td class='til'><center><span>Bolson  SERVILLETA</span></center></td>
 					<td class='til'><center><span>CHOLIN HD Gen32/1 (bol)</span></center></td>
+					<td class='til'><center><span>PAPEL FACIAL</span></center></td>
 					<td class='til'><center><span>TOTAL BOLSONES DIARIO</span></center></td>
 					<td class='til'><center><span>   TNS   </span></center></td>
 					<td class='til'><center><span>Total bolsones x semana</span></center></td>
@@ -122,12 +123,13 @@
 							<td>".$pesos[6]['Peso']."</td>
 							<td>".$pesos[7]['Peso']."</td>
 							<td>".$pesos[8]['Peso']."</td>
+							<td>".$pesos[9]['Peso']."</td>
 							<td colspan='3'></td>
 						</tr>";
 				}
 				if ($dataRpt) {
 					$contRW=0; $contRW1=0; $contRW2=0; $pos=array(); $ts=array(); $vl=0; $band=true; $tdHtml=""; $tsm=0;
-					$val1=0;$val2=0;$val3=0;$val4=0;$val5=0;$val6=0;$val7=0;$val8=0;$val9=0;
+					$val1=0;$val2=0;$val3=0;$val4=0;$val5=0;$val6=0;$val7=0;$val8=0;$val9=0;$val10=0;
 					$ttns=0;
 					//USO UN FOREACH PARA CONTAR NUMERO DE ROWS(°_°)(>_<)
 					foreach ($dataRpt as $vr) {
@@ -139,13 +141,13 @@
 							array_push($pos, $contRW);
 							$contRW=0;
 						}else {
-							$tsm=$tsm+$vr['v11'];
+							$tsm=$tsm+$vr['v12'];
 							$contRW++;
 						}
 					}
 					
 					foreach ($dataRpt as $key) {
-						$ttns=$ttns+$key['v12'];						
+						$ttns=$ttns+$key['v13'];						
 						if ($key['v1']=='Total semana') {
 							$val1=$val1+$key['v2'];
 							$val2=$val2+$key['v3'];
@@ -161,7 +163,7 @@
 							$estilo='a2';
 						}else {
 							$contRW1++;
-							$tsm=$tsm+$key['v11'];
+							$tsm=$tsm+$key['v12'];
 							$estilo='a3';
 						}
 
@@ -194,8 +196,9 @@
 								<td>".number_format($key['v8'],2)."</td>
 								<td>".number_format($key['v9'],2)."</td>
 								<td>".number_format($key['v10'],2)."</td>
-								<td>".$key['v11']."</td>
+								<td>".number_format($key['v11'],2)."</td>
 								<td>".$key['v12']."</td>
+								<td>".$key['v13']."</td>
 								".$tdHtml."
 							</tr>";	
 					}					
@@ -214,6 +217,7 @@
 						<td>".$val7."</td>
 						<td>".$val8."</td>
 						<td>".$val9."</td>
+						<td>".$val10."</td>
 						<td>".$total."</td>
 						<td class='a8'>".$ttns."</td>
 						<td class='a8'>".array_sum($ts)."</td>
@@ -230,6 +234,7 @@
 							$mt7 = $key['Cholin_HD_32/1'];
 							$mt8 = $key['BolsonServilleta'];
 							$mt9 = $key['Cholin_HD_Gen32/1'];
+							$mt10 = $key['PapielFacial'];
 
 							if ($val1!=0 && $mt1!=0) {
 								$pr1 = ($val1/$mt1)*100;
@@ -256,10 +261,14 @@
 								$pr8 = ($val8/$mt8)*100;
 							}else { $pr8 = 0; }
 							if ($val9!=0 && $mt9!=0) {
-								$pr9 = ($val9/$mt9)*100;								
+								$pr9 = ($val9/$mt9)*100;							
 							}else { $pr9 = 0; }
+							if ($val10!=0 && $mt10!=0) {
+								$pr10 = ($val10/$mt10)*100;
+							}else { $pr10 = 0; }
 
-							$mtTotal = $mt1+$mt2+$mt3+$mt4+$mt5+$mt6+$mt7+$mt8+$mt9;
+
+							$mtTotal = $mt1+$mt2+$mt3+$mt4+$mt5+$mt6+$mt7+$mt8+$mt9+$mt10;
 							echo "
 							<tr class='a3'>
 								<td>Meta Prod.</td>
@@ -272,6 +281,7 @@
 								<td>".number_format($mt7,2)."</td>
 								<td>".number_format($mt8,2)."</td>
 								<td>".number_format($mt9,2)."</td>
+								<td>".number_format($mt10,2)."</td>
 								<td></td>
 								<td></td>
 								<td>".number_format($mtTotal,2)."</td>							
@@ -287,6 +297,7 @@
 								<td class='a7'>".number_format($pr7,2)."</td>
 								<td class='a7'>".number_format($pr8,2)."</td>
 								<td class='a7'>".number_format($pr9,2)."</td>
+								<td class='a7'>".number_format($pr10,2)."</td>
 								<td></td>
 								<td></td>
 								<td>".number_format((array_sum($ts)/$mtTotal)*(100), 2) ." %</td>
@@ -302,11 +313,23 @@
 								<td class='a5'>".number_format(($mt7-$val7),0)."</td>
 								<td class='a5'>".number_format(($mt8-$val8),0)."</td>
 								<td class='a5'>".number_format(($mt9-$val9),0)."</td>
+								<td class='a5'>".number_format(($mt10-$val10),0)."</td>
 								<td></td>
 								<td></td>
 								<td></td>
+							</tr>";
+
+							if ($porCump) {
+								echo "
+							<tr class='a3' >
+								<td colspan='10'></td>
+								<td>Estimado</td>
+								<td>".floatval(number_format($porCump[0]['Porcentaje_Estimado'],0))."%</td>
+								<td>Cumplido</td>
+								<td>".floatval(number_format($porCump[0]['Porcentaje_Real'],0))."%</td>
 							</tr>
 							</table>";
+							}						
 						}						
 					}
 				} ?>

@@ -38,7 +38,7 @@
                             <a href='#modalSelectProd' class="modal-trigger purple-text darken-4" id="openModalPrd">
                                 <i class="material-icons center-align menu-usuarios">date_range</i>
                                 <center><span class="titulo-secundario">PROD. MENSUAL</span></center>
-                            </a>                                    
+                            </a>                                 
                         </center> 
 					</div>
 				</div>
