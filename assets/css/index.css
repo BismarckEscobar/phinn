@@ -601,9 +601,12 @@ select {
 #disabled{
     cursor: not-allowed;
 }
+.mesMeta {
+    text-transform: capitalize;
+}
 
 .inputAdd{
-    background: white !important;
+    background: rgba(255, 255, 255, 0.556) !important;
     width: 100px;
     height: 4vh;
     border:1px solid rgba(128, 128, 128, 0.282);
