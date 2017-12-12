@@ -3114,10 +3114,11 @@ $("#btnnuevameta").on("click", function () {
     $("#nuevaMeta").openModal();
 });
 
-function editar(id, consecutivo, fecha, eco1, eco2, cholin1, cholin2, generico1, generico2, cholinhd1, bolson, cholinhd2, estmeta) {
+function editar(id, consecutivo, fecha, dias, eco1, eco2, cholin1, cholin2, generico1, generico2, cholinhd1, bolson, cholinhd2, papFacial,estmeta) {
     $("#idMeta").val(id);
     $("#consecutivometaedit").val(consecutivo);
-    $("#FechaMetaedit").val(fecha);
+    $("#empty").val(fecha);
+    $("#empty").text(fecha);
     $("#eco1edit").val(eco1);
     $("#eco2edit").val(eco2);
     $("#cholin1edit").val(cholin1);
@@ -3127,21 +3128,9 @@ function editar(id, consecutivo, fecha, eco1, eco2, cholin1, cholin2, generico1,
     $("#cholinhd1edit").val(cholinhd1);
     $("#bolsonedit").val(bolson);
     $("#cholinhd2edit").val(cholinhd2);
+    $("#papielFacedit").val(papFacial);
     $("#estadoMeta").val(estmeta);
-    if ($("#estadoMeta").val() == 1) {
-        $("#BtnActualizarMeta").show();
-    } else {
-        $("#BtnActualizarMeta").hide();
-        $("#eco1edit").attr("readonly", "readonly");
-        $("#eco2edit").attr("readonly", "readonly");
-        $("#cholin1edit").attr("readonly", "readonly");
-        $("#cholin2edit").attr("readonly", "readonly");
-        $("#generico1edit").attr("readonly", "readonly");
-        $("#generico2edit").attr("readonly", "readonly");
-        $("#cholinhd1edit").attr("readonly", "readonly");
-        $("#bolsonedit").attr("readonly", "readonly");
-        $("#cholinhd2edit").attr("readonly", "readonly");
-    }
+    $("#cantDiasedit").val(dias);
     $("#actualizaMeta").openModal();
 }
 
@@ -3174,17 +3163,11 @@ function creaTabla() {
     });
 }
 
-function validarMeta()
-{
-    $.ajax({
-        url: "Validar",
-        async: true
-    });
-}
-
 $("#BtnGuardarMeta").on("click", function () {
     var form_data = {
         consecutivometa: $("#consecutivometa").val(),
+        FechaMeta: $("#FechaMeta option:selected").val(),
+        cantDias: $("#cantDias").val(),
         eco1: $("#eco1").val(),
         eco2: $("#eco2").val(),
         cholin1: $("#cholin1").val(),
@@ -3193,16 +3176,15 @@ $("#BtnGuardarMeta").on("click", function () {
         generico2: $("#generico2").val(),
         cholinhd1: $("#cholinhd1").val(),
         bolson: $("#bolson").val(),
-        cholinhd2: $("#cholinhd2").val()
+        cholinhd2: $("#cholinhd2").val(),
+        papielFac: $("#papielFac").val()
     };
-
-    validarMeta();
     $.ajax({
         url: "GuardarMetas",
         async: true,
         data: form_data,
         success: function (data) {
-            if (data == "No existe") {
+            if (true) {
                 swal({
                     text: "Meta producción guardada con éxito!",
                     type: "success",
@@ -3210,12 +3192,7 @@ $("#BtnGuardarMeta").on("click", function () {
                 }).then(function () {
                     location.reload();
                 });
-            } else if (data == "Ya existe") {
-                swal({
-                    type: "info",
-                    text: "Ya existe una meta de produccion para el mes " + $("#FechaMeta").val()
-                });
-            } else {
+            }else {
                 swal({
                     text: "Algo salió mal, contáctese con el administrador!",
                     type: "error",
@@ -3230,6 +3207,8 @@ $("#BtnGuardarMeta").on("click", function () {
 $("#BtnActualizarMeta").on("click", function () {
     var form_data = {
         idMeta: $("#idMeta").val(),
+        FechaMetaedit: $("#FechaMetaedit option:selected").val(),
+        cantDiasedit: $("#cantDiasedit").val(),
         eco1edit: $("#eco1edit").val(),
         eco2edit: $("#eco2edit").val(),
         cholin1edit: $("#cholin1edit").val(),
@@ -3238,7 +3217,8 @@ $("#BtnActualizarMeta").on("click", function () {
         generico2edit: $("#generico2edit").val(),
         cholinhd1edit: $("#cholinhd1edit").val(),
         bolsonedit: $("#bolsonedit").val(),
-        cholinhd2edit: $("#cholinhd2edit").val()
+        cholinhd2edit: $("#cholinhd2edit").val(),
+        papielFacedit: $("#papielFacedit").val()
     };
 
     $.ajax({
@@ -3292,5 +3272,37 @@ function EliminarMeta(elem) {
             }
         });
     })
+}
+
+function cambiarState(id, estado)
+{
+    if (estado == 1) {
+        var miMSS = "¿DESEA CAMBIAR EL ESTADO 'ACTIVO' A ESTA META?";
+    } else {
+        var miMSS = "¿DESEA CAMBIAR EL ESTADO 'INACTIVO' A ESTA META?";
+    }
+    swal({
+        text: miMSS,
+        type: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#1e75bc',
+        confirmButtonText: 'Cambiar',
+        cancelButtonText: 'Cancelar',
+        cancelButtonColor: '#c63939'
+    }).then(function () {
+        $.ajax({
+            url: "ModifEstado/" + id + "/" + estado,
+            type: "POST",
+            success: function () {
+                swal({
+                    title: "EL estado se cambió correctamente!",
+                    type: "success",
+                    confirmButtonText: "ACEPTAR"
+                }).then(function () {
+                    location.reload();
+                });
+            }
+        });
+    });
 }
 /******************************FIN FUNCIONES PARA METAS PRODUCCION***************************************/

@@ -187,7 +187,8 @@ $route['ValidaFecha/(:any)/(:any)/(:any)'] = 'Ordenproduccion_controller/Validar
     $route["GuardarMetas"] = "metasMensual_controller/guardaMetasAjax";
     $route["ActualizarMetas"] = "metasMensual_controller/actualizaMetasAjax";
     $route["EliminaMeta/(:any)"] = "metasMensual_controller/eliminaMeta/$1";
-    $route["Validar"] = "metasMensual_controller/validar";
+    $route["ModifEstado/(:any)/(:any)"] = "metasMensual_controller/modifEstado/$1/$2";
+
 
     $route["reporte-menu"] = "reportes_controller/menuReporte";
     $route["rptProdMensual/(:any)"] = "exportarPdf_Controller/reporteProdMensual/$1";

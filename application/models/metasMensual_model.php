@@ -89,21 +89,12 @@ class metasMensual_model extends CI_Model{
         }
     }
 
-    public function guardaMetas( $cons, $eco1, $eco2, $cholin1, $cholin2, $generico1, $generico2, $cholinhd1, $bolson, $cholinhd2)
+    public function guardaMetas( $cons, $fecha, $dias,$eco1, $eco2, $cholin1, $cholin2, $generico1, $generico2, $cholinhd1, $bolson, $cholinhd2, $papiel)
     {
-        $validate = $this->db->get_where("metas", array(date("Y-m",strtotime("FechaMeta")) == date("Y-m")));
-        if ($validate->num_rows()>0) {
-            echo "Ya existe";
-        }
-        else{
-            echo "No existe";
-            $data = array("Estado" => 0);
-            $qu = $this->db->update("metas", $data);
-
-            if ($qu) {
                 $data = array(
                     "Consecutivo" => $cons,
-                    "FechaMeta" => date("Y-m-d"),
+                    "FechaMeta" =>$fecha,
+                    "CantidadDias" => $dias,
                     "Eco24/1" => $eco1,
                     "Eco6/4" => $eco2,
                     "Cholin_8/6" => $cholin1,
@@ -113,19 +104,23 @@ class metasMensual_model extends CI_Model{
                     "Cholin_HD_32/1" => $cholinhd1,
                     "BolsonServilleta" => $bolson,
                     "Cholin_HD_Gen32/1" => $cholinhd2,
-                    "Estado" => 1
+                    "PapielFacial" => $papiel,
+                    "Estado" => 0
                 );
-                    $this->db->insert("metas", $data);
-                    $this->incrementarLlave();
-            }
-        }
+                    $insert = $this->db->insert("metas", $data);
+                    if($insert == TRUE)
+                    {
+                        $this->incrementarLlave();
+                    }
     }
 
-    public function actualizaMetas($id, $eco1, $eco2, $cholin1, $cholin2, $generico1, $generico2, $cholinhd1, $bolson, $cholinhd2)
+    public function actualizaMetas($id, $fecha, $dias,$eco1, $eco2, $cholin1, $cholin2, $generico1, $generico2, $cholinhd1, $bolson, $cholinhd2, $papiel)
     {
         $this->db->where("IdMeta",$id);
         $data = array(
             "IdMeta" => $id,
+            "FechaMeta" => $fecha,
+            "CantidadDias" => $dias,
             "Eco24/1" => $eco1,
             "Eco6/4" => $eco2,
             "Cholin_8/6" => $cholin1,
@@ -134,7 +129,8 @@ class metasMensual_model extends CI_Model{
             "Generico_Eco_900" => $generico2,
             "Cholin_HD_32/1" => $cholinhd1,
             "BolsonServilleta" => $bolson,
-            "Cholin_HD_Gen32/1" => $cholinhd2
+            "Cholin_HD_Gen32/1" => $cholinhd2,
+            "PapielFacial" => $papiel,
         );
         $this->db->update("metas", $data);
     }
@@ -145,13 +141,13 @@ class metasMensual_model extends CI_Model{
         $this->db->delete("metas");
     }
 
-    public function validar(){
-        $validate = $this->db->get_where("metas", array(date("Y-m", strtotime("FechaMeta")) == date("Y-m")));
-        if ($validate->num_rows() > 0) {
-            return "Ya existe";
-        } else {
-            return "No existe";
-        }
+    public function modifEstado ($id, $estado) 
+    {
+        $this->db->where("IdMeta", $id);
+        $array = array(
+            "IdMeta" => $id,
+            "Estado" => $estado
+        );
+        $this->db->update("metas",$array);
     }
-
 }
