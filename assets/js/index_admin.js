@@ -45,8 +45,7 @@ $(document).ready(function() {
         crearTabla();
     };
     if (pathname.match(/produccionDiaria.*/)) {        
-        var meta = $('#selectMetas').val();     
-
+        var meta = $('#selectMetas').val();
         produccionDiariaTabla(meta);        
     };
     if (pathname.match(/MetasMensual.*/)) {
@@ -716,7 +715,7 @@ function crearTabla() {
 }
 
 /******************GUARDAR PRODUCCION AJAX*****************************************/
-function guardarProduccionDiaria() {    
+function guardarProduccionDiaria() {
     if ($('#diaProduccion').val()=="") {
         mensajeAlerta("Tiene que seleccionar una fecha");
     }else {
@@ -731,6 +730,7 @@ function guardarProduccionDiaria() {
             val7: $('#val7').val(),
             val8: $('#val8').val(),
             val9: $('#val9').val(),
+            val10: $('#val10').val(),
             tipo: 'i'
         };
         $.ajax({
@@ -747,8 +747,12 @@ function guardarProduccionDiaria() {
                         confirmButtonColor: '#831F82',
                         confirmButtonText: 'ACEPTAR'
                     }).then(function() {
-                        $("#modalNuevaPrd").closeModal();
-                        location.reload();
+                            idTabla = $("#tblPDiariaRpt").DataTable();
+                            idTabla.destroy();
+                            idTabla.clear();
+                            idTabla.draw();
+                            location.reload(true);
+                            $("#modalNuevaPrd").closeModal();
                         }
                     );
                 } else if (data==2) {
@@ -767,6 +771,135 @@ $("#selectMetas").on('change', function(event) {
     produccionDiariaTabla(meta);
 });
 
+/*ABRIR MODAL GRAFICA PRODUCCION*/
+$('#genGrafica').click( function() {
+    var graficaProd = {     
+        chart: {
+            type: 'line',
+            renderTo: 'container-graf'
+        },
+        title: {
+            text: ''
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            title: {
+                text: ''
+            },
+                categories: [],
+                type: 'datetime',
+                dateTimeLabelFormats: {
+                day: '%e of %b'
+            }
+        },
+        yAxis: {
+            title: {
+                text: ''
+            }                
+        },
+        tooltip: {
+            crosshairs: true,
+            shared: true
+        },
+        legend: {
+            align: 'center',
+            verticalAlign: 'top',
+            borderWidth: 0
+        },
+        plotOptions: {
+            spline: {
+                marker: {
+                    radius: 4,
+                    lineColor: '#666666',
+                    lineWidth: 1
+                }
+            }
+        },
+        series: [],
+
+        responsive: {
+            rules: [{
+                condition: {
+                maxWidth: 500
+                },
+                chartOptions: {
+                    legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                    }
+                }
+            }]
+        }
+    };
+
+    $.getJSON("dataGraficaProd", function(json) {
+        var newseries;
+
+        $.each(json, function (i, item) {
+            newseries = {};
+            newseries.showInLegend = true;
+            newseries.data = item['Data'];
+            newseries.name = item['Tipo'];              
+            
+            graficaProd.series.push(newseries);
+        });
+       var chart = new Highcharts.Chart(graficaProd);
+    });
+
+    $.getJSON("diasGraficaProd", function(json) {
+
+        graficaProd.xAxis.categories = json.name;
+        
+        var chart = new Highcharts.Chart(graficaProd);
+    });
+
+    $('#tblPDiariaRpt').DataTable({
+        ajax: "listarDataRpt",
+        "destroy": true,
+        "info": false,
+        "bPaginate": false,
+        "paging": false,
+        "ordering": false,
+        "pagingType": "full_numbers",
+        "emptyTable": "No hay datos disponibles en la tabla",
+        "lengthMenu": [[10,20,30,-1], [10,20,30,"Todo"]],
+        "language": {
+            "zeroRecords": "NO HAY RESULTADOS",
+            "paginate": {
+                "first":      "Primera",
+                "last":       "Última ",
+                "next":       "Siguiente",
+                "previous":   "Anterior"                    
+            },
+            "lengthMenu": " _MENU_",
+            "emptyTable": "NO HAY DATOS DISPONIBLES",
+            "search":     "BUSCAR"
+        },
+        columns: [                     
+            { "data": 'fecha', render: function (data) {
+                data ='<span style="font-weight:bold">'+ moment(data).format('DD/MM/YYYY')+'</span>';
+                return data; } },
+            { "data": 'ep' },
+            { "data": 'ch' },
+            { "data": 'gen' }
+        ]
+    });
+
+
+
+
+
+
+
+
+
+
+
+    $('#modalGraficaPM').openModal();
+});
 /******************CREAR Y LLENAR TABLA PRODUCCION DIARIA**************************/
 function produccionDiariaTabla(meta) {
     $('#tblPD').DataTable({
@@ -791,7 +924,7 @@ function produccionDiariaTabla(meta) {
             "emptyTable": "NO HAY DATOS DISPONIBLES",
             "search":     "BUSCAR"
         },
-        columns: [                        
+        columns: [                     
             { "data": 'fecha', render: function (data) {
                 data ='<span style="font-weight:bold">'+ moment(data).format('DD/MM/YYYY')+'</span>';
                 return data; } },
@@ -804,6 +937,7 @@ function produccionDiariaTabla(meta) {
             { "data": '7' },
             { "data": '8' },
             { "data": '9' },
+            { "data": '10' },
             { "data": 'TBD' },
             { "data": 'TNS' },
             { "data": 'OPC' }
@@ -859,7 +993,8 @@ function editandoProduccion(fechaEditar, tipo) {
                 $('#val6-6').val(item['6']),
                 $('#val7-7').val(item['7']),
                 $('#val8-8').val(item['8']),
-                $('#val9-9').val(item['9'])                
+                $('#val9-9').val(item['9']),
+                $('#val10-10').val(item['10'])          
             });
         }
     });
@@ -878,6 +1013,7 @@ function guardarEdicion() {
         val7: $('#val7-7').val(),
         val8: $('#val8-8').val(),
         val9: $('#val9-9').val(),
+        val10: $('#val10-10').val(),
         tipo: 'u'
     };
     $.ajax({
@@ -3294,3 +3430,205 @@ function EliminarMeta(elem) {
     })
 }
 /******************************FIN FUNCIONES PARA METAS PRODUCCION***************************************/
+/*TEMA DARK PARA GRAFICA DE PRODUCCION DIARIA*/
+Highcharts.theme = {
+   colors: ['#2b908f', '#90ee7e', '#f45b5b', '#7798BF', '#aaeeee', '#ff0066',
+      '#eeaaee', '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
+   chart: {
+      backgroundColor: {
+         linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
+         stops: [
+            [0, '#2a2a2b'],
+            [1, '#3e3e40']
+         ]
+      },
+      style: {
+         fontFamily: '\'roboto\', sans-serif'
+      },
+      plotBorderColor: '#606063'
+   },
+   title: {
+      style: {
+         color: '#E0E0E3',
+         textTransform: 'uppercase',
+         fontSize: '20px'
+      }
+   },
+   subtitle: {
+      style: {
+         color: '#E0E0E3',
+         textTransform: 'uppercase'
+      }
+   },
+   xAxis: {
+      gridLineColor: '#707073',
+      labels: {
+         style: {
+            color: '#E0E0E3'
+         }
+      },
+      lineColor: '#707073',
+      minorGridLineColor: '#505053',
+      tickColor: '#707073',
+      title: {
+         style: {
+            color: '#A0A0A3'
+
+         }
+      }
+   },
+   yAxis: {
+      gridLineColor: '#707073',
+      labels: {
+         style: {
+            color: '#E0E0E3'
+         }
+      },
+      lineColor: '#707073',
+      minorGridLineColor: '#505053',
+      tickColor: '#707073',
+      tickWidth: 1,
+      title: {
+         style: {
+            color: '#A0A0A3'
+         }
+      }
+   },
+   tooltip: {
+      backgroundColor: 'rgba(0, 0, 0, 0.85)',
+      style: {
+         color: '#F0F0F0'
+      }
+   },
+   plotOptions: {
+      series: {
+         dataLabels: {
+            color: '#B0B0B3'
+         },
+         marker: {
+            lineColor: '#333'
+         }
+      },
+      boxplot: {
+         fillColor: '#505053'
+      },
+      candlestick: {
+         lineColor: 'white'
+      },
+      errorbar: {
+         color: 'white'
+      }
+   },
+   legend: {
+      itemStyle: {
+         color: '#E0E0E3'
+      },
+      itemHoverStyle: {
+         color: '#FFF'
+      },
+      itemHiddenStyle: {
+         color: '#606063'
+      }
+   },
+   credits: {
+      style: {
+         color: '#666'
+      }
+   },
+   labels: {
+      style: {
+         color: '#707073'
+      }
+   },
+
+   drilldown: {
+      activeAxisLabelStyle: {
+         color: '#F0F0F3'
+      },
+      activeDataLabelStyle: {
+         color: '#F0F0F3'
+      }
+   },
+
+   navigation: {
+      buttonOptions: {
+         symbolStroke: '#DDDDDD',
+         theme: {
+            fill: '#505053'
+         }
+      }
+   },
+
+   // scroll charts
+   rangeSelector: {
+      buttonTheme: {
+         fill: '#505053',
+         stroke: '#000000',
+         style: {
+            color: '#CCC'
+         },
+         states: {
+            hover: {
+               fill: '#707073',
+               stroke: '#000000',
+               style: {
+                  color: 'white'
+               }
+            },
+            select: {
+               fill: '#000003',
+               stroke: '#000000',
+               style: {
+                  color: 'white'
+               }
+            }
+         }
+      },
+      inputBoxBorderColor: '#505053',
+      inputStyle: {
+         backgroundColor: '#333',
+         color: 'silver'
+      },
+      labelStyle: {
+         color: 'silver'
+      }
+   },
+
+   navigator: {
+      handles: {
+         backgroundColor: '#666',
+         borderColor: '#AAA'
+      },
+      outlineColor: '#CCC',
+      maskFill: 'rgba(255,255,255,0.1)',
+      series: {
+         color: '#7798BF',
+         lineColor: '#A6C7ED'
+      },
+      xAxis: {
+         gridLineColor: '#505053'
+      }
+   },
+
+   scrollbar: {
+      barBackgroundColor: '#808083',
+      barBorderColor: '#808083',
+      buttonArrowColor: '#CCC',
+      buttonBackgroundColor: '#606063',
+      buttonBorderColor: '#606063',
+      rifleColor: '#FFF',
+      trackBackgroundColor: '#404043',
+      trackBorderColor: '#404043'
+   },
+
+   // special colors for some of the
+   legendBackgroundColor: 'rgba(0, 0, 0, 0.5)',
+   background2: '#505053',
+   dataLabelsColor: '#B0B0B3',
+   textColor: '#C0C0C0',
+   contrastTextColor: '#F0F0F3',
+   maskColor: 'rgba(255,255,255,0.3)'
+};
+
+// Apply the theme
+Highcharts.setOptions(Highcharts.theme);

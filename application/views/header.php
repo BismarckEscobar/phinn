@@ -3,7 +3,6 @@
     <head>
         <!--Import Google Icon Font localmente by Alder-->
         <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/js/fuente.css" >
-        <script src="http://code.highcharts.com/highcharts.js"></script>
 
         <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/img/iweb.png" />
         <link rel="icon" type="image/png" href="<?php echo base_url(); ?>/img/iweb.png" />
