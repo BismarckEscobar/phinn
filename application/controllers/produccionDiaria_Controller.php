@@ -24,6 +24,10 @@ class produccionDiaria_Controller extends CI_Controller {
 		$this->produccionDiaria_Model->listandoProdDxM($meta);
 	}
 
+	public function generandoDataRpt() {
+		$this->produccionDiaria_Model->generarData();
+	}
+
 	public function guardarProduccionDiaria() {
 		$this->produccionDiaria_Model->guardarProduccionDiaria(
 			$this->input->post('fecha'),
@@ -36,12 +40,21 @@ class produccionDiaria_Controller extends CI_Controller {
 			$this->input->post('val7'),
 			$this->input->post('val8'),
 			$this->input->post('val9'),
+			$this->input->post('val10'),
 			$this->input->post('tipo')
 		);
 	}
 
 	public function gestionandoProduccionDiaria($fecha, $tipo) {
 		$this->produccionDiaria_Model->gestionandoProduccionDiaria($fecha, $tipo);
+	}
+
+	public function diasGrafica() {
+		$this->produccionDiaria_Model->listarDiasGrafica();
+	}
+
+	public function dataGraficaProd() {
+		$this->produccionDiaria_Model->generandoDataGrafica();	
 	}
 }
 ?>

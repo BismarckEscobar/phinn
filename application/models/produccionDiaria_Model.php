@@ -26,6 +26,7 @@ class produccionDiaria_Model extends CI_Model {
 	            $json['data'][$i]['7'] = $key['7'];
 	            $json['data'][$i]['8'] = $key['8'];
 	            $json['data'][$i]['9'] = $key['9'];
+	            $json['data'][$i]['10'] = $key['10'];
 	            $json['data'][$i]['TBD'] = $key['TBD'];
 	            $json['data'][$i]['TNS'] = $key['TNS'];
 	            $json['data'][$i]['OPC'] = "	
@@ -51,14 +52,18 @@ class produccionDiaria_Model extends CI_Model {
         $this->db->order_by("Estado", "desc");
         $query_meta = $this->db->get('metas');
         
-        foreach ($query_meta->result_array() as $key) {
-        	$inicio = strftime("%B - %Y", strtotime($key['FechaMeta']));
-            $temp[] = array(
-                'value' => $key['Consecutivo'],
-                'desc' =>  $inicio
-            );                
-        }
-        return $temp;
+        if ($query_meta->num_rows()>0) {
+	        foreach ($query_meta->result_array() as $key) {
+	        	$inicio = strftime("%B - %Y", strtotime($key['FechaMeta']));
+	            $temp[] = array(
+	                'value' => $key['Consecutivo'],
+	                'desc' =>  $inicio
+	            );                
+	        }
+	        return $temp;
+        }else {
+        	return false;
+        }        
 	}
 
 	public function soloMetas($meta) {
@@ -91,7 +96,7 @@ class produccionDiaria_Model extends CI_Model {
 		}
 	}
 
-	public function guardarProduccionDiaria($fecha,$val1,$val2,$val3,$val4,$val5,$val6,$val7,$val8,$val9,$tipo) {
+	public function guardarProduccionDiaria($fecha,$val1,$val2,$val3,$val4,$val5,$val6,$val7,$val8,$val9,$val10,$tipo) {
 		$this->db->select('Consecutivo');
 		$this->db->where('Estado', true);
 		$cons = $this->db->get('metas');
@@ -112,6 +117,7 @@ class produccionDiaria_Model extends CI_Model {
 				'val7' => $val7,
 				'val8' => $val8,
 				'val9' => $val9,
+				'val10' => $val10,
 				'IdMeta' => $cons->result_array()[0]['Consecutivo']
 			));
 		}elseif ($query->num_rows()>0 && $tipo=='i') {
@@ -128,10 +134,20 @@ class produccionDiaria_Model extends CI_Model {
 				'val7' => $val7,
 				'val8' => $val8,
 				'val9' => $val9,
+				'val10' => $val10,
 				'IdMeta' => $cons->result_array()[0]['Consecutivo']
 			));
 			echo ($this->db->affected_rows() > 0) ? 1 : 0;
 		}        
+	}
+
+	public function porcentajeCumplimiento($meta) {
+		$query_sp_porc=$this->db->query("CALL porcentaje('".$meta."')");
+		if ($query_sp_porc->num_rows()>0) {
+			return $query_sp_porc->result_array();
+		}else {
+			return false;
+		}
 	}
 
 	public function gestionandoProduccionDiaria($fecha, $tipo) {
@@ -152,6 +168,23 @@ class produccionDiaria_Model extends CI_Model {
 		}
 	}
 
+	public function generarData() {
+		$json=array(); $i=0;
+		$query_data_prod=$this->db->query("SELECT fecha AS fecha, ((`1`+`2`)/TBD)*100 AS ep,((`3`+`4`)/TBD)*100 AS ch,((`5`+`6`)/TBD)*100 AS gen FROM tmp_produccion ORDER BY fecha ASC;");
+		if ($query_data_prod->num_rows()>0) {
+			foreach ($query_data_prod->result_array() as $key) {
+				$json['data'][$i]['fecha'] = $key['fecha'];
+				$json['data'][$i]['ep'] = floatval(number_format($key['ep'],0))."%";
+				$json['data'][$i]['ch'] = floatval(number_format($key['ch'],0))."%";
+				$json['data'][$i]['gen'] =floatval(number_format($key['gen'],0))."%";
+				$i++;			
+			}
+			echo json_encode($json);		
+		}else {
+			return false;
+		}
+	}
+
 	public function soloFecha($meta) {
 		setlocale(LC_TIME, 'spanish');
 		$this->db->where('Consecutivo', $meta);
@@ -164,15 +197,58 @@ class produccionDiaria_Model extends CI_Model {
 		}
 	}
 
+	public function listarDiasGrafica() {
+		$json=array();$i=0;
+		$query_dias_prod=$this->db->query("SELECT fecha AS fecha FROM tmp_produccion ORDER BY fecha ASC;");
+
+		if ($query_dias_prod->num_rows()>0) {
+			foreach ($query_dias_prod->result_array() as $key) {
+				$json['name'][$i] = date('d/m', strtotime($key['fecha']));	
+				$i++;
+			}
+			echo json_encode($json);
+		}else {
+			return false;
+		}
+	}
+
+	public function generandoDataGrafica() {
+		$json=array();$i=0;$ecoP=array();$cho=array();$gen=array();
+		$query_data_prod=$this->db->query("SELECT ((`1`+`2`)/TBD)*100 AS ep,((`3`+`4`)/TBD)*100 AS ch,((`5`+`6`)/TBD)*100 AS gen FROM tmp_produccion;");
+
+		if ($query_data_prod->num_rows()>0) {
+			foreach ($query_data_prod->result_array() as $key) {
+				$ecoP[] = intval(number_format($key['ep'],0));
+				$cho[] = intval(number_format($key['ch'],0));
+				$gen[] = intval(number_format($key['gen'],0));
+			}
+			$data1[] = array(
+	        	'Tipo' => 'ECO PLUS',
+	        	'Data' => $ecoP
+	        );
+	        $data2[] = array(
+	        	'Tipo' => 'CHOLIN',
+	        	'Data' => $cho
+	        );
+	        $data3[] = array(
+	        	'Tipo' => 'GENERICO',
+	        	'Data' => $gen
+	        );	        
+	        $json = array_merge($data1,$data2,$data3);
+	        echo json_encode($json);			
+		}else {
+			return false;
+		}
+	}
+
 	public function generandoDataRpt($meta) {
 		$dataRpt=array(); $i=0; $ii=0; $ult=0; $cont=0;
-		$query_sp_prod=$this->db->query("CALL sp_produccionDiaria('".$meta."')");
+		$query_sp_prod=$this->db->query("CALL sp_produccionDiaria('".$meta."')");	
 
-		$query_rpt_pro=$this->db->query("CALL sp_controlProduccionMensual('".$meta."')");
-		
-		$query_rpt_pro->next_result();
+		$query_rpt_pro=$this->db->query("CALL sp_controlProduccionMensual('".$meta."')");	
 
-		$this->db->order_by("fecha", "asc");
+		$this->db->reconnect();
+		$this->db->order_by("fecha", "ASC");
 		$query_tmp=$this->db->get('tmp_produccion');
 		if ($query_tmp->num_rows()>0) {
 			foreach ($query_tmp->result_array() as $key) {
@@ -190,8 +266,9 @@ class produccionDiaria_Model extends CI_Model {
 						$dataRpt[$i]['v8'] = $key1['v7'];
 						$dataRpt[$i]['v9'] = $key1['v8'];
 						$dataRpt[$i]['v10'] = $key1['v9'];
-						$dataRpt[$i]['v11'] = '';
+						$dataRpt[$i]['v11'] = $key1['v10'];
 						$dataRpt[$i]['v12'] = '';
+						$dataRpt[$i]['v13'] = '';
                     }$i++;
 
                     foreach ($row as $key2) {
@@ -205,8 +282,9 @@ class produccionDiaria_Model extends CI_Model {
 						$dataRpt[$i]['v8'] = $key2['v7']/$cont;
 						$dataRpt[$i]['v9'] = $key2['v8']/$cont;
 						$dataRpt[$i]['v10'] = $key2['v9']/$cont;
-						$dataRpt[$i]['v11'] = '';
+						$dataRpt[$i]['v11'] = $key2['v10']/$cont;
 						$dataRpt[$i]['v12'] = '';
+						$dataRpt[$i]['v13'] = '';
                     }$i++; $ii++; $cont=1;
 				}else {
 					$cont++;
@@ -221,8 +299,9 @@ class produccionDiaria_Model extends CI_Model {
 				$dataRpt[$i]['v8'] = $key['7'];
 				$dataRpt[$i]['v9'] = $key['8'];
 				$dataRpt[$i]['v10'] = $key['9'];
-				$dataRpt[$i]['v11'] = $key['TBD'];
-				$dataRpt[$i]['v12'] = $key['TNS'];
+				$dataRpt[$i]['v11'] = $key['10'];
+				$dataRpt[$i]['v12'] = $key['TBD'];
+				$dataRpt[$i]['v13'] = $key['TNS'];
 				$i++;
 				$ult++;
 			}
@@ -240,8 +319,9 @@ class produccionDiaria_Model extends CI_Model {
 					$dataRpt[$i]['v8'] = $key1['v7'];
 					$dataRpt[$i]['v9'] = $key1['v8'];
 					$dataRpt[$i]['v10'] = $key1['v9'];
-					$dataRpt[$i]['v11'] = '';
-					$dataRpt[$i]['v12'] = '';					
+					$dataRpt[$i]['v11'] = $key1['v10'];
+					$dataRpt[$i]['v12'] = '';
+					$dataRpt[$i]['v13'] = '';					
 				}
 				$i++;
                 foreach ($row as $key2) {
@@ -255,8 +335,9 @@ class produccionDiaria_Model extends CI_Model {
 					$dataRpt[$i]['v8'] = $key2['v7']/$cont;
 					$dataRpt[$i]['v9'] = $key2['v8']/$cont;
 					$dataRpt[$i]['v10'] = $key2['v9']/$cont;
-					$dataRpt[$i]['v11'] = '';
+					$dataRpt[$i]['v11'] = $key2['v10']/$cont;
 					$dataRpt[$i]['v12'] = '';
+					$dataRpt[$i]['v13'] = '';
                 }
 			}
 		}

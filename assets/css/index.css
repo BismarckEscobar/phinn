@@ -593,6 +593,11 @@ select {
   min-height: 70%;
 }
 
+ #modalGraficaPM {
+  width: 90%;
+  min-height: 80%;
+ }
+
 #disabled{
     cursor: not-allowed;
 }

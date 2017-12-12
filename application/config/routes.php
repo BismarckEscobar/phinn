@@ -180,6 +180,7 @@ $route['ValidaFecha/(:any)/(:any)/(:any)'] = 'Ordenproduccion_controller/Validar
     $route['listandoProduccionDiaria/(:any)'] = 'produccionDiaria_Controller/listarProduccionDiaria/$1';
     $route['guardarPD'] = 'produccionDiaria_Controller/guardarProduccionDiaria';
     $route['gestionarProdDiaria/(:any)/(:any)'] = 'produccionDiaria_Controller/gestionandoProduccionDiaria/$1/$2';
+    $route['listarDataRpt'] = 'produccionDiaria_Controller/generandoDataRpt';
 
     /******************* RUTAS METAS MENSUALES *******************/
     $route["MetasMensual"] = "metasMensual_controller";
@@ -193,5 +194,8 @@ $route['ValidaFecha/(:any)/(:any)/(:any)'] = 'Ordenproduccion_controller/Validar
     $route["reporte-menu"] = "reportes_controller/menuReporte";
     $route["rptProdMensual/(:any)"] = "exportarPdf_Controller/reporteProdMensual/$1";
 
+    /*RUTAS GRAFICA DE PRODUCCION*/    
+    $route["diasGraficaProd"] = "produccionDiaria_Controller/diasGrafica";
+    $route["dataGraficaProd"] = "produccionDiaria_Controller/dataGraficaProd";
 
 

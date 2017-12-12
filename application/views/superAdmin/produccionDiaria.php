@@ -31,7 +31,9 @@
 					<div class="row">
                         <div class="col s12 m12" style="text-align:right;">
                             <a id="nuevaProd" href="#modalNuevaPrd" class="Btnadd btn waves-effect waves-light" style="background-color:#831F82; font-size: 12px;">AGREGAR
-                            </a>  
+                            </a>
+                            <a id="genGrafica" href="#!" class="Btnadd btn waves-effect waves-light" style="background-color:#831F82; font-size: 12px;"><i class="material-icons">timeline</i>
+                            </a>
                         </div>
 						<table id="tblPD" class="striped">
 							<thead style="font-size: 11px; font-weight: normal;">
@@ -46,6 +48,7 @@
 		                            <th>CHOLIN HD 32/1 (bol)</th>
 		                            <th>Bolson SERVILLETA</th>
 		                            <th>CHOLIN HD Gen32/1 (bol)</th>
+		                            <th>PAPIEL FACIAL</th>
 		                            <th width="50px">TBS</th>
 		                            <th width="50px">TNS</th>
 		                            <th width="50px">OPC.</th>
@@ -70,7 +73,7 @@
 	        <div class="col s12 m12">
 
 	        	<table id="tblProduccionDiaria" class="striped">
-	        		<thead style="font-size: 12px; font-weight: normal;"">
+	        		<thead style="font-size: 12px; font-weight: normal;">
 	        			<tr class="tblcabecera">
 	        				<th>ECO PLUS 24/1 (bols)</th>
 	        				<th>ECO PLUS 6/4 (bol)</th>
@@ -81,19 +84,21 @@
 	        				<th>CHOLIN HD 32/1 (bol)</th>
 	        				<th>Bolson  SERVILLETA</th>
 	        				<th>CHOLIN HD Gen32/1 (bol)</th>
+	        				<th>PAPIEL FACIAL</th>
 	        			</tr>
 	        		</thead>
 	        		<tbody>
 	        			<tr height="50px">
-	        				<td ><input class="inputPD" id="val1"></td>
-	        				<td ><input class="inputPD" id="val2"></td>
-	        				<td ><input class="inputPD" id="val3"></td>
-	        				<td ><input class="inputPD" id="val4"></td>
-	        				<td ><input class="inputPD" id="val5"></td>
-	        				<td ><input class="inputPD" id="val6"></td>
-	        				<td ><input class="inputPD" id="val7"></td>
-	        				<td ><input class="inputPD" id="val8"></td>
-	        				<td ><input class="inputPD" id="val9"></td>
+	        				<td ><input class="inputPD numeric" id="val1"></td>
+	        				<td ><input class="inputPD numeric" id="val2"></td>
+	        				<td ><input class="inputPD numeric" id="val3"></td>
+	        				<td ><input class="inputPD numeric" id="val4"></td>
+	        				<td ><input class="inputPD numeric" id="val5"></td>
+	        				<td ><input class="inputPD numeric" id="val6"></td>
+	        				<td ><input class="inputPD numeric" id="val7"></td>
+	        				<td ><input class="inputPD numeric" id="val8"></td>
+	        				<td ><input class="inputPD numeric" id="val9"></td>
+	        				<td ><input class="inputPD numeric" id="val10"></td>
 	        			</tr>
 	        		</tbody>
 	        	</table>
@@ -119,7 +124,7 @@
 	        </div>
 	        <div class="col s12 m12"><br><br>
 	        	<table id="tblEdicioProd" class="striped">
-	        		<thead style="font-size: 12px; font-weight: normal;"">
+	        		<thead style="font-size: 12px; font-weight: normal;">
 	        			<tr class="tblcabecera">
 	        				<th>ECO PLUS 24/1 (bols)</th>
 	        				<th>ECO PLUS 6/4 (bol)</th>
@@ -130,19 +135,21 @@
 	        				<th>CHOLIN HD 32/1 (bol)</th>
 	        				<th>Bolson  SERVILLETA</th>
 	        				<th>CHOLIN HD Gen32/1 (bol)</th>
+	        				<th>PAPIEL FACIAL</th>
 	        			</tr>
 	        		</thead>
 	        		<tbody>
 	        			<tr height="50px">
-	        				<td ><input class="inputPD" id="val1-1"></td>
-	        				<td ><input class="inputPD" id="val2-2"></td>
-	        				<td ><input class="inputPD" id="val3-3"></td>
-	        				<td ><input class="inputPD" id="val4-4"></td>
-	        				<td ><input class="inputPD" id="val5-5"></td>
-	        				<td ><input class="inputPD" id="val6-6"></td>
-	        				<td ><input class="inputPD" id="val7-7"></td>
-	        				<td ><input class="inputPD" id="val8-8"></td>
-	        				<td ><input class="inputPD" id="val9-9"></td>
+	        				<td ><input class="inputPD numeric" id="val1-1"></td>
+	        				<td ><input class="inputPD numeric" id="val2-2"></td>
+	        				<td ><input class="inputPD numeric" id="val3-3"></td>
+	        				<td ><input class="inputPD numeric" id="val4-4"></td>
+	        				<td ><input class="inputPD numeric" id="val5-5"></td>
+	        				<td ><input class="inputPD numeric" id="val6-6"></td>
+	        				<td ><input class="inputPD numeric" id="val7-7"></td>
+	        				<td ><input class="inputPD numeric" id="val8-8"></td>
+	        				<td ><input class="inputPD numeric" id="val9-9"></td>
+	        				<td ><input class="inputPD numeric" id="val10-10"></td>
 	        			</tr>
 	        		</tbody>
 	        	</table>
@@ -156,5 +163,41 @@
                 </a>
 	        </div>
         </div>
+    </div>
+  </div>
+    <!--MODAL: GRAFICA PRODUCCION-->
+  <div id="modalGraficaPM" class="modal">
+    <div class="modal-content">
+        <div class="right row">
+            <div class="col s1 m1 l1">
+                <a href="#!" class="BtnClose modal-action modal-close noHover">
+                    <i class="material-icons">highlight_off</i>
+                </a>
+            </div>
+        </div>
+	    <div class="row">
+	    	<center><h6 class="titulo-secundario">Comportamiento de Producción mes de <?php echo $metas[0]['desc'] ?></h6></center>
+	    	<div class="col s4">
+	    		<div class="card">
+	    			<div class="card-content">
+	    				<table id="tblPDiariaRpt" class="striped" style="font-size: 12px">
+	    					<thead>
+		    					<tr>
+		    						<th style="background-color: #353536; color: white" width='50'>FECHA</th>
+		    						<th style="background-color: #353536; color: white" width='50'>ECO</th>
+		    						<th style="background-color: #353536; color: white" width='50'>CHOLIN</th>
+		    						<th style="background-color: #353536; color: white" width='50'>GEN</th>
+		    					</tr>	    						
+	    					</thead>
+	    					<tbody>   						
+	    					</tbody>
+	    				</table>
+	    			</div>
+	    		</div>	    		
+	    	</div>
+	    	<div class="col s8">
+	    		<div id="container-graf" style="min-width: 310px; height: 400px; margin: 0 auto"></div>		
+	    	</div>		
+	    </div><br>
     </div>
   </div>
