@@ -176,7 +176,7 @@
             </div>
         </div>
 	    <div class="row">
-	    	<center><h6 class="titulo-secundario">Comportamiento de Producción mes de <?php echo $metas[0]['desc'] ?></h6></center>
+	    	<center><h6 id="titleComp" class="titulo-secundario">Comportamiento de Producción mes de <?php echo $metas[0]['desc'] ?></h6></center>
 	    	<div class="col s4">
 	    		<div class="card">
 	    			<div class="card-content">

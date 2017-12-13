@@ -96,10 +96,7 @@ class produccionDiaria_Model extends CI_Model {
 		}
 	}
 
-	public function guardarProduccionDiaria($fecha,$val1,$val2,$val3,$val4,$val5,$val6,$val7,$val8,$val9,$val10,$tipo) {
-		$this->db->select('Consecutivo');
-		$this->db->where('Estado', true);
-		$cons = $this->db->get('metas');
+	public function guardarProduccionDiaria($meta,$fecha,$val1,$val2,$val3,$val4,$val5,$val6,$val7,$val8,$val9,$val10,$tipo) {
 
 		$this->db->where('fecha', $fecha);
 		$query = $this->db->get('produccion_diaria');
@@ -118,7 +115,7 @@ class produccionDiaria_Model extends CI_Model {
 				'val8' => $val8,
 				'val9' => $val9,
 				'val10' => $val10,
-				'IdMeta' => $cons->result_array()[0]['Consecutivo']
+				'IdMeta' => $meta
 			));
 		}elseif ($query->num_rows()>0 && $tipo=='i') {
 			echo 2;
@@ -135,7 +132,7 @@ class produccionDiaria_Model extends CI_Model {
 				'val8' => $val8,
 				'val9' => $val9,
 				'val10' => $val10,
-				'IdMeta' => $cons->result_array()[0]['Consecutivo']
+				'IdMeta' => $meta
 			));
 			echo ($this->db->affected_rows() > 0) ? 1 : 0;
 		}        
@@ -178,11 +175,14 @@ class produccionDiaria_Model extends CI_Model {
 				$json['data'][$i]['ch'] = floatval(number_format($key['ch'],0))."%";
 				$json['data'][$i]['gen'] =floatval(number_format($key['gen'],0))."%";
 				$i++;			
-			}
-			echo json_encode($json);		
+			}					
 		}else {
-			return false;
+			$json['data'][$i]['fecha'] = '01/01/2000';
+			$json['data'][$i]['ep'] = '-';
+			$json['data'][$i]['ch'] = '-';
+			$json['data'][$i]['gen'] = '-';
 		}
+		echo json_encode($json);
 	}
 
 	public function soloFecha($meta) {

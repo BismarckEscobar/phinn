@@ -720,6 +720,7 @@ function guardarProduccionDiaria() {
         mensajeAlerta("Tiene que seleccionar una fecha");
     }else {
         var form_data = {
+            meta: $('#selectMetas').val(),
             fecha: $('#diaProduccion').val(),
             val1: $('#val1').val(),
             val2: $('#val2').val(),
@@ -747,10 +748,6 @@ function guardarProduccionDiaria() {
                         confirmButtonColor: '#831F82',
                         confirmButtonText: 'ACEPTAR'
                     }).then(function() {
-                            idTabla = $("#tblPDiariaRpt").DataTable();
-                            idTabla.destroy();
-                            idTabla.clear();
-                            idTabla.draw();
                             location.reload(true);
                             $("#modalNuevaPrd").closeModal();
                         }
@@ -768,10 +765,11 @@ function guardarProduccionDiaria() {
 /****************FILTRANDO METAS**********************************/
 $("#selectMetas").on('change', function(event) {
     var meta = $('#selectMetas').val();
+    $('#titleComp').text('Comportamiento de Producción mes de '+ $('#selectMetas option:selected').html());
     produccionDiariaTabla(meta);
 });
 
-/*ABRIR MODAL GRAFICA PRODUCCION*/
+/*GRAFICA PRODUCCION*/
 $('#genGrafica').click( function() {
     var graficaProd = {     
         chart: {
@@ -861,11 +859,11 @@ $('#genGrafica').click( function() {
         "destroy": true,
         "info": false,
         "bPaginate": false,
-        "paging": false,
+        "paging": true,
         "ordering": false,
         "pagingType": "full_numbers",
         "emptyTable": "No hay datos disponibles en la tabla",
-        "lengthMenu": [[10,20,30,-1], [10,20,30,"Todo"]],
+        "lengthMenu": [[10,20,-1], [10,20,"Todo"]],
         "language": {
             "zeroRecords": "NO HAY RESULTADOS",
             "paginate": {
@@ -887,17 +885,6 @@ $('#genGrafica').click( function() {
             { "data": 'gen' }
         ]
     });
-
-
-
-
-
-
-
-
-
-
-
     $('#modalGraficaPM').openModal();
 });
 /******************CREAR Y LLENAR TABLA PRODUCCION DIARIA**************************/
@@ -3447,7 +3434,7 @@ function cambiarState(id, estado)
 /******************************FIN FUNCIONES PARA METAS PRODUCCION***************************************/
 /*TEMA DARK PARA GRAFICA DE PRODUCCION DIARIA*/
 Highcharts.theme = {
-   colors: ['#2b908f', '#90ee7e', '#f45b5b', '#7798BF', '#aaeeee', '#ff0066',
+   colors: ['#04B45F', '#FE642E', '#F3F781', '#7798BF', '#aaeeee', '#ff0066',
       '#eeaaee', '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
    chart: {
       backgroundColor: {

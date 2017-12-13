@@ -80,8 +80,8 @@ date_default_timezone_set("America/Managua");
                                                         <i style='color:green; font-size:30px;' class='material-icons tooltipped' data-tooltip='Meta activa' data-position='right'>done</i>
                                                     </td>
                                                     <td>
-                                                        <a class='dropdown-button btn-floating' id='ddlts' data-activates='dropdown" . $key["IdMeta"] . "' href='#!'><i class='material-icons left'>mode_edit</i></a>
-                                                        <ul id='dropdown" . $key["IdMeta"] . "' class='dropdown-content'>
+                                                        <a class='dropdown-button btn-floating' id='ddlts' data-activates='dropdown5" . $key["IdMeta"] . "' href='#!'><i class='material-icons left'>mode_edit</i></a>
+                                                        <ul id='dropdown5" . $key["IdMeta"] . "' class='dropdown-content'>
                                                             <li><a href='#' onclick='cambiarState(".'"'.$key["IdMeta"].'","'.$key["Estado"].'"'.")'>Cerrar</a></li>
                                                             <li><a href='#' onclick='editar(" . '"' . $key["IdMeta"] . '","' . $key["Consecutivo"] . '","' . $key["FechaMeta"]. '","'.$key["CantidadDias"].'","' . $key["Eco24/1"] . '","' . $key["Eco6/4"] . '","' . $key["Cholin_8/6"] . '","' . $key["Cholin_900"] . '","' . $key["Generico_Eco_1000"] . '","' . $key["Generico_Eco_900"] . '","' . $key["Cholin_HD_32/1"] . '","' . $key["BolsonServilleta"] . '","' . $key["Cholin_HD_Gen32/1"] . '","'.$key["PapielFacial"].'","' . $key["Estado"] . '"' . ")'>Editar</a></li>
                                                             <li><a href='#' id =".$key["IdMeta"]." onclick='EliminarMeta(".'"'. $key ["IdMeta"].'"'.")'>Eliminar</a></li>
@@ -93,8 +93,8 @@ date_default_timezone_set("America/Managua");
                                                         <i style='color:red; font-size:30px;' class='material-icons tooltipped' data-tooltip='Meta inactiva' data-position='right'>close</i>
                                                     </td>
                                                     <td>
-                                                    <a class='dropdown-button btn-floating' id='ddlts' data-activates='dropdown" . $key["IdMeta"] . "' href='#!'><i class='material-icons left'>mode_edit</i></a>
-                                                        <ul id='dropdown" . $key["IdMeta"] . "' class='dropdown-content'>
+                                                    <a class='dropdown-button btn-floating' id='ddlts' data-activates='dropdown5" . $key["IdMeta"] . "' href='#!'><i class='material-icons left'>mode_edit</i></a>
+                                                        <ul id='dropdown5" . $key["IdMeta"] . "' class='dropdown-content'>
                                                            <li><a href='#' onclick='cambiarState(".'"'.$key["IdMeta"].'","'.$key["Estado"].'"'.")'>Activar</a></li>
                                                             <li><a href='#' onclick='editar(" . '"' . $key["IdMeta"] . '","' . $key["Consecutivo"] . '","' . $key["FechaMeta"]. '","'.$key["CantidadDias"].'","' . $key["Eco24/1"] . '","' . $key["Eco6/4"] . '","' . $key["Cholin_8/6"] . '","' . $key["Cholin_900"] . '","' . $key["Generico_Eco_1000"] . '","' . $key["Generico_Eco_900"] . '","' . $key["Cholin_HD_32/1"] . '","' . $key["BolsonServilleta"] . '","' . $key["Cholin_HD_Gen32/1"] . '","'.$key["PapielFacial"].'","' . $key["Estado"] . '"' . ")'>Editar</a></li>
                                                             <li><a href='#' id =".$key["IdMeta"]." onclick='EliminarMeta(".'"'. $key ["IdMeta"].'"'.")'>Eliminar</a></li>
