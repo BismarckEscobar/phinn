@@ -253,8 +253,11 @@ class produccionDiaria_Model extends CI_Model {
 		if ($query_tmp->num_rows()>0) {
 			foreach ($query_tmp->result_array() as $key) {
 				$temp = date('w', strtotime($key['fecha']));
-				if ($temp==1) {
-                    $row[]=$query_rpt_pro->row_array($ii);                    
+				if ($temp==1 && $query_rpt_pro->num_rows()==1) {
+					$cont=$cont+1;
+				}elseif ($temp==1) {
+
+                    $row[]=$query_rpt_pro->row_array($ii);
                     foreach ($row as $key1) {
 						$dataRpt[$i]['v1'] = 'Total semana';
 						$dataRpt[$i]['v2'] = $key1['v1'];
@@ -286,6 +289,7 @@ class produccionDiaria_Model extends CI_Model {
 						$dataRpt[$i]['v12'] = '';
 						$dataRpt[$i]['v13'] = '';
                     }$i++; $ii++; $cont=1;
+					
 				}else {
 					$cont++;
 				}

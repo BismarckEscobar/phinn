@@ -990,6 +990,7 @@ function editandoProduccion(fechaEditar, tipo) {
 
 function guardarEdicion() {
     var form_data = {
+        meta: $('#selectMetas').val(),
         fecha: $('#editarDia').val(),
         val1: $('#val1-1').val(),
         val2: $('#val2-2').val(),
