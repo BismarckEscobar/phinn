@@ -30,6 +30,7 @@ class produccionDiaria_Controller extends CI_Controller {
 
 	public function guardarProduccionDiaria() {
 		$this->produccionDiaria_Model->guardarProduccionDiaria(
+			$this->input->post('meta'),
 			$this->input->post('fecha'),
 			$this->input->post('val1'),
 			$this->input->post('val2'),
