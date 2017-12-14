@@ -255,8 +255,7 @@ class produccionDiaria_Model extends CI_Model {
 				$temp = date('w', strtotime($key['fecha']));
 				if ($temp==1 && $query_rpt_pro->num_rows()==1) {
 					$cont=$cont+1;
-				}elseif ($temp==1) {
-
+				}elseif ($temp==1 && $cont>0) {
                     $row[]=$query_rpt_pro->row_array($ii);
                     foreach ($row as $key1) {
 						$dataRpt[$i]['v1'] = 'Total semana';
