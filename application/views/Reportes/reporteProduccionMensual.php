@@ -300,7 +300,7 @@
 								<td class='a7'>".number_format($pr10,2)."</td>
 								<td></td>
 								<td></td>
-								<td>".number_format((array_sum($ts)/$mtTotal)*(100), 2) ." %</td>
+								<td>".floatval(number_format((array_sum($ts)/$mtTotal)*(100), 0))."%</td>
 							</tr>
 							<tr class='a3'>
 								<td>Falta x pr.</td>
