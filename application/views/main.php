@@ -75,7 +75,7 @@
                             </div>
                             <div class="col s3 m3">
                                 <center>                                   
-                                    <a data-tooltip="REPORTES" href='.base_url("index.php/reportes").' class="modal-trigger tooltipped purple-text darken-4">
+                                    <a data-tooltip="REPORTES" href='.base_url("index.php/reporte-menu").' class="modal-trigger tooltipped purple-text darken-4">
                                         <i class="material-icons center-align menu-usuarios">trending_up</i>
                                         <center><span class="titulo-secundario">REPORTES</span></center>
                                     </a>                                    
@@ -89,17 +89,7 @@
                                     </a>                                    
                                 </center>                                
                             </div>
-                        </div><br><br>
-                        <div class="row">
-                            <div class="col s12 m12">
-                                <center>                                    
-                                    <a data-tooltip="ORDENES DE TRABAJO" href='.base_url("index.php/Ordenproduccion_controller").' class="modal-trigger tooltipped purple-text darken-4">
-                                        <i class="material-icons center-align menu-usuarios">content_paste</i>
-                                        <center><span class="titulo-secundario">ORDENES</span></center>
-                                    </a>                                  
-                                </center>                                
-                            </div>
-                        </div>
+                        </div><br><br><br>
                     </div>';
                     break;
                     case 2://VISTA GERENTE
