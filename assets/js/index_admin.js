@@ -3241,8 +3241,8 @@ $("#btnnuevameta").on("click", function () {
 function editar(id, consecutivo, fecha, dias, eco1, eco2, cholin1, cholin2, generico1, generico2, cholinhd1, bolson, cholinhd2, papFacial,estmeta) {
     $("#idMeta").val(id);
     $("#consecutivometaedit").val(consecutivo);
-    $("#empty").val(fecha);
-    $("#empty").text(fecha);
+    $("#selected").val(fecha);
+    $("#selected").text(fecha);
     $("#eco1edit").val(eco1);
     $("#eco2edit").val(eco2);
     $("#cholin1edit").val(cholin1);
@@ -3255,7 +3255,10 @@ function editar(id, consecutivo, fecha, dias, eco1, eco2, cholin1, cholin2, gene
     $("#papielFacedit").val(papFacial);
     $("#estadoMeta").val(estmeta);
     $("#cantDiasedit").val(dias);
+
+    $("#FechaMetaedit").trigger("chosen:updated");
     $("#actualizaMeta").openModal();
+
 }
 
 function creaTabla() {

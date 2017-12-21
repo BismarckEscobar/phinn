@@ -83,7 +83,7 @@ date_default_timezone_set("America/Managua");
                                                         <a class='dropdown-button btn-floating' id='ddlts' data-activates='dropdown5" . $key["IdMeta"] . "' href='#!'><i class='material-icons left'>mode_edit</i></a>
                                                         <ul id='dropdown5" . $key["IdMeta"] . "' class='dropdown-content'>
                                                             <li><a href='#' onclick='cambiarState(".'"'.$key["IdMeta"].'","'.$key["Estado"].'"'.")'>Cerrar</a></li>
-                                                            <li><a href='#' onclick='editar(" . '"' . $key["IdMeta"] . '","' . $key["Consecutivo"] . '","' . $key["FechaMeta"]. '","'.$key["CantidadDias"].'","' . $key["Eco24/1"] . '","' . $key["Eco6/4"] . '","' . $key["Cholin_8/6"] . '","' . $key["Cholin_900"] . '","' . $key["Generico_Eco_1000"] . '","' . $key["Generico_Eco_900"] . '","' . $key["Cholin_HD_32/1"] . '","' . $key["BolsonServilleta"] . '","' . $key["Cholin_HD_Gen32/1"] . '","'.$key["PapielFacial"].'","' . $key["Estado"] . '"' . ")'>Editar</a></li>
+                                                            <li><a href='#' onclick='editar(" . '"' . $key["IdMeta"] . '","' . $key["Consecutivo"] . '","' .strftime("%B-%Y", strtotime($key["FechaMeta"])). '","'.$key["CantidadDias"].'","' . $key["Eco24/1"] . '","' . $key["Eco6/4"] . '","' . $key["Cholin_8/6"] . '","' . $key["Cholin_900"] . '","' . $key["Generico_Eco_1000"] . '","' . $key["Generico_Eco_900"] . '","' . $key["Cholin_HD_32/1"] . '","' . $key["BolsonServilleta"] . '","' . $key["Cholin_HD_Gen32/1"] . '","'.$key["PapielFacial"].'","' . $key["Estado"] . '"' . ")'>Editar</a></li>
                                                             <li><a href='#' id =".$key["IdMeta"]." onclick='EliminarMeta(".'"'. $key ["IdMeta"].'"'.")'>Eliminar</a></li>
                                                         </ul>
                                                     </td>";
@@ -96,7 +96,7 @@ date_default_timezone_set("America/Managua");
                                                     <a class='dropdown-button btn-floating' id='ddlts' data-activates='dropdown5" . $key["IdMeta"] . "' href='#!'><i class='material-icons left'>mode_edit</i></a>
                                                         <ul id='dropdown5" . $key["IdMeta"] . "' class='dropdown-content'>
                                                            <li><a href='#' onclick='cambiarState(".'"'.$key["IdMeta"].'","'.$key["Estado"].'"'.")'>Activar</a></li>
-                                                            <li><a href='#' onclick='editar(" . '"' . $key["IdMeta"] . '","' . $key["Consecutivo"] . '","' . $key["FechaMeta"]. '","'.$key["CantidadDias"].'","' . $key["Eco24/1"] . '","' . $key["Eco6/4"] . '","' . $key["Cholin_8/6"] . '","' . $key["Cholin_900"] . '","' . $key["Generico_Eco_1000"] . '","' . $key["Generico_Eco_900"] . '","' . $key["Cholin_HD_32/1"] . '","' . $key["BolsonServilleta"] . '","' . $key["Cholin_HD_Gen32/1"] . '","'.$key["PapielFacial"].'","' . $key["Estado"] . '"' . ")'>Editar</a></li>
+                                                            <li><a href='#' onclick='editar(" . '"' . $key["IdMeta"] . '","' . $key["Consecutivo"] . '","'.strftime("%B-%Y", strtotime( $key["FechaMeta"])). '","'.$key["CantidadDias"].'","' . $key["Eco24/1"] . '","' . $key["Eco6/4"] . '","' . $key["Cholin_8/6"] . '","' . $key["Cholin_900"] . '","' . $key["Generico_Eco_1000"] . '","' . $key["Generico_Eco_900"] . '","' . $key["Cholin_HD_32/1"] . '","' . $key["BolsonServilleta"] . '","' . $key["Cholin_HD_Gen32/1"] . '","'.$key["PapielFacial"].'","' . $key["Estado"] . '"' . ")'>Editar</a></li>
                                                             <li><a href='#' id =".$key["IdMeta"]." onclick='EliminarMeta(".'"'. $key ["IdMeta"].'"'.")'>Eliminar</a></li>
                                                         </ul>
                                                     </td>";
@@ -226,6 +226,7 @@ date_default_timezone_set("America/Managua");
                 <label for="lblFechaMetaedit" id="lblFechaMetaedit">Fecha</label> 
                 <select name="FechaMetaedit" id="FechaMetaedit" class="chosen-select browser-default" style="width:200px;">
                     <?php 
+                    echo "<option id='selected' selected ></option>";
                     for ($i = 1; $i <= 3; $i++) {
                         echo "<option class='mesMeta' value=".date("Y-m-"."01", strtotime("+{$i} month")).">".strftime("%B-%Y", strtotime("+{$i} month"))."</option>";
                     }
