@@ -90,6 +90,16 @@
                                 </center>                                
                             </div>
                         </div><br><br><br>
+                        <div class="row">
+                            <div class="col s3 m3">
+                                <center>                                  
+                                    <a data-tooltip="PRODUCCIÓN DIARIA" href='.base_url("index.php/produccionDiaria").' class="modal-trigger tooltipped purple-text darken-4">
+                                        <i class="material-icons center-align menu-usuarios">equalizer</i>
+                                        <center><span class="titulo-secundario">PRODUCCIÓN DIARIA</span></center>
+                                    </a>                                    
+                               </center>
+                           </div>
+                        </div>
                     </div>';
                     break;
                     case 2://VISTA GERENTE
@@ -111,8 +121,18 @@
                                         <center><span class="titulo-secundario">REPORTES</span></center>
                                     </a>                                    
                                 </center>                                
-                            </div> 
+                            </div>
                         </div>
+                        <div class="row">
+                            <div class="col s3 m3">
+                                <center>                                  
+                                    <a data-tooltip="PRODUCCIÓN DIARIA" href='.base_url("index.php/produccionDiaria").' class="modal-trigger tooltipped purple-text darken-4">
+                                        <i class="material-icons center-align menu-usuarios">equalizer</i>
+                                        <center><span class="titulo-secundario">PRODUCCIÓN DIARIA</span></center>
+                                    </a>                                    
+                               </center>
+                           </div>
+                        </div>                       
                     </div>';
                     break;
                     case 3: //VISTA SUPERVISOR

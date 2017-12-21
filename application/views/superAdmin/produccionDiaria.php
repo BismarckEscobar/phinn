@@ -30,8 +30,11 @@
 	                </div>
 					<div class="row">
                         <div class="col s12 m12" style="text-align:right;">
-                            <a id="nuevaProd" href="#modalNuevaPrd" class="Btnadd btn waves-effect waves-light" style="background-color:#831F82; font-size: 12px;">AGREGAR
-                            </a>
+							<?php
+								if ($_SESSION['Privilegio']!=1 and $_SESSION['Privilegio']!=7) {
+									echo '<a id="nuevaProd" href="#modalNuevaPrd" class="Btnadd btn waves-effect waves-light" style="background-color:#831F82; font-size: 12px;">AGREGAR</a>';
+								}
+							?>
                             <a id="genGrafica" href="#!" class="Btnadd btn waves-effect waves-light" style="background-color:#831F82; font-size: 12px;"><i class="material-icons">timeline</i>
                             </a>
                         </div>
