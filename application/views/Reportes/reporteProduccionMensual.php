@@ -54,11 +54,15 @@
 			background-color: #ffe9fe;
 		}
 		tr.a4 {
-			background-color: #bbdefb;
+			background-color: #446CB3;
+			
+		}
+		tr.a4 td {
+			color: white!important;
 		}
 		tr td.a5{
-			background-color: #ff3b3b;
-			
+			background-color: #C0392B;
+			color: white!important;		
 		}
 		tr.a6 {
 			background-color: #d8bfd8;
@@ -70,10 +74,17 @@
 			background-color: #ffdc5c;
 		}
 		tr.a9{
-			background-color: #80cbc4;
+			background-color: #049372;
+		}
+
+		tr.a9 td {
+			color: white!important;
 		}
 		tr.a10{
-			background-color: #bdbdbd;
+			background-color: #6C7A89;
+		}
+		tr.a10 td {
+			color: white!important;
 		}
 		tr td.til {
 			color: white;
@@ -225,8 +236,8 @@
 						<td>".$val9."</td>
 						<td>".$val10."</td>
 						<td>".$total."</td>
-						<td class='a8'>".$ttns."</td>
-						<td class='a8'>".array_sum($ts)."</td>
+						<td>".$ttns."</td>
+						<td>".array_sum($ts)."</td>
 					</tr>";
 					if ($metas) {
 						$mtTotal=0;
@@ -309,7 +320,7 @@
 								<td>".floatval(number_format((array_sum($ts)/$mtTotal)*(100), 0))."%</td>
 							</tr>
 							<tr class='a3'>
-								<td>Falta x pr.</td>
+								<td class='a5'>Falta x pr.</td>
 								<td class='a5'>".number_format(($mt1-$val1),0)."</td>
 								<td class='a5'>".number_format(($mt2-$val2),0)."</td>
 								<td class='a5'>".number_format(($mt3-$val3),0)."</td>
