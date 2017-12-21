@@ -54,11 +54,11 @@
 			background-color: #ffe9fe;
 		}
 		tr.a4 {
-			background-color: #fdc9da;
+			background-color: #bbdefb;
 		}
 		tr td.a5{
 			background-color: #ff3b3b;
-			color: white;
+			
 		}
 		tr.a6 {
 			background-color: #d8bfd8;
@@ -68,6 +68,12 @@
 		}
 		tr td.a8{
 			background-color: #ffdc5c;
+		}
+		tr.a9{
+			background-color: #80cbc4;
+		}
+		tr.a10{
+			background-color: #bdbdbd;
 		}
 		tr td.til {
 			color: white;
@@ -270,7 +276,7 @@
 
 							$mtTotal = $mt1+$mt2+$mt3+$mt4+$mt5+$mt6+$mt7+$mt8+$mt9+$mt10;
 							echo "
-							<tr class='a3'>
+							<tr class='a9'>
 								<td>Meta Prod.</td>
 								<td>".number_format($mt1,2)."</td>
 								<td>".number_format($mt2,2)."</td>
@@ -286,18 +292,18 @@
 								<td></td>
 								<td>".number_format($mtTotal,2)."</td>							
 							</tr>
-							<tr class='a3'>
+							<tr class='a10'>
 								<td>%</td>
-								<td class='a7'>".number_format($pr1,2)."</td>
-								<td class='a7'>".number_format($pr2,2)."</td>
-								<td class='a7'>".number_format($pr3,2)."</td>
-								<td class='a7'>".number_format($pr4,2)."</td>
-								<td class='a7'>".number_format($pr5,2)."</td>
-								<td class='a7'>".number_format($pr6,2)."</td>
-								<td class='a7'>".number_format($pr7,2)."</td>
-								<td class='a7'>".number_format($pr8,2)."</td>
-								<td class='a7'>".number_format($pr9,2)."</td>
-								<td class='a7'>".number_format($pr10,2)."</td>
+								<td>".number_format($pr1,2)."</td>
+								<td>".number_format($pr2,2)."</td>
+								<td>".number_format($pr3,2)."</td>
+								<td>".number_format($pr4,2)."</td>
+								<td>".number_format($pr5,2)."</td>
+								<td>".number_format($pr6,2)."</td>
+								<td>".number_format($pr7,2)."</td>
+								<td>".number_format($pr8,2)."</td>
+								<td>".number_format($pr9,2)."</td>
+								<td>".number_format($pr10,2)."</td>
 								<td></td>
 								<td></td>
 								<td>".floatval(number_format((array_sum($ts)/$mtTotal)*(100), 0))."%</td>

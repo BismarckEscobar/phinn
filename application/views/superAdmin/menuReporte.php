@@ -4,7 +4,14 @@
             <?php
                 if ($_SESSION['Privilegio']==7) {
                     $regresar='<br>';
-                    $title='SELECCIONAR TIPO DE REPORTE';
+                    $title='SELECCIONAR TIPO DE REPORTE';                    
+                    $pDiaria='
+                    <center>                                  
+                        <a data-tooltip="PRODUCCIÓN DIARIA" href='.base_url("index.php/produccionDiaria").' class="modal-trigger tooltipped purple-text darken-4">
+                            <i class="material-icons center-align menu-usuarios">equalizer</i>
+                            <center><span class="titulo-secundario">PRODUCCIÓN DIARIA</span></center>
+                        </a>                                    
+                   </center>';
                 }else {
                     $regresar='
                     <div id="retornarP">
@@ -13,7 +20,9 @@
                         </a>
                     </div>';
                     $title='TIPO DE REPORTE';
+                    $pDiaria='&nbsp';
                 }
+
             echo'
             <div class="row">
                 <div class="col s6 m6" style="text-align:left;">
@@ -21,28 +30,32 @@
                 </div>      
             </div>
             <center><span class="card-title accent-4 titulos" style="font-size: 24px;">'.$title.'</span></center>
-            <br><br><br>';
-            ?>
+            <br><br><br>
             <div class="container">
-				<div class="row">
-					<div class="col s6 m6">
+                <div class="row">
+                    <div class="col s4 m4">
                         <center>                                   
-                            <a href='reportes' class="modal-trigger purple-text darken-4">
+                            <a href="reportes" class="modal-trigger purple-text darken-4">
                                 <i class="material-icons center-align menu-usuarios">content_paste</i>
                                 <center><span class="titulo-secundario">PROCESO HUMEDO</span></center>
                             </a>                                    
                         </center> 
-					</div>
-					<div class="col s6 m6">
+                    </div>
+                    <div class="col s4 m4">
+                        '.$pDiaria.'                        
+                    </div>
+                    <div class="col s4 m4">
                         <center>                                   
-                            <a href='#modalSelectProd' class="modal-trigger purple-text darken-4" id="openModalPrd">
+                            <a href="#modalSelectProd" class="modal-trigger purple-text darken-4" id="openModalPrd">
                                 <i class="material-icons center-align menu-usuarios">date_range</i>
                                 <center><span class="titulo-secundario">PROD. MENSUAL</span></center>
                             </a>                                 
                         </center> 
-					</div>
-				</div>
-			</div>
+                    </div>
+                </div><br><br>
+            </div>';
+            ?>
+
 		</div>
 	</div>
 </main>
