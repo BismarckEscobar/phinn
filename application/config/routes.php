@@ -197,5 +197,3 @@ $route['ValidaFecha/(:any)/(:any)/(:any)'] = 'Ordenproduccion_controller/Validar
     /*RUTAS GRAFICA DE PRODUCCION*/    
     $route["diasGraficaProd"] = "produccionDiaria_Controller/diasGrafica";
     $route["dataGraficaProd"] = "produccionDiaria_Controller/dataGraficaProd";
-
-

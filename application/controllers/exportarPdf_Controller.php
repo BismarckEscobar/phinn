@@ -185,14 +185,16 @@ class exportarPdf_Controller extends CI_Controller {
         $data['metas'] = $this->produccionDiaria_Model->soloMetas($meta);
         $data['pesos'] = $this->produccionDiaria_Model->soloPesos();
         $data['fecha'] = $this->produccionDiaria_Model->soloFecha($meta);
-        $data['porCump'] = $this->produccionDiaria_Model->porcentajeCumplimiento($meta);
+        $_data['porCump'] = $this->produccionDiaria_Model->porcentajeCumplimiento($meta);
+
+        $data['grafica'] = $this->load->view('superAdmin/graficaRpt',$_data, true);
 
         //$this->load->view('Reportes/reporteProduccionMensual', $data);
                  
         $PdfCliente = new mPDF('utf-8','A4'); 
-        $PdfCliente->AddPage('L');       
+        $PdfCliente->AddPage('L'); 
         $PdfCliente->SetFooter("Página {PAGENO} de {nb}");
-        $PdfCliente -> writeHTML($this->load->view('Reportes/reporteProduccionMensual', $data, true));
+        $PdfCliente -> writeHTML($this->load->view('Reportes/reporteProduccionMensual', $data, true));        
         $PdfCliente->Output();
     }
 }
