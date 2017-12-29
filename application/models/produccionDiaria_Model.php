@@ -206,7 +206,9 @@ class produccionDiaria_Model extends CI_Model {
 				$json['name'][$i] = date('d/m', strtotime($key['fecha']));	
 				$i++;
 			}
+			
 			echo json_encode($json);
+			return $json;
 		}else {
 			return false;
 		}
@@ -235,7 +237,9 @@ class produccionDiaria_Model extends CI_Model {
 	        	'Data' => $gen
 	        );	        
 	        $json = array_merge($data1,$data2,$data3);
-	        echo json_encode($json);			
+	        
+	        echo json_encode($json);
+	        return $json;			
 		}else {
 			return false;
 		}

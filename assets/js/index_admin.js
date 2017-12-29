@@ -48,8 +48,12 @@ $(document).ready(function() {
         var meta = $('#selectMetas').val();
         produccionDiariaTabla(meta);        
     };
-    if (pathname.match(/MetasMensual.*/)) {
+    if (pathname.match(/MetasMensual.*/)) {        
         creaTabla();
+    }
+    if (pathname.match(/dataGraficaRpt.*/)) {
+        alert('aca');
+        generaGraficaRpt();  
     }
 
     $("#crearU").click(function() { $("#AUsuario").openModal(); });

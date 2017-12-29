@@ -351,7 +351,10 @@
 					}
 				} ?>
 				</tbody>
-			</table>
-	</div>
-</body>
+			</table><br><br>
+			<div style="margin: 0 auto; width: 100%; text-align: center;">
+				<?php echo $grafica; ?>			
+			</div>
+		</div>
+	</body>
 </html>
