@@ -246,20 +246,36 @@ class produccionDiaria_Model extends CI_Model {
 	}
 
 	public function generandoDataRpt($meta) {
-		$dataRpt=array(); $i=0; $ii=0; $ult=0; $cont=0;
-		$query_sp_prod=$this->db->query("CALL sp_produccionDiaria('".$meta."')");	
+		$fechas1 = array('2017-12-26', '2018-01-02');
+		
+		//DECLARANDO VARIABLES Y CONTADORES
+		$dataRpt=array(); $i=0; $ii=0; $ult=0; $cont=1;
+		
+		//QUERYS PARA LA DATA
+		$query_sp_prod=$this->db->query("CALL sp_produccionDiaria('".$meta."')");
 
-		$query_rpt_pro=$this->db->query("CALL sp_controlProduccionMensual('".$meta."')");	
-
+		$query_rpt_pro=$this->db->query("CALL sp_controlProduccionMensual('".$meta."')");
 		$this->db->reconnect();
+		
 		$this->db->order_by("fecha", "ASC");
 		$query_tmp=$this->db->get('tmp_produccion');
+		
+		//DEVOLVIENDO RESPUESTA
 		if ($query_tmp->num_rows()>0) {
 			foreach ($query_tmp->result_array() as $key) {
+
+
 				$temp = date('w', strtotime($key['fecha']));
+				
 				if ($temp==1 && $query_rpt_pro->num_rows()==1) {
 					$cont=$cont+1;
-				}elseif ($temp==1 && $cont>0) {
+
+				}elseif ($temp==1 || in_array($key['fecha'], $fechas1)) {
+					
+					if (count($query_tmp->result_array())==1 && in_array($key['fecha'], $fechas1)) {
+						$cont=1;
+					}
+
                     $row[]=$query_rpt_pro->row_array($ii);
                     foreach ($row as $key1) {
 						$dataRpt[$i]['v1'] = 'Total semana';
@@ -313,7 +329,9 @@ class produccionDiaria_Model extends CI_Model {
 				$ult++;
 			}
 			if ($ult == count($query_tmp->result_array())) {
-                $row[]=$query_rpt_pro->row_array($ii);                    
+
+                $row[]=$query_rpt_pro->row_array($ii);
+
                 foreach ($row as $key1) {
 					$dataRpt[$i]['v1'] = 'Total semana';
 					$dataRpt[$i]['v2'] = $key1['v1'];
@@ -331,6 +349,7 @@ class produccionDiaria_Model extends CI_Model {
 					$dataRpt[$i]['v13'] = '';					
 				}
 				$i++;
+
                 foreach ($row as $key2) {
 					$dataRpt[$i]['v1'] = 'Promedio';
 					$dataRpt[$i]['v2'] = $key2['v1']/$cont;
