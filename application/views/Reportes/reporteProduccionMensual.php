@@ -110,6 +110,9 @@
 					</tr>
 				</table>
 			</div>
+			<div style="margin: 0 auto; width: 100%; text-align: center;">
+				<?php echo $grafica; ?>			
+			</div><br><br>
 			<table id='tblProduccion'>
 				<tr class="a1">							
 					<td class='til'><center><span></span></center></td>
@@ -175,7 +178,9 @@
 							$val7=$val7+$key['v8'];
 							$val8=$val8+$key['v9'];
 							$val9=$val9+$key['v10'];
-							$total = $val1+$val2+$val3+$val4+$val5+$val6+$val7+$val8+$val9;							
+							$val10=$val10+$key['v11'];
+							$val11=$val11+$key['v12'];
+							$total = $val1+$val2+$val3+$val4+$val5+$val6+$val7+$val8+$val9+$val10+$val11;							
 							$contRW1=0;
 							$estilo='a2';
 						}else {
@@ -190,14 +195,14 @@
 
 						if ($band==true) {
 							$cc=$pos[$vl]+2;
-							$tdHtml="<td rowspan='".$cc."'>".$ts[$contRW2]."</td>";
+							$tdHtml="<td rowspan='".$cc."'>".number_format($ts[$contRW2], 0)."</td>";
 							$band=false;
 							$contRW1=$contRW1+2;
 							$contRW2++;
 						}elseif ($contRW1==2) {
 							$vl++;
 							$cc=$pos[$vl]+1;
-							$tdHtml="<td rowspan='".$cc."'>".$ts[$contRW2]."</td>";
+							$tdHtml="<td rowspan='".$cc."'>".number_format($ts[$contRW2], 0)."</td>";
 							$contRW2++;
 						}else {
 							$tdHtml="";
@@ -217,7 +222,7 @@
 								<td>".$key['v12']."</td>
 								<td>".$key['v13']."</td>
 								".$tdHtml."
-							</tr>";	
+							</tr>";
 					}					
 					echo "
 					<tr style='border:none'>
@@ -225,18 +230,18 @@
 					</tr>
 					<tr class='a4'>
 						<td>Totales</td>
-						<td>".$val1."</td>
-						<td>".$val2."</td>
-						<td>".$val3."</td>
-						<td>".$val4."</td>
-						<td>".$val5."</td>
-						<td>".$val6."</td>
-						<td>".$val7."</td>
-						<td>".$val8."</td>
-						<td>".$val9."</td>
-						<td>".$val10."</td>
-						<td>".$total."</td>
-						<td>".$ttns."</td>
+						<td>".number_format($val1, 0)."</td>
+						<td>".number_format($val2, 0)."</td>
+						<td>".number_format($val3, 0)."</td>
+						<td>".number_format($val4, 0)."</td>
+						<td>".number_format($val5, 0)."</td>
+						<td>".number_format($val6, 0)."</td>
+						<td>".number_format($val7, 0)."</td>
+						<td>".number_format($val8, 0)."</td>
+						<td>".number_format($val9, 0)."</td>
+						<td>".number_format($val10, 0)."</td>
+						<td>".number_format($total, 0)."</td>
+						<td>".number_format($ttns, 0)."</td>
 						<td>".array_sum($ts)."</td>
 					</tr>";
 					if ($metas) {
@@ -325,9 +330,9 @@
 								<td class='a5'>".number_format(($mt2-$val2),0)."</td>
 								<td class='a5'>".number_format(($mt3-$val3),0)."</td>
 								<td class='a5'>".number_format(($mt4-$val4),0)."</td>
-								<td class='a5'>".number_format(($mt5-$val5),0)."</td>
-								<td class='a5'>".number_format(($mt6-$val6),0)."</td>
-								<td class='a5'>".number_format(($mt7-$val7),0)."</td>
+								<td class='a5'>".number_format(abs(($mt5-$val5)),0)."</td>
+								<td class='a5'>".number_format(abs(($mt6-$val6)),0)."</td>
+								<td class='a5'>".number_format(abs(($mt7-$val7)),0)."</td>
 								<td class='a5'>".number_format(($mt8-$val8),0)."</td>
 								<td class='a5'>".number_format(($mt9-$val9),0)."</td>
 								<td class='a5'>".number_format(($mt10-$val10),0)."</td>
@@ -352,9 +357,6 @@
 				} ?>
 				</tbody>
 			</table><br><br>
-			<div style="margin: 0 auto; width: 100%; text-align: center;">
-				<?php echo $grafica; ?>			
-			</div>
 		</div>
 	</body>
 </html>

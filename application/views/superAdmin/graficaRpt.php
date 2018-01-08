@@ -26,7 +26,7 @@ include(APPPATH."libraries\googchart\GoogChart.class.php");
 			'legend' => true,
 			'labelsXY' => true,			
 			'fill' => array( '#eeeeee', '#aaaaaa' ),
-			'background' => '#ECF0F1',
+			//'background' => '#ECF0F1',
 			)
 		);
 
