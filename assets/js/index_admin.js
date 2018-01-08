@@ -723,46 +723,120 @@ function guardarProduccionDiaria() {
     if ($('#diaProduccion').val()=="") {
         mensajeAlerta("Tiene que seleccionar una fecha");
     }else {
-        var form_data = {
-            meta: $('#selectMetas').val(),
-            fecha: $('#diaProduccion').val(),
-            val1: $('#val1').val(),
-            val2: $('#val2').val(),
-            val3: $('#val3').val(),
-            val4: $('#val4').val(),
-            val5: $('#val5').val(),
-            val6: $('#val6').val(),
-            val7: $('#val7').val(),
-            val8: $('#val8').val(),
-            val9: $('#val9').val(),
-            val10: $('#val10').val(),
-            tipo: 'i'
-        };
-        $.ajax({
-            url: "guardarPD",
-            type: "post",
-            async: true,
-            data: form_data,
-            success: function(data) {
-                if (data == 1) {
-                    swal({
-                        title: " ",
-                        text: 'Guardado con éxito!',
-                        type: "success",
-                        confirmButtonColor: '#831F82',
-                        confirmButtonText: 'ACEPTAR'
-                    }).then(function() {
+        if (validandoRangoFechas($('#selectMetas option:selected').html(), $('#diaProduccion').val())==true) {
+            var form_data = {
+                meta: $('#selectMetas').val(),
+                fecha: $('#diaProduccion').val(),
+                val1: $('#val1').val(),
+                val2: $('#val2').val(),
+                val3: $('#val3').val(),
+                val4: $('#val4').val(),
+                val5: $('#val5').val(),
+                val6: $('#val6').val(),
+                val7: $('#val7').val(),
+                val8: $('#val8').val(),
+                val9: $('#val9').val(),
+                val10: $('#val10').val(),
+                tipo: 'i'
+            };
+            $.ajax({
+                url: "guardarPD",
+                type: "post",
+                async: true,
+                data: form_data,
+                success: function(data) {
+                    if (data == 1) {
+                        swal({
+                          title: 'Guardado con éxito!',
+                          text: '¿Desea guardar otro registro?',
+                          type: 'success',
+                          showCancelButton: true,
+                          confirmButtonText: 'Sí',
+                          confirmButtonColor: '#831F82',
+                          cancelButtonText: 'NO',
+                        }).then(function() {
+                            $('#diaProduccion').val('');
+                            $('#val1').val('');
+                            $('#val2').val('');
+                            $('#val3').val('');
+                            $('#val4').val('');
+                            $('#val5').val('');
+                            $('#val6').val('');
+                            $('#val7').val('');
+                            $('#val8').val('');
+                            $('#val9').val('');
+                            $('#val10').val('');
+                            $('#diaProduccion').focus();
+                        }, function(dismiss) {
+                          if (dismiss === 'cancel') {
                             location.reload(true);
-                            $("#modalNuevaPrd").closeModal();
-                        }
-                    );
-                } else if (data==2) {
-                    Materialize.toast('¡Ya existe un registro con esta fecha!', 2500, 'red');
-                }else {
-                    Materialize.toast('ERROR AL GUARDAR', 1000);
-                };
-            }
-        });
+                          }
+                        })
+                    } else if (data==2) {
+                        Materialize.toast('¡Ya existe un registro con esta fecha!', 2500, 'red');
+                    }else {
+                        Materialize.toast('ERROR AL GUARDAR', 1000);
+                    };
+                }
+            });
+        }else {
+            Materialize.toast('El dia seleccionado no se encuentra en el rango de fechas', 3500, 'red');
+        }
+    }
+}
+
+/****************VALIDANDO RANGOS DE FECHAS************************/
+function validandoRangoFechas(fecha1, fecha2) {
+    f1 = fecha1.split("-");    
+    var fecha = '';
+
+    switch(f1[0]) {
+        case 'enero ':            
+            fecha = f1[1]+'-'+'01-01';
+            break;
+        case 'febrero ':
+            fecha = f1[1]+'-'+'02-01';
+            break;
+        case 'marzo ':
+            fecha = f1[1]+'-'+'03-01';
+            break;
+        case 'abril ':
+            fecha = f1[1]+'-'+'04-01';
+            break;
+        case 'mayo ':
+            fecha = f1[1]+'-'+'05-01';
+            break;
+        case 'junio ':
+            fecha = f1[1]+'-'+'06-01';
+            break;
+        case 'julio ':
+            fecha = f1[1]+'-'+'07-01';
+            break;
+        case 'agosto ':
+            fecha = f1[1]+'-'+'08-01';
+            break;
+        case 'septiembre ':
+            fecha = f1[1]+'-'+'09-01';
+            break;
+        case 'octubre ':
+            fecha = f1[1]+'-'+'10-01';
+            break;
+        case 'noviembre ':
+            fecha = f1[1]+'-'+'11-01';
+            break;
+        case 'diciembre ':
+            fecha = f1[1]+'-'+'12-01';
+            break;
+    }
+    fecha = new Date(fecha);
+    fecha2 = new Date(fecha2);
+    var primerDia = new Date(fecha.getFullYear(), fecha.getMonth(), 1);
+    var ultimoDia = new Date(fecha.getFullYear(), fecha.getMonth() + 1, 0);
+
+    if(fecha2 >= primerDia && fecha2 <= ultimoDia) {
+        return true;
+    }else {
+        return false;
     }
 }
 

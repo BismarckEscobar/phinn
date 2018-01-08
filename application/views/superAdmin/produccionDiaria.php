@@ -111,7 +111,7 @@
             <div class="center">
 	      	    <a onclick="guardarProduccionDiaria()" id="guardarPD" href="#" class="Btnadd btn waves-effect waves-light" style="background-color:#831F82; font-size: 12px;">GUARDAR
                 </a>
-	      	    <a id="guardarPD" href="#" class="modal-action modal-close Btnadd btn waves-effect waves-light" style="background-color:#831F82; font-size: 12px;">CANCELAR
+	      	    <a href="#" class="modal-action modal-close Btnadd btn waves-effect waves-light" style="background-color:#831F82; font-size: 12px;">CANCELAR
                 </a>
 	        </div>
         </div>
