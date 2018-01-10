@@ -104,7 +104,7 @@
 							echo "
 								<td width='20%'><img class='image' src='".base_url()."assets/img/logo/logoinnova.png'></td>
 								<td width='60p%'><span class='titulo-1'>CONTROL DE PRODUCCIóN MENSUAL <br> PROCESO DE CONVERSIóN</span></td>
-								<td width='20p%'>mes: ".$fecha."</td>";
+								<td width='20p%' style='text-transform: uppercase; font-weight: bold'>mes: ".$fecha."</td>";
 							}
 						?>
 					</tr>
