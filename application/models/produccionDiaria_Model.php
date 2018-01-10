@@ -245,7 +245,7 @@ class produccionDiaria_Model extends CI_Model {
 		}
 	}
 
-	public function generandoDataRpt($meta) {	
+public function generandoDataRpt($meta) {	
 		//DECLARANDO VARIABLES Y CONTADORES
 		$dataRpt=array();
 		$desde=''; $hasta='';
@@ -274,174 +274,175 @@ class produccionDiaria_Model extends CI_Model {
 		}
 
 		for($i=$primerDia->format('Y-m-d'); $i<=$ultDia->format('Y-m-d'); $i=date("Y-m-d", strtotime($i ."+ 1 days"))) {
-			
-			if ($i===end($fechas)) {				
-				$query1 = $this->db->query("SELECT * FROM tmp_produccion WHERE fecha BETWEEN '".$desde."' AND '".$i."' order by fecha asc;");
+			if (count($fechas)>0) {
+				if ($i===end($fechas)) {				
+					$query1 = $this->db->query("SELECT * FROM tmp_produccion WHERE fecha BETWEEN '".$desde."' AND '".$i."' order by fecha asc;");
 
-				foreach ($query1->result_array() as $k) {
-					$dataRpt[$j]['v1'] = date('d/m/Y', strtotime($k['fecha']));
-					$dataRpt[$j]['v2'] = $k['1'];
-					$dataRpt[$j]['v3'] = $k['2'];
-					$dataRpt[$j]['v4'] = $k['3'];
-					$dataRpt[$j]['v5'] = $k['4'];
-					$dataRpt[$j]['v6'] = $k['5'];
-					$dataRpt[$j]['v7'] = $k['6'];
-					$dataRpt[$j]['v8'] = $k['7'];
-					$dataRpt[$j]['v9'] = $k['8'];
-					$dataRpt[$j]['v10'] = $k['9'];
-					$dataRpt[$j]['v11'] = $k['10'];
-					$dataRpt[$j]['v12'] = $k['TBD'];
-					$dataRpt[$j]['v13'] = $k['TNS'];
-					$j++;
-				}
-
-				$dataRpt[$j]['v1'] = 'Total semana';
-				$dataRpt[$j]['v2'] = $query_rpt_pro->result_array()[$ii]['v1'];
-				$dataRpt[$j]['v3'] = $query_rpt_pro->result_array()[$ii]['v2'];
-				$dataRpt[$j]['v4'] = $query_rpt_pro->result_array()[$ii]['v3'];
-				$dataRpt[$j]['v5'] = $query_rpt_pro->result_array()[$ii]['v4'];
-				$dataRpt[$j]['v6'] = $query_rpt_pro->result_array()[$ii]['v5'];
-				$dataRpt[$j]['v7'] = $query_rpt_pro->result_array()[$ii]['v6'];
-				$dataRpt[$j]['v8'] = $query_rpt_pro->result_array()[$ii]['v7'];
-				$dataRpt[$j]['v9'] = $query_rpt_pro->result_array()[$ii]['v8'];
-				$dataRpt[$j]['v10'] = $query_rpt_pro->result_array()[$ii]['v9'];
-				$dataRpt[$j]['v11'] = $query_rpt_pro->result_array()[$ii]['v10'];
-				$dataRpt[$j]['v12'] = '';
-				$dataRpt[$j]['v13'] = '';
-				$j++;
-
-				$dataRpt[$j]['v1'] = 'Promedio';
-				$dataRpt[$j]['v2'] = $query_rpt_pro->result_array()[$ii]['v1']/count($query1->result_array());
-				$dataRpt[$j]['v3'] = $query_rpt_pro->result_array()[$ii]['v2']/count($query1->result_array());
-				$dataRpt[$j]['v4'] = $query_rpt_pro->result_array()[$ii]['v3']/count($query1->result_array());
-				$dataRpt[$j]['v5'] = $query_rpt_pro->result_array()[$ii]['v4']/count($query1->result_array());
-				$dataRpt[$j]['v6'] = $query_rpt_pro->result_array()[$ii]['v5']/count($query1->result_array());
-				$dataRpt[$j]['v7'] = $query_rpt_pro->result_array()[$ii]['v6']/count($query1->result_array());
-				$dataRpt[$j]['v8'] = $query_rpt_pro->result_array()[$ii]['v7']/count($query1->result_array());
-				$dataRpt[$j]['v9'] = $query_rpt_pro->result_array()[$ii]['v8']/count($query1->result_array());
-				$dataRpt[$j]['v10'] = $query_rpt_pro->result_array()[$ii]['v9']/count($query1->result_array());
-				$dataRpt[$j]['v11'] = $query_rpt_pro->result_array()[$ii]['v10']/count($query1->result_array());
-				$dataRpt[$j]['v12'] = '';
-				$dataRpt[$j]['v13'] = '';
-				$j++;
-			}else {
-				if (date('w', strtotime($i))==1 ) {					
-					if (in_array($i, $fechas)) {						
-						$hasta = date("Y-m-d", strtotime($i ."- 1 days"));
-						$query1 = $this->db->query("SELECT * FROM tmp_produccion WHERE fecha BETWEEN '".$desde."' AND '".$hasta."' order by fecha asc;");
-						
-						$desde=$i;				
-
-						foreach ($query1->result_array() as $k) {
-							$dataRpt[$j]['v1'] = date('d/m/Y', strtotime($k['fecha']));
-							$dataRpt[$j]['v2'] = $k['1'];
-							$dataRpt[$j]['v3'] = $k['2'];
-							$dataRpt[$j]['v4'] = $k['3'];
-							$dataRpt[$j]['v5'] = $k['4'];
-							$dataRpt[$j]['v6'] = $k['5'];
-							$dataRpt[$j]['v7'] = $k['6'];
-							$dataRpt[$j]['v8'] = $k['7'];
-							$dataRpt[$j]['v9'] = $k['8'];
-							$dataRpt[$j]['v10'] = $k['9'];
-							$dataRpt[$j]['v11'] = $k['10'];
-							$dataRpt[$j]['v12'] = $k['TBD'];
-							$dataRpt[$j]['v13'] = $k['TNS'];
-							$j++;
-						}
-
-						$dataRpt[$j]['v1'] = 'Total semana';
-						$dataRpt[$j]['v2'] = $query_rpt_pro->result_array()[$ii]['v1'];
-						$dataRpt[$j]['v3'] = $query_rpt_pro->result_array()[$ii]['v2'];
-						$dataRpt[$j]['v4'] = $query_rpt_pro->result_array()[$ii]['v3'];
-						$dataRpt[$j]['v5'] = $query_rpt_pro->result_array()[$ii]['v4'];
-						$dataRpt[$j]['v6'] = $query_rpt_pro->result_array()[$ii]['v5'];
-						$dataRpt[$j]['v7'] = $query_rpt_pro->result_array()[$ii]['v6'];
-						$dataRpt[$j]['v8'] = $query_rpt_pro->result_array()[$ii]['v7'];
-						$dataRpt[$j]['v9'] = $query_rpt_pro->result_array()[$ii]['v8'];
-						$dataRpt[$j]['v10'] = $query_rpt_pro->result_array()[$ii]['v9'];
-						$dataRpt[$j]['v11'] = $query_rpt_pro->result_array()[$ii]['v10'];
-						$dataRpt[$j]['v12'] = '';
-						$dataRpt[$j]['v13'] = '';
+					foreach ($query1->result_array() as $k) {
+						$dataRpt[$j]['v1'] = date('d/m/Y', strtotime($k['fecha']));
+						$dataRpt[$j]['v2'] = $k['1'];
+						$dataRpt[$j]['v3'] = $k['2'];
+						$dataRpt[$j]['v4'] = $k['3'];
+						$dataRpt[$j]['v5'] = $k['4'];
+						$dataRpt[$j]['v6'] = $k['5'];
+						$dataRpt[$j]['v7'] = $k['6'];
+						$dataRpt[$j]['v8'] = $k['7'];
+						$dataRpt[$j]['v9'] = $k['8'];
+						$dataRpt[$j]['v10'] = $k['9'];
+						$dataRpt[$j]['v11'] = $k['10'];
+						$dataRpt[$j]['v12'] = $k['TBD'];
+						$dataRpt[$j]['v13'] = $k['TNS'];
 						$j++;
+					}
 
-						$dataRpt[$j]['v1'] = 'Promedio';
-						$dataRpt[$j]['v2'] = $query_rpt_pro->result_array()[$ii]['v1']/count($query1->result_array());
-						$dataRpt[$j]['v3'] = $query_rpt_pro->result_array()[$ii]['v2']/count($query1->result_array());
-						$dataRpt[$j]['v4'] = $query_rpt_pro->result_array()[$ii]['v3']/count($query1->result_array());
-						$dataRpt[$j]['v5'] = $query_rpt_pro->result_array()[$ii]['v4']/count($query1->result_array());
-						$dataRpt[$j]['v6'] = $query_rpt_pro->result_array()[$ii]['v5']/count($query1->result_array());
-						$dataRpt[$j]['v7'] = $query_rpt_pro->result_array()[$ii]['v6']/count($query1->result_array());
-						$dataRpt[$j]['v8'] = $query_rpt_pro->result_array()[$ii]['v7']/count($query1->result_array());
-						$dataRpt[$j]['v9'] = $query_rpt_pro->result_array()[$ii]['v8']/count($query1->result_array());
-						$dataRpt[$j]['v10'] = $query_rpt_pro->result_array()[$ii]['v9']/count($query1->result_array());
-						$dataRpt[$j]['v11'] = $query_rpt_pro->result_array()[$ii]['v10']/count($query1->result_array());
-						$dataRpt[$j]['v12'] = '';
-						$dataRpt[$j]['v13'] = '';
-						$j++; $ii++;						
-						
-					}else {
-						$band=false;
-						while ($band == false) {
-							$temp = date("Y-m-d", strtotime($i ."+ 1 days"));
-							if (in_array($temp, $fechas) || $cont>=$cc) {
-								$hasta = date("Y-m-d", strtotime($temp ."- 1 days"));
-								$query1 = $this->db->query("SELECT * FROM tmp_produccion WHERE fecha BETWEEN '".$desde."' AND '".$hasta."' order by fecha asc;");
-								if ($query1->num_rows()>0) {
-									foreach ($query1->result_array() as $k) {
-										$dataRpt[$j]['v1'] = date('d/m/Y', strtotime($k['fecha']));
-										$dataRpt[$j]['v2'] = $k['1'];
-										$dataRpt[$j]['v3'] = $k['2'];
-										$dataRpt[$j]['v4'] = $k['3'];
-										$dataRpt[$j]['v5'] = $k['4'];
-										$dataRpt[$j]['v6'] = $k['5'];
-										$dataRpt[$j]['v7'] = $k['6'];
-										$dataRpt[$j]['v8'] = $k['7'];
-										$dataRpt[$j]['v9'] = $k['8'];
-										$dataRpt[$j]['v10'] = $k['9'];
-										$dataRpt[$j]['v11'] = $k['10'];
-										$dataRpt[$j]['v12'] = $k['TBD'];
-										$dataRpt[$j]['v13'] = $k['TNS'];
-										$j++;
-									}
+					$dataRpt[$j]['v1'] = 'Total semana';
+					$dataRpt[$j]['v2'] = $query_rpt_pro->result_array()[$ii]['v1'];
+					$dataRpt[$j]['v3'] = $query_rpt_pro->result_array()[$ii]['v2'];
+					$dataRpt[$j]['v4'] = $query_rpt_pro->result_array()[$ii]['v3'];
+					$dataRpt[$j]['v5'] = $query_rpt_pro->result_array()[$ii]['v4'];
+					$dataRpt[$j]['v6'] = $query_rpt_pro->result_array()[$ii]['v5'];
+					$dataRpt[$j]['v7'] = $query_rpt_pro->result_array()[$ii]['v6'];
+					$dataRpt[$j]['v8'] = $query_rpt_pro->result_array()[$ii]['v7'];
+					$dataRpt[$j]['v9'] = $query_rpt_pro->result_array()[$ii]['v8'];
+					$dataRpt[$j]['v10'] = $query_rpt_pro->result_array()[$ii]['v9'];
+					$dataRpt[$j]['v11'] = $query_rpt_pro->result_array()[$ii]['v10'];
+					$dataRpt[$j]['v12'] = '';
+					$dataRpt[$j]['v13'] = '';
+					$j++;
 
-									$dataRpt[$j]['v1'] = 'Total semana';
-									$dataRpt[$j]['v2'] = $query_rpt_pro->result_array()[$ii]['v1'];
-									$dataRpt[$j]['v3'] = $query_rpt_pro->result_array()[$ii]['v2'];
-									$dataRpt[$j]['v4'] = $query_rpt_pro->result_array()[$ii]['v3'];
-									$dataRpt[$j]['v5'] = $query_rpt_pro->result_array()[$ii]['v4'];
-									$dataRpt[$j]['v6'] = $query_rpt_pro->result_array()[$ii]['v5'];
-									$dataRpt[$j]['v7'] = $query_rpt_pro->result_array()[$ii]['v6'];
-									$dataRpt[$j]['v8'] = $query_rpt_pro->result_array()[$ii]['v7'];
-									$dataRpt[$j]['v9'] = $query_rpt_pro->result_array()[$ii]['v8'];
-									$dataRpt[$j]['v10'] = $query_rpt_pro->result_array()[$ii]['v9'];
-									$dataRpt[$j]['v11'] = $query_rpt_pro->result_array()[$ii]['v10'];
-									$dataRpt[$j]['v12'] = '';
-									$dataRpt[$j]['v13'] = '';
-									$j++;
+					$dataRpt[$j]['v1'] = 'Promedio';
+					$dataRpt[$j]['v2'] = $query_rpt_pro->result_array()[$ii]['v1']/count($query1->result_array());
+					$dataRpt[$j]['v3'] = $query_rpt_pro->result_array()[$ii]['v2']/count($query1->result_array());
+					$dataRpt[$j]['v4'] = $query_rpt_pro->result_array()[$ii]['v3']/count($query1->result_array());
+					$dataRpt[$j]['v5'] = $query_rpt_pro->result_array()[$ii]['v4']/count($query1->result_array());
+					$dataRpt[$j]['v6'] = $query_rpt_pro->result_array()[$ii]['v5']/count($query1->result_array());
+					$dataRpt[$j]['v7'] = $query_rpt_pro->result_array()[$ii]['v6']/count($query1->result_array());
+					$dataRpt[$j]['v8'] = $query_rpt_pro->result_array()[$ii]['v7']/count($query1->result_array());
+					$dataRpt[$j]['v9'] = $query_rpt_pro->result_array()[$ii]['v8']/count($query1->result_array());
+					$dataRpt[$j]['v10'] = $query_rpt_pro->result_array()[$ii]['v9']/count($query1->result_array());
+					$dataRpt[$j]['v11'] = $query_rpt_pro->result_array()[$ii]['v10']/count($query1->result_array());
+					$dataRpt[$j]['v12'] = '';
+					$dataRpt[$j]['v13'] = '';
+					$j++;
+				}else {
+					if (date('w', strtotime($i))==1 ) {					
+						if (in_array($i, $fechas)) {						
+							$hasta = date("Y-m-d", strtotime($i ."- 1 days"));
+							$query1 = $this->db->query("SELECT * FROM tmp_produccion WHERE fecha BETWEEN '".$desde."' AND '".$hasta."' order by fecha asc;");
+							
+							$desde=$i;				
 
-									$dataRpt[$j]['v1'] = 'Promedio';
-									$dataRpt[$j]['v2'] = $query_rpt_pro->result_array()[$ii]['v1']/count($query1->result_array());
-									$dataRpt[$j]['v3'] = $query_rpt_pro->result_array()[$ii]['v2']/count($query1->result_array());
-									$dataRpt[$j]['v4'] = $query_rpt_pro->result_array()[$ii]['v3']/count($query1->result_array());
-									$dataRpt[$j]['v5'] = $query_rpt_pro->result_array()[$ii]['v4']/count($query1->result_array());
-									$dataRpt[$j]['v6'] = $query_rpt_pro->result_array()[$ii]['v5']/count($query1->result_array());
-									$dataRpt[$j]['v7'] = $query_rpt_pro->result_array()[$ii]['v6']/count($query1->result_array());
-									$dataRpt[$j]['v8'] = $query_rpt_pro->result_array()[$ii]['v7']/count($query1->result_array());
-									$dataRpt[$j]['v9'] = $query_rpt_pro->result_array()[$ii]['v8']/count($query1->result_array());
-									$dataRpt[$j]['v10'] = $query_rpt_pro->result_array()[$ii]['v9']/count($query1->result_array());
-									$dataRpt[$j]['v11'] = $query_rpt_pro->result_array()[$ii]['v10']/count($query1->result_array());
-									$dataRpt[$j]['v12'] = '';
-									$dataRpt[$j]['v13'] = '';
-									$j++; $ii++;								
-								}								
-								$desde=$i;
-								$band=true;
-							}else {
-								$cont++;
+							foreach ($query1->result_array() as $k) {
+								$dataRpt[$j]['v1'] = date('d/m/Y', strtotime($k['fecha']));
+								$dataRpt[$j]['v2'] = $k['1'];
+								$dataRpt[$j]['v3'] = $k['2'];
+								$dataRpt[$j]['v4'] = $k['3'];
+								$dataRpt[$j]['v5'] = $k['4'];
+								$dataRpt[$j]['v6'] = $k['5'];
+								$dataRpt[$j]['v7'] = $k['6'];
+								$dataRpt[$j]['v8'] = $k['7'];
+								$dataRpt[$j]['v9'] = $k['8'];
+								$dataRpt[$j]['v10'] = $k['9'];
+								$dataRpt[$j]['v11'] = $k['10'];
+								$dataRpt[$j]['v12'] = $k['TBD'];
+								$dataRpt[$j]['v13'] = $k['TNS'];
+								$j++;
 							}
-						}
-					}				
-				} else {}
+
+							$dataRpt[$j]['v1'] = 'Total semana';
+							$dataRpt[$j]['v2'] = $query_rpt_pro->result_array()[$ii]['v1'];
+							$dataRpt[$j]['v3'] = $query_rpt_pro->result_array()[$ii]['v2'];
+							$dataRpt[$j]['v4'] = $query_rpt_pro->result_array()[$ii]['v3'];
+							$dataRpt[$j]['v5'] = $query_rpt_pro->result_array()[$ii]['v4'];
+							$dataRpt[$j]['v6'] = $query_rpt_pro->result_array()[$ii]['v5'];
+							$dataRpt[$j]['v7'] = $query_rpt_pro->result_array()[$ii]['v6'];
+							$dataRpt[$j]['v8'] = $query_rpt_pro->result_array()[$ii]['v7'];
+							$dataRpt[$j]['v9'] = $query_rpt_pro->result_array()[$ii]['v8'];
+							$dataRpt[$j]['v10'] = $query_rpt_pro->result_array()[$ii]['v9'];
+							$dataRpt[$j]['v11'] = $query_rpt_pro->result_array()[$ii]['v10'];
+							$dataRpt[$j]['v12'] = '';
+							$dataRpt[$j]['v13'] = '';
+							$j++;
+
+							$dataRpt[$j]['v1'] = 'Promedio';
+							$dataRpt[$j]['v2'] = $query_rpt_pro->result_array()[$ii]['v1']/count($query1->result_array());
+							$dataRpt[$j]['v3'] = $query_rpt_pro->result_array()[$ii]['v2']/count($query1->result_array());
+							$dataRpt[$j]['v4'] = $query_rpt_pro->result_array()[$ii]['v3']/count($query1->result_array());
+							$dataRpt[$j]['v5'] = $query_rpt_pro->result_array()[$ii]['v4']/count($query1->result_array());
+							$dataRpt[$j]['v6'] = $query_rpt_pro->result_array()[$ii]['v5']/count($query1->result_array());
+							$dataRpt[$j]['v7'] = $query_rpt_pro->result_array()[$ii]['v6']/count($query1->result_array());
+							$dataRpt[$j]['v8'] = $query_rpt_pro->result_array()[$ii]['v7']/count($query1->result_array());
+							$dataRpt[$j]['v9'] = $query_rpt_pro->result_array()[$ii]['v8']/count($query1->result_array());
+							$dataRpt[$j]['v10'] = $query_rpt_pro->result_array()[$ii]['v9']/count($query1->result_array());
+							$dataRpt[$j]['v11'] = $query_rpt_pro->result_array()[$ii]['v10']/count($query1->result_array());
+							$dataRpt[$j]['v12'] = '';
+							$dataRpt[$j]['v13'] = '';
+							$j++; $ii++;						
+							
+						}else {
+							$band=false;
+							while ($band == false) {
+								$temp = date("Y-m-d", strtotime($i ."+ 1 days"));
+								if (in_array($temp, $fechas) || $cont>=$cc) {
+									$hasta = date("Y-m-d", strtotime($temp ."- 1 days"));
+									$query1 = $this->db->query("SELECT * FROM tmp_produccion WHERE fecha BETWEEN '".$desde."' AND '".$hasta."' order by fecha asc;");
+									if ($query1->num_rows()>0) {
+										foreach ($query1->result_array() as $k) {
+											$dataRpt[$j]['v1'] = date('d/m/Y', strtotime($k['fecha']));
+											$dataRpt[$j]['v2'] = $k['1'];
+											$dataRpt[$j]['v3'] = $k['2'];
+											$dataRpt[$j]['v4'] = $k['3'];
+											$dataRpt[$j]['v5'] = $k['4'];
+											$dataRpt[$j]['v6'] = $k['5'];
+											$dataRpt[$j]['v7'] = $k['6'];
+											$dataRpt[$j]['v8'] = $k['7'];
+											$dataRpt[$j]['v9'] = $k['8'];
+											$dataRpt[$j]['v10'] = $k['9'];
+											$dataRpt[$j]['v11'] = $k['10'];
+											$dataRpt[$j]['v12'] = $k['TBD'];
+											$dataRpt[$j]['v13'] = $k['TNS'];
+											$j++;
+										}
+
+										$dataRpt[$j]['v1'] = 'Total semana';
+										$dataRpt[$j]['v2'] = $query_rpt_pro->result_array()[$ii]['v1'];
+										$dataRpt[$j]['v3'] = $query_rpt_pro->result_array()[$ii]['v2'];
+										$dataRpt[$j]['v4'] = $query_rpt_pro->result_array()[$ii]['v3'];
+										$dataRpt[$j]['v5'] = $query_rpt_pro->result_array()[$ii]['v4'];
+										$dataRpt[$j]['v6'] = $query_rpt_pro->result_array()[$ii]['v5'];
+										$dataRpt[$j]['v7'] = $query_rpt_pro->result_array()[$ii]['v6'];
+										$dataRpt[$j]['v8'] = $query_rpt_pro->result_array()[$ii]['v7'];
+										$dataRpt[$j]['v9'] = $query_rpt_pro->result_array()[$ii]['v8'];
+										$dataRpt[$j]['v10'] = $query_rpt_pro->result_array()[$ii]['v9'];
+										$dataRpt[$j]['v11'] = $query_rpt_pro->result_array()[$ii]['v10'];
+										$dataRpt[$j]['v12'] = '';
+										$dataRpt[$j]['v13'] = '';
+										$j++;
+
+										$dataRpt[$j]['v1'] = 'Promedio';
+										$dataRpt[$j]['v2'] = $query_rpt_pro->result_array()[$ii]['v1']/count($query1->result_array());
+										$dataRpt[$j]['v3'] = $query_rpt_pro->result_array()[$ii]['v2']/count($query1->result_array());
+										$dataRpt[$j]['v4'] = $query_rpt_pro->result_array()[$ii]['v3']/count($query1->result_array());
+										$dataRpt[$j]['v5'] = $query_rpt_pro->result_array()[$ii]['v4']/count($query1->result_array());
+										$dataRpt[$j]['v6'] = $query_rpt_pro->result_array()[$ii]['v5']/count($query1->result_array());
+										$dataRpt[$j]['v7'] = $query_rpt_pro->result_array()[$ii]['v6']/count($query1->result_array());
+										$dataRpt[$j]['v8'] = $query_rpt_pro->result_array()[$ii]['v7']/count($query1->result_array());
+										$dataRpt[$j]['v9'] = $query_rpt_pro->result_array()[$ii]['v8']/count($query1->result_array());
+										$dataRpt[$j]['v10'] = $query_rpt_pro->result_array()[$ii]['v9']/count($query1->result_array());
+										$dataRpt[$j]['v11'] = $query_rpt_pro->result_array()[$ii]['v10']/count($query1->result_array());
+										$dataRpt[$j]['v12'] = '';
+										$dataRpt[$j]['v13'] = '';
+										$j++; $ii++;								
+									}								
+									$desde=$i;
+									$band=true;
+								}else {
+									$cont++;
+								}
+							}
+						}				
+					} else {}
+				}
 			}
 		}
 		return $dataRpt;
