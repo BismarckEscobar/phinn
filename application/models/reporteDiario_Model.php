@@ -82,7 +82,11 @@ class reporteDiario_Model extends CI_Model
 
     public function llenaComboOrdenProd() {
     	$this->db->select('IdOrden');
+    	$this->db->select('Estado');
     	$this->db->select('NoOrden');
+    	$this->db->select('FechaInicio');
+    	$this->db->select('FechaFin');
+    	$this->db->order_by("FechaInicio", "DESC");
     	$query=$this->db->get('orden_produccion');
     	if ($query->num_rows()>0) {
     		return $query->result_array();
@@ -96,8 +100,9 @@ class reporteDiario_Model extends CI_Model
     	$this->db->select('IdReporteDiario');
     	$this->db->select('consecutivo');
     	$this->db->select('Turno');
-    	$this->db->where('NoOrder=', $noOrden);
+    	$this->db->where('NoOrder=', $noOrden);    	
     	$query=$this->db->get('reporte_diario');
+    	
     	if ($query->num_rows()>0) {
     		foreach ($query->result_array() as $key) {
     			$idTurno = $key['Turno'];

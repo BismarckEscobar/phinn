@@ -556,8 +556,9 @@ $("#tipoFibra").on('change', function(event) {
 /****************FILTRANDO ORDENES DE TRABAJO**********************************/
 $("#ordProduccion").on('change', function(event) {
     var noOrden = $('#ordProduccion option:selected').text();
+    noOrden = noOrden.split(" ");
     $.ajax({
-        url: "filtrandoReportesTrabajo/" + noOrden,
+        url: "filtrandoReportesTrabajo/" + noOrden[0],
         type: "POST",
         async: true,
         success: function(data) {
@@ -833,7 +834,7 @@ function validandoRangoFechas(fecha1, fecha2) {
     var primerDia = new Date(fecha.getFullYear(), fecha.getMonth(), 1);
     var ultimoDia = new Date(fecha.getFullYear(), fecha.getMonth() + 1, 0);
 
-    if(fecha2 >= primerDia && fecha2 <= ultimoDia) {
+    if(fecha2.setDate(fecha2.getDate() + 1) >= primerDia && fecha2.setDate(fecha2.getDate() - 1) <= ultimoDia) {
         return true;
     }else {
         return false;

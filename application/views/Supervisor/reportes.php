@@ -18,10 +18,17 @@
 							<div class="col s6 m6">                  
 			                    <select name="ordProduccion" id="ordProduccion" class="chosen-select browser-default">
 			                    	<option value="" disabled selected>ORDEN DE PRODUCCION</option>
-			                    	<?php 
+			                    	<?php
+			                    	setlocale(LC_TIME, 'spanish');
+			                    	$activa='';
 			                    	if($ordProduccion) {
 			                    		foreach ($ordProduccion as $key) {
-			                    			echo "<option value='".$key['IdOrden']."'>".$key['NoOrden']."</option>";
+			                    			if ($key['Estado']==1) {
+			                    				$activa='(Activa)';
+			                    			}else {
+			                    				$activa='';
+			                    			}
+			                    			echo "<option value='".$key['IdOrden']."'>".$key['NoOrden']." - ".strftime("%d %b %Y", strtotime($key['FechaInicio']))." ".$activa."</option>";
 			                    		}
 			                    	}?>
 			                    </select>
